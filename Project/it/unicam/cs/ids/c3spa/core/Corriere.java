@@ -4,17 +4,27 @@ import java.util.List;
 
 public class Corriere extends Account {
 
-	public List<Pacco> pacchiInConsegna;
+	private List<Pacco> pacchiInConsegna;
 
-	public void visualizzaOrdini() {
-		throw new UnsupportedOperationException();
+	public void prendiPacco(Pacco pacco) {
+		try {
+			pacco.setCorriere(this);
+			this.pacchiInConsegna.add(pacco);
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
 	}
 
-	public void prendiPacco(Object aIdPacco) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setStatoPacco(Object aStatoEnum) {
-		throw new UnsupportedOperationException();
+	public void consegnaPacco(Pacco pacco) {
+		try {
+			pacco.setConsegnato();
+			this.pacchiInConsegna.remove(pacco);
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
 	}
 }
