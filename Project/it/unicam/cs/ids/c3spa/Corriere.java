@@ -1,10 +1,10 @@
 package it.unicam.cs.ids.c3spa;
 
 public class Corriere extends Persona {
-	private int _idCorriere;
-	private String _nome;
-	private String _cognome;
-	public Pacco _pacchiPresi;
+	private int idCorriere;
+	private String nome;
+	private String cognome;
+	public Pacco pacchiPresi;
 
 	public void visualizzaOrdini() {
 		throw new UnsupportedOperationException();

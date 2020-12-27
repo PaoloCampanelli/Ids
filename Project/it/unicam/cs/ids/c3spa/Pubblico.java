@@ -1,5 +1,5 @@
 package it.unicam.cs.ids.c3spa;
 
 public class Pubblico {
-	public Cliente _clienti;
+	public Cliente clienti;
 }

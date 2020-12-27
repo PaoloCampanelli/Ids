@@ -1,23 +1,23 @@
 package it.unicam.cs.ids.c3spa;
 
 public class Account {
-	private String _email;
-	private String _password;
+	private String email;
+	private String password;
 
 	public String getEmail() {
-		return _email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		this._email = email;
+		this.email = email;
 	}
 
 	public String getPassword() {
-		return _password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		this._password = _email;
+		this.password = email;
 	}
 
 }

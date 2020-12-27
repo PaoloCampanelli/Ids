@@ -1,11 +1,11 @@
 package it.unicam.cs.ids.c3spa;
 
 public class Negozio extends Persona {
-	private int _idNegozio;
-	private String _nome;
-	private int _token;
-	public Categoria _categorie;
-	public Ordini _unnamed_Ordini_;
+	private int idNegozio;
+	private String nome;
+	private int token;
+	public Categoria categorie;
+	public Ordini ordini;
 
 	public void creaPacco() {
 		throw new UnsupportedOperationException();
