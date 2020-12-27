@@ -1,23 +1,25 @@
 package it.unicam.cs.ids.c3spa.core;
 
-public class Account {
-	private String email;
-	private String password;
+public abstract class Account implements IGestiscoAccount {
+    public int id;
+    public String denominazione;
+    public Indirizzo indirizzo;
+    public String telefono;
+    public String eMail;
+    public String password;
 
-	public String getEmail() {
-		return email;
-	}
+    @Override
+    public Account CreaAccount(int id, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
+        this.id = id;
+        this.denominazione = denominazione;
+        this.indirizzo = indirizzo;
+        this.telefono = telefono;
+        this.eMail = eMail;
+        return this;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = email;
-	}
-
+    @Override
+    public void SetPassword(String password) {
+        this.password = password;
+    }
 }

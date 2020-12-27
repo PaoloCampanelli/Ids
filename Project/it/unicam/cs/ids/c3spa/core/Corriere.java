@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
-public class Corriere extends Persona {
+public class Corriere extends Account {
 	private int idCorriere;
 	private String nome;
 	private String cognome;

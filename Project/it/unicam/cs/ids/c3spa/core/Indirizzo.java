@@ -1,8 +1,17 @@
 package it.unicam.cs.ids.c3spa.core;
 
- class Indirizzo {
-	private String via;
-	private String citta;
-	private String cap;
-	private String provincia;
+ public class Indirizzo {
+	public String via;
+	public String citta;
+	public String cap;
+	public String provincia;
+
+	Indirizzo CreaIndirizzo(String via, String citta, String cap, String provincia )
+	{
+		this.via = via;
+		this.citta = citta;
+		this.cap = cap;
+		this.provincia = provincia;
+		return this;
+	}
 }
