@@ -26,4 +26,10 @@ public class Ordini {
 		this.pacchi.add(p);
 		return  p;
 	}
+
+	public List<Pacco> GetPacchiDaAssegnareAiCorrieri()
+	{
+
+		return null;
+	}
 }

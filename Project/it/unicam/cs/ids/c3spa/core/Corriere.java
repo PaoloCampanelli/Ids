@@ -1,10 +1,10 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import java.util.List;
+
 public class Corriere extends Account {
-	private int idCorriere;
-	private String nome;
-	private String cognome;
-	public Pacco pacchiPresi;
+
+	public List<Pacco> pacchiInConsegna;
 
 	public void visualizzaOrdini() {
 		throw new UnsupportedOperationException();

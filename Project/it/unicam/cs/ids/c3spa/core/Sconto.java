@@ -8,5 +8,5 @@ public class Sconto {
 	private Date dataInizio;
 	private Date dataFine;
 	private Negozio negozio;
-	private Categoria categoria;
+	private CategoriaMerceologica categoriaMerceologica;
 }

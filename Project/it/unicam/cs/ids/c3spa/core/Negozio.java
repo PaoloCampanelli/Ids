@@ -4,12 +4,8 @@ import java.util.List;
 
 public class Negozio extends Account {
 	public int token;
-	public List<Categoria> categorie;
+	public List<CategoriaMerceologica> categorie;
 	public List<Pacco> pacchi;
-
-	public void creaPacco() {
-		throw new UnsupportedOperationException();
-	}
 
 	public String getIndirizzo() {
 		throw new UnsupportedOperationException();
