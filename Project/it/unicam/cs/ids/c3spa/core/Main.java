@@ -1,14 +1,13 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import java.sql.*;
+
 public class Main {
 
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args) throws SQLException {
 
         Servizi ser = new Servizi();
-        ser.connessione();
-
+        System.out.println(ser.caricamento());
 
     }
 }

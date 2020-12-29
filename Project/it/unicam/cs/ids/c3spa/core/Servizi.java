@@ -17,7 +17,7 @@ public class Servizi {
         try{
             conn = DriverManager.getConnection(jdbcURL);
                 if(conn != null)
-                    System.out.println("Connessione avvemnuta con successo");
+                    System.out.println("Connessione avvenuta con successo");
 
         }catch(SQLException ex){
 
@@ -28,6 +28,28 @@ public class Servizi {
         }
 
         return conn;
+    }
+
+    public String caricamento() throws SQLException {
+
+        Connection c = null;
+        Servizi ser = new Servizi();
+        c =ser.connessione();
+        Statement stmt=c.createStatement();
+        stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
+                "  `idnegozi` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `denominazione` VARCHAR(50) NOT NULL,\n" +
+                "  `Indirizzo` VARCHAR(45) NOT NULL,\n" +
+                "  `telefono` VARCHAR(10) NOT NULL,\n" +
+                "  `eMail` VARCHAR(45) NOT NULL,\n" +
+                "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  PRIMARY KEY (`idnegozi`),\n" +
+                "  UNIQUE INDEX `telefono_UNIQUE` (`telefono` ASC) VISIBLE,\n" +
+                "  UNIQUE INDEX `eMail_UNIQUE` (`eMail` ASC) VISIBLE,\n" +
+                "  UNIQUE INDEX `Indirizzo_UNIQUE` (`Indirizzo` ASC) VISIBLE)");
+        stmt.close();
+        c.close();
+        return "Database caricato";
     }
 
 
