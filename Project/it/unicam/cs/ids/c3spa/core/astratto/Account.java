@@ -1,4 +1,6 @@
-package it.unicam.cs.ids.c3spa.core;
+package it.unicam.cs.ids.c3spa.core.astratto;
+
+import it.unicam.cs.ids.c3spa.core.Indirizzo;
 
 public abstract class Account implements IGestiscoAccount {
     public int id;

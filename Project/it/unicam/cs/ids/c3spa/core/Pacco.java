@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;

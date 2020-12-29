@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
+
 import java.util.Date;
 
 public class StatoPacco {
