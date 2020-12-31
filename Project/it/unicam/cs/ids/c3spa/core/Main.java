@@ -8,7 +8,7 @@ public class Main {
 
         Servizi ser = new Servizi();
         System.out.println(ser.caricamento());
-        System.out.println("145");
+        System.out.println("14");
         
     }
 }
