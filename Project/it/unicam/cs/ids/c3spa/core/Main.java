@@ -6,8 +6,9 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        Servizi ser = new Servizi();
-        System.out.println(ser.caricamento());
+
+        System.out.println(Servizi.caricamento());
+
 
         
     }
