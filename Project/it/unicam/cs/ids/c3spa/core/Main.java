@@ -8,8 +8,9 @@ public class Main {
 
 
         System.out.println(Servizi.caricamento());
+        System.out.println(Indirizzo.elencoIndirizzi());
+        System.out.println(Indirizzo.elencoIndirizzi().stream().findFirst().orElse(null).toString());
 
 
-        
     }
 }
