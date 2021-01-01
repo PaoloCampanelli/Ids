@@ -50,9 +50,10 @@ public class Servizi {
                 "  `via` VARCHAR(50) NOT NULL,\n" +
                 "  `numero` INT NOT NULL,\n" +
                 "  `citta` VARCHAR(45) NULL,\n" +
-                "  `cap` CHAR(5) NULL,\n" +
-                "  `provincia` CHAR(2) NOT NULL,\n" +
-                "  PRIMARY KEY (`via`, `numero`, `provincia`));");
+                "  `cap` CHAR(5) NOT NULL,\n" +
+                "  `provincia` CHAR(2)  NULL,\n" +
+                "  PRIMARY KEY (`via`, `numero`, `cap`));");
+
         stmt.close();
         connessione().close();
         return "Database caricato";
