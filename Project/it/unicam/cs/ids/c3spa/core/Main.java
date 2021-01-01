@@ -8,9 +8,10 @@ public class Main {
 
 
         ElencoIndirizzi ei = new ElencoIndirizzi();
+        Indirizzo i = new Indirizzo();
         System.out.println(Servizi.caricamento());
         System.out.println(ei.elencoIndirizzi().toString());
-        System.out.println(ei.elencoIndirizzi().stream().findFirst().orElse(null).toString());
+        System.out.println(ei.elencoIndirizzi().stream().findFirst().orElse(i).toString());
         //System.out.println(Indirizzo.eliminaIndirizzo(Indirizzo.elencoIndirizzi().stream().findFirst().orElse(null)));
         ei.CreaIndirizzo("der colosseo",10,"Roma","00133","RM");
         System.out.println(ei.elencoIndirizzi().toString());
