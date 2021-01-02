@@ -1,12 +1,17 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.view.ConsoleView;
+import it.unicam.cs.ids.c3spa.core.view.IView;
+
+import java.io.IOException;
 import java.sql.*;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
-
+    public static void main(String[] args) throws SQLException, IOException {
+        IView v = new ConsoleView();
         System.out.println(Servizi.caricamento());
+
 /*        ElencoIndirizzi ei = new ElencoIndirizzi();
         Indirizzo i = new Indirizzo();
 
@@ -23,6 +28,9 @@ public class Main {
         Cliente c = new Cliente().GetById(1);
         System.out.println(c.toString());
 
+        //Launcher start View
+        //Bisogna implementare tutte le operazioni del controller
+        v.start();
 
 
 
