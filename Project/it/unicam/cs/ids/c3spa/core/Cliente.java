@@ -84,4 +84,17 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
     public void Delete(int id) throws SQLException {
 
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                " id=" + id +
+                ", denominazione='" + denominazione + '\'' +
+                ", indirizzo=" + indirizzo +
+                ", telefono='" + telefono + '\'' +
+                ", eMail='" + eMail + '\'' +
+                ", password='" + password + '\'' +
+                "pacchi=" + pacchi +
+                '}';
+    }
 }
