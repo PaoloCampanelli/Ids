@@ -1,11 +1,10 @@
 package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.astratto.IGestiscoAccount;
 
 import java.util.List;
 
-public class Cliente extends Account implements IGestiscoAccount
+public class Cliente extends Account
 {
     public List<Pacco> pacchi;
 

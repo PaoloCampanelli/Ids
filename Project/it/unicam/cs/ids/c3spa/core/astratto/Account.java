@@ -17,6 +17,7 @@ public abstract class Account implements IGestiscoAccount {
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.eMail = eMail;
+        this.password= password;
         return this;
     }
 
@@ -24,4 +25,5 @@ public abstract class Account implements IGestiscoAccount {
     public void SetPassword(String password) {
         this.password = password;
     }
+
 }
