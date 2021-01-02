@@ -2,7 +2,8 @@ package it.unicam.cs.ids.c3spa.core;
 
 public class Controller {
 
-    public boolean execute(String comando) {
+
+    public boolean clienteExecuter(String comando) {
         if("NEGOZI".equals(comando)) {
             //TODO Stream di negozi dove citta' cliente = citta' negozio
         }
