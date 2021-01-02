@@ -21,7 +21,7 @@ public class Main {
 
         //Lettura del cliente numero 1
         Cliente c = new Cliente().GetById(1);
-        System.out.println(c.denominazione);
+        System.out.println(c.indirizzo);
 
 
 

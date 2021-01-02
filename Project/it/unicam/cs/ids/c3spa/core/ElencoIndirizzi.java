@@ -27,7 +27,7 @@ public class ElencoIndirizzi {
             sql = "SELECT via, numero, citta, cap, provincia FROM indirizzo;";
             // ________________________________query
 
-            st = Servizi.connessione().createStatement(); // creo sempre uno statement sulla
+            st = Servizi.ApriConnessione().createStatement(); // creo sempre uno statement sulla
             // connessione
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
@@ -40,7 +40,7 @@ public class ElencoIndirizzi {
                             this.indirizzi.add(a);
             }
 
-            Servizi.connessione().close(); // chiusura connessione
+            Servizi.ApriConnessione().close(); // chiusura connessione
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());
             e.printStackTrace();
@@ -66,9 +66,9 @@ public class ElencoIndirizzi {
             sql = "insert into indirizzo (via, numero, citta, cap, provincia) values ('" + via + "','"+ numero + "','" + citta + "','" + cap + "','"+ provincia
                     + "')";
 
-            st = Servizi.connessione().createStatement(); // creo sempre uno statement sulla
+            st = Servizi.ApriConnessione().createStatement(); // creo sempre uno statement sulla
             st.execute(sql); // faccio la query su uno statement
-            Servizi.connessione().close(); // chiusura connessione
+            Servizi.ApriConnessione().close(); // chiusura connessione
             this.indirizzi.add(a);
             return a;
         } catch (SQLException e) {
@@ -95,10 +95,10 @@ public class ElencoIndirizzi {
             sql = "DELETE FROM `progetto_ids`.`indirizzo` WHERE (`via` = '"+via+"') and (`numero` = '"+numero+"') and (`cap` = '"+cap+"');";
 
 
-            st = Servizi.connessione().createStatement(); // creo sempre uno statement sulla
+            st = Servizi.ApriConnessione().createStatement(); // creo sempre uno statement sulla
             // connessione
             st.execute(sql); // faccio la query su uno statement
-            Servizi.connessione().close(); // chiusura connessione
+            Servizi.ApriConnessione().close(); // chiusura connessione
             Indirizzo b = new Indirizzo();
             b = indirizzi.stream().filter(a -> a.via.equals(via)).filter(a -> a.numero.equals(numero) ).filter(a -> a.cap.equals(cap)).findFirst().orElse(null);
             indirizzi.remove(b);

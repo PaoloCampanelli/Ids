@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,38 +45,43 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
     }
 
     @Override
-    public Cliente GetById(int id) {
+    public Cliente GetById(int id) throws SQLException {
         Statement st;
         ResultSet rs;
         String sql;
         Cliente c = new Cliente();
+        Connection conn = Servizi.ApriConnessione();
 
         try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
             sql = "SELECT * FROM clienti WHERE (`clienteId` = "+id+");";
-            // ________________________________query
-
-            st = Servizi.connessione().createStatement(); // creo sempre uno statement sulla
-            // connessione
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-
                 c.MapData(rs);
-
-/*                Indirizzo a = new Indirizzo();
-                a.CreaIndirizzo(rs.getString("via"), rs.getString("numero"), rs.getString("citta"),
-                        rs.getString("cap"), rs.getString("provincia"));
-                if(indirizzi.stream().noneMatch(b -> b.via.equals(a.via)))
-                    if(indirizzi.stream().noneMatch(b -> b.numero==a.numero))
-                        if(indirizzi.stream().noneMatch(b -> b.cap.equals(a.cap)))
-                            this.indirizzi.add(a);*/
             }
-
-            Servizi.connessione().close(); // chiusura connessione
+            st.close();
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());
             e.printStackTrace();
         } // fine try-catch
 
+        Servizi.ChiudiConnessione(conn);
+
         return c;
+    }
+
+    @Override
+    public List<Cliente> GetAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Cliente Save(Cliente obj) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void Delete(int id) throws SQLException {
+
     }
 }

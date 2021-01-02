@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class Servizi {
 
-    public static Connection connessione(){
+    public static Connection ApriConnessione(){
         Connection conn = null;
 
         String driver = "com.mysql.jdbc.Driver";
@@ -30,10 +30,18 @@ public class Servizi {
         return conn;
     }
 
+    public static void ChiudiConnessione(Connection conn) throws SQLException {
+        try {
+            conn.close();
+        }
+        catch (SQLException ex)
+        {}
+    }
+
     public static String caricamento() throws SQLException {
 
-
-        Statement stmt=connessione().createStatement();
+        Connection conn = Servizi.ApriConnessione();
+        Statement stmt= conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
                 "  `idnegozi` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `denominazione` VARCHAR(50) NOT NULL,\n" +
@@ -69,7 +77,7 @@ public class Servizi {
 
 
         stmt.close();
-        connessione().close();
+        conn.close();
         return "Database caricato";
     }
 
