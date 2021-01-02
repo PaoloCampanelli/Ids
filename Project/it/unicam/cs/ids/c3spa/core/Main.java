@@ -6,10 +6,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-
+        System.out.println(Servizi.caricamento());
 /*        ElencoIndirizzi ei = new ElencoIndirizzi();
         Indirizzo i = new Indirizzo();
-        System.out.println(Servizi.caricamento());
+
         System.out.println(ei.elencoIndirizzi().toString());
         System.out.println(ei.elencoIndirizzi().stream().findFirst().orElse(i).toString());
         //System.out.println(Indirizzo.eliminaIndirizzo(Indirizzo.elencoIndirizzi().stream().findFirst().orElse(null)));
