@@ -14,8 +14,9 @@ public class Main {
         System.out.println(ei.elencoIndirizzi().stream().findFirst().orElse(i).toString());
         //System.out.println(Indirizzo.eliminaIndirizzo(Indirizzo.elencoIndirizzi().stream().findFirst().orElse(null)));
         ei.CreaIndirizzo("der colosseo",10,"Roma","00133","RM");
+        ei.CreaIndirizzo("da qua",10,"Roma","00133","RM");
         System.out.println(ei.elencoIndirizzi().toString());
-        System.out.println(ei.eliminaIndirizzo("q", 10,"12345"));
+        System.out.println(ei.eliminaIndirizzo("der colosseo", 10,"00133"));
         System.out.println(ei.elencoIndirizzi().toString());
 
 
