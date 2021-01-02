@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-        ElencoIndirizzi ei = new ElencoIndirizzi();
+/*        ElencoIndirizzi ei = new ElencoIndirizzi();
         Indirizzo i = new Indirizzo();
         System.out.println(Servizi.caricamento());
         System.out.println(ei.elencoIndirizzi().toString());
@@ -17,7 +17,11 @@ public class Main {
         ei.CreaIndirizzo("da qua",10,"Roma","00133","RM");
         System.out.println(ei.elencoIndirizzi().toString());
         System.out.println(ei.eliminaIndirizzo("der colosseo", 10,"00133"));
-        System.out.println(ei.elencoIndirizzi().toString());
+        System.out.println(ei.elencoIndirizzi().toString());*/
+
+        //Lettura del cliente numero 1
+        Cliente c = new Cliente().GetById(1);
+        System.out.println(c.denominazione);
 
 
 

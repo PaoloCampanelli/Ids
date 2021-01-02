@@ -32,7 +32,7 @@ public class ElencoIndirizzi {
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 Indirizzo a = new Indirizzo();
-                a.CreaIndirizzo(rs.getString("via"), rs.getInt("numero"), rs.getString("citta"),
+                a.CreaIndirizzo(rs.getString("via"), rs.getString("numero"), rs.getString("citta"),
                         rs.getString("cap"), rs.getString("provincia"));
                 if(indirizzi.stream().noneMatch(b -> b.via.equals(a.via)))
                     if(indirizzi.stream().noneMatch(b -> b.numero==a.numero))
@@ -55,7 +55,7 @@ public class ElencoIndirizzi {
      * @return
      * @throws SQLException
      */
-    public Indirizzo CreaIndirizzo(String via, int numero, String citta, String cap, String provincia) {
+    public Indirizzo CreaIndirizzo(String via, String numero, String citta, String cap, String provincia) {
         Statement st;
         String sql;
 
@@ -100,7 +100,7 @@ public class ElencoIndirizzi {
             st.execute(sql); // faccio la query su uno statement
             Servizi.connessione().close(); // chiusura connessione
             Indirizzo b = new Indirizzo();
-            b = indirizzi.stream().filter(a -> a.via.equals(via)).filter(a -> a.numero== numero).filter(a -> a.cap.equals(cap)).findFirst().orElse(null);
+            b = indirizzi.stream().filter(a -> a.via.equals(via)).filter(a -> a.numero.equals(numero) ).filter(a -> a.cap.equals(cap)).findFirst().orElse(null);
             indirizzi.remove(b);
             return "Cancellato indirizzo con via = "+via+" , numero = "+numero+" e cap = "+cap;
         } catch (SQLException e) {

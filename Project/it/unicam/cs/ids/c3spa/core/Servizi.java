@@ -54,6 +54,20 @@ public class Servizi {
                 "  `provincia` CHAR(2)  NULL,\n" +
                 "  PRIMARY KEY (`via`, `numero`, `cap`));");
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`clienti` (\n" +
+                "  `clienteId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `denominazione` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
+                "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
+                "  `indirizzo.via` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
+                "  `telefono` VARCHAR(20) NOT NULL,\n" +
+                "  `eMail` VARCHAR(45) NOT NULL,\n" +
+                "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  PRIMARY KEY (`clienteId`));");
+
+
         stmt.close();
         connessione().close();
         return "Database caricato";
