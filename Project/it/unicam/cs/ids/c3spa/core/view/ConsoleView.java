@@ -10,7 +10,6 @@ public class ConsoleView implements IView{
     private Controller controller;
 
     private void richiediInput() {
-
     }
 
     private void hello(){
@@ -25,6 +24,10 @@ public class ConsoleView implements IView{
             do {
                 System.out.print("> ");
                 login = scanner.nextLine();
+                switch(login){
+                    case("CLIENTE"):
+                        break;
+                }
             }while(!login.equals("EXIT"));
         }
 
