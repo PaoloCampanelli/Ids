@@ -15,6 +15,6 @@ public class Cliente extends Account
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.eMail = eMail;
-        this.password = password;
+        this.password = password;//super();
     }
 }
