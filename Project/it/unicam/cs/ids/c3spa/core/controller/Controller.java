@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core;
+package it.unicam.cs.ids.c3spa.core.controller;
 
 public interface Controller {
 

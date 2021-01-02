@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.view;
 
-import it.unicam.cs.ids.c3spa.core.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
 
 import java.io.BufferedReader;
 import java.io.IOException;

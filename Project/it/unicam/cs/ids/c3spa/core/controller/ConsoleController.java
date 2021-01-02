@@ -1,6 +1,8 @@
-package it.unicam.cs.ids.c3spa.core;
+package it.unicam.cs.ids.c3spa.core.controller;
 
-public class ConsoleController implements Controller{
+import it.unicam.cs.ids.c3spa.core.controller.Controller;
+
+public class ConsoleController implements Controller {
 
     @Override
     public boolean executerCliente(String comando) {
