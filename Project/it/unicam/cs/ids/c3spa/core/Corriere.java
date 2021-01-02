@@ -8,6 +8,15 @@ public class Corriere extends Account {
 
 	private List<Pacco> pacchiInConsegna;
 
+	public Corriere(int corriereId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
+		this.id = corriereId;
+		this.denominazione = denominazione;
+		this.indirizzo = indirizzo;
+		this.telefono = telefono;
+		this.eMail = eMail;
+		this.password = password;
+	}
+
 	public void prendiPacco(Pacco pacco) {
 		try {
 			pacco.setCorriere(this);
