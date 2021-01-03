@@ -30,8 +30,12 @@ public class Main {
 
         //Lettura del cliente numero 1
         Cliente c = new GestoreCliente().getById(1);
+        //String nomeCognome, Indirizzo indirizzo, String telefono, String eMail, String password
+        //Cliente a = new GestoreCliente().save(c);
+        Cliente b = new GestoreCliente().getById(3);
         List<Cliente> lc = new GestoreCliente().getAll();
         System.out.println(c.toString());
+        System.out.println(b.toString());
         System.out.println(lc.toString());
 
 

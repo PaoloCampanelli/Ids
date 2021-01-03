@@ -70,8 +70,25 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
     public Cliente save(Object entity) throws SQLException {
         //verifica che l'object è castabile a Cliente
 
+        Statement st;
+        String sql;
         Cliente c = (Cliente) entity;
-        return null;
+
+        try {
+
+            sql = "INSERT INTO `progetto_ids`.`clienti` (`denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES " +
+                    "('" + c.denominazione + "','"+ c.indirizzo.citta + "','" + c.indirizzo.numero + "','" + c.indirizzo.cap + "','" + c.indirizzo.via + "','"+ c.indirizzo.provincia + "','"+ c.telefono + "','" + c.eMail + "','" + c.password
+                    + "')";
+
+            st = GestoreBase.ApriConnessione().createStatement(); // creo sempre uno statement sulla
+            st.execute(sql); // faccio la query su uno statement
+            GestoreBase.ApriConnessione().close(); // chiusura connessione
+            return c;
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            return null;
+        } // fine try-catch
+
     }
 
     @Override
