@@ -25,6 +25,17 @@ public class CentroCommerciale implements IGestiscoAccount {
 
 	@Override
 	public void SetPassword(String password) {
+	}
 
+	public List<Negozio> getNegozi() {
+		return negozi;
+	}
+
+	public Sconto getSconti() {
+		return sconti;
+	}
+
+	public Pubblicita getSponsorizzati() {
+		return sponsorizzati;
 	}
 }
