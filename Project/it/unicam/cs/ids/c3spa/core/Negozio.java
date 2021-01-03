@@ -31,6 +31,14 @@ public class Negozio extends Account {
 		return c;
 	}
 
+	public List<CategoriaMerceologica> getCategorie() {
+		return categorie;
+	}
+
+	public List<Pacco> getPacchi() {
+		return pacchi;
+	}
+
 	public String getIndirizzo() {
 		throw new UnsupportedOperationException();
 	}
