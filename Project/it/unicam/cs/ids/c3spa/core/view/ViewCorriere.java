@@ -6,6 +6,7 @@ public class ViewCorriere extends ConsoleView {
 
     @Override
     public void start() throws IOException {
+        System.out.println("\n...Effettuato accesso come CORRIERE");
         System.out.println("----------------");
         listaCorriere();
         String comando;

@@ -6,6 +6,7 @@ public class ViewCommerciante extends ConsoleView {
 
     @Override
     public void start() throws IOException {
+        System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
         listaCommerciante();
         String comando;

@@ -4,7 +4,8 @@ import java.io.IOException;
 
 public class ViewCliente extends ConsoleView{
 
-    public void launch() throws IOException {
+    public void start() throws IOException {
+        System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
         listaCliente();
         String comando;

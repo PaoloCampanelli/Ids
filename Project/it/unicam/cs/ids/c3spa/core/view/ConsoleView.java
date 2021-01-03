@@ -26,31 +26,6 @@ public class ConsoleView implements IView{
     public void start() throws IOException {
         hello();
         autenticazione();
-        String input;
-        do {
-            input = br.readLine().toUpperCase();
-            switch(input) {
-                case "CLIENTE":{
-                    view = new ViewCliente();
-                    view.start();
-                    break;
-                }
-                case "CORRIERE":{
-                    view = new ViewCorriere();
-                    view.start();
-                    break;
-                }
-                case "COMMERCIANTE":
-                    view = new ViewCommerciante();{
-                    view.start();
-                    break;
-                }
-                case "EXIT":
-                    System.exit(0);
-                default:
-                    System.err.println("Scelta non valida");
-            }
-        }while(input.isEmpty() || input.charAt(0)==' ');
     }
 
     private void autenticazione() throws IOException {
@@ -148,16 +123,6 @@ public class ConsoleView implements IView{
         provincia = richiediString("Provincia");
         return getConsoleController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
-
-    /* Potrebbe andare nel controller
-    private void selezioneVista(String tipologia){
-        if(tipologia=="CLIENTE")
-
-        if(tipologia=="CORRIERE")
-
-        if(tipologia=="COMMERCIANTE")
-    }
-     */
 
     public BufferedReader getBr() { return br; }
 
