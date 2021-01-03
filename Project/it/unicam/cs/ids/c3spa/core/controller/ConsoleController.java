@@ -1,6 +1,10 @@
 package it.unicam.cs.ids.c3spa.core.controller;
 
+import it.unicam.cs.ids.c3spa.core.Indirizzo;
+
 public class ConsoleController implements IController {
+
+    private Indirizzo indirizzo;
 
     @Override
     public boolean executerCliente(String comando) {
@@ -90,4 +94,9 @@ public class ConsoleController implements IController {
 	*/
         return false;
     }
+
+    public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia){
+        return indirizzo.creaIndirizzo(via, numero, citta, cap, provincia);
+    }
+
 }

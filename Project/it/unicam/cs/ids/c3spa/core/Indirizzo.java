@@ -8,17 +8,16 @@ public class Indirizzo {
 	public String cap;
 	public String provincia;
 
-	public Indirizzo CreaIndirizzo(String via, String numero , String citta, String cap, String provincia )
-	{
+	public Indirizzo creaIndirizzo(String via, String numero , String citta, String cap, String provincia ) {
 		this.via = via;
 		this.numero = numero;
 		this.citta = citta;
 		this.cap = cap;
 		this.provincia = provincia;
 		return this;
-
-
 	}
+
+
 
 	@Override
 	 public String toString() {
