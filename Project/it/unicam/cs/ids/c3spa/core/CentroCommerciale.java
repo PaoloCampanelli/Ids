@@ -6,10 +6,10 @@ import it.unicam.cs.ids.c3spa.core.astratto.IGestiscoAccount;
 import java.util.List;
 
 public class CentroCommerciale implements IGestiscoAccount {
-	public List<Negozio> negozi;
-	public Sconto sconti;
-	public Pubblicita sponsorizzati;
-	public int numeroNegozi;
+	private List<Negozio> negozi;
+	private Sconto sconti;
+	private Pubblicita sponsorizzati;
+	private int numeroNegozi;
 
 	@Override
 	public Account CreaAccount(int id, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
@@ -38,4 +38,5 @@ public class CentroCommerciale implements IGestiscoAccount {
 	public Pubblicita getSponsorizzati() {
 		return sponsorizzati;
 	}
+
 }
