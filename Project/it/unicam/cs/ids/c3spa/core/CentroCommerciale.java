@@ -2,12 +2,14 @@ package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.IGestiscoAccount;
+import it.unicam.cs.ids.c3spa.core.astratto.TipoScontoEnum;
 
+import java.util.Date;
 import java.util.List;
 
 public class CentroCommerciale implements IGestiscoAccount {
 	private List<Negozio> negozi;
-	private Sconto sconti;
+	private List<Sconto> sconti;
 	private Pubblicita sponsorizzati;
 	private int numeroNegozi;
 
@@ -23,16 +25,23 @@ public class CentroCommerciale implements IGestiscoAccount {
 		return accountNegozio;
 	}
 
+	public Sconto creaSconto(int id, TipoScontoEnum tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		Sconto sconto = new Sconto(id, tipo, dataInizio, dataFine, negozio, categoriaMerceologica);
+		sconti.add(sconto);
+		return sconto;
+	}
+
+	public void rimuoviSconto(int id, TipoScontoEnum tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		Sconto sconto = new Sconto(id, tipo, dataInizio, dataFine, negozio, categoriaMerceologica);
+		sconti.remove(sconto);
+	}
+
 	@Override
 	public void SetPassword(String password) {
 	}
 
 	public List<Negozio> getNegozi() {
 		return negozi;
-	}
-
-	public Sconto getSconti() {
-		return sconti;
 	}
 
 	public Pubblicita getSponsorizzati() {
