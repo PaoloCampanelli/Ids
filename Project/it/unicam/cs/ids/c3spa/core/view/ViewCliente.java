@@ -4,14 +4,14 @@ import java.io.IOException;
 
 public class ViewCliente extends ConsoleView{
 
-    public void start() throws IOException {
+    public void launch() throws IOException {
         System.out.println("----------------");
         listaCliente();
         String comando;
         do {
             System.out.print("> ");
             comando = getBr().readLine().toUpperCase();
-        }while(!getController().executerCliente(comando));
+        }while(!getConsoleController().executerCliente(comando));
     }
 
     private void listaCliente() {

@@ -12,7 +12,7 @@ public class ViewCorriere extends ConsoleView {
         do {
             System.out.print("> ");
             comando = getBr().readLine().toUpperCase();
-        }while(!getController().executerCorriere(comando));
+        }while(!getConsoleController().executerCorriere(comando));
     }
 
     private void listaCorriere(){

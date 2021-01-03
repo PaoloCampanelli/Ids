@@ -12,7 +12,7 @@ public class ViewCommerciante extends ConsoleView {
         do {
             System.out.print("> ");
             comando = getBr().readLine().toUpperCase();
-        }while(!getController().executerCommerciante(comando));
+        }while(!getConsoleController().executerCommerciante(comando));
     }
 
     private void listaCommerciante() {
