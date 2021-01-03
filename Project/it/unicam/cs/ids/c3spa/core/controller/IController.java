@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.controller;
 
-public interface Controller {
+public interface IController {
 
     boolean executerCliente(String comando);
     boolean executerCorriere(String comando);
