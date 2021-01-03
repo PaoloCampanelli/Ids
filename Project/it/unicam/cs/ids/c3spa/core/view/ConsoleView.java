@@ -126,10 +126,17 @@ public class ConsoleView implements IView{
         Indirizzo indirizzo = inputIndirizzo();
         if(tipologia.equals("CLIENTE")) {
             getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+            view = new ViewCliente();
+            view.start();
         }else if(tipologia.equals("CORRIERE")) {
             getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-        }else if(tipologia.equals("COMMERCIANTE"))
+            view = new ViewCorriere();
+            view.start();
+        }else if(tipologia.equals("COMMERCIANTE")) {
+            view = new ViewCommerciante();
+            view.start();
             getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+        }
     }
 
     private Indirizzo inputIndirizzo() throws IOException {
