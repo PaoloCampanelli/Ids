@@ -3,12 +3,16 @@ package it.unicam.cs.ids.c3spa.core;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.IGestiscoAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trasportatori implements IGestiscoAccount {
 	public List<Corriere> corrieri;
 	int numeroCorrieri;
 
+	public Trasportatori(){
+		this.corrieri = new ArrayList<>();
+	}
 
 	@Override
 	public Account CreaAccount(int id, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
