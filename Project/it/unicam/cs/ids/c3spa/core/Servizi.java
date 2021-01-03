@@ -2,10 +2,13 @@ package it.unicam.cs.ids.c3spa.core;
 
 
 import java.sql.*;
+import it.unicam.cs.ids.c3spa.core.gestori.*;
+
 
 public class Servizi {
 
-    public static Connection ApriConnessione(){
+    //metodi Spostato in Gestore base
+/*    public static Connection ApriConnessione(){
         Connection conn = null;
 
         String driver = "com.mysql.jdbc.Driver";
@@ -36,11 +39,11 @@ public class Servizi {
         }
         catch (SQLException ex)
         {}
-    }
+    }*/
 
     public static String caricamento() throws SQLException {
 
-        Connection conn = Servizi.ApriConnessione();
+        Connection conn = GestoreBase.ApriConnessione();
         Statement stmt= conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
                 "  `idnegozi` INT NOT NULL AUTO_INCREMENT,\n" +
