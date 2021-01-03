@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente>
@@ -30,7 +31,7 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
     }
 
     @Override
-    public Cliente MapData(ResultSet rs) throws SQLException {
+    public Cliente mapData(ResultSet rs) throws SQLException {
         this.id = rs.getInt("clienteId");
         this.denominazione = rs.getString("denominazione");
         this.indirizzo.citta = rs.getString("indirizzo.citta");
@@ -45,7 +46,7 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
     }
 
     @Override
-    public Cliente GetById(int id) throws SQLException {
+    public Cliente getById(int id) throws SQLException {
         Statement st;
         ResultSet rs;
         String sql;
@@ -57,7 +58,7 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
             sql = "SELECT * FROM clienti WHERE (`clienteId` = "+id+");";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                c.MapData(rs);
+                c.mapData(rs);
             }
             st.close();
         } catch (SQLException e) {
@@ -71,17 +72,40 @@ public class Cliente extends Account implements IMapData<Cliente>, ICRUD<Cliente
     }
 
     @Override
-    public List<Cliente> GetAll() throws SQLException {
+    public List<Cliente> getAll() throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Cliente> c = new ArrayList<>();
+        Connection conn = Servizi.ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM clienti;";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Cliente a = new Cliente();
+                a.mapData(rs);
+                c.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        Servizi.ChiudiConnessione(conn);
+
+        return c;
+    }
+
+    @Override
+    public Cliente save(Cliente obj) throws SQLException {
         return null;
     }
 
     @Override
-    public Cliente Save(Cliente obj) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void Delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
 
     }
 

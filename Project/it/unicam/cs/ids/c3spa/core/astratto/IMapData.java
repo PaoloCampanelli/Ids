@@ -4,5 +4,5 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface IMapData<T> {
-        T MapData(ResultSet rs) throws SQLException;
+        T mapData(ResultSet rs) throws SQLException;
 }

@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ICRUD<T> {
-    T GetById(int id) throws SQLException;
-    List<T> GetAll() throws SQLException;
-    T Save(T obj) throws SQLException;
-    void Delete(int id) throws SQLException;
+    T getById(int id) throws SQLException;
+    List<T> getAll() throws SQLException;
+    T save(T obj) throws SQLException;
+    void delete(int id) throws SQLException;
 }

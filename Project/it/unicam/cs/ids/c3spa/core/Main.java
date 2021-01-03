@@ -5,6 +5,8 @@ import it.unicam.cs.ids.c3spa.core.view.IView;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -25,8 +27,16 @@ public class Main {
         System.out.println(ei.elencoIndirizzi().toString());*/
 
         //Lettura del cliente numero 1
-        Cliente c = new Cliente().GetById(1);
+        Cliente c = new Cliente().getById(1);
+        Cliente s = new Cliente().getById(2);
         System.out.println(c.toString());
+        List<Cliente> pippo = new ArrayList<Cliente>();
+        pippo = c.getAll();
+        System.out.println(s.toString());
+        System.out.println(pippo.toString());
+
+
+
 
         //Launcher start View
         //Bisogna implementare tutte le operazioni del controller
