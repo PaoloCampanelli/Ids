@@ -14,4 +14,9 @@ public class CategoriaMerceologica {
 		this.nome = nome;
 		return this;
 	}
+
+	public void rimuoviCategoria(int id, String nome){
+		this.idCategoria = id;
+		this.nome = nome;
+	}
 }
