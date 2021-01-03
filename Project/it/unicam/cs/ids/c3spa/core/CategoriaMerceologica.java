@@ -8,4 +8,10 @@ public class CategoriaMerceologica {
 		this.idCategoria= id;
 		this.nome = nome;
 	}
+
+	public CategoriaMerceologica creaCategoria(int id, String nome){
+		this.idCategoria = id;
+		this.nome = nome;
+		return this;
+	}
 }
