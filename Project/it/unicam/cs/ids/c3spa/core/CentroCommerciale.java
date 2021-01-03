@@ -10,7 +10,7 @@ import java.util.List;
 public class CentroCommerciale implements IGestiscoAccount {
 	private List<Negozio> negozi;
 	private List<Sconto> sconti;
-	private Pubblicita sponsorizzati;
+	private List<Pubblicita> sponsorizzati;
 	private int numeroNegozi;
 
 	@Override
@@ -36,6 +36,17 @@ public class CentroCommerciale implements IGestiscoAccount {
 		sconti.remove(sconto);
 	}
 
+	public Pubblicita creaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
+		sponsorizzati.add(pubblicita);
+		return pubblicita;
+	}
+
+	public void rimuoviPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
+		sponsorizzati.remove(pubblicita);
+	}
+
 	@Override
 	public void SetPassword(String password) {
 	}
@@ -44,8 +55,10 @@ public class CentroCommerciale implements IGestiscoAccount {
 		return negozi;
 	}
 
-	public Pubblicita getSponsorizzati() {
+	public List<Pubblicita> getSponsorizzati() {
 		return sponsorizzati;
 	}
+
+	public List<Sconto> getSconti(){ return sconti;}
 
 }
