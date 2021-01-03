@@ -2,13 +2,15 @@ package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.IGestiscoAccount;
+import it.unicam.cs.ids.c3spa.core.astratto.TipoScontoEnum;
 
+import java.util.Date;
 import java.util.List;
 
 public class CentroCommerciale implements IGestiscoAccount {
 	private List<Negozio> negozi;
-	private Sconto sconti;
-	private Pubblicita sponsorizzati;
+	private List<Sconto> sconti;
+	private List<Pubblicita> sponsorizzati;
 	private int numeroNegozi;
 
 	@Override
@@ -23,6 +25,28 @@ public class CentroCommerciale implements IGestiscoAccount {
 		return accountNegozio;
 	}
 
+	public Sconto creaSconto(int id, TipoScontoEnum tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		Sconto sconto = new Sconto(id, tipo, dataInizio, dataFine, negozio, categoriaMerceologica);
+		sconti.add(sconto);
+		return sconto;
+	}
+
+	public void rimuoviSconto(int id, TipoScontoEnum tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		Sconto sconto = new Sconto(id, tipo, dataInizio, dataFine, negozio, categoriaMerceologica);
+		sconti.remove(sconto);
+	}
+
+	public Pubblicita creaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
+		sponsorizzati.add(pubblicita);
+		return pubblicita;
+	}
+
+	public void rimuoviPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
+		sponsorizzati.remove(pubblicita);
+	}
+
 	@Override
 	public void SetPassword(String password) {
 	}
@@ -31,12 +55,10 @@ public class CentroCommerciale implements IGestiscoAccount {
 		return negozi;
 	}
 
-	public Sconto getSconti() {
-		return sconti;
-	}
-
-	public Pubblicita getSponsorizzati() {
+	public List<Pubblicita> getSponsorizzati() {
 		return sponsorizzati;
 	}
+
+	public List<Sconto> getSconti(){ return sconti;}
 
 }

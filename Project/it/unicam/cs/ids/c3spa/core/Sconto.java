@@ -11,4 +11,13 @@ public class Sconto {
 	private Date dataFine;
 	private Negozio negozio;
 	private CategoriaMerceologica categoriaMerceologica;
+
+	public Sconto (int id, TipoScontoEnum tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		this.id = id;
+		this.tipo = tipo;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.negozio = negozio;
+		this.categoriaMerceologica = categoriaMerceologica;
+	}
 }

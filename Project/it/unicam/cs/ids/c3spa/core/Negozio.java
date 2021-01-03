@@ -31,6 +31,11 @@ public class Negozio extends Account {
 		return c;
 	}
 
+	public void rimuoviCategoria(int id, String nome){
+		CategoriaMerceologica categoria= categorie.stream().filter(c->c.idCategoria==id && c.nome.equals(nome)).findAny().orElse(null);
+		this.categorie.remove(categoria);
+	}
+
 	public List<CategoriaMerceologica> getCategorie() {
 		return categorie;
 	}
