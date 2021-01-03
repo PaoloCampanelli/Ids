@@ -50,7 +50,7 @@ public class ConsoleView implements IView{
                 default:
                     System.err.println("Scelta non valida");
             }
-        }while(true);
+        }while(input.isEmpty() || input.charAt(0)==' ');
     }
 
     private void autenticazione() throws IOException {
@@ -65,12 +65,14 @@ public class ConsoleView implements IView{
                     inserimentoDati(tipologia);
                     break;
                 case "Y":
+                    System.err.println("IN FASE DI SVILUPPO!");
+                    System.exit(0);
                     //TODO Login utente
                     break;
                 default:
                     System.err.println("Scelta non valida!");
             }
-        }while(!input.equals("Y"));
+        }while(input.isEmpty() || input.charAt(0)==' ');
     }
 
     private String tipologia() throws IOException {
@@ -106,11 +108,11 @@ public class ConsoleView implements IView{
     private String richiediPassword(String question) throws IOException {
         System.out.println(question);
         System.out.println("PASSWORD MINIMO 6 CARATTERI!");
-        System.out.print("> ");
-        System.out.flush();
         String answer;
         do{
-         answer = getBr().readLine();
+            System.out.print("> ");
+            System.out.flush();
+            answer = getBr().readLine();
         }while(answer.length()<5);
         return answer;
     }
@@ -122,11 +124,11 @@ public class ConsoleView implements IView{
         String password = richiediPassword("Password");
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
-        if(tipologia=="CLIENTE") {
+        if(tipologia.equals("CLIENTE")) {
             getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-        }else if(tipologia=="CORRIERE") {
+        }else if(tipologia.equals("CORRIERE")) {
             getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-        }else if(tipologia=="COMMERCIANTE")
+        }else if(tipologia.equals("COMMERCIANTE"))
             getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
     }
 
