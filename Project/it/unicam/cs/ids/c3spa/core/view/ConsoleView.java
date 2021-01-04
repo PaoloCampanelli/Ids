@@ -42,7 +42,12 @@ public class ConsoleView implements IView{
                     break;
                 case "Y":
                     tipologia = tipologia();
-                    if(login()){
+                    //switch tiplogia
+                    //
+
+
+
+                    if(login(tipologia)){
                         redirectView(tipologia);
                     }else {
                         System.err.println("Credenziali non valide");
@@ -61,11 +66,10 @@ public class ConsoleView implements IView{
         - True se email e password esistono per qualche account
         - False altrimenti
      */
-    private boolean login() throws IOException {
+    private boolean login(String tipologia) throws IOException, SQLException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
-        return true;
-        //return getAccountController.checkAccount(email, password);
+        return getAccountController().checkAccount(email, password);
     }
 
     private String tipologia() throws IOException {
@@ -125,9 +129,11 @@ public class ConsoleView implements IView{
         redirectView(tipologia);
     }
 
+    //int id
     private void redirectView(String tipologia) throws IOException, SQLException {
         if(tipologia.equals("CLIENTE")) {
             view = new ViewCliente();
+            //nt id
             view.start();
         }else if(tipologia.equals("CORRIERE")) {
             view = new ViewCorriere();
