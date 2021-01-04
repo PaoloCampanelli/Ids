@@ -7,6 +7,7 @@ import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 
 public class ConsoleView implements IView{
@@ -23,12 +24,12 @@ public class ConsoleView implements IView{
     }
 
     @Override
-    public void start() throws IOException {
+    public void start() throws IOException, SQLException {
         hello();
         autenticazione();
     }
 
-    private void autenticazione() throws IOException {
+    private void autenticazione() throws IOException, SQLException {
         System.out.println("Sei già registrato? Y/N");
         String input;
         String tipologia;
@@ -92,7 +93,7 @@ public class ConsoleView implements IView{
         return answer;
     }
 
-    private void inserimentoDati(String tipologia) throws IOException {
+    private void inserimentoDati(String tipologia) throws IOException, SQLException {
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
         String email = richiediString("Email");

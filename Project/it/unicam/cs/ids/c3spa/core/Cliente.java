@@ -3,6 +3,7 @@ package it.unicam.cs.ids.c3spa.core;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ import java.sql.ResultSet;
 
 public class Cliente extends Account implements IMapData<Cliente>
 {
-    public Cliente(int clienteId, String nomeCognome, Indirizzo indirizzo, String telefono, String eMail, String password) {
+    public Cliente(int clienteId, String nomeCognome, Indirizzo indirizzo, String telefono, String eMail, String password) throws SQLException {
         this.id= clienteId;
         this.denominazione = nomeCognome;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.eMail = eMail;
-        this.password = password;//super();
+        this.password = password;
+        Cliente a = new GestoreCliente().save(this);
     }
 
     public Cliente()
