@@ -1,11 +1,9 @@
-package it.unicam.cs.ids.c3spa.core.controller;
+package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountController{
@@ -24,20 +22,13 @@ public class AccountController{
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
     }
 
-    public boolean checkAccount(String email, String password) throws SQLException {
-
+    public Cliente checkCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
-        //GestoreCorriere
-        //GestoreCorriere
 
-
-        if(true){
-            return true;
-            //tornerà l'id
+        return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get();
         }
-        return false;
-    }
-
-
 }
+
+
+
 

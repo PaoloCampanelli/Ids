@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.view;
+package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 public class ViewCliente extends ConsoleView{
 
-    public void start() throws IOException, SQLException {
+    // Cliente c = new GestoreCliente().getById(2);
+    public void start() throws IOException {
         System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
         listaCliente();
-        Cliente c = new GestoreCliente().getById(2);
         String comando;
         do {
             System.out.print("> ");

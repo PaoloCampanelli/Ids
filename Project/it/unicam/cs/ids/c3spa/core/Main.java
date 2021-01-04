@@ -1,14 +1,11 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.view.ConsoleView;
-import it.unicam.cs.ids.c3spa.core.view.IView;
+import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
+import it.unicam.cs.ids.c3spa.core.vista.IView;
 
 import java.io.IOException;
-import java.lang.ref.Cleaner;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {

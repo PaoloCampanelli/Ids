@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.view;
+package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.controller.AccountController;
-import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,9 +47,10 @@ public class ConsoleView implements IView{
 
 
 
-                    if(login(tipologia)){
+                    if(tipologia=="a"//login(tipologia))
+                    ){
                         redirectView(tipologia);
-                    }else {
+                    }else{
                         System.err.println("Credenziali non valide");
                         autenticazione();
                         break;
@@ -66,10 +67,20 @@ public class ConsoleView implements IView{
         - True se email e password esistono per qualche account
         - False altrimenti
      */
-    private boolean login(String tipologia) throws IOException, SQLException {
+    private int login(String tipologia) throws IOException, SQLException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
-        return getAccountController().checkAccount(email, password);
+        int id;
+        if (tipologia.equals("CLIENTE")) {
+           return id = getAccountController().checkCliente(email, password).id;
+        }else if(tipologia.equals("CORRIERE")){
+            System.err.println("...implementazione in corso");
+            System.exit(0);
+        }else if(tipologia.equals("COMMERCIANTE")){
+            System.err.println("...implementazione in corso");
+            System.exit(0);
+        }
+        return 0;
     }
 
     private String tipologia() throws IOException {

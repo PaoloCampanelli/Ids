@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.view;
+package it.unicam.cs.ids.c3spa.core.vista;
 
 import java.io.IOException;
 
