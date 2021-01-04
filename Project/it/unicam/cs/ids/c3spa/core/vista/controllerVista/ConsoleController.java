@@ -7,17 +7,14 @@ public class ConsoleController implements IController {
 
     @Override
     public boolean executerCliente(String comando) {
-        if("NEGOZI".equals(comando)) {
+        if("1".equals(comando)) {
             trovaNegozi();
         }
-        else if("CATEGORIE".equals(comando)) {
+        else if("2".equals(comando)) {
             trovaCategorie();
         }
-        else if("PROMOZIONI".equals(comando)) {
+        else if("3".equals(comando)) {
             trovaPromozioni();
-        }
-        else if("EXIT".equals(comando)) {
-            System.exit(0);
         }else {
             if(checkList(comando)) {
                 //TODO Stream dei negozi che hanno una data categoria;

@@ -23,9 +23,9 @@ public class ViewCliente extends ConsoleView{
 
     private void listaCliente() {
         System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
-        System.out.println("NEGOZI");
-        System.out.println("CATEGORIE");
-        System.out.println("PROMOZIONI");
-        System.out.println("NOME CATEGORIA -> 'FRUTTA', 'VERDURA'...");
+        System.out.println("1. Ricerca negozi");
+        System.out.println("2. Ricerca categorie presenti");
+        System.out.println("3. Promozione");
+        System.out.println("digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 }
