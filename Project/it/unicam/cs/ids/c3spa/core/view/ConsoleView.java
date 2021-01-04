@@ -12,9 +12,9 @@ import java.sql.SQLException;
 
 public class ConsoleView implements IView{
 
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private ConsoleController consoleController = new ConsoleController();
-    private AccountController accountController = new AccountController();
+    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final ConsoleController consoleController = new ConsoleController();
+    private final AccountController accountController = new AccountController();
     private IView view;
 
     private void hello(){
@@ -41,9 +41,11 @@ public class ConsoleView implements IView{
                     inserimentoDati(tipologia);
                     break;
                 case "Y":
-                    System.err.println("IN FASE DI SVILUPPO!");
-                    System.exit(0);
-                    //TODO Login utente
+                    tipologia = tipologia();
+                    if(login(tipologia)){
+                        redirectView(tipologia);
+                    }else
+                        autenticazione();
                     break;
                 default:
                     System.err.println("Scelta non valida!");
@@ -51,10 +53,14 @@ public class ConsoleView implements IView{
         }while(input.isEmpty() || input.charAt(0)==' ');
     }
 
+    private boolean login(String tipologia) throws IOException {
+        String email = richiediString("Inserisci email: ");
+        String password = richiediString("Inserisci password: ");
+        return true;
+    }
+
     private String tipologia() throws IOException {
-        String input;
-        System.out.println("Inserisci la tua tipologia utente (Cliente, Corriere, Commerciante)");
-        input = br.readLine().toUpperCase();
+        String input = richiediString("Inserisci la tua tipologia utente (Cliente, Corriere, Commerciante)").toUpperCase();
         switch (input) {
             case "CLIENTE":
                 return "CLIENTE";
@@ -102,18 +108,27 @@ public class ConsoleView implements IView{
         Indirizzo indirizzo = inputIndirizzo();
         if(tipologia.equals("CLIENTE")) {
             getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+        }else if(tipologia.equals("CORRIERE")) {
+            getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
+        }else if(tipologia.equals("COMMERCIANTE")) {
+            getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+        }
+        redirectView(tipologia);
+    }
+
+    private void redirectView(String tipologia) throws IOException, SQLException {
+        if(tipologia.equals("CLIENTE")) {
             view = new ViewCliente();
             view.start();
         }else if(tipologia.equals("CORRIERE")) {
-            getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
             view = new ViewCorriere();
             view.start();
         }else if(tipologia.equals("COMMERCIANTE")) {
             view = new ViewCommerciante();
             view.start();
-            getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
         }
     }
+
 
     private Indirizzo inputIndirizzo() throws IOException {
         String via, numero, citta, cap, provincia;

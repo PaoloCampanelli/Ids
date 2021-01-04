@@ -11,7 +11,6 @@ public class AccountController{
 
     public void creatoreCliente(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Cliente cliente = new Cliente(ID, denominazione, indirizzo, telefono, email, password);
-
     }
 
     public void creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
@@ -20,10 +19,18 @@ public class AccountController{
 
     public void creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
-
     }
 
+    /*
+    public void checkAccount(String email, String password, String tipologia){
+        switch (tipologia){
+            case "CLIENTE":{
 
+            }
+
+        }
+    }
+     */
 
 }
 
