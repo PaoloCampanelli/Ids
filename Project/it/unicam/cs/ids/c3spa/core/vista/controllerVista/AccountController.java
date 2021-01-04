@@ -22,11 +22,14 @@ public class AccountController{
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
     }
 
+
+    //METODO CONTROLLO CLIENTE
     public boolean controllaCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password));
     }
 
+    //METODO GETTER ID CLIENTE ATTRAVERSO EMAIL E PASSWORD
     public int prendiID(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
@@ -35,6 +38,7 @@ public class AccountController{
         return 0;
     }
 
+    //METODO GETTER CLIENTE ATTRAVERSO ID
     public Cliente prendiCliente(int id) throws SQLException{
         return new GestoreCliente().getById(id);
     }

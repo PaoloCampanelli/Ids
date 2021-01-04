@@ -15,11 +15,11 @@ public class ConsoleView implements IView{
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private final ConsoleController consoleController = new ConsoleController();
     private final AccountController accountController = new AccountController();
-    private IView view;
 
     private void hello(){
-        System.out.println("C3 V 1.0\nPowered by C3 SPA");
-        System.out.println("----------------");
+        System.out.println(" - - - - - - - - - - - - ");
+        System.out.println("       C3 V 1.0\n     Powered by C3 SPA    ");
+        System.out.println(" - - - - - - - - - - - - ");
         System.out.println("Benvenuto!");
     }
 
@@ -31,14 +31,14 @@ public class ConsoleView implements IView{
 
     @Override
     public void apriVista(int id) throws IOException, SQLException {
-
+        System.out.println("...Caricamento vista... Account: "+id);
     }
+
 
     private void autenticazione() throws IOException, SQLException {
         System.out.println("Sei già registrato? SI / NO     || EXIT -> per uscire");
         String input;
         String tipologia;
-        int id;
         do {
             input = br.readLine().toUpperCase();
             switch(input) {
@@ -57,8 +57,9 @@ public class ConsoleView implements IView{
                     }
                 default:
                     System.err.println("Scelta non valida!");
+                    autenticazione();
             }
-        }while(input.trim().isEmpty());
+        }while(input.isEmpty());
     }
 
     private boolean login(String tipologia) throws IOException, SQLException {
@@ -75,7 +76,7 @@ public class ConsoleView implements IView{
                 System.err.println("...implementazione in corso");
                 System.exit(0);
             case "COMMERCIANTE":
-                System.err.println("...implementazione in corso");
+                System.err.println("..implementazione in corso");
                 System.exit(0);
         }
         return false;
@@ -109,8 +110,8 @@ public class ConsoleView implements IView{
 
     }
 
-    private String richiediPassword(String question) throws IOException {
-        System.out.println(question);
+    private String richiediPassword() throws IOException {
+        System.out.println("Password");
         System.out.println("PASSWORD MINIMO 6 CARATTERI!");
         String answer;
         do{
@@ -125,7 +126,7 @@ public class ConsoleView implements IView{
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
         String email = richiediString("Email");
-        String password = richiediPassword("Password");
+        String password = richiediPassword();
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
@@ -145,15 +146,16 @@ public class ConsoleView implements IView{
     }
 
     private void redirectView(String tipologia, int id) throws IOException, SQLException {
+        IView view;
         switch (tipologia) {
             case "CLIENTE":
                 view = new ViewCliente();
                 view.apriVista(id);
                 break;
             case "CORRIERE":
-                view = new ViewCorriere();
-                view.apriVista(id);
-                break;
+               view = new ViewCorriere();
+               view.apriVista(id);
+               break;
             case "COMMERCIANTE":
                 view = new ViewCommerciante();
                 view.apriVista(id);

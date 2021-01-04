@@ -4,8 +4,7 @@ import java.io.IOException;
 
 public class ViewCommerciante extends ConsoleView {
 
-    @Override
-    public void start() throws IOException {
+    public void start(int id) throws IOException {
         System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
         listaCommerciante();
