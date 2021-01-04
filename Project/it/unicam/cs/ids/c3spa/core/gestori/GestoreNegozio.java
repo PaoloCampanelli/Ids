@@ -37,8 +37,31 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
     }
 
     @Override
-    public List getAll() throws SQLException {
-        return null;
+    public List<Negozio> getAll() throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Negozio> n = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM negozi;";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio a = new Negozio();
+                a.mapData(rs);
+                n.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return n;
     }
 
     @Override
