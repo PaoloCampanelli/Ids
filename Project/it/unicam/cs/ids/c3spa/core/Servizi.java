@@ -46,24 +46,17 @@ public class Servizi {
         Connection conn = GestoreBase.ApriConnessione();
         Statement stmt= conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
-                "  `idnegozi` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `denominazione` VARCHAR(50) NOT NULL,\n" +
-                "  `Indirizzo` VARCHAR(45) NOT NULL,\n" +
-                "  `telefono` VARCHAR(10) NOT NULL,\n" +
+                "  `negozioId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `denominazione` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
+                "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
+                "  `indirizzo.via` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
+                "  `telefono` VARCHAR(20) NOT NULL,\n" +
                 "  `eMail` VARCHAR(45) NOT NULL,\n" +
                 "  `password` VARCHAR(45) NOT NULL,\n" +
-                "  PRIMARY KEY (`idnegozi`),\n" +
-                "  UNIQUE INDEX `telefono_UNIQUE` (`telefono` ASC) VISIBLE,\n" +
-                "  UNIQUE INDEX `eMail_UNIQUE` (`eMail` ASC) VISIBLE,\n" +
-                "  UNIQUE INDEX `Indirizzo_UNIQUE` (`Indirizzo` ASC) VISIBLE)");
-
-        stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`indirizzo` (\n" +
-                "  `via` VARCHAR(50) NOT NULL,\n" +
-                "  `numero` INT NOT NULL,\n" +
-                "  `citta` VARCHAR(45) NULL,\n" +
-                "  `cap` CHAR(5) NOT NULL,\n" +
-                "  `provincia` CHAR(2)  NULL,\n" +
-                "  PRIMARY KEY (`via`, `numero`, `cap`));");
+                "  PRIMARY KEY (`negozioId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`clienti` (\n" +
                 "  `clienteId` INT NOT NULL AUTO_INCREMENT,\n" +

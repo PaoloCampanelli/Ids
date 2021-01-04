@@ -1,12 +1,10 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.*;
-import jdk.jshell.spi.ExecutionControl;
+import it.unicam.cs.ids.c3spa.core.astratto.*;;
 
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,26 +67,31 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
     @Override
     public Cliente save(Object entity) throws SQLException {
         //verifica che l'object è castabile a Cliente
+        if(entity instanceof Cliente) {
 
-        Statement st;
-        String sql;
-        Connection conn = ApriConnessione();
-        Cliente c = (Cliente) entity;
+            Statement st;
+            String sql;
+            Connection conn = ApriConnessione();
+            Cliente c = (Cliente) entity;
 
-        try {
+            try {
 
-            sql = "INSERT INTO `progetto_ids`.`clienti` (`denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES " +
-                    "('" + c.denominazione + "','"+ c.indirizzo.citta + "','" + c.indirizzo.numero + "','" + c.indirizzo.cap + "','" + c.indirizzo.via + "','"+ c.indirizzo.provincia + "','"+ c.telefono + "','" + c.eMail + "','" + c.password
-                    + "')";
+                sql = "INSERT INTO `progetto_ids`.`clienti` (`denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES " +
+                        "('" + c.denominazione + "','" + c.indirizzo.citta + "','" + c.indirizzo.numero + "','" + c.indirizzo.cap + "','" + c.indirizzo.via + "','" + c.indirizzo.provincia + "','" + c.telefono + "','" + c.eMail + "','" + c.password
+                        + "')";
 
-            st = conn.createStatement(); // creo sempre uno statement sulla
-            st.execute(sql); // faccio la query su uno statement
-            GestoreBase.ChiudiConnessione(conn); // chiusura connessione
-            return c;
-        } catch (SQLException e) {
-            System.out.println("errore:" + e.getMessage());
-            return null;
-        } // fine try-catch
+                st = conn.createStatement(); // creo sempre uno statement sulla
+                st.execute(sql); // faccio la query su uno statement
+                GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+                return c;
+            } catch (SQLException e) {
+                System.out.println("errore:" + e.getMessage());
+                return null;
+            } // fine try-catch
+        }
+
+        System.out.println("errore: salvataggio non riuscito" );
+        return null;
 
     }
 
