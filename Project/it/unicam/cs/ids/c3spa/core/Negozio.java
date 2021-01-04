@@ -17,6 +17,7 @@ public class Negozio extends Account {
 		this.telefono = telefono;
 		this.eMail = eMail;
 		this.password= password;
+		this.token = 5; //TOKEN INIZIALI
 	}
 
 	public CategoriaMerceologica creaCategoria(int id, String nome) {
@@ -31,9 +32,11 @@ public class Negozio extends Account {
 		return c;
 	}
 
-	public void rimuoviCategoria(int id, String nome){
-		CategoriaMerceologica categoria= categorie.stream().filter(c->c.idCategoria==id && c.nome.equals(nome)).findAny().orElse(null);
-		this.categorie.remove(categoria);
+	public void rimuoviCategoria(CategoriaMerceologica cat){
+		if(categorie.contains(cat)){
+			categorie.remove(cat);
+		}
+
 	}
 
 	public List<CategoriaMerceologica> getCategorie() {
