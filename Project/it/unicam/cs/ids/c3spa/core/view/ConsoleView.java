@@ -52,7 +52,7 @@ public class ConsoleView implements IView{
                 default:
                     System.err.println("Scelta non valida!");
             }
-        }while(input.isEmpty() || input.charAt(0)==' ');
+        }while(input.trim().isEmpty());
     }
 
     /*
