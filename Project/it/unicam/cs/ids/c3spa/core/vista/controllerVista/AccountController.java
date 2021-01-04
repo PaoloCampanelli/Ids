@@ -39,12 +39,6 @@ public class AccountController{
         return 0;
     }
 
-    //METODO GETTER CLIENTE ATTRAVERSO ID
-    public Cliente prendiCliente(int id) throws SQLException{
-        return new GestoreCliente().getById(id);
-    }
-
-
 }
 
 

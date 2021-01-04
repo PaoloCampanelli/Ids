@@ -122,10 +122,23 @@ public class ConsoleView implements IView{
         return answer;
     }
 
+    private String richiediEmail() throws IOException {
+        System.out.println("Email");
+        String answer;
+        do{
+            System.out.print("> ");
+            System.out.flush();
+            answer = getBr().readLine();
+            if(!answer.contains("@"))
+                System.err.println("\nEmail deve contenere @");
+        }while(!answer.contains("@"));
+        return answer;
+    }
+
     private void inserimentoDati(String tipologia) throws IOException, SQLException {
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
-        String email = richiediString("Email");
+        String email = richiediEmail();
         String password = richiediPassword();
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();

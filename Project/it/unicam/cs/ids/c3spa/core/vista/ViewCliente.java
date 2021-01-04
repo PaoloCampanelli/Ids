@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class ViewCliente extends ConsoleView{
 
     public void apriVista(int id) throws IOException, SQLException {
-        Cliente c = getAccountController().prendiCliente(id);
+        Cliente c = new GestoreCliente().getById(id);
         System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
         System.out.println("Bentornato "+c.denominazione+"!\n");
