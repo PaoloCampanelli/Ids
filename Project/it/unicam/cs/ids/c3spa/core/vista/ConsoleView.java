@@ -35,21 +35,21 @@ public class ConsoleView implements IView{
     }
 
     private void autenticazione() throws IOException, SQLException {
-        System.out.println("Sei già registrato? Y/N");
+        System.out.println("Sei già registrato? SI / NO     || EXIT -> per uscire");
         String input;
         String tipologia;
         int id;
         do {
             input = br.readLine().toUpperCase();
             switch(input) {
-                case "N":
+                case "NO":
                     tipologia = tipologia();
                     inserimentoDati(tipologia);
                     break;
-                case "Y":
+                case "SI":
                     tipologia = tipologia();
                     if(login(tipologia)){
-                        System.out.println("Bentornato!");
+                            System.out.println("Caricamento...");
                     }else{
                         System.err.println("Credenziali non valide");
                         autenticazione();
@@ -61,12 +61,6 @@ public class ConsoleView implements IView{
         }while(input.trim().isEmpty());
     }
 
-    /*
-     Login utilizzato solo per vedere la corretta esecuzione dello switch
-     Riga 64: richiamare metodo controller che ritorna un boolean
-        - True se email e password esistono per qualche account
-        - False altrimenti
-     */
     private boolean login(String tipologia) throws IOException, SQLException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
@@ -74,7 +68,6 @@ public class ConsoleView implements IView{
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
                     redirectView(tipologia, getAccountController().prendiID(email, password));
-                    System.out.println("Bentornato!");
                     return true;
                 }
                 break;
@@ -89,13 +82,13 @@ public class ConsoleView implements IView{
     }
 
     private String tipologia() throws IOException {
-        String input = richiediString("Inserisci la tua tipologia utente (Cliente, Corriere, Commerciante)").toUpperCase();
+        String input = richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
         switch (input) {
-            case "CLIENTE":
+            case "1":
                 return "CLIENTE";
-            case "CORRIERE":
+            case "2":
                 return "CORRIERE";
-            case "COMMERCIANTE":
+            case "3":
                 return "COMMERCIANTE";
             default:
                 System.err.println("Errore nell'inserimento tipologia");

@@ -35,6 +35,11 @@ public class AccountController{
         return 0;
     }
 
+    public Cliente prendiCliente(int id) throws SQLException{
+        return new GestoreCliente().getById(id);
+    }
+
+
 }
 
 

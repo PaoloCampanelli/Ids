@@ -9,10 +9,10 @@ import java.sql.SQLException;
 public class ViewCliente extends ConsoleView{
 
     public void apriVista(int id) throws IOException, SQLException {
-        Cliente c = new GestoreCliente().getById(id);
+        Cliente c = getAccountController().prendiCliente(id);
         System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
-        System.out.println("Bentornato "+c.denominazione+"!");
+        System.out.println("Bentornato "+c.denominazione+"!\n");
         listaCliente();
         String comando;
         do {
@@ -22,7 +22,7 @@ public class ViewCliente extends ConsoleView{
     }
 
     private void listaCliente() {
-        System.out.println("Operazioni disponibili: ");
+        System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
         System.out.println("NEGOZI");
         System.out.println("CATEGORIE");
         System.out.println("PROMOZIONI");
