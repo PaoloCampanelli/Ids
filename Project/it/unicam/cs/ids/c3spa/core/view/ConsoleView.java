@@ -42,21 +42,30 @@ public class ConsoleView implements IView{
                     break;
                 case "Y":
                     tipologia = tipologia();
-                    if(login(tipologia)){
+                    if(login()){
                         redirectView(tipologia);
-                    }else
+                    }else {
+                        System.err.println("Credenziali non valide");
                         autenticazione();
-                    break;
+                        break;
+                    }
                 default:
                     System.err.println("Scelta non valida!");
             }
         }while(input.isEmpty() || input.charAt(0)==' ');
     }
 
-    private boolean login(String tipologia) throws IOException {
+    /*
+     Login utilizzato solo per vedere la corretta esecuzione dello switch
+     Riga 64: richiamare metodo controller che ritorna un boolean
+        - True se email e password esistono per qualche account
+        - False altrimenti
+     */
+    private boolean login() throws IOException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
         return true;
+        //return getAccountController.checkAccount(email, password);
     }
 
     private String tipologia() throws IOException {

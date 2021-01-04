@@ -21,16 +21,13 @@ public class AccountController{
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
     }
 
-    /*
-    public void checkAccount(String email, String password, String tipologia){
-        switch (tipologia){
-            case "CLIENTE":{
-
-            }
-
+    public boolean checkAccount(String email, String password){
+        if(){
+            return true;
         }
+        return false;
     }
-     */
+
 
 }
 
