@@ -19,7 +19,14 @@ public class Cliente extends Account implements IMapData<Cliente>
         this.telefono = telefono;
         this.eMail = eMail;
         this.password = password;
-        Cliente a = new GestoreCliente().save(this);
+    }
+
+    public Cliente(String nomeCognome, Indirizzo indirizzo, String telefono, String eMail, String password) throws SQLException {
+        this.denominazione = nomeCognome;
+        this.indirizzo = indirizzo;
+        this.telefono = telefono;
+        this.eMail = eMail;
+        this.password = password;
     }
 
     public Cliente()
