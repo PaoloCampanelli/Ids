@@ -72,6 +72,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
         Statement st;
         String sql;
+        Connection conn = ApriConnessione();
         Cliente c = (Cliente) entity;
 
         try {
@@ -80,9 +81,9 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
                     "('" + c.denominazione + "','"+ c.indirizzo.citta + "','" + c.indirizzo.numero + "','" + c.indirizzo.cap + "','" + c.indirizzo.via + "','"+ c.indirizzo.provincia + "','"+ c.telefono + "','" + c.eMail + "','" + c.password
                     + "')";
 
-            st = GestoreBase.ApriConnessione().createStatement(); // creo sempre uno statement sulla
+            st = conn.createStatement(); // creo sempre uno statement sulla
             st.execute(sql); // faccio la query su uno statement
-            GestoreBase.ApriConnessione().close(); // chiusura connessione
+            GestoreBase.ChiudiConnessione(conn); // chiusura connessione
             return c;
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());
@@ -93,6 +94,24 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
     @Override
     public void delete(int id) throws SQLException {
+
+        Statement st;
+        String sql;
+        Connection conn = ApriConnessione();
+
+        try {
+
+            sql = "DELETE FROM `progetto_ids`.`clienti` WHERE (`clienteId` = '"+id+"');";
+
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            st.execute(sql); // faccio la query su uno statement
+            GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+
+        } // fine try-catch
+
 
     }
 

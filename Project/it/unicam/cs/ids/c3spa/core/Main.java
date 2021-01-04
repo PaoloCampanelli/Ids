@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.view.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.view.IView;
@@ -37,6 +38,8 @@ public class Main {
         System.out.println(c.toString());
         System.out.println(b.toString());
         System.out.println(lc.toString());
+        GestoreCliente pippo=new GestoreCliente();
+        pippo.delete(4);
 
 
 
