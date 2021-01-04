@@ -8,4 +8,5 @@ public interface IView {
     void start() throws IOException, SQLException;
 
     void apriVista(int id) throws IOException, SQLException;
+
 }
