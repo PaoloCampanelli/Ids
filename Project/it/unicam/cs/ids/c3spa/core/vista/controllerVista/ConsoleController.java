@@ -1,14 +1,21 @@
 package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
+import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
+import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
-public class ConsoleController implements IController {
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    @Override
-    public boolean executerCliente(String comando) {
+public class ConsoleController{
+
+    public boolean executerCliente(String comando, Cliente cliente) throws SQLException {
         if("1".equals(comando)) {
-            trovaNegozi();
+            trovaNegozi(cliente);
         }
         else if("2".equals(comando)) {
             trovaCategorie();
@@ -24,33 +31,7 @@ public class ConsoleController implements IController {
         return false;
     }
 
-    @Override
-    public boolean executerCommerciante(String comando) {
-        if("AGGIUNGI CATEGORIA".equals(comando) || "AG".contains(comando)) {
-            //TODO
-        }
-        else if("RIMUOVI CATEGORIA".equals(comando) || "RG".contains(comando)) {
-            //TODO
-        }
-        else if("AGGIUNGI PROMOZIONE".equals(comando) || "AP".contains(comando)) {
-            //TODO
-        }
-        else if("RIMUOVI PROMOZIONE".equals(comando) || "RP".contains(comando)) {
-            //TODO
-        }
-        else if("CREA ORDINE".equals(comando) || "OP".contains(comando)) {
-            //TODO
-        }
-        else if("ATTIVA PUBBLICITA".equals(comando) || "AT".contains(comando)) {
-            //TODO
-        }
-        else if("EXIT".equals(comando)) {
-            System.exit(0);
-        }
-        return false;
-    }
 
-    @Override
     public boolean executerCorriere(String comando) {
         if("VISUALIZZA ORDINI".equals(comando) || "VO".equals(comando)) {
             //TODO
@@ -64,9 +45,11 @@ public class ConsoleController implements IController {
         return false;
     }
 
-    private boolean trovaNegozi() {
-        //TODO
-        return false;
+    private void trovaNegozi(Cliente cliente) throws SQLException {
+        List<Negozio> lc = new GestoreNegozio().getAll();
+        lc.stream().filter(lista -> (lista.indirizzo.cap).equals(cliente.indirizzo.cap))
+                .map(Negozio::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     private boolean trovaPromozioni() {
@@ -93,8 +76,20 @@ public class ConsoleController implements IController {
 
     public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia){
         Cliente cliente = new Cliente();
-        Indirizzo address;
-        return address = cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
+        return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
     }
 
+    //Gestire il salvataggio(?)
+    public void aggiungiCategoria(String nome, Negozio negozi){
+        CategoriaMerceologica categoria = new CategoriaMerceologica(0, nome);
+        //new GestoreNegozio.save(categoria)
+
+    }
+
+    public void rimuoviCategoria(String nome) {
+        /*
+         * ln.
+         */
+
+    }
 }

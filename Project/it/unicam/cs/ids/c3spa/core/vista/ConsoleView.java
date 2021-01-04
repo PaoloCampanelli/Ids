@@ -98,7 +98,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private String richiediString(String question) throws IOException {
+    protected String richiediString(String question) throws IOException {
         String answer;
         do {
             System.out.println(question);

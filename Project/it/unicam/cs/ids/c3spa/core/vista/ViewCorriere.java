@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ViewCorriere extends ConsoleView {
 
-    public void start(int id) throws IOException {
+    public void apriVista(int id) throws IOException {
         System.out.println("\n...Effettuato accesso come CORRIERE");
         System.out.println("----------------");
         listaCorriere();
@@ -17,7 +17,7 @@ public class ViewCorriere extends ConsoleView {
 
     private void listaCorriere(){
         System.out.println("Operazioni disponibili: ");
-        System.out.println("VISUALIZZA ORDINI -> VO");
-        System.out.println("PRESA IN CARICO -> PC");
+        System.out.println("1. VISUALIZZA ORDINI ");
+        System.out.println("2. PRESA IN CARICO ");
     }
 }

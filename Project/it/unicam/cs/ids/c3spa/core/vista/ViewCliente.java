@@ -18,7 +18,7 @@ public class ViewCliente extends ConsoleView{
         do {
             System.out.print("> ");
             comando = getBr().readLine().toUpperCase();
-        }while(!getConsoleController().executerCliente(comando));
+        }while(!getConsoleController().executerCliente(comando, c));
     }
 
     private void listaCliente() {
