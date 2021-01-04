@@ -7,7 +7,6 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
