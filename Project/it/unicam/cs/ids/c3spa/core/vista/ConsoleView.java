@@ -29,10 +29,16 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
+    @Override
+    public void apriVista(int id) throws IOException, SQLException {
+
+    }
+
     private void autenticazione() throws IOException, SQLException {
         System.out.println("Sei già registrato? Y/N");
         String input;
         String tipologia;
+        int id;
         do {
             input = br.readLine().toUpperCase();
             switch(input) {
@@ -42,14 +48,8 @@ public class ConsoleView implements IView{
                     break;
                 case "Y":
                     tipologia = tipologia();
-                    //switch tiplogia
-                    //
-
-
-
-                    if(tipologia=="a"//login(tipologia))
-                    ){
-                        redirectView(tipologia);
+                    if(login(tipologia)){
+                        System.out.println("Bentornato!");
                     }else{
                         System.err.println("Credenziali non valide");
                         autenticazione();
@@ -67,20 +67,25 @@ public class ConsoleView implements IView{
         - True se email e password esistono per qualche account
         - False altrimenti
      */
-    private int login(String tipologia) throws IOException, SQLException {
+    private boolean login(String tipologia) throws IOException, SQLException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
-        int id;
-        if (tipologia.equals("CLIENTE")) {
-           return id = getAccountController().checkCliente(email, password).id;
-        }else if(tipologia.equals("CORRIERE")){
-            System.err.println("...implementazione in corso");
-            System.exit(0);
-        }else if(tipologia.equals("COMMERCIANTE")){
-            System.err.println("...implementazione in corso");
-            System.exit(0);
+        switch (tipologia) {
+            case "CLIENTE":
+                if (getAccountController().controllaCliente(email, password)) {
+                    redirectView(tipologia, getAccountController().prendiID(email, password));
+                    System.out.println("Bentornato!");
+                    return true;
+                }
+                break;
+            case "CORRIERE":
+                System.err.println("...implementazione in corso");
+                System.exit(0);
+            case "COMMERCIANTE":
+                System.err.println("...implementazione in corso");
+                System.exit(0);
         }
-        return 0;
+        return false;
     }
 
     private String tipologia() throws IOException {
@@ -130,28 +135,36 @@ public class ConsoleView implements IView{
         String password = richiediPassword("Password");
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
-        if(tipologia.equals("CLIENTE")) {
-            getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-        }else if(tipologia.equals("CORRIERE")) {
-            getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-        }else if(tipologia.equals("COMMERCIANTE")) {
-            getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+        switch (tipologia) {
+            case "CLIENTE":
+                getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+                redirectView(tipologia, getAccountController().prendiID(email, password));
+                break;
+            case "CORRIERE":
+                getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
+                //redirect view
+                break;
+            case "COMMERCIANTE":
+                getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+                //redirect view
+                break;
         }
-        redirectView(tipologia);
     }
 
-    //int id
-    private void redirectView(String tipologia) throws IOException, SQLException {
-        if(tipologia.equals("CLIENTE")) {
-            view = new ViewCliente();
-            //nt id
-            view.start();
-        }else if(tipologia.equals("CORRIERE")) {
-            view = new ViewCorriere();
-            view.start();
-        }else if(tipologia.equals("COMMERCIANTE")) {
-            view = new ViewCommerciante();
-            view.start();
+    private void redirectView(String tipologia, int id) throws IOException, SQLException {
+        switch (tipologia) {
+            case "CLIENTE":
+                view = new ViewCliente();
+                view.apriVista(id);
+                break;
+            case "CORRIERE":
+                view = new ViewCorriere();
+                view.apriVista(id);
+                break;
+            case "COMMERCIANTE":
+                view = new ViewCommerciante();
+                view.apriVista(id);
+                break;
         }
     }
 

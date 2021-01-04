@@ -22,11 +22,19 @@ public class AccountController{
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
     }
 
-    public Cliente checkCliente(String email, String password) throws SQLException {
+    public boolean controllaCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
+        return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password));
+    }
 
-        return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get();
+    public int prendiID(String email, String password) throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getAll();
+        if(controllaCliente(email, password)){
+            return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get().id;
         }
+        return 0;
+    }
+
 }
 
 
