@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
+import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
@@ -69,7 +70,8 @@ public class ConsoleView implements IView{
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
-                    redirectView(tipologia, getAccountController().prendiID(email, password));
+                    int idC = getAccountController().prendiIDCliente(email, password);
+                    redirectView(tipologia, idC);
                     return true;
                 }
                 break;
@@ -77,8 +79,11 @@ public class ConsoleView implements IView{
                 System.err.println("...implementazione in corso");
                 System.exit(0);
             case "COMMERCIANTE":
-                System.err.println("..implementazione in corso");
-                System.exit(0);
+                if(getAccountController().controllaNegozio(email, password)){
+                    int idN = getAccountController().prendiIDNegozio(email,password);
+                    redirectView(tipologia, idN);
+                    return true;
+                }
         }
         return false;
     }
@@ -153,8 +158,8 @@ public class ConsoleView implements IView{
                 //redirect view
                 break;
             case "COMMERCIANTE":
-                getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                //redirect view
+                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+                redirectView(tipologia, n.id);
                 break;
         }
     }
