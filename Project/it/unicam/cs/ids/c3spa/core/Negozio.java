@@ -13,8 +13,6 @@ import java.util.List;
 public class Negozio extends Account implements IMapData {
 	public int token;
 	public List<CategoriaMerceologica> categorie;
-	public List<Pacco> pacchi;
-	protected int numeroCategorie;
 
 	public Negozio(int negozioId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id= negozioId;
@@ -27,8 +25,20 @@ public class Negozio extends Account implements IMapData {
 		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}
 
+	public Negozio(String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
+		this.id= 0;
+		this.denominazione = denominazione;
+		this.indirizzo = indirizzo;
+		this.telefono = telefono;
+		this.eMail = eMail;
+		this.password= password;
+		this.token = 5; //TOKEN INIZIALI
+		this.categorie = new ArrayList<CategoriaMerceologica>();
+	}
+
 	public Negozio() {
 		this.indirizzo = new Indirizzo();
+		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}
 
 	@Override
@@ -46,16 +56,13 @@ public class Negozio extends Account implements IMapData {
 		return this;
 	}
 
-	public CategoriaMerceologica creaCategoria(int id, String nome) {
+	public CategoriaMerceologica aggiungiCategoria(CategoriaMerceologica categoriaMerceologica) {
 		//verifico che la categoria che voglio aggiungere non sia già presente, se è gia presente la ritorno.
-		if (categorie.stream().anyMatch(c->c.idCategoria==id && c.nome.equals(nome))) {
-			return categorie.stream().filter(c -> c.idCategoria==id).findFirst().orElse(null);
+		if (categorie.stream().anyMatch(c->c.idCategoria==categoriaMerceologica.idCategoria )) {
+			return categoriaMerceologica;
 		}
-		CategoriaMerceologica c= new CategoriaMerceologica(id, nome);
-		c.idCategoria = numeroCategorie;
-		numeroCategorie++;
-		categorie.add(c);
-		return c;
+		categorie.add(categoriaMerceologica);
+		return categoriaMerceologica;
 	}
 
 	public void rimuoviCategoria(CategoriaMerceologica cat){
@@ -77,16 +84,16 @@ public class Negozio extends Account implements IMapData {
 		return categorie;
 	}
 
-	public List<Pacco> getPacchi() {
+/*	public List<Pacco> getPacchi() {
 		return pacchi;
-	}
+	}*/
 
-	public String getIndirizzo() {
+/*	public String getIndirizzo() {
 		throw new UnsupportedOperationException();
 	}
 
 	public void setIndirizzo(String aIndirizzo) {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 
 }

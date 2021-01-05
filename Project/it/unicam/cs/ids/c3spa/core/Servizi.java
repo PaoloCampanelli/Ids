@@ -72,14 +72,16 @@ public class Servizi {
                 "  PRIMARY KEY (`clienteId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`categoriemerceologiche` (\n" +
-                "  `categoriaId` INT NOT NULL,\n" +
+                "  `categoriaId` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `nome` VARCHAR(45) NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`categoriaId`));");
 
-        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`negozio_categoriamerceologica` (\n" +
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`negozio_categoriemerceologiche` (\n" +
                 "  `negozioId` INT NOT NULL,\n" +
                 "  `categoriaId` INT NOT NULL,\n" +
-                "  PRIMARY KEY (`negozioId`, `categoriaId`));");
+                "  PRIMARY KEY (`negozioId`, `categoriaId`),\n" +
+                "  FOREIGN KEY (negozioId) REFERENCES negozi(negozioId));");
 
 
 

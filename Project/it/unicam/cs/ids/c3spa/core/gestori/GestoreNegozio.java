@@ -8,19 +8,27 @@ import java.util.List;
 
 public class GestoreNegozio extends GestoreBase implements ICRUD{
     @Override
-    public Object getById(int id) throws SQLException {
-        Statement st;
+    public Negozio getById(int id) throws SQLException {
+        PreparedStatement st;
         ResultSet rs;
-        String sql;
         Negozio n = new Negozio();
+        GestoreCategoriaMerceologica gcm = new GestoreCategoriaMerceologica();
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM negozi WHERE (`negozioId` = "+id+");";
-            rs = st.executeQuery(sql); // faccio la query su uno statement
+            st = conn.prepareStatement("SELECT * FROM progetto_ids.negozi WHERE negozioId = ?"); // creo sempre uno statement sulla
+            st.setInt(1, id);
+            rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
                 n.mapData(rs);
+            }
+
+            //Popolo le categorie collegate al negozio
+            st = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
+            st.setInt(1, n.id);
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                n.categorie.add(gcm.getById(rs.getInt(2)));
             }
             st.close();
         } catch (SQLException e) {
@@ -87,6 +95,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
+                    st.close();
                     if (rs.next()) {
                         n.id = rs.getInt(1);
                     } else {
@@ -95,7 +104,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     }
                 } else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE clienteId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
                     st.setString(1, n.denominazione);
                     st.setString(2, n.indirizzo.citta);
                     st.setString(3, n.indirizzo.numero);
@@ -108,7 +117,26 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     st.setInt(10, n.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
+                    st.close();
                 }
+
+                //Gestire le categorie
+                //Elimino tutte le categorie salvate per il negozio
+                st = conn.prepareStatement("DELETE FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?");
+                st.setInt(1,n.id);
+                st.executeUpdate();
+                st.close();
+
+                //Inserisco le categorie passate nell'oggetto
+                for (CategoriaMerceologica c:n.categorie
+                     ) {
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozio_categoriemerceologiche (negozioId, categoriaId) VALUES (?,?)");
+                    st.setInt(1,n.id);
+                    st.setInt(2,c.idCategoria);
+                    st.executeUpdate();
+                    st.close();
+                }
+
                 GestoreBase.ChiudiConnessione(conn); // chiusura connessione
                 return n;
             } catch (SQLException e) {

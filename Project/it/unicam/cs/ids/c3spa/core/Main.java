@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
 
@@ -32,11 +34,11 @@ public class Main {
         //Cliente a = new GestoreCliente().save(c);
         Cliente b = new GestoreCliente().getById(3);
         List<Cliente> lc = new GestoreCliente().getAll();
-        System.out.println(c.toString());
-        System.out.println(b.toString());
-        System.out.println(lc.toString());
-        GestoreCliente pippo=new GestoreCliente();
-        pippo.delete(4);
+
+        Negozio n = new GestoreNegozio().getById(1);
+        System.out.println(n.categorie);
+        n.categorie.add(new GestoreCategoriaMerceologica().getById(2));
+        new GestoreNegozio().save(n);
 
 
 
