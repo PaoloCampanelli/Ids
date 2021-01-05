@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class Negozio extends Account implements IMapData {
@@ -55,7 +56,14 @@ public class Negozio extends Account implements IMapData {
 		if(categorie.contains(cat)){
 			categorie.remove(cat);
 		}
+	}
 
+	public void creaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+		if(token <= 0){
+			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token");
+		}
+		new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
+		token--;
 	}
 
 	public List<CategoriaMerceologica> getCategorie() {
