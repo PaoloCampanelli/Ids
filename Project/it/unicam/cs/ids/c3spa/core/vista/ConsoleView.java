@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
+import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
@@ -144,8 +145,8 @@ public class ConsoleView implements IView{
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
             case "CLIENTE":
-                getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, getAccountController().prendiID(email, password));
+                Cliente c = getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+                redirectView(tipologia, c.id);
                 break;
             case "CORRIERE":
                 getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);

@@ -75,7 +75,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
             try {
 
                 if (c.id == 0) { // è un inserimento
-                    st = conn.prepareStatement("INSERT INTO `progetto_ids.clienti` (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.clienti (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setString(1, c.denominazione);
                     st.setString(2, c.indirizzo.citta);
                     st.setString(3, c.indirizzo.numero);
