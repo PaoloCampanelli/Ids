@@ -66,7 +66,6 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
     @Override
     public Cliente save(Object entity) throws SQLException {
-        //verifica che l'object è castabile a Cliente
         if(entity instanceof Cliente) {
 
             Statement st;
