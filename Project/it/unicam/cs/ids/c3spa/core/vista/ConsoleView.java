@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
+import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
@@ -68,7 +69,7 @@ public class ConsoleView implements IView{
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
-                    redirectView(tipologia, getAccountController().prendiIDCliente(email, password));
+                    redirectView(tipologia, getAccountController().prendiID(email, password));
                     return true;
                 }
                 break;
@@ -76,12 +77,8 @@ public class ConsoleView implements IView{
                 System.err.println("...implementazione in corso");
                 System.exit(0);
             case "COMMERCIANTE":
-                if (getAccountController().controllaNegozio(email, password)) {
-                    System.out.println("Caricamento...");
-                    redirectView(tipologia, getAccountController().prendiIDNegozio(email, password));
-                    return true;
-                }
-                break;
+                System.err.println("..implementazione in corso");
+                System.exit(0);
         }
         return false;
     }
@@ -148,16 +145,16 @@ public class ConsoleView implements IView{
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
             case "CLIENTE":
-                getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, getAccountController().prendiIDCliente(email, password));
+                Cliente c = getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+                redirectView(tipologia, c.id);
                 break;
             case "CORRIERE":
                 getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-                //redirectView(tipologia,getAccountController().prendiIDCorriere(email, password)
+                //redirect view
                 break;
             case "COMMERCIANTE":
                 getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, getAccountController().prendiIDNegozio(email, password));
+                //redirect view
                 break;
         }
     }

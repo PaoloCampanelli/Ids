@@ -2,26 +2,24 @@ package it.unicam.cs.ids.c3spa.core.gestori;
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.*;;
 
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestoreCliente extends GestoreBase implements ICRUD {
     @Override
     public Cliente getById(int id) throws SQLException {
-        Statement st;
+        PreparedStatement st;
         ResultSet rs;
         String sql;
         Cliente c = new Cliente();
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM clienti WHERE (`clienteId` = "+id+");";
-            rs = st.executeQuery(sql); // faccio la query su uno statement
+
+            st = conn.prepareStatement("SELECT * FROM clienti WHERE clienteId = ?"); // creo sempre uno statement sulla
+            st.setInt(1,id);
+            rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
                 c.mapData(rs);
             }
@@ -68,19 +66,51 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
     public Cliente save(Object entity) throws SQLException {
         if(entity instanceof Cliente) {
 
-            Statement st;
+            PreparedStatement st;
+            ResultSet rs;
             String sql;
             Connection conn = ApriConnessione();
             Cliente c = (Cliente) entity;
 
             try {
 
-                sql = "INSERT INTO `progetto_ids`.`clienti` (`denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES " +
-                        "('" + c.denominazione + "','" + c.indirizzo.citta + "','" + c.indirizzo.numero + "','" + c.indirizzo.cap + "','" + c.indirizzo.via + "','" + c.indirizzo.provincia + "','" + c.telefono + "','" + c.eMail + "','" + c.password
-                        + "')";
+                if (c.id == 0) { // è un inserimento
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.clienti (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st.setString(1, c.denominazione);
+                    st.setString(2, c.indirizzo.citta);
+                    st.setString(3, c.indirizzo.numero);
+                    st.setString(4, c.indirizzo.cap);
+                    st.setString(5, c.indirizzo.via);
+                    st.setString(6, c.indirizzo.provincia);
+                    st.setString(7, c.telefono);
+                    st.setString(8, c.eMail);
+                    st.setString(9, c.password);
 
-                st = conn.createStatement(); // creo sempre uno statement sulla
-                st.execute(sql); // faccio la query su uno statement
+                    st.executeUpdate(); // faccio la query su uno statement
+                    rs = st.getGeneratedKeys();
+                    if (rs.next()) {
+                        c.id = rs.getInt(1);
+                    } else {
+
+                        throw new SQLException("Inserimento non effettuato!");
+                    }
+                }
+                else //é una modifica
+                {
+                    st = conn.prepareStatement("UPDATE progetto_ids.clienti SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE clienteId = ?"); // creo sempre uno statement sulla
+                    st.setString(1, c.denominazione);
+                    st.setString(2, c.indirizzo.citta);
+                    st.setString(3, c.indirizzo.numero);
+                    st.setString(4, c.indirizzo.cap);
+                    st.setString(5, c.indirizzo.via);
+                    st.setString(6, c.indirizzo.provincia);
+                    st.setString(7, c.telefono);
+                    st.setString(8, c.eMail);
+                    st.setString(9, c.password);
+                    st.setInt(10,c.id);
+
+                    st.executeUpdate(); // faccio la query su uno statement
+                }
                 GestoreBase.ChiudiConnessione(conn); // chiusura connessione
                 return c;
             } catch (SQLException e) {
