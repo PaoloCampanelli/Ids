@@ -24,7 +24,7 @@ public class AccountController{
 
     public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
-        new GestoreNegozio().save(negozio);
+        return new GestoreNegozio().save(negozio);
     }
 
     //METODO CONTROLLO CLIENTE
