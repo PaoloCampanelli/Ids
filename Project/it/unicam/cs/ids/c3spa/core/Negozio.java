@@ -64,12 +64,13 @@ public class Negozio extends Account implements IMapData {
 		}
 	}
 
-	public void creaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
+	public boolean attivaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
 		if(token <= 0){
 			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token");
 		}
 		new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
 		token--;
+		return true;
 	}
 
 	public List<CategoriaMerceologica> getCategorie() {
