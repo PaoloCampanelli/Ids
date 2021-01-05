@@ -76,7 +76,7 @@ public class Servizi {
                 "  `nome` VARCHAR(45) NOT NULL,\n" +
                 "  PRIMARY KEY (`categoriaId`));");
 
-        stmt.execute("CREATE TABLE IF NOT EXISTS , `progetto_ids`.`negozio_categoriamerceologica` (\n" +
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`negozio_categoriamerceologica` (\n" +
                 "  `negozioId` INT NOT NULL,\n" +
                 "  `categoriaId` INT NOT NULL,\n" +
                 "  PRIMARY KEY (`negozioId`, `categoriaId`));");
