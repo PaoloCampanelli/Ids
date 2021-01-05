@@ -42,12 +42,6 @@ public class CentroCommerciale implements IGestiscoAccount {
 		sconti.remove(sconto);
 	}
 
-	public Pubblicita creaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
-		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
-		sponsorizzati.add(pubblicita);
-		return pubblicita;
-	}
-
 	public void rimuoviPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
 		Pubblicita pubblicita = new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
 		sponsorizzati.remove(pubblicita);
