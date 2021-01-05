@@ -21,9 +21,7 @@ public class Sconto {
 		this.categoriaMerceologica = categoriaMerceologica;
 	}
 
-	public double creaScontoPercentuale(double importo, double percentuale){
+	public double calcolaScontoPercentuale(double importo, double percentuale){
 		return importo = importo * (1 - percentuale/100);
 	}
-
-
 }
