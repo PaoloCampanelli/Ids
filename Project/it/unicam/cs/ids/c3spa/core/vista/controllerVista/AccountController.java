@@ -14,17 +14,20 @@ public class AccountController{
 
     public Cliente creatoreCliente(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Cliente cliente = new Cliente(denominazione, indirizzo, telefono, email, password);
-        return new GestoreCliente().save(cliente);
+        new GestoreCliente().save(cliente);
+        return cliente;
     }
 
-    public void creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
+    public Corriere creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
         Corriere corriere = new Corriere(ID, denominazione, indirizzo, telefono, email, password);
         //new GestoreCorriere().save(corriere);
+        return corriere;
     }
 
     public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
-        return new GestoreNegozio().save(negozio);
+        new GestoreNegozio().save(negozio);
+        return negozio;
     }
 
     //METODO CONTROLLO CLIENTE
