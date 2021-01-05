@@ -10,9 +10,9 @@ public class AccountController{
 
     private int ID = 0;
 
-    public void creatoreCliente(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
+    public Cliente creatoreCliente(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Cliente cliente = new Cliente(denominazione, indirizzo, telefono, email, password);
-        new GestoreCliente().save(cliente);
+        return new GestoreCliente().save(cliente);
     }
 
     public void creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
