@@ -2,10 +2,7 @@ package it.unicam.cs.ids.c3spa.core.gestori;
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.*;;
 
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,21 +63,52 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
     @Override
     public Negozio save(Object entity) throws SQLException {
-        if(entity instanceof Negozio) {
+        if (entity instanceof Negozio) {
 
-            Statement st;
+            PreparedStatement st;
+            ResultSet rs;
             String sql;
             Connection conn = ApriConnessione();
             Negozio n = (Negozio) entity;
 
             try {
 
-                sql = "INSERT INTO `progetto_ids`.`negozi` (`denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES " +
-                        "('" + n.denominazione + "','" + n.indirizzo.citta + "','" + n.indirizzo.numero + "','" + n.indirizzo.cap + "','" + n.indirizzo.via + "','" + n.indirizzo.provincia + "','" + n.telefono + "','" + n.eMail + "','" + n.password
-                        + "')";
+                if (n.id == 0) { // è un inserimento
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozi (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st.setString(1, n.denominazione);
+                    st.setString(2, n.indirizzo.citta);
+                    st.setString(3, n.indirizzo.numero);
+                    st.setString(4, n.indirizzo.cap);
+                    st.setString(5, n.indirizzo.via);
+                    st.setString(6, n.indirizzo.provincia);
+                    st.setString(7, n.telefono);
+                    st.setString(8, n.eMail);
+                    st.setString(9, n.password);
 
-                st = conn.createStatement(); // creo sempre uno statement sulla
-                st.execute(sql); // faccio la query su uno statement
+                    st.executeUpdate(); // faccio la query su uno statement
+                    rs = st.getGeneratedKeys();
+                    if (rs.next()) {
+                        n.id = rs.getInt(1);
+                    } else {
+
+                        throw new SQLException("Inserimento non effettuato!");
+                    }
+                } else //é una modifica
+                {
+                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE clienteId = ?"); // creo sempre uno statement sulla
+                    st.setString(1, n.denominazione);
+                    st.setString(2, n.indirizzo.citta);
+                    st.setString(3, n.indirizzo.numero);
+                    st.setString(4, n.indirizzo.cap);
+                    st.setString(5, n.indirizzo.via);
+                    st.setString(6, n.indirizzo.provincia);
+                    st.setString(7, n.telefono);
+                    st.setString(8, n.eMail);
+                    st.setString(9, n.password);
+                    st.setInt(10, n.id);
+
+                    st.executeUpdate(); // faccio la query su uno statement
+                }
                 GestoreBase.ChiudiConnessione(conn); // chiusura connessione
                 return n;
             } catch (SQLException e) {
@@ -89,9 +117,8 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             } // fine try-catch
         }
 
-        System.out.println("errore: salvataggio non riuscito" );
+        System.out.println("errore: salvataggio non riuscito");
         return null;
-
     }
 
     @Override

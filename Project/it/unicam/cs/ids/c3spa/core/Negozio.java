@@ -6,7 +6,6 @@ import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Negozio extends Account implements IMapData {
@@ -45,8 +44,8 @@ public class Negozio extends Account implements IMapData {
 
 	public CategoriaMerceologica creaCategoria(int id, String nome) {
 		//verifico che la categoria che voglio aggiungere non sia già presente, se è gia presente la ritorno.
-		if (categorie.stream().anyMatch(c->c.idCategoria==id && c.nome.equals(nome))) {
-			return categorie.stream().filter(c -> c.idCategoria==id).findFirst().orElse(null);
+		if (categorie.stream().anyMatch(c->c.id ==id && c.nome.equals(nome))) {
+			return categorie.stream().filter(c -> c.id ==id).findFirst().orElse(null);
 		}
 		CategoriaMerceologica c= new CategoriaMerceologica(id, nome);
 		categorie.add(c);
