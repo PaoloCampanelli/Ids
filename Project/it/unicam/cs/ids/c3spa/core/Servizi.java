@@ -71,6 +71,18 @@ public class Servizi {
                 "  `password` VARCHAR(45) NOT NULL,\n" +
                 "  PRIMARY KEY (`clienteId`));");
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`categoriemerceologiche` (\n" +
+                "  `categoriaId` INT NOT NULL,\n" +
+                "  `nome` VARCHAR(45) NOT NULL,\n" +
+                "  PRIMARY KEY (`categoriaId`));");
+
+        stmt.execute("CREATE TABLE IF NOT EXISTS , `progetto_ids`.`negozio_categoriamerceologica` (\n" +
+                "  `negozioId` INT NOT NULL,\n" +
+                "  `categoriaId` INT NOT NULL,\n" +
+                "  PRIMARY KEY (`negozioId`, `categoriaId`));");
+
+
+
 
         stmt.close();
         conn.close();
