@@ -41,6 +41,7 @@ public class Main {
 
 
 
+
         //Launcher start View
         //Bisogna implementare tutte le operazioni del controller
         v.start();

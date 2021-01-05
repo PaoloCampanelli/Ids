@@ -5,6 +5,8 @@ import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class Negozio extends Account implements IMapData {
 		this.eMail = eMail;
 		this.password= password;
 		this.token = 5; //TOKEN INIZIALI
+		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}
 
 	public Negozio() {

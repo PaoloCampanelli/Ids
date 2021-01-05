@@ -27,6 +27,7 @@ public class Cliente extends Account implements IMapData<Cliente>
         this.telefono = telefono;
         this.eMail = eMail;
         this.password = password;
+        this.id = 0;
     }
 
     public Cliente()
