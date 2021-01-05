@@ -6,6 +6,7 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
+import javax.swing.text.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,12 +31,6 @@ public class ConsoleView implements IView{
         hello();
         autenticazione();
     }
-
-    @Override
-    public void apriVista(int id) throws IOException, SQLException {
-        System.out.println("...Caricamento vista... Account: "+id);
-    }
-
 
     private void autenticazione() throws IOException, SQLException {
         System.out.println("Sei già registrato? SI / NO     || EXIT -> per uscire");
@@ -128,23 +123,30 @@ public class ConsoleView implements IView{
         return answer;
     }
 
-    private String richiediEmail() throws IOException {
+    private String richiediEmail(String tipologia) throws IOException, SQLException {
         System.out.println("Email");
-        String answer;
+        String risposta;
+        boolean controllo;
         do{
             System.out.print("> ");
             System.out.flush();
-            answer = getBr().readLine();
-            if(!answer.contains("@"))
+            risposta = getBr().readLine();
+            controllo = getAccountController().controllaMail(tipologia, risposta);
+            if(!risposta.contains("@"))
                 System.err.println("\nEmail deve contenere @");
-        }while(!answer.contains("@"));
-        return answer;
+            if(controllo) {
+                System.err.println("Email gia' esistente! Inserirne un'altra");
+            }else{
+                continue;
+            }
+        }while(!(risposta.contains("@")) || controllo);
+        return risposta;
     }
 
     private void inserimentoDati(String tipologia) throws IOException, SQLException {
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
-        String email = richiediEmail();
+        String email = richiediEmail(tipologia);
         String password = richiediPassword();
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
@@ -165,23 +167,21 @@ public class ConsoleView implements IView{
     }
 
     private void redirectView(String tipologia, int id) throws IOException, SQLException {
-        IView view;
         switch (tipologia) {
             case "CLIENTE":
-                view = new ViewCliente();
-                view.apriVista(id);
+                ViewCliente viewCliente = new ViewCliente();
+                viewCliente.apriVista(id);
                 break;
             case "CORRIERE":
-               view = new ViewCorriere();
-               view.apriVista(id);
+               ViewCorriere viewCorriere = new ViewCorriere();
+               viewCorriere.apriVista(id);
                break;
             case "COMMERCIANTE":
-                view = new ViewCommerciante();
-                view.apriVista(id);
+                ViewCommerciante viewCommerciante = new ViewCommerciante();
+                viewCommerciante.apriVista(id);
                 break;
         }
     }
-
 
     private Indirizzo inputIndirizzo() throws IOException {
         String via, numero, citta, cap, provincia;

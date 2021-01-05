@@ -40,7 +40,7 @@ public class AccountController{
     public int prendiIDCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
-            return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get().id;
+            return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().orElse(null).id;
         }
         return 0;
     }
@@ -53,9 +53,43 @@ public class AccountController{
     public int prendiIDNegozio(String email, String password) throws SQLException {
         List<Cliente> ln = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
-            return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().get().id;
+            return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().orElse(null).id;
         }
         return 0;
+    }
+
+    /*
+    public boolean controllaCorriere(String email, String password) throws SQLException {
+        List<Corriere> ln = new GestoreCorriere().getAll();
+        return ln.stream().anyMatch(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password));
+    }
+
+    public int prendiIDCorriere(String email, String password) throws SQLException {
+        List<Corriere> lcr = new GestoreCorriere().getAll();
+        if(controllaCorriere(email, password)){
+            return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().get().id;
+        }
+        return 0;
+    }
+     */
+
+    public boolean controllaMail(String tipologia, String email) throws SQLException {
+        switch(tipologia){
+            case "CLIENTE":
+                List<Cliente> lc = new GestoreCliente().getAll();
+                return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
+            case "CORRIERE":{
+                /*
+                List<Corriere> lnc = new GestoreCorriere().getAll();
+                return lnc.stream().anyMatch(corriere -> corriere.eMail.equals(email))
+                 */
+            }
+            case "COMMERCIANTE": {
+                List<Negozio> ln = new GestoreNegozio().getAll();
+                return ln.stream().anyMatch(negozio -> negozio.eMail.equals(email));
+            }
+        }
+        return false;
     }
 
 }
