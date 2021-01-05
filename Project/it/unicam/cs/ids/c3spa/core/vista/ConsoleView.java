@@ -68,7 +68,7 @@ public class ConsoleView implements IView{
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
-                    redirectView(tipologia, getAccountController().prendiID(email, password));
+                    redirectView(tipologia, getAccountController().prendiIDCliente(email, password));
                     return true;
                 }
                 break;
@@ -76,8 +76,12 @@ public class ConsoleView implements IView{
                 System.err.println("...implementazione in corso");
                 System.exit(0);
             case "COMMERCIANTE":
-                System.err.println("..implementazione in corso");
-                System.exit(0);
+                if (getAccountController().controllaNegozio(email, password)) {
+                    System.out.println("Caricamento...");
+                    redirectView(tipologia, getAccountController().prendiIDNegozio(email, password));
+                    return true;
+                }
+                break;
         }
         return false;
     }
@@ -145,15 +149,15 @@ public class ConsoleView implements IView{
         switch (tipologia) {
             case "CLIENTE":
                 getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, getAccountController().prendiID(email, password));
+                redirectView(tipologia, getAccountController().prendiIDCliente(email, password));
                 break;
             case "CORRIERE":
                 getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-                //redirect view
+                //redirectView(tipologia,getAccountController().prendiIDCorriere(email, password)
                 break;
             case "COMMERCIANTE":
                 getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                //redirect view
+                redirectView(tipologia, getAccountController().prendiIDNegozio(email, password));
                 break;
         }
     }
