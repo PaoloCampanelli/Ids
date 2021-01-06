@@ -84,7 +84,21 @@ public class Negozio extends Account implements IMapData {
 		return categorie;
 	}
 
-/*	public List<Pacco> getPacchi() {
+	@Override
+	public String toString() {
+		return "Negozio{" +
+				"token=" + token +
+				", categorie=" + categorie +
+				", id=" + id +
+				", denominazione='" + denominazione + '\'' +
+				", indirizzo=" + indirizzo +
+				", telefono='" + telefono + '\'' +
+				", eMail='" + eMail + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
+
+	/*	public List<Pacco> getPacchi() {
 		return pacchi;
 	}*/
 
