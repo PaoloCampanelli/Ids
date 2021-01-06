@@ -29,4 +29,12 @@ public class CategoriaMerceologica implements IMapData {
 		this.nome = rs.getString("nome");
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "CategoriaMerceologica{" +
+				"idCategoria=" + idCategoria +
+				", nome='" + nome + '\'' +
+				'}';
+	}
 }

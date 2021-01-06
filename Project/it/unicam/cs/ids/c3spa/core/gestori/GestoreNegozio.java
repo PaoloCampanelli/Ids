@@ -209,4 +209,31 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         colonna= "indirizzo.citta";
         return getByString(colonna, citta);
     }
+
+    public List<Negozio> getByCategoria(String categoria) throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        List<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM negozi \n"+
+            "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n"+
+            "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n"+
+            "WHERE ('categoriemerceologiche.nome' like '%"+categoria+"%');";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                ln.add(new Negozio().mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return ln;
+    }
 }
