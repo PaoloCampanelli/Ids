@@ -109,16 +109,4 @@ public class Negozio extends Account implements IMapData {
 	public void setIndirizzo(String aIndirizzo) {
 		throw new UnsupportedOperationException();
 	}*/
-
-	@Override
-	public String toString() {
-		return "Negozio{" +
-				"id=" + id +
-				", denominazione='" + denominazione + '\'' +
-				", indirizzo=" + indirizzo +
-				", telefono='" + telefono + '\'' +
-				", eMail='" + eMail + '\'' +
-				", password='" + password + '\'' +
-				'}';
-	}
 }
