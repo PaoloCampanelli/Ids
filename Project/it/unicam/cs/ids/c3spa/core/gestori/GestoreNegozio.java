@@ -170,4 +170,43 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         } // fine try-catch
 
     }
+
+    public List<Negozio> getByString(String colonna, String stringaDaRicercare) throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        List<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM clienti WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                ln.add(new Negozio().mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return ln;
+    }
+
+    public List<Negozio> getByEMail(String colonna, String eMail) throws SQLException {
+        colonna= "eMail";
+        return getByString(colonna, eMail);
+    }
+
+    public List<Negozio> getByDenominazione(String colonna, String denominazione) throws SQLException {
+        colonna= "denominazione";
+        return getByString(colonna, denominazione);
+    }
+
+    public List<Negozio> getByCitta(String colonna, String citta) throws SQLException {
+        colonna= "indirizzo.citta";
+        return getByString(colonna, citta);
+    }
 }
