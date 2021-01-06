@@ -180,7 +180,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM clienti WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
+            sql = "SELECT * FROM negozi WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 ln.add(new Negozio().mapData(rs));
