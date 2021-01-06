@@ -146,7 +146,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
     }
 
-    public List<Cliente> getByDenominazione(String nome) throws SQLException {
+    public List<Cliente> getByString(String colonna, String stringaDaRicercare) throws SQLException {
         Statement st;
         ResultSet rs;
         String sql;
@@ -155,7 +155,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM clienti WHERE (`denominazione` = "+nome+");";
+            sql = "SELECT * FROM clienti WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 lc.add(new Cliente().mapData(rs));
@@ -167,7 +167,11 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
         } // fine try-catch
 
         ChiudiConnessione(conn);
-
         return lc;
+    }
+
+    public List<Cliente> getByEMail(String colonna, String eMail) throws SQLException {
+        colonna= "eMail";
+        return getByString(colonna, eMail);
     }
 }
