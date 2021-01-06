@@ -83,6 +83,27 @@ public class Servizi {
                 "  PRIMARY KEY (`negozioId`, `categoriaId`),\n" +
                 "  FOREIGN KEY (negozioId) REFERENCES negozi(negozioId));");
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`pacchi` (\n" +
+                "  `paccoId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `destinatario` INT NOT NULL,\n" +
+                "  `mittente` INT NOT NULL,\n" +
+                "  `corriere` INT NOT NULL,\n" +
+                "  `dataPreparazione` DATE NOT NULL,\n" +
+                "  `dataConsegnaRichiesta` DATE NOT NULL,\n" +
+                "  PRIMARY KEY (`paccoId`));");
+
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`pacco_statipacco` (\n" +
+                "  `paccoId` INT NOT NULL,\n" +
+                "  `statoId` INT NOT NULL,\n" +
+                "  PRIMARY KEY (`paccoId`, `statoId`));");
+
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`statipacchi` (\n" +
+                "  `statoId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `stato` ENUM('preparato', 'assegnato', 'consegnato') NOT NULL,\n" +
+                "  `data` DATE NOT NULL,\n" +
+                "  PRIMARY KEY (`statoId`));");
+
+
 
 
 
