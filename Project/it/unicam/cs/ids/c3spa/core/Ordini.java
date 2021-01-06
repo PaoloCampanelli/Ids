@@ -19,8 +19,8 @@ public class Ordini {
 		int maxId = 0;
 		//ciclo per assegnare sempre un id diverso
 		for(Pacco pacco : pacchi ){
-			if(pacco.idPacco > maxId)
-				maxId = pacco.idPacco;
+			if(pacco.id > maxId)
+				maxId = pacco.id;
 		}
 		Pacco p = new Pacco().CreaPacco(maxId++,destinatario,mittente,dataConsegnaRichiesta);
 		this.pacchi.add(p);

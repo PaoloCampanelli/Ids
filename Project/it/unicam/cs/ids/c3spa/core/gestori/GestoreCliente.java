@@ -68,7 +68,6 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
             PreparedStatement st;
             ResultSet rs;
-            String sql;
             Connection conn = ApriConnessione();
             Cliente c = (Cliente) entity;
 

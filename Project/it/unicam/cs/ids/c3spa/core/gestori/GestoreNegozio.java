@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.*;;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +74,6 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
             PreparedStatement st;
             ResultSet rs;
-            String sql;
             Connection conn = ApriConnessione();
             Negozio n = (Negozio) entity;
 
@@ -124,6 +122,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                 //Elimino tutte le categorie salvate per il negozio
                 st = conn.prepareStatement("DELETE FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?");
                 st.setInt(1,n.id);
+
                 st.executeUpdate();
                 st.close();
 
@@ -133,6 +132,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     st = conn.prepareStatement("INSERT INTO progetto_ids.negozio_categoriemerceologiche (negozioId, categoriaId) VALUES (?,?)");
                     st.setInt(1,n.id);
                     st.setInt(2,c.idCategoria);
+
                     st.executeUpdate();
                     st.close();
                 }
