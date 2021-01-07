@@ -75,7 +75,7 @@ public class GestoreCategoriaMerceologica extends GestoreBase implements ICRUD {
 
                 if (c.idCategoria == 0) { // è un inserimento
                     st = conn.prepareStatement("INSERT INTO progetto_ids.categoriemerceologiche (nome) VALUES (?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
-                    st.setInt(1, c.idCategoria);
+                    st.setString(1, c.nome);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
