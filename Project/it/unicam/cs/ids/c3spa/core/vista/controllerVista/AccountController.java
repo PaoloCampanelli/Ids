@@ -25,8 +25,8 @@ public class AccountController{
         return corriere;
     }
 
-    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo/* List<CategoriaMerceologica> categoria*/) throws SQLException {
-        Negozio negozio = new Negozio(denominazione, indirizzo, telefono, email, password/*, categoria*/);
+    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo, List<CategoriaMerceologica> categoria) throws SQLException {
+        Negozio negozio = new Negozio(denominazione, indirizzo, telefono, email, password, categoria);
         new GestoreNegozio().save(negozio);
         return negozio;
     }
@@ -86,6 +86,25 @@ public class AccountController{
         }
         return false;
     }
+
+    public boolean controllaID(String tipologia, int identificativo) throws SQLException {
+        switch(tipologia){
+            case "CLIENTE":
+                List<Cliente> lc = new GestoreCliente().getAll();
+                return lc.stream().anyMatch(cliente -> cliente.id == identificativo);
+            case "CORRIERE":{
+                List<Corriere> lnc = new GestoreCorriere().getAll();
+                return lnc.stream().anyMatch(corriere -> corriere.id == identificativo);
+            }
+            case "COMMERCIANTE": {
+                List<Negozio> ln = new GestoreNegozio().getAll();
+                return ln.stream().anyMatch(negozio -> negozio.id == identificativo);
+            }
+        }
+        return false;
+    }
+
+
 
 }
 
