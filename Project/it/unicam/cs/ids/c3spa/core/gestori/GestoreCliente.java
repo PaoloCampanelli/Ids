@@ -170,13 +170,13 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
         return lc;
     }
 
-    public List<Cliente> getByEMail(String colonna, String eMail) throws SQLException {
-        colonna= "eMail";
+    public List<Cliente> getByEMail(String eMail) throws SQLException {
+        String colonna= "eMail";
         return getByString(colonna, eMail);
     }
 
-    public List<Cliente> getByDenominazione(String colonna, String denominazione) throws SQLException {
-        colonna= "denominazione";
+    public List<Cliente> getByDenominazione(String denominazione) throws SQLException {
+        String colonna= "denominazione";
         return getByString(colonna, denominazione);
     }
 }
