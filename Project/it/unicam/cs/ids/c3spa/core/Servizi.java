@@ -103,6 +103,15 @@ public class Servizi {
                 "  `data` DATE NOT NULL,\n" +
                 "  PRIMARY KEY (`statoId`));");
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`sconti` (\n" +
+                "  `scontoId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `tipo` VARCHAR(10) NOT NULL,\n" +
+                "  `dataInizio` DATE NOT NULL,\n" +
+                "  `dataFine` DATE NOT NULL,\n" +
+                "  `negozioId` INT NOT NULL,\n" +
+                "  `categoriaMerceologicaId` INT NOT NULL,\n" +
+                "  PRIMARY KEY (`scontoId`));");
+
 
 
 
