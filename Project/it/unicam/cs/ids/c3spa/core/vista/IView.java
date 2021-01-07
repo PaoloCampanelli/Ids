@@ -7,4 +7,5 @@ public interface IView {
 
     void start() throws IOException, SQLException;
 
+    void arrivederci();
 }

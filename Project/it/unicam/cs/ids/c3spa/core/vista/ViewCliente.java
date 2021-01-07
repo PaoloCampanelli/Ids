@@ -14,11 +14,7 @@ public class ViewCliente extends ConsoleView{
         System.out.println("----------------");
         System.out.println("Bentornato "+c.denominazione+"!\n");
         listaCliente();
-        String comando;
-        do {
-            System.out.print("> ");
-            comando = getBr().readLine().toUpperCase();
-        }while(!getConsoleController().executerCliente(comando, c));
+        sceltaCliente();
     }
 
     private void listaCliente() {
@@ -28,4 +24,32 @@ public class ViewCliente extends ConsoleView{
         System.out.println("3. Promozione");
         System.out.println("digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
+
+    private void sceltaCliente() throws IOException {
+        while(on()){
+            System.out.print("> ");
+            String richiesta = getBr().readLine().toUpperCase();
+            switch (richiesta) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "3": {
+
+                    break;
+                }
+                case "EXIT": {
+                    off();
+                    break;
+                }
+                default:
+                    getConsoleController().checkList(richiesta);
+            }
+        }
+        arrivederci();
+    }
+
+
 }
