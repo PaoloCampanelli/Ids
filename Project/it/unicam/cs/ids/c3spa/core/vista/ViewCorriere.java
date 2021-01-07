@@ -14,11 +14,7 @@ public class ViewCorriere extends ConsoleView {
         System.out.println("----------------");
         System.out.println("Bentornato "+corriere.denominazione+"!");
         listaCorriere();
-        String comando;
-        do {
-            System.out.print("> ");
-            comando = getBr().readLine().toUpperCase();
-        }while(!getConsoleController().executerCorriere(comando));
+        sceltaCorriere();
     }
 
     private void listaCorriere(){
@@ -26,4 +22,26 @@ public class ViewCorriere extends ConsoleView {
         System.out.println("1. VISUALIZZA ORDINI ");
         System.out.println("2. PRESA IN CARICO ");
     }
+
+
+    private void sceltaCorriere()throws IOException {
+        while (on()) {
+            System.out.print("> ");
+            String richiesta = getBr().readLine().toUpperCase();
+            switch (richiesta) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "EXIT": {
+                    off();
+                    break;
+                }
+            }
+        }
+        arrivederci();
+    }
+
 }

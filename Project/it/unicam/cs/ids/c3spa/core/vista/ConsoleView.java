@@ -156,11 +156,13 @@ public class ConsoleView implements IView{
         switch (tipologia) {
             case "CLIENTE":
                 Cliente cliente = getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, cliente.id);
+                int idC = getAccountController().prendiIDCliente(email,password);
+                redirectView(tipologia, idC);
                 break;
             case "CORRIERE":
                 Corriere corriere = getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, corriere.id);
+                int idCr = getAccountController().prendiIDCorriere(email,password);
+                redirectView(tipologia, idCr);
                 break;
             case "COMMERCIANTE":
                 List<CategoriaMerceologica> categoria = new ArrayList<>();
@@ -170,7 +172,6 @@ public class ConsoleView implements IView{
                 Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo, categoria);
                 int idN = getAccountController().prendiIDNegozio(email, password);
                 redirectView(tipologia, idN);
-
                 break;
         }
     }
