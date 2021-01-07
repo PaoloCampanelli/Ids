@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Corriere;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
@@ -196,6 +193,7 @@ public class ConsoleView implements IView{
         provincia = richiediString("Provincia");
         return getConsoleController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
+
 
     public BufferedReader getBr() { return br; }
 

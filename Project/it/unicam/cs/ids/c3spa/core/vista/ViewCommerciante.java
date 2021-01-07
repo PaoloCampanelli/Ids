@@ -1,11 +1,13 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
+import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -33,13 +35,17 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("4. RIMUOVI PROMOZIONE");
         System.out.println("5. CREA ORDINE");
         System.out.println("6. ATTIVAZIONE PUBBLICITA");
+        System.out.println("6. VISUALIZZA CATEGORIE ATTIVE");
     }
 
     private void listaCommerciante(String comando, int id) throws SQLException {
         negozio = new GestoreNegozio().getById(id);
         switch(comando){
-            case "1":{
-
+            case "6":{
+                List<CategoriaMerceologica> cm = negozio.getCategorie();
+                for(int i = 0; i < cm.size(); i++) {
+                    System.out.println(cm.get(i));
+                }
                 break;
             }
         }

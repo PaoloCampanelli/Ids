@@ -82,10 +82,10 @@ public class ConsoleController{
     }
 
     //Gestire il salvataggio(?)
-    public void aggiungiCategoria(String nome, Negozio negozi){
+    public CategoriaMerceologica aggiungiCategoria(String nome) throws SQLException {
         CategoriaMerceologica categoria = new CategoriaMerceologica(0, nome);
-        //new GestoreNegozio.save(categoria)
-
+        new GestoreNegozio().save(categoria);
+        return categoria;
     }
 
     public void rimuoviCategoria(String nome) {
