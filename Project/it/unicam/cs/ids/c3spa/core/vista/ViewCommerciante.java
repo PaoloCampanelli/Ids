@@ -2,16 +2,18 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ViewCommerciante extends ConsoleView {
 
-    public void apriVista(int id) throws IOException {
-        //Negozio negozio = new GestoreNegozio().getById(id)
+    public void apriVista(int id) throws IOException, SQLException {
+        Negozio negozio = new GestoreNegozio().getById(id);
         System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
-        System.out.println("Bentornato "+/*negozio.denominazione+*/"!");
+        System.out.println("Bentornato "+negozio.denominazione+"!");
         listaCommerciante();
         String comando;
         do {

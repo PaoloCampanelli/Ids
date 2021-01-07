@@ -3,6 +3,7 @@ package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
@@ -30,13 +31,11 @@ public class AccountController{
         return negozio;
     }
 
-    //METODO CONTROLLO CLIENTE
     public boolean controllaCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password));
     }
 
-    //METODO GETTER ID CLIENTE ATTRAVERSO EMAIL E PASSWORD
     public int prendiIDCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
@@ -58,7 +57,6 @@ public class AccountController{
         return 0;
     }
 
-    /*
     public boolean controllaCorriere(String email, String password) throws SQLException {
         List<Corriere> ln = new GestoreCorriere().getAll();
         return ln.stream().anyMatch(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password));
@@ -71,7 +69,6 @@ public class AccountController{
         }
         return 0;
     }
-     */
 
     public boolean controllaMail(String tipologia, String email) throws SQLException {
         switch(tipologia){
@@ -79,10 +76,8 @@ public class AccountController{
                 List<Cliente> lc = new GestoreCliente().getAll();
                 return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
             case "CORRIERE":{
-                /*
                 List<Corriere> lnc = new GestoreCorriere().getAll();
-                return lnc.stream().anyMatch(corriere -> corriere.eMail.equals(email))
-                 */
+                return lnc.stream().anyMatch(corriere -> corriere.eMail.equals(email));
             }
             case "COMMERCIANTE": {
                 List<Negozio> ln = new GestoreNegozio().getAll();
