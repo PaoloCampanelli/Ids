@@ -10,42 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConsoleController{
+public class ConsoleController implements IController{
 
-    public boolean executerCliente(String comando, Cliente cliente) throws SQLException {
-        if("1".equals(comando)) {
-            trovaNegozi(cliente);
-        }
-        else if("2".equals(comando)) {
-            trovaCategorie();
-        }
-        else if("3".equals(comando)) {
-            trovaPromozioni();
-        }else if("EXIT".equals(comando.toUpperCase())) {
-            System.exit(0);
-        }
-        else{
-            if(checkList(comando)) {
-                //TODO Stream dei negozi che hanno una data categoria;
-            }else
-                return false;
-        }
-        return false;
-    }
-
-
-    public boolean executerCorriere(String comando) {
-        if("VISUALIZZA ORDINI".equals(comando) || "VO".equals(comando)) {
-            //TODO
-        }
-        else if("PRESA IN CARICO".equals(comando) || "PC".equals(comando)){
-            //TODO
-        }
-        else if("EXIT".equals(comando)) {
-            System.exit(0);
-        }
-        return false;
-    }
+    private boolean isOn = true;
 
     private void trovaNegozi(Cliente cliente) throws SQLException {
         List<Negozio> lc = new GestoreNegozio().getAll();
@@ -64,7 +31,8 @@ public class ConsoleController{
         return false;
     }
 
-    private boolean checkList(String comando){
+    public boolean checkList(String comando){
+        System.out.println("In corso di implementazione...");
 	/*
 		Iterator<Categoria> iteratore = list.iterator();
 		while(iteratore.hasNext()) {
@@ -88,10 +56,13 @@ public class ConsoleController{
         return categoria;
     }
 
-    public void rimuoviCategoria(String nome) {
-        /*
-         * ln.
-         */
 
+    public void setOff(){
+        this.isOn = false;
+    }
+
+
+    public boolean isOn() {
+        return isOn;
     }
 }
