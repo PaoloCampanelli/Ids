@@ -11,6 +11,7 @@ import java.util.List;
 public class Corriere extends Account implements IMapData {
 
 	public List<Pacco> pacchiInConsegna;
+	public String denominazione;
 
 	public Corriere(int corriereId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id = corriereId;
