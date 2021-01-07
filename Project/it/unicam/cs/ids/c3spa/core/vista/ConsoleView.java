@@ -165,11 +165,7 @@ public class ConsoleView implements IView{
                 redirectView(tipologia, idCr);
                 break;
             case "COMMERCIANTE":
-                List<CategoriaMerceologica> categoria = new ArrayList<>();
-                String nomeCategoria = richiediString("Categoria");
-                CategoriaMerceologica cm = new CategoriaMerceologica(0, nomeCategoria);
-                categoria.add(cm);
-                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo, categoria);
+                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
                 int idN = getAccountController().prendiIDNegozio(email, password);
                 redirectView(tipologia, idN);
                 break;

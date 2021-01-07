@@ -25,8 +25,8 @@ public class AccountController{
         return corriere;
     }
 
-    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo, List<CategoriaMerceologica> categoria) throws SQLException {
-        Negozio negozio = new Negozio(denominazione, indirizzo, telefono, email, password, categoria);
+    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
+        Negozio negozio = new Negozio(denominazione, indirizzo, telefono, email, password);
         new GestoreNegozio().save(negozio);
         return negozio;
     }

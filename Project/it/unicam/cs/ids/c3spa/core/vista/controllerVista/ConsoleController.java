@@ -8,41 +8,45 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConsoleController implements IController{
+public class ConsoleController implements IController {
 
     private boolean isOn = true;
 
-    private void trovaNegozi(Cliente cliente) throws SQLException {
-        List<Negozio> lc = new GestoreNegozio().getAll();
-        lc.stream().filter(lista -> (lista.indirizzo.cap).equals(cliente.indirizzo.cap))
-                .map(Negozio::toString)
-                .collect(Collectors.joining("\n"));
+    //Negozio{Token=0, categorie[]...} Lista categorie vuota
+    public void trovaNegozi(Cliente cliente) throws SQLException {
+        List<Negozio> lc = new GestoreNegozio().getByIndirizzo("indirizzo.citta",cliente.indirizzo.citta);
+        Iterator<Negozio> iteraNegozi = lc.iterator();
+        while (iteraNegozi.hasNext()) {
+                Negozio negozio = iteraNegozi.next();
+                System.out.println("    > " + negozio.denominazione + " -> Categorie: ");
+                //NON STAMPA LE CATEGORIE
+                Iterator<CategoriaMerceologica> iteraCategorie = negozio.getCategorie().iterator();
+                while(iteraCategorie.hasNext()){
+                    System.out.print(iteraCategorie.next().nome);
+                }
+            }
     }
 
     private boolean trovaPromozioni() {
-        //TODO
+        System.out.println("...implementazione in corso...");
         return false;
     }
 
-    private boolean trovaCategorie() {
-        //TODO
-        return false;
-    }
-
-    public boolean checkList(String comando){
-        System.out.println("In corso di implementazione...");
-	/*
-		Iterator<Categoria> iteratore = list.iterator();
-		while(iteratore.hasNext()) {
-			Categoria elemento = iteratore.next();
-			if(comando.equals(elemento.getNome())) {
-				return true;
-			}
-	*/
-        return false;
+    //Le categorie di negozio risultano []
+    public void checkList(String categoria, Cliente cliente) throws SQLException {
+        List<Negozio> lc = new GestoreNegozio().getByIndirizzo("indirizzo.citta", cliente.indirizzo.citta);
+        CategoriaMerceologica ct = new CategoriaMerceologica(categoria);
+        Iterator<Negozio> iteraNegozi = lc.iterator();
+        while(iteraNegozi.hasNext()) {
+            Negozio negozio = iteraNegozi.next();
+            if (negozio.categorie.contains(ct)) {
+                System.out.println("    > " + negozio.denominazione);
+            }
+        }
     }
 
     public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia){
@@ -50,18 +54,20 @@ public class ConsoleController implements IController{
         return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
     }
 
-    //Gestire il salvataggio(?)
-    public String aggiungiCategoria(String nome, Negozio negozio) {
+
+    public boolean aggiungiCategoria(String nome, Negozio negozio) {
         try {
             CategoriaMerceologica c = new CategoriaMerceologica(nome);
             CategoriaMerceologica categoria = new GestoreCategoriaMerceologica().save(c);
             negozio.categorie.add(categoria);
             new GestoreNegozio().save(negozio);
-            return "Categoria aggiunta correttamente";
+            return true;
         }catch (SQLException e){
-            return ("errore: "+e.getMessage());
+            e.printStackTrace();
         }
+        return false;
     }
+
 
     public void setOff(){
         this.isOn = false;

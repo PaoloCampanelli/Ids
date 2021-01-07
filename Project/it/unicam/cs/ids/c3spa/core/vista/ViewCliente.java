@@ -13,31 +13,28 @@ public class ViewCliente extends ConsoleView{
         System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
         System.out.println("Bentornato "+c.denominazione+"!\n");
-        listaCliente();
-        sceltaCliente();
+        sceltaCliente(c);
     }
 
     private void listaCliente() {
         System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
-        System.out.println("1. Ricerca negozi");
-        System.out.println("2. Ricerca categorie presenti");
-        System.out.println("3. Promozione");
-        System.out.println("digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+        System.out.println("1. Mostra negozi");
+        System.out.println("2. Promozione");
+        System.out.println("Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
-    private void sceltaCliente() throws IOException {
+    private void sceltaCliente(Cliente c) throws IOException, SQLException {
         while(on()){
+            listaCliente();
             System.out.print("> ");
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {
                 case "1": {
+                    getConsoleController().trovaNegozi(c);
                     break;
                 }
                 case "2": {
-                    break;
-                }
-                case "3": {
-
+                    System.out.println("..implementazione in corso...");
                     break;
                 }
                 case "EXIT": {
@@ -45,7 +42,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 default:
-                    getConsoleController().checkList(richiesta);
+                    getConsoleController().checkList(richiesta, c);
             }
         }
         arrivederci();
