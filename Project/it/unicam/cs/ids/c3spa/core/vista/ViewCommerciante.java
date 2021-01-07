@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -97,7 +96,6 @@ public class ViewCommerciante extends ConsoleView {
     }
      */
 
-
     private void stampaListe(Negozio negozio){
         System.out.println("- - - - CATEGORIE - - - -");
         Iterator<CategoriaMerceologica> iterator = negozio.categorie.iterator();
@@ -121,7 +119,7 @@ public class ViewCommerciante extends ConsoleView {
         }
     }
 
-
+    //Controlli implementati in futuro
     private Date inserimentoData() throws IOException {
         System.out.println("Formato data dd/MM/yyyy");
         String giorno = richiediString("Giorno");
