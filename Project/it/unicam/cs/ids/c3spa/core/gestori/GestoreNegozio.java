@@ -218,8 +218,10 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT * FROM negozi, categoriemerceologiche" +
-                    "WHERE categoriemerceologiche.nome = " + categoria + ";");
+            st = conn.prepareStatement("SELECT * FROM negozi \n"+
+                    "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n"+
+                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n"+
+                    "WHERE ('categoriemerceologiche.nome' like '%"+categoria+"%');");
             rs = st.executeQuery(); // faccio la query su uno statement
             st.close();
         } catch (SQLException e) {
