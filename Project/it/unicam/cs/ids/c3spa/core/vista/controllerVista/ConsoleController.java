@@ -1,13 +1,12 @@
 package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +42,8 @@ public class ConsoleController implements IController {
         Iterator<Negozio> iteraNegozi = lc.iterator();
         while(iteraNegozi.hasNext()) {
             Negozio negozio = iteraNegozi.next();
-            if (negozio.categorie.contains(ct)) {
+            negozio.getCategorie();
+            if (negozio.getCategorie().contains(ct)) {
                 System.out.println("    > " + negozio.denominazione);
             }
         }
@@ -67,6 +67,12 @@ public class ConsoleController implements IController {
         }
         return false;
     }
+
+    public boolean creazionePacco(Cliente cliente, Negozio negozio, Date data) throws SQLException {
+        Pacco pacco = new Pacco(cliente, negozio, data);
+        return true;
+    }
+
 
 
     public void setOff(){

@@ -13,8 +13,7 @@ public class ViewCorriere extends ConsoleView {
         System.out.println("\n...Effettuato accesso come CORRIERE");
         System.out.println("----------------");
         System.out.println("Bentornato "+corriere.denominazione+"!");
-        listaCorriere();
-        sceltaCorriere();
+        sceltaCorriere(corriere);
     }
 
     private void listaCorriere(){
@@ -24,8 +23,9 @@ public class ViewCorriere extends ConsoleView {
     }
 
 
-    private void sceltaCorriere()throws IOException {
+    private void sceltaCorriere(Corriere corriere)throws IOException {
         while (on()) {
+            listaCorriere();
             System.out.print("> ");
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {

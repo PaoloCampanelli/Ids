@@ -23,8 +23,7 @@ public class Pacco  implements IMapData {
 	public Date dataConsegnaRichiesta;
 	public List<StatoPacco> statiPacco;
 
-	public Pacco CreaPacco(int idPacco, Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta)
-	{
+	public Pacco CreaPacco(int idPacco, Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta) {
 		Date dataAttuale = Date.from(Instant.now());
 		this.id = idPacco;
 		this.destinatario = destinatario;

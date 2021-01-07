@@ -36,10 +36,23 @@ public class AccountController{
         return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password));
     }
 
+    public boolean controllaCliente(String email) throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getAll();
+        return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
+    }
+
     public int prendiIDCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
             return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().orElse(null).id;
+        }
+        return 0;
+    }
+
+    public int prendiIDCliente(String email) throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getAll();
+        if(controllaCliente(email)){
+            return lc.stream().filter(cliente -> cliente.eMail.equals(email)).findAny().orElse(null).id;
         }
         return 0;
     }
@@ -74,7 +87,7 @@ public class AccountController{
         switch(tipologia){
             case "CLIENTE":
                 List<Cliente> lc = new GestoreCliente().getAll();
-                return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
+                return lc.stream().anyMatch(cliente -> (cliente.eMail).equals(email));
             case "CORRIERE":{
                 List<Corriere> lnc = new GestoreCorriere().getAll();
                 return lnc.stream().anyMatch(corriere -> corriere.eMail.equals(email));

@@ -110,7 +110,7 @@ public class ConsoleView implements IView{
             System.out.flush();
             answer = getBr().readLine();
         }while(answer.isEmpty() || answer.charAt(0) == ' ');
-            return answer;
+            return answer.toUpperCase();
 
     }
 
@@ -133,7 +133,7 @@ public class ConsoleView implements IView{
         do{
             System.out.print("> ");
             System.out.flush();
-            risposta = getBr().readLine();
+            risposta = getBr().readLine().toUpperCase();
             controllo = getAccountController().controllaMail(tipologia, risposta);
             if(!risposta.contains("@"))
                 System.err.println("\nEmail deve contenere @");
@@ -143,7 +143,7 @@ public class ConsoleView implements IView{
                 continue;
             }
         }while(!(risposta.contains("@")) || controllo);
-        return risposta;
+        return risposta.toUpperCase();
     }
 
     private void inserimentoDati(String tipologia) throws IOException, SQLException {

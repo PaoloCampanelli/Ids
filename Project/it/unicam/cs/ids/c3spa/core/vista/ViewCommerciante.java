@@ -2,12 +2,18 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
+import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -37,7 +43,7 @@ public class ViewCommerciante extends ConsoleView {
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {
                 case "1": {
-                    System.out.println("..implementazione in corso...");
+                    nuovoOrdine(negozio);
                     break;
                 }
                 case "2": {
@@ -100,5 +106,36 @@ public class ViewCommerciante extends ConsoleView {
         }
         System.out.println("- - - - - - - - - - - - -");
     }
+
+    private void nuovoOrdine(Negozio negozio) throws IOException, SQLException {
+        String email = richiediString("Email destinatario");
+        if (getAccountController().controllaMail("CLIENTE", email)) {
+            int id = getAccountController().prendiIDCliente(email);
+            Cliente cliente = new GestoreCliente().getById(id);
+            Date date = inserimentoData();
+            boolean controllo = getConsoleController().creazionePacco(cliente, negozio, date);
+            if(controllo)
+                System.out.println(String.format("Pacco creato! Intestato a: " + cliente.denominazione + " in data " + date, "dd/MM/yyyy"));
+            else
+                System.err.println("Pacco non creato.");
+        }
+    }
+
+
+    private Date inserimentoData() throws IOException {
+        System.out.println("Formato data dd/MM/yyyy");
+        String giorno = richiediString("Giorno");
+        String mese = richiediString("Mese");
+        String anno = richiediString("Anno");
+        String sData = giorno+"/"+mese+"/"+anno;
+        try{
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
+            return data;
+        }catch(ParseException e){
+            System.err.println("Errore! ");
+            return inserimentoData();
+        }
+    }
+
 
 }
