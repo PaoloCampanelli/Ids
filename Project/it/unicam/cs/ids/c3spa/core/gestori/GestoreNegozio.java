@@ -195,18 +195,17 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         return ln;
     }
 
-    public List<Negozio> getByEMail(String colonna, String eMail) throws SQLException {
-        colonna= "eMail";
+    public List<Negozio> getByEMail(String eMail) throws SQLException {
+        String colonna= "eMail";
         return getByString(colonna, eMail);
     }
 
-    public List<Negozio> getByDenominazione(String colonna, String denominazione) throws SQLException {
-        colonna= "denominazione";
+    public List<Negozio> getByDenominazione(String denominazione) throws SQLException {
+        String colonna= "denominazione";
         return getByString(colonna, denominazione);
     }
 
-    public List<Negozio> getByCitta(String colonna, String citta) throws SQLException {
-        colonna= "indirizzo.citta";
+    public List<Negozio> getByIndirizzo(String colonna, String citta) throws SQLException {
         return getByString(colonna, citta);
     }
 
