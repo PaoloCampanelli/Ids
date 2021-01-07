@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ConsoleView implements IView{
@@ -161,8 +163,16 @@ public class ConsoleView implements IView{
                 redirectView(tipologia, corriere.id);
                 break;
             case "COMMERCIANTE":
+                /*List<CategoriaMerceologica> categoria = new ArrayList<>();
+                String nomeCategoria = richiediString("Categoria");
+                CategoriaMerceologica cm = new CategoriaMerceologica(0, nomeCategoria);
+                categoria.add(cm);
+                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo, categoria);
+                */
                 Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                redirectView(tipologia, n.id);
+                int idN = getAccountController().prendiIDNegozio(email, password);
+                redirectView(tipologia, idN);
+
                 break;
         }
     }
@@ -193,6 +203,8 @@ public class ConsoleView implements IView{
         provincia = richiediString("Provincia");
         return getConsoleController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
+
+
 
 
     public BufferedReader getBr() { return br; }

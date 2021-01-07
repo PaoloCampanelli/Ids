@@ -25,8 +25,8 @@ public class AccountController{
         return corriere;
     }
 
-    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
-        Negozio negozio = new Negozio(ID, denominazione, indirizzo, telefono, email, password);
+    public Negozio creatoreCommerciante(String denominazione, String email, String password, String telefono, Indirizzo indirizzo/* List<CategoriaMerceologica> categoria*/) throws SQLException {
+        Negozio negozio = new Negozio(denominazione, indirizzo, telefono, email, password/*, categoria*/);
         new GestoreNegozio().save(negozio);
         return negozio;
     }
@@ -50,8 +50,8 @@ public class AccountController{
     }
 
     public int prendiIDNegozio(String email, String password) throws SQLException {
-        List<Cliente> ln = new GestoreCliente().getAll();
-        if(controllaCliente(email, password)){
+        List<Negozio> ln = new GestoreNegozio().getAll();
+        if(controllaNegozio(email, password)){
             return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().orElse(null).id;
         }
         return 0;
@@ -65,7 +65,7 @@ public class AccountController{
     public int prendiIDCorriere(String email, String password) throws SQLException {
         List<Corriere> lcr = new GestoreCorriere().getAll();
         if(controllaCorriere(email, password)){
-            return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().get().id;
+            return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().orElse(null).id;
         }
         return 0;
     }

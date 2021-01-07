@@ -11,10 +11,8 @@ import java.util.List;
 
 public class ViewCommerciante extends ConsoleView {
 
-    private Negozio negozio;
-
     public void apriVista(int id) throws IOException, SQLException {
-        negozio = new GestoreNegozio().getById(id);
+        Negozio negozio = new GestoreNegozio().getById(id);
         System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
         System.out.println("Bentornato "+negozio.denominazione+"!");
@@ -39,13 +37,9 @@ public class ViewCommerciante extends ConsoleView {
     }
 
     private void listaCommerciante(String comando, int id) throws SQLException {
-        negozio = new GestoreNegozio().getById(id);
         switch(comando){
-            case "6":{
-                List<CategoriaMerceologica> cm = negozio.getCategorie();
-                for(int i = 0; i < cm.size(); i++) {
-                    System.out.println(cm.get(i));
-                }
+            case "6": {
+
                 break;
             }
         }

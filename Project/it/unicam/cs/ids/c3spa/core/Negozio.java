@@ -13,6 +13,7 @@ import java.util.List;
 public class Negozio extends Account implements IMapData {
 	public int token;
 	public List<CategoriaMerceologica> categorie;
+	public String denominazione;
 
 	public Negozio(int negozioId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id= negozioId;
@@ -36,8 +37,8 @@ public class Negozio extends Account implements IMapData {
 		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}
 
-	public Negozio(String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password, List<CategoriaMerceologica> categorie) {
-		this.id= 0;
+	public Negozio(int negozioId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password, List<CategoriaMerceologica> categorie) {
+		this.id= negozioId;
 		this.denominazione = denominazione;
 		this.indirizzo = indirizzo;
 		this.telefono = telefono;
