@@ -9,8 +9,10 @@ import java.sql.SQLException;
 
 public class ViewCommerciante extends ConsoleView {
 
+    private Negozio negozio;
+
     public void apriVista(int id) throws IOException, SQLException {
-        Negozio negozio = new GestoreNegozio().getById(id);
+        negozio = new GestoreNegozio().getById(id);
         System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
         System.out.println("Bentornato "+negozio.denominazione+"!");
@@ -19,7 +21,7 @@ public class ViewCommerciante extends ConsoleView {
         do {
             System.out.print("> ");
             comando = getBr().readLine().toUpperCase();
-            listaCommerciante(comando);
+            listaCommerciante(comando, id);
         }while(comando.isEmpty());
     }
 
@@ -33,8 +35,8 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("6. ATTIVAZIONE PUBBLICITA");
     }
 
-    private void listaCommerciante(String comando){
-        //Negozio negozio = new GestoreNegozio().getById(id)
+    private void listaCommerciante(String comando, int id) throws SQLException {
+        negozio = new GestoreNegozio().getById(id);
         switch(comando){
             case "1":{
 

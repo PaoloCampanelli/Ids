@@ -53,6 +53,9 @@ public class ConsoleView implements IView{
                         autenticazione();
                         break;
                     }
+                case "EXIT":
+                    System.exit(0);
+                    break;
                 default:
                     System.err.println("Scelta non valida!");
                     autenticazione();

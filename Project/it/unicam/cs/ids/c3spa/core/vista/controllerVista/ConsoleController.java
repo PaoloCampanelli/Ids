@@ -21,7 +21,10 @@ public class ConsoleController{
         }
         else if("3".equals(comando)) {
             trovaPromozioni();
-        }else {
+        }else if("EXIT".equals(comando.toUpperCase())) {
+            System.exit(0);
+        }
+        else{
             if(checkList(comando)) {
                 //TODO Stream dei negozi che hanno una data categoria;
             }else
