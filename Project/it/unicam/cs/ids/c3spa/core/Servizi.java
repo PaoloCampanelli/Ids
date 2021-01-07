@@ -87,7 +87,7 @@ public class Servizi {
                 "  `paccoId` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `destinatario` INT NOT NULL,\n" +
                 "  `mittente` INT NOT NULL,\n" +
-                "  `corriere` INT NOT NULL,\n" +
+                "  `corriere` INT NULL,\n" +
                 "  `dataPreparazione` DATE NOT NULL,\n" +
                 "  `dataConsegnaRichiesta` DATE NOT NULL,\n" +
                 "  PRIMARY KEY (`paccoId`));");
@@ -111,6 +111,24 @@ public class Servizi {
                 "  `negozioId` INT NOT NULL,\n" +
                 "  `categoriaMerceologicaId` INT NOT NULL,\n" +
                 "  PRIMARY KEY (`scontoId`));");
+
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`corrieri` (\n" +
+                "  `corriereId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `denominazione` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
+                "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
+                "  `indirizzo.via` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
+                "  `telefono` VARCHAR(20) NOT NULL,\n" +
+                "  `eMail` VARCHAR(45) NOT NULL,\n" +
+                "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  PRIMARY KEY (`corriereId`));");
+
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`corriere_pacchi` (\n" +
+                "  `corriereId` INT NOT NULL,\n" +
+                "  `paccoId` INT NOT NULL,\n" +
+                "  PRIMARY KEY (`corriereId`, `paccoId`));");
 
 
 

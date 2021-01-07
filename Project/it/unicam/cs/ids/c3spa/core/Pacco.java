@@ -49,6 +49,7 @@ public class Pacco  implements IMapData {
 		this.statiPacco.add(new StatoPacco(StatoPaccoEnum.preparato, dataAttuale));
 	}
 
+
 	public Pacco(){
 		Date dataAttuale = Date.from(Instant.now());
 		this.destinatario = new Cliente();
@@ -93,7 +94,7 @@ public class Pacco  implements IMapData {
 	}
 
 	@Override
-	public String toString() {
+	public String  toString() {
 		return "Pacco{" +
 				"id=" + id +
 				", destinatario=" + destinatario +
