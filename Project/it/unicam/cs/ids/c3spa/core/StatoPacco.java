@@ -21,4 +21,13 @@ public class StatoPacco {
         this.stato = stato;
         this.dataStatoPacco = dataStatoPacco;
     }
+
+    @Override
+    public String toString() {
+        return "StatoPacco{" +
+                "id=" + id +
+                ", stato=" + stato +
+                ", dataStatoPacco=" + dataStatoPacco +
+                '}';
+    }
 }
