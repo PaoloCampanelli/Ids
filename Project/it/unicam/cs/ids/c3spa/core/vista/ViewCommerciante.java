@@ -15,7 +15,7 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("----------------");
         System.out.println("Bentornato "+negozio.denominazione+"!");
         listaCommerciante();
-        sceltaCommerciante();
+        sceltaCommerciante(negozio);
     }
 
     private void listaCommerciante() {
@@ -29,13 +29,13 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("7. VISUALIZZA CATEGORIE ATTIVE");
     }
 
-    private void sceltaCommerciante() throws SQLException, IOException {
-
+    private void sceltaCommerciante(Negozio negozio) throws SQLException, IOException {
         while(on()){
             System.out.print("> ");
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {
                 case "1": {
+                    inserisciCategoria(negozio);
                     break;
                 }
                 case "2": {
@@ -67,15 +67,12 @@ public class ViewCommerciante extends ConsoleView {
     }
 
 
-
-
-    /*Passo il negozio in input per aggiungere o rimuovere la categoria dal negozio selezionato
-     * Controllare quando sarà disponibile GestoreNegozi
-    private void aggiungiCategoria(Negozio negozio) throws IOException {
+    private void inserisciCategoria(Negozio negozio) throws IOException, SQLException {
         String nome = richiediString("Nome categoria | AGGIUNTA");
         getConsoleController().aggiungiCategoria(nome, negozio);
     }
 
+    /*
     private void rimuoviCategoria(Negozio negozio) throws IOException{
         String nome = richiediString("Nome categoria | RIMOZIONE");
         getConsoleController().rimuoviCategoria(nome, negozio);

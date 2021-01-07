@@ -14,6 +14,10 @@ public class CategoriaMerceologica implements IMapData {
 		this.nome = nome;
 	}
 
+	public CategoriaMerceologica(String nome){
+		this.nome = nome;
+	}
+
 	public CategoriaMerceologica() {
 
 	}
