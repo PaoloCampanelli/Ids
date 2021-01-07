@@ -39,6 +39,7 @@ public class ViewCommerciante extends ConsoleView {
     private void listaCommerciante(String richiesta, int id) throws SQLException {
         switch(richiesta){
             case "1": {
+                System.out.println("Inserisci il nome della categoria");
                 break;
             }
             case "2": {

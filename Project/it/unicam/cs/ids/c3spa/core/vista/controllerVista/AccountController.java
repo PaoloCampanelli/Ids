@@ -19,9 +19,9 @@ public class AccountController{
         return cliente;
     }
 
-    public Corriere creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) {
+    public Corriere creatoreCorriere(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Corriere corriere = new Corriere(ID, denominazione, indirizzo, telefono, email, password);
-        //new GestoreCorriere().save(corriere);
+        new GestoreCorriere().save(corriere);
         return corriere;
     }
 
