@@ -33,15 +33,33 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("4. RIMUOVI PROMOZIONE");
         System.out.println("5. CREA ORDINE");
         System.out.println("6. ATTIVAZIONE PUBBLICITA");
-        System.out.println("6. VISUALIZZA CATEGORIE ATTIVE");
+        System.out.println("7. VISUALIZZA CATEGORIE ATTIVE");
     }
 
-    private void listaCommerciante(String comando, int id) throws SQLException {
-        switch(comando){
-            case "6": {
-
+    private void listaCommerciante(String richiesta, int id) throws SQLException {
+        switch(richiesta){
+            case "1": {
                 break;
             }
+            case "2": {
+                break;
+            }
+            case "3": {
+                break;
+            }case "4": {
+                break;
+            }case "5": {
+                break;
+            }case "6": {
+                break;
+            }case "7": {
+                break;
+            }
+            case "EXIT": {
+                break;
+            }
+            default:
+                System.err.println("Comando non valido!");
         }
     }
 

@@ -45,8 +45,9 @@ public class ConsoleView implements IView{
                     break;
                 case "SI":
                     tipologia = tipologia();
-                    if(login(tipologia)){
-                            continue;
+                    int idUtente = login(tipologia);
+                    if(getAccountController().controllaID(tipologia, idUtente)){
+                        redirectView(tipologia, idUtente);
                     }else{
                         System.err.println("Credenziali non valide");
                         autenticazione();
@@ -62,28 +63,28 @@ public class ConsoleView implements IView{
         }while(input.isEmpty());
     }
 
-    private boolean login(String tipologia) throws IOException, SQLException {
+    private int login(String tipologia) throws IOException, SQLException {
         String email = richiediString("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
                     int idC = getAccountController().prendiIDCliente(email, password);
-                    redirectView(tipologia, idC);
+                    return idC;
                 }
                 break;
             case "CORRIERE":
                 if (getAccountController().controllaCorriere(email, password)) {
-                    int idCr = getAccountController().prendiIDCorriere(email,password);
-                    redirectView(tipologia, idCr);
+                    int idCr;
+                    return idCr = getAccountController().prendiIDCorriere(email,password);
                 }
             case "COMMERCIANTE":
                 if(getAccountController().controllaNegozio(email, password)){
                     int idN = getAccountController().prendiIDNegozio(email,password);
-                    redirectView(tipologia, idN);
+                    return idN;
                 }
         }
-        return false;
+        return 0;
     }
 
     private String tipologia() throws IOException {
@@ -163,13 +164,11 @@ public class ConsoleView implements IView{
                 redirectView(tipologia, corriere.id);
                 break;
             case "COMMERCIANTE":
-                /*List<CategoriaMerceologica> categoria = new ArrayList<>();
+                List<CategoriaMerceologica> categoria = new ArrayList<>();
                 String nomeCategoria = richiediString("Categoria");
                 CategoriaMerceologica cm = new CategoriaMerceologica(0, nomeCategoria);
                 categoria.add(cm);
                 Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo, categoria);
-                */
-                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
                 int idN = getAccountController().prendiIDNegozio(email, password);
                 redirectView(tipologia, idN);
 

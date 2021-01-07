@@ -37,8 +37,8 @@ public class Negozio extends Account implements IMapData {
 		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}
 
-	public Negozio(int negozioId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password, List<CategoriaMerceologica> categorie) {
-		this.id= negozioId;
+	public Negozio(String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password, List<CategoriaMerceologica> categorie) {
+		this.id= 0;
 		this.denominazione = denominazione;
 		this.indirizzo = indirizzo;
 		this.telefono = telefono;
