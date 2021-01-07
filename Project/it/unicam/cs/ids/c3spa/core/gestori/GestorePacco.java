@@ -157,8 +157,65 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             System.out.println("errore:" + e.getMessage());
 
         } // fine try-catch
+    }
+
+    public List<Pacco> getByDestinatario(String denominazioneCliente) throws SQLException {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql;
+        Pacco p = new Pacco();
+        List<Pacco> lp = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+
+            st = conn.prepareStatement("SELECT * FROM pacchi\n"+
+                    "INNER JOIN clienti ON pacchi.destinatario = clienti.clienteId\n"+
+                    "WHERE ('denominazione' like '%"+denominazioneCliente+"%');");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                lp.add(new Pacco().mapData(rs));
+                
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return lp;
 
     }
 
+    public List<Pacco> getByDMittente(String denominazioneNegozio) throws SQLException {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql;
+        Pacco p = new Pacco();
+        List<Pacco> lp = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+
+            st = conn.prepareStatement("SELECT * FROM pacchi\n"+
+                    "INNER JOIN negozi ON pacchi.destinatario = negozi.negozioId\n"+
+                    "WHERE ('denominazione' like '%"+denominazioneNegozio+"%');");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                lp.add(new Pacco().mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return lp;
+
+    }
 
 }
