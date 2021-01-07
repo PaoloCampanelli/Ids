@@ -1,13 +1,11 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
+
 import it.unicam.cs.ids.c3spa.core.Negozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -17,12 +15,7 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("----------------");
         System.out.println("Bentornato "+negozio.denominazione+"!");
         listaCommerciante();
-        String comando;
-        do {
-            System.out.print("> ");
-            comando = getBr().readLine().toUpperCase();
-            listaCommerciante(comando, id);
-        }while(comando.isEmpty());
+        sceltaCommerciante();
     }
 
     private void listaCommerciante() {
@@ -36,32 +29,45 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("7. VISUALIZZA CATEGORIE ATTIVE");
     }
 
-    private void listaCommerciante(String richiesta, int id) throws SQLException {
-        switch(richiesta){
-            case "1": {
-                break;
+    private void sceltaCommerciante() throws SQLException, IOException {
+
+        while(on()){
+            System.out.print("> ");
+            String richiesta = getBr().readLine().toUpperCase();
+            switch (richiesta) {
+                case "1": {
+                    break;
+                }
+                case "2": {
+                    break;
+                }
+                case "3": {
+
+                    break;
+                }
+                case "4": {
+                    break;
+                }
+                case "5": {
+                    break;
+                }
+                case "6": {
+                    break;
+                }
+                case "7": {
+                    break;
+                }
+                case "EXIT": {
+                    off();
+                    break;
+                }
             }
-            case "2": {
-                break;
-            }
-            case "3": {
-                break;
-            }case "4": {
-                break;
-            }case "5": {
-                break;
-            }case "6": {
-                break;
-            }case "7": {
-                break;
-            }
-            case "EXIT": {
-                break;
-            }
-            default:
-                System.err.println("Comando non valido!");
         }
+        arrivederci();
     }
+
+
+
 
     /*Passo il negozio in input per aggiungere o rimuovere la categoria dal negozio selezionato
      * Controllare quando sarà disponibile GestoreNegozi

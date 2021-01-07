@@ -4,7 +4,6 @@ import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
-import javax.swing.text.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -203,7 +202,19 @@ public class ConsoleView implements IView{
         return getConsoleController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
+    public void arrivederci(){
+        System.out.println(" - - - - - - - - - - - - ");
+        System.out.println("  GRAZIE PER AVER USATO C3 ");
+        System.out.println(" - - - - - - - - - - - - ");
+    }
 
+    protected boolean on(){
+        return getConsoleController().isOn();
+    }
+
+    protected void off(){
+        getConsoleController().setOff();
+    }
 
 
     public BufferedReader getBr() { return br; }

@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
+import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
 
@@ -35,6 +32,7 @@ public class Main {
         //Cliente a = new GestoreCliente().save(c);
         Cliente b = new GestoreCliente().getById(3);
         List<Cliente> lc = new GestoreCliente().getAll();
+        List<Negozio> ln = new GestoreNegozio().getByCategoria("");
 
         Negozio n = new GestoreNegozio().getById(1);
         System.out.println(n.categorie);
@@ -44,6 +42,11 @@ public class Main {
         //new GestoreNegozio().save(n);
         Pacco p =new GestorePacco().getById(1);
         System.out.println(p.toString());
+        System.out.println(ln.toString());
+
+        Corriere cc = new GestoreCorriere().getById(1);
+        System.out.println(cc.toString());
+
 
 
 
