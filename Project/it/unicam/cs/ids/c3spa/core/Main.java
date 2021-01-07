@@ -34,7 +34,7 @@ public class Main {
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getByCategoria("");
 
-        Negozio n = new GestoreNegozio().getById(1);
+        Negozio n = new GestoreNegozio().getById(2);
         System.out.println(n.categorie);
         System.out.println(c.toString());
         System.out.println(new GestoreNegozio().getById(1).toString());
@@ -46,6 +46,7 @@ public class Main {
 
         Corriere cc = new GestoreCorriere().getById(1);
         System.out.println(cc.toString());
+        System.out.println(n.toString());
 
 
 

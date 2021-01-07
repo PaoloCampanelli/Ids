@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
@@ -50,12 +51,17 @@ public class ConsoleController implements IController{
     }
 
     //Gestire il salvataggio(?)
-    public CategoriaMerceologica aggiungiCategoria(String nome) throws SQLException {
-        CategoriaMerceologica categoria = new CategoriaMerceologica(0, nome);
-        new GestoreNegozio().save(categoria);
-        return categoria;
+    public String aggiungiCategoria(String nome, Negozio negozio) {
+        try {
+            CategoriaMerceologica c = new CategoriaMerceologica(nome);
+            CategoriaMerceologica categoria = new GestoreCategoriaMerceologica().save(c);
+            negozio.categorie.add(categoria);
+            new GestoreNegozio().save(negozio);
+            return "Categoria aggiunta correttamente";
+        }catch (SQLException e){
+            return ("errore: "+e.getMessage());
+        }
     }
-
 
     public void setOff(){
         this.isOn = false;
