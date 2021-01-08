@@ -212,16 +212,21 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
     public List<Negozio> getByCategoria(String categoria) throws SQLException {
         PreparedStatement st;
         ResultSet rs;
-        String sql;
         List<Negozio> ln = new ArrayList<>();
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT * FROM negozi \n"+
-                    "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n"+
-                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n"+
-                    "WHERE ('categoriemerceologiche.nome' like '%"+categoria+"%');");
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+                    "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
+                    "                    INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
+                    "                    WHERE nome LIKE '%"+categoria+"%';");
             rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio n = new Negozio().mapData(rs);
+                n.categorie.add(new CategoriaMerceologica().mapData(rs));
+                ln.add(n);
+
+            }
             st.close();
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());

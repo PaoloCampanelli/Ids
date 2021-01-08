@@ -35,18 +35,19 @@ public class Main {
         List<Negozio> ln = new GestoreNegozio().getByCategoria("");
 
         Negozio n = new GestoreNegozio().getById(2);
-        System.out.println(n.categorie);
-        System.out.println(c.toString());
+//        System.out.println(n.categorie);
+//        System.out.println(c.toString());
         System.out.println(new GestoreNegozio().getById(1).toString());
+        System.out.println(new GestoreNegozio().getByCategoria("f"));
         //n.categorie.add(new GestoreCategoriaMerceologica().getById(2));
         //new GestoreNegozio().save(n);
         Pacco p =new GestorePacco().getById(1);
-        System.out.println(p.toString());
-        System.out.println(ln.toString());
+//        System.out.println(p.toString());
+//        System.out.println(ln.toString());
 
         Corriere cc = new GestoreCorriere().getById(1);
-        System.out.println(cc.toString());
-        System.out.println(n.toString());
+//        System.out.println(cc.toString());
+//        System.out.println(n.toString());
 
 
 

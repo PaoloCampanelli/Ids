@@ -189,7 +189,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private Indirizzo inputIndirizzo() throws IOException {
+     private Indirizzo inputIndirizzo() throws IOException {
         String via, numero, citta, cap, provincia;
         via = richiediString("Via");
         numero = richiediString("Numero");
