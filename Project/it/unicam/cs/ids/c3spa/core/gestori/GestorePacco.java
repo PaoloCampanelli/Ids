@@ -73,19 +73,23 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             Connection conn = ApriConnessione();
             Pacco p = (Pacco) entity;
 
+
             try {
 
                 if (p.id == 0) { // è un inserimento
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario.id`, `mittente.id`,`corriere.id`, data_preparazione, data_consegna_richiesta) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+
+                    java.sql.Date dataPreparazione = Servizi.dataUtilToSql(p.dataPreparazione);
+                    java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
+
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario`, `mittente`,`corriere`, dataPreparazione, dataConsegnaRichiesta) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
                     st.setInt(2, p.mittente.id);
-                    st.setInt(3, p.corriere.id);
-                    st.setDate(4, (java.sql.Date)p.dataPreparazione);
-                    st.setDate(5, (java.sql.Date)p.dataConsegnaRichiesta);
+                    st.setNull(3, Types.INTEGER);
+                    st.setDate(4, dataPreparazione);
+                    st.setDate(5, dataRichiesta);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
-                    st.close();
                     if (rs.next()) {
                         p.id = rs.getInt(1);
                     } else {
@@ -94,16 +98,19 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                     }
                 } else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.pacchi SET `destinatario.id` = ?, `mittente.id` = ?, `corriere.id` = ?, data_preparazione = ?, data_consegna_richiesta = ? WHERE paccoId = ?"); // creo sempre uno statement sulla
+                    java.sql.Date dataPreparazione = Servizi.dataUtilToSql(p.dataPreparazione);
+                    java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
+
+                    st = conn.prepareStatement("UPDATE progetto_ids.pacchi SET `destinatario` = ?, `mittente` = ?, `corriere` = ?, dataPreparazione = ?, dataConsegnaRichiesta = ? WHERE paccoId = ?"); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
                     st.setInt(2, p.mittente.id);
                     st.setInt(3, p.corriere.id);
-                    st.setDate(4, (java.sql.Date)p.dataPreparazione);
-                    st.setDate(5, (java.sql.Date)p.dataConsegnaRichiesta);
+                    st.setDate(4, dataPreparazione);
+                    st.setDate(5, dataRichiesta);
                     st.setInt(6, p.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
-                    st.close();
+
                 }
 
                 //Gestire lo stato del pacco
@@ -112,18 +119,17 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                 st.setInt(1,p.id);
 
                 st.executeUpdate();
-                st.close();
 
                 //Inserisco le categorie passate nell'oggetto
                 for (StatoPacco sp:p.statiPacco
                 ) {
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacco_statipaccoe (negozioId, categoriaId) VALUES (?,?)");
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacco_statipacco (paccoId, statoId) VALUES (?,?)");
                     st.setInt(1,p.id);
                     st.setInt(2,sp.id);
 
                     st.executeUpdate();
-                    st.close();
                 }
+                st.close();
 
                 GestoreBase.ChiudiConnessione(conn); // chiusura connessione
                 return p;
