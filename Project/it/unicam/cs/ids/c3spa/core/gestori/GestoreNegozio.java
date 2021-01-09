@@ -261,4 +261,33 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         ChiudiConnessione(conn);
         return ln;
     }
+
+    public List<Negozio> getNegoziAndCategorie() throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Negozio> n = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+                    "                    INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
+                    "                   INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId;";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio a = new Negozio();
+                a.mapData(rs);
+                n.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return n;
+    }
 }
