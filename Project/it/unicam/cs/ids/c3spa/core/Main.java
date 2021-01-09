@@ -14,40 +14,32 @@ public class Main {
         IView v = new ConsoleView();
         System.out.println(Servizi.caricamento());
 
-/*        ElencoIndirizzi ei = new ElencoIndirizzi();
-        Indirizzo i = new Indirizzo();
-
-        System.out.println(ei.elencoIndirizzi().toString());
-        System.out.println(ei.elencoIndirizzi().stream().findFirst().orElse(i).toString());
-        //System.out.println(Indirizzo.eliminaIndirizzo(Indirizzo.elencoIndirizzi().stream().findFirst().orElse(null)));
-        ei.CreaIndirizzo("der colosseo",10,"Roma","00133","RM");
-        ei.CreaIndirizzo("da qua",10,"Roma","00133","RM");
-        System.out.println(ei.elencoIndirizzi().toString());
-        System.out.println(ei.eliminaIndirizzo("der colosseo", 10,"00133"));
-        System.out.println(ei.elencoIndirizzi().toString());*/
-
         //Lettura del cliente numero 1
         Cliente c = new GestoreCliente().getById(1);
-        //String nomeCognome, Indirizzo indirizzo, String telefono, String eMail, String password
-        //Cliente a = new GestoreCliente().save(c);
-        Cliente b = new GestoreCliente().getById(3);
+        Negozio n = new GestoreNegozio().getById(1);
+        Corriere cc = new GestoreCorriere().getById(1);
+        Pacco p =new GestorePacco().getById(1);
+        
         List<Cliente> lc = new GestoreCliente().getAll();
-        List<Negozio> ln = new GestoreNegozio().getByCategoria("");
+        List<Negozio> ln = new GestoreNegozio().getAll();
+        List<Corriere> lcc = new GestoreCorriere().getAll();
+        List<Pacco> lp = new GestorePacco().getAll();
 
-        Negozio n = new GestoreNegozio().getById(2);
-//        System.out.println(n.categorie);
-//        System.out.println(c.toString());
+
         System.out.println(new GestoreNegozio().getById(1).toString());
-        System.out.println(new GestoreNegozio().getByCategoria("f"));
+        System.out.println(new GestoreNegozio().getByCategoria("frutta"));
         //n.categorie.add(new GestoreCategoriaMerceologica().getById(2));
         //new GestoreNegozio().save(n);
-        Pacco p =new GestorePacco().getById(1);
+
 //        System.out.println(p.toString());
 //        System.out.println(ln.toString());
 
-        Corriere cc = new GestoreCorriere().getById(1);
 //        System.out.println(cc.toString());
 //        System.out.println(n.toString());
+
+        System.out.println(new GestorePacco().getByMittente("Negozi"));
+        System.out.println(new GestorePacco().getByDestinatario("Paolo"));
+
 
 
 
