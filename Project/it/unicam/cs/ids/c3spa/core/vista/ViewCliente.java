@@ -20,8 +20,9 @@ public class ViewCliente extends ConsoleView{
         System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
         System.out.println("1. Mostra tutti i negozi");
         System.out.println("2. Mostra negozi vicino a me");
-        System.out.println("3. Mostra negozi e categorie nella tua citta' ");
-        System.out.println("4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+        System.out.println("3. Mostra tutti i negozi e categorie");
+        System.out.println("4. Mostra negozi e categorie nella tua citta' ");
+        System.out.println("5. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws IOException, SQLException {
@@ -40,6 +41,10 @@ public class ViewCliente extends ConsoleView{
                 }
                 case "3": {
                     getConsoleController().cercaNegozi(cliente, "3");
+                    break;
+                }
+                case "4": {
+                    getConsoleController().cercaNegozi(cliente, "4");
                     break;
                 }
                 case "EXIT": {

@@ -33,6 +33,7 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("5. RIMUOVI PROMOZIONE");
         System.out.println("6. ATTIVAZIONE PUBBLICITA");
         System.out.println("7. VISUALIZZA CATEGORIE ATTIVE");
+        System.out.println("8. VISUALIZZA TUTTI I CLIENTI");
     }
 
     private void sceltaCommerciante(Negozio negozio) throws SQLException, IOException {
@@ -69,6 +70,11 @@ public class ViewCommerciante extends ConsoleView {
                     stampaListe(negozio);
                     break;
                 }
+                case "8":{
+                    getConsoleController().visualizzaClienti();
+                    break;
+                }
+
                 case "EXIT": {
                     off();
                     break;
