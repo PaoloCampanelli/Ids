@@ -7,6 +7,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -101,7 +102,22 @@ public class ConsoleController implements IController {
         return true;
     }
 
+    public void pacchiLiberi() throws SQLException {
+        List<Pacco> lp = new GestorePacco().getAll();
+        for(Pacco pacco : lp){
+            System.out.println("     > ["+pacco.id+" Destinatario: "
+                    +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
+        }
+    }
 
+    public void ordiniCorriere(String corriere) throws SQLException{
+        List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
+        for(Pacco pacco : lp){
+            System.out.println("     > ["+pacco.id+" Destinatario: "
+                    +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+
+                    " "+pacco.destinatario.indirizzo+"]");
+        }
+    }
 
     public void setOff(){
         this.isOn = false;
