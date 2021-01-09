@@ -18,23 +18,28 @@ public class ViewCliente extends ConsoleView{
 
     private void listaCliente() {
         System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
-        System.out.println("1. Mostra negozi");
-        System.out.println("2. Promozione");
-        System.out.println("Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+        System.out.println("1. Mostra tutti i negozi");
+        System.out.println("2. Mostra negozi vicino a me");
+        System.out.println("3. Mostra negozi e categorie nella tua citta' ");
+        System.out.println("4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
-    private void sceltaCliente(Cliente c) throws IOException, SQLException {
+    private void sceltaCliente(Cliente cliente) throws IOException, SQLException {
         while(on()){
             listaCliente();
             System.out.print("> ");
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {
                 case "1": {
-                    getConsoleController().trovaNegozi(c);
+                    getConsoleController().cercaNegozi(cliente, "1");
                     break;
                 }
                 case "2": {
-                    System.out.println("..implementazione in corso...");
+                    getConsoleController().cercaNegozi(cliente, "2");
+                    break;
+                }
+                case "3": {
+                    getConsoleController().cercaNegozi(cliente, "3");
                     break;
                 }
                 case "EXIT": {
@@ -42,7 +47,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 default:
-                    getConsoleController().checkList(richiesta, c);
+                    getConsoleController().checkList(richiesta, cliente);
             }
         }
         arrivederci();

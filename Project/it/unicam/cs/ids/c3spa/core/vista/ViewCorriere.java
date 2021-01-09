@@ -18,8 +18,8 @@ public class ViewCorriere extends ConsoleView {
 
     private void listaCorriere(){
         System.out.println("Operazioni disponibili: ");
-        System.out.println("1. VISUALIZZA ORDINI ");
-        System.out.println("2. PRESA IN CARICO ");
+        System.out.println("1. VISUALIZZA ORDINI NON ASSEGNATI ");
+        System.out.println("2. VISUALIZZA I MIEI ORDINI ");
     }
 
 
@@ -30,9 +30,11 @@ public class ViewCorriere extends ConsoleView {
             String richiesta = getBr().readLine().toUpperCase();
             switch (richiesta) {
                 case "1": {
+
                     break;
                 }
                 case "2": {
+
                     break;
                 }
                 case "EXIT": {

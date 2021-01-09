@@ -15,20 +15,39 @@ public class ConsoleController implements IController {
 
     private boolean isOn = true;
 
-    //Negozio{Token=0, categorie[]...} Lista categorie vuota
-    public void trovaNegozi(Cliente cliente) throws SQLException {
-        List<Negozio> lc = new GestoreNegozio().getByIndirizzo("indirizzo.citta",cliente.indirizzo.citta);
-        Iterator<Negozio> iteraNegozi = lc.iterator();
-        while (iteraNegozi.hasNext()) {
-                Negozio negozio = iteraNegozi.next();
-                System.out.println("    > " + negozio.denominazione + " -> Categorie: ");
-                //NON STAMPA LE CATEGORIE
-                Iterator<CategoriaMerceologica> iteraCategorie = negozio.getCategorie().iterator();
-                while(iteraCategorie.hasNext()){
-                    System.out.print(iteraCategorie.next().nome);
-                }
-            }
+    public void cercaNegozi(Cliente cliente, String scelta) throws SQLException {
+        GestoreNegozio gn = new GestoreNegozio();
+        String citta = cliente.indirizzo.citta;
+        List<Negozio> lnCitta = gn.getByIndirizzo("indirizzo.citta",citta);
+        List<Negozio> ln = gn.getAll();
+        if(scelta.equals("1")){
+            trovaNegozi(ln);
+        }else if(scelta.equals("2")){
+            trovaNegozi( lnCitta);
+        }else if(scelta.equals("3")){
+            trovaCategoria(lnCitta);
+        }
     }
+
+
+    private void trovaNegozi(List<Negozio> lista) {
+        for (Negozio negozio : lista) {
+            System.out.println("    > " + negozio.denominazione);
+        }
+    }
+
+    private void trovaCategoria(List<Negozio> lista){
+        for (Negozio negozio : lista) {
+            System.out.println("    > " + negozio.denominazione);
+            if(!(negozio.categorie.isEmpty())){
+                for(CategoriaMerceologica categoria : negozio.categorie){
+                    System.out.println("    > "+ categoria.nome);
+                }
+            }else
+                System.out.println("         > Quest'attività non ha categorie inserite!");
+        }
+    }
+
 
     private boolean trovaPromozioni() {
         System.out.println("...implementazione in corso...");
@@ -37,16 +56,16 @@ public class ConsoleController implements IController {
 
     //Le categorie di negozio risultano []
     public void checkList(String categoria, Cliente cliente) throws SQLException {
-        List<Negozio> lc = new GestoreNegozio().getByIndirizzo("indirizzo.citta", cliente.indirizzo.citta);
+        List<Negozio> lc = new GestoreNegozio().getAll();
         CategoriaMerceologica ct = new CategoriaMerceologica(categoria);
-        Iterator<Negozio> iteraNegozi = lc.iterator();
-        while(iteraNegozi.hasNext()) {
-            Negozio negozio = iteraNegozi.next();
+        System.out.println("Negozio che possiedono la categoria: " + categoria);
+        for (Negozio negozio : lc) {
             negozio.getCategorie();
             if (negozio.getCategorie().contains(ct)) {
                 System.out.println("    > " + negozio.denominazione);
             }
         }
+        System.out.println("\n");
     }
 
     public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia){
