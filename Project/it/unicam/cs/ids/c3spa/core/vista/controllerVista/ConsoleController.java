@@ -2,10 +2,12 @@ package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -20,15 +22,22 @@ public class ConsoleController implements IController {
         String citta = cliente.indirizzo.citta;
         List<Negozio> lnCitta = gn.getByIndirizzo("indirizzo.citta",citta);
         List<Negozio> ln = gn.getAll();
+        List<Negozio> lnCategoria = gn.getNegoziAndCategorie();
         if(scelta.equals("1")){
             trovaNegozi(ln);
         }else if(scelta.equals("2")){
             trovaNegozi( lnCitta);
-        }else if(scelta.equals("3")){
-            trovaCategoria(lnCitta);
+        }else if(scelta.equals("3")) {
+            trovaCategoria(lnCategoria);
         }
     }
 
+    public void cercaNegoziCategoria(String categoria, String citta) throws SQLException {
+        List<Negozio> ln = new GestoreNegozio().getByCategoriaAndCitta(categoria, citta);
+        for (Negozio negozio: ln) {
+            System.out.println("         > "+negozio.denominazione);
+        }
+    }
 
     private void trovaNegozi(List<Negozio> lista) {
         for (Negozio negozio : lista) {
@@ -39,12 +48,16 @@ public class ConsoleController implements IController {
     private void trovaCategoria(List<Negozio> lista){
         for (Negozio negozio : lista) {
             System.out.println("    > " + negozio.denominazione);
-            if(!(negozio.categorie.isEmpty())){
-                for(CategoriaMerceologica categoria : negozio.categorie){
-                    System.out.println("    > "+ categoria.nome);
-                }
-            }else
-                System.out.println("         > Quest'attività non ha categorie inserite!");
+            System.out.println(negozio.categorie.size());
+            for(CategoriaMerceologica categoria : negozio.categorie)
+                System.out.println("     > "+categoria.nome);
+        }
+    }
+
+    public void visualizzaClienti() throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getAll();
+        for (Cliente cliente : lc){
+            System.out.println("    > "+cliente.denominazione+", "+ cliente.eMail+", "+ cliente.indirizzo.citta);
         }
     }
 
@@ -54,18 +67,14 @@ public class ConsoleController implements IController {
         return false;
     }
 
-    //Le categorie di negozio risultano []
+    //Puo' stampare presa una categoria i negozi della mia citta' o di tutto il sistema
     public void checkList(String categoria, Cliente cliente) throws SQLException {
-        List<Negozio> lc = new GestoreNegozio().getAll();
-        CategoriaMerceologica ct = new CategoriaMerceologica(categoria);
-        System.out.println("Negozio che possiedono la categoria: " + categoria);
+        List<Negozio> lc = new GestoreNegozio().getByCategoriaAndCitta(categoria, cliente.indirizzo.citta);
+        //List<Negozio> lc = new GestoreNegozio().getByCategoria(categoria);
+        System.out.println("Negozi che possiedono la categoria: " + categoria);
         for (Negozio negozio : lc) {
-            negozio.getCategorie();
-            if (negozio.getCategorie().contains(ct)) {
                 System.out.println("    > " + negozio.denominazione);
-            }
         }
-        System.out.println("\n");
     }
 
     public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia){
@@ -93,7 +102,22 @@ public class ConsoleController implements IController {
         return true;
     }
 
+    public void pacchiLiberi() throws SQLException {
+        List<Pacco> lp = new GestorePacco().getAll();
+        for(Pacco pacco : lp){
+            System.out.println("     > ["+pacco.id+" Destinatario: "
+                    +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
+        }
+    }
 
+    public void ordiniCorriere(String corriere) throws SQLException{
+        List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
+        for(Pacco pacco : lp){
+            System.out.println("     > ["+pacco.id+" Destinatario: "
+                    +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+
+                    " "+pacco.destinatario.indirizzo+"]");
+        }
+    }
 
     public void setOff(){
         this.isOn = false;
