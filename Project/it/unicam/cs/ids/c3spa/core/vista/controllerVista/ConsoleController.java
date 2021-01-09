@@ -88,7 +88,8 @@ public class ConsoleController implements IController {
     }
 
     public boolean creazionePacco(Cliente cliente, Negozio negozio, Date data) throws SQLException {
-        Pacco pacco = new Pacco(cliente, negozio, data);
+        Pacco pacco = new Pacco(cliente,negozio, data);
+        new GestorePacco().save(pacco);
         return true;
     }
 

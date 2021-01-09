@@ -7,39 +7,6 @@ import it.unicam.cs.ids.c3spa.core.gestori.*;
 
 public class Servizi {
 
-    //metodi Spostato in Gestore base
-/*    public static Connection ApriConnessione(){
-        Connection conn = null;
-
-        String driver = "com.mysql.jdbc.Driver";
-        String jdbcURL = "jdbc:mysql://localhost/progetto_ids?user=root&password=Bd!105788&serverTimezone=Europe/Rome" ;
-
-        System.setProperty(driver,"");
-
-
-        try{
-            conn = DriverManager.getConnection(jdbcURL);
-                if(conn != null);
-                    //System.out.println("Connessione avvenuta con successo");
-
-        }catch(SQLException ex){
-
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-
-        }
-
-        return conn;
-    }
-
-    public static void ChiudiConnessione(Connection conn) throws SQLException {
-        try {
-            conn.close();
-        }
-        catch (SQLException ex)
-        {}
-    }*/
 
     public static String caricamento() throws SQLException {
 
@@ -137,6 +104,16 @@ public class Servizi {
         stmt.close();
         conn.close();
         return "Database caricato";
+    }
+
+    public static java.sql.Date dataUtilToSql(java.util.Date data){
+
+        return new java.sql.Date(data.getTime());
+    }
+
+    public static java.util.Date dataSqlToUtil(java.sql.Date data){
+
+        return new java.util.Date(data.getTime());
     }
 
 }
