@@ -7,7 +7,6 @@ import it.unicam.cs.ids.c3spa.core.gestori.*;
 
 public class Servizi {
 
-
     public static String caricamento() throws SQLException {
 
         Connection conn = GestoreBase.ApriConnessione();
