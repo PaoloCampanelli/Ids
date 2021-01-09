@@ -18,11 +18,10 @@ public class ViewCliente extends ConsoleView{
 
     private void listaCliente() {
         System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
-        System.out.println("1. Mostra tutti i negozi");
-        System.out.println("2. Mostra negozi vicino a me");
-        System.out.println("3. Mostra tutti i negozi e categorie");
-        System.out.println("4. Mostra negozi e categorie nella tua citta' ");
-        System.out.println("5. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+        System.out.println("1. MOSTRA TUTTI I NEGOZI");
+        System.out.println("2. MOSTRA NEGOZI VICINO A ME");
+        System.out.println("3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'");
+        System.out.println("4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws IOException, SQLException {
@@ -40,11 +39,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 case "3": {
-                    getConsoleController().cercaNegozi(cliente, "3");
-                    break;
-                }
-                case "4": {
-                    getConsoleController().cercaNegozi(cliente, "4");
+                    ricercaPersonalizzata();
                     break;
                 }
                 case "EXIT": {
@@ -58,5 +53,11 @@ public class ViewCliente extends ConsoleView{
         arrivederci();
     }
 
+
+    private void ricercaPersonalizzata() throws IOException, SQLException {
+        String categoria = richiediString("     CATEGORIA");
+        String citta = richiediString("         IN QUALE CITTA'?");
+        getConsoleController().cercaNegoziCategoria(categoria, citta);
+    }
 
 }

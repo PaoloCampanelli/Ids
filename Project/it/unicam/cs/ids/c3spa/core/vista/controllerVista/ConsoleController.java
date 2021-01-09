@@ -21,15 +21,20 @@ public class ConsoleController implements IController {
         String citta = cliente.indirizzo.citta;
         List<Negozio> lnCitta = gn.getByIndirizzo("indirizzo.citta",citta);
         List<Negozio> ln = gn.getAll();
-//        List<Negozio> lnCategoria = gn.getByCategoria()
+        List<Negozio> lnCategoria = gn.getNegoziAndCategorie();
         if(scelta.equals("1")){
             trovaNegozi(ln);
         }else if(scelta.equals("2")){
             trovaNegozi( lnCitta);
-        }else if(scelta.equals("3")){
-            trovaCategoria(ln);
-        }else if(scelta.equals("4")) {
-       //     trovaCategoria();
+        }else if(scelta.equals("3")) {
+            trovaCategoria(lnCategoria);
+        }
+    }
+
+    public void cercaNegoziCategoria(String categoria, String citta) throws SQLException {
+        List<Negozio> ln = new GestoreNegozio().getByCategoriaAndCitta(categoria, citta);
+        for (Negozio negozio: ln) {
+            System.out.println("         > "+negozio.denominazione);
         }
     }
 
@@ -42,7 +47,9 @@ public class ConsoleController implements IController {
     private void trovaCategoria(List<Negozio> lista){
         for (Negozio negozio : lista) {
             System.out.println("    > " + negozio.denominazione);
-
+            System.out.println(negozio.categorie.size());
+            for(CategoriaMerceologica categoria : negozio.categorie)
+                System.out.println("     > "+categoria.nome);
         }
     }
 
