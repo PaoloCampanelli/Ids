@@ -2,8 +2,10 @@ package it.unicam.cs.ids.c3spa.core.gestori;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
+import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class GestorePacco extends GestoreBase implements ICRUD {
     public Pacco getById(int id) throws SQLException {
         PreparedStatement st;
         ResultSet rs;
-        String sql;
         Pacco p = new Pacco();
+        GestoreStatoPacco gsp = new GestoreStatoPacco();
         Connection conn = ApriConnessione();
 
         try {
@@ -23,6 +25,14 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
                 p.mapData(rs);
+            }
+
+            //Popolo le categorie collegate al negozio
+            st = conn.prepareStatement("SELECT * FROM progetto_ids.pacco_statipacco WHERE paccoId = ?"); // creo sempre uno statement sulla
+            st.setInt(1, p.id);
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                p.statiPacco.add(gsp.getById(rs.getInt(2)));
             }
             st.close();
         } catch (SQLException e) {
@@ -72,6 +82,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             ResultSet rs;
             Connection conn = ApriConnessione();
             Pacco p = (Pacco) entity;
+            StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
 
 
             try {
@@ -113,6 +124,10 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
                 }
 
+
+                new GestoreStatoPacco().save(sp);
+
+
                 //Gestire lo stato del pacco
                 //Elimino tutti gli stati salvati per il pacco
                 st = conn.prepareStatement("DELETE FROM progetto_ids.pacco_statipacco WHERE paccoId = ?");
@@ -121,7 +136,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                 st.executeUpdate();
 
                 //Inserisco le categorie passate nell'oggetto
-                for (StatoPacco sp:p.statiPacco
+                for (StatoPacco stp:p.statiPacco
                 ) {
                     st = conn.prepareStatement("INSERT INTO progetto_ids.pacco_statipacco (paccoId, statoId) VALUES (?,?)");
                     st.setInt(1,p.id);
@@ -241,5 +256,34 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
         ChiudiConnessione(conn);
         return lp;
+    }
+
+    public List<Pacco> getPacchiSenzaCorriere() throws SQLException {
+        PreparedStatement st;
+        ResultSet rs;
+        List<Pacco> lp = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.prepareStatement("SELECT * FROM progetto_ids.pacchi where corriere is null;");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                lp.add(new Pacco().mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return lp;
+
+    }
+
+    public Pacco assegnaPacco(Pacco p, Corriere c){
+        return null;
+
+
     }
 }

@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
+import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
+import it.unicam.cs.ids.c3spa.core.gestori.*;
 
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -98,12 +97,14 @@ public class ConsoleController implements IController {
 
     public boolean creazionePacco(Cliente cliente, Negozio negozio, Date data) throws SQLException {
         Pacco pacco = new Pacco(cliente,negozio, data);
+//        StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
+//        new GestoreStatoPacco().save(sp);
         new GestorePacco().save(pacco);
         return true;
     }
 
     public void pacchiLiberi() throws SQLException {
-        List<Pacco> lp = new GestorePacco().getAll();
+        List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
             System.out.println("     > ["+pacco.id+" Destinatario: "
                     +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");

@@ -94,7 +94,8 @@ public class Servizi {
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`corriere_pacchi` (\n" +
                 "  `corriereId` INT NOT NULL,\n" +
                 "  `paccoId` INT NOT NULL,\n" +
-                "  PRIMARY KEY (`corriereId`, `paccoId`));");
+                "  PRIMARY KEY (`corriereId`, `paccoId`),\n" +
+                "  FOREIGN KEY (corriereId) REFERENCES corrieri(corriereId));");
 
 
 
