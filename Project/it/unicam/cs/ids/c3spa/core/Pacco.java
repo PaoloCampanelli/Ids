@@ -88,7 +88,6 @@ public class Pacco  implements IMapData {
 		this.dataPreparazione = rs.getDate("dataPreparazione");
 		this.dataConsegnaRichiesta = rs.getDate("dataConsegnaRichiesta");
 		this.corriere = new GestoreCorriere().getById(rs.getInt("corriere"));
-		//this.statiPacco = rs.getString("indirizzo.provincia");
 		return this;
 	}
 

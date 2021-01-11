@@ -1,10 +1,14 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
 import java.util.Date;
 
-public class StatoPacco {
+public class StatoPacco implements IMapData<StatoPacco> {
     public int id;
     public StatoPaccoEnum stato;
     public Date dataStatoPacco;
@@ -22,6 +26,11 @@ public class StatoPacco {
         this.dataStatoPacco = dataStatoPacco;
     }
 
+    public StatoPacco() {
+//        this.stato = StatoPaccoEnum.preparato;
+//        this.dataStatoPacco=Date.from(Instant.now());
+    }
+
     @Override
     public String toString() {
         return "StatoPacco{" +
@@ -29,5 +38,30 @@ public class StatoPacco {
                 ", stato=" + stato +
                 ", dataStatoPacco=" + dataStatoPacco +
                 '}';
+    }
+
+    @Override
+    public StatoPacco mapData(ResultSet rs) throws SQLException {
+
+        this.id = rs.getInt("statoId");
+
+        String statoS= rs.getString("stato").toUpperCase();
+        switch (statoS) {
+            case ("PREPARATO"):
+                this.stato = StatoPaccoEnum.preparato;
+                break;
+            case ("ASSEGNATO"):
+                this.stato = StatoPaccoEnum.assegnato;
+                break;
+            case ("CONSEGNATO"):
+                this.stato = StatoPaccoEnum.consegnato;
+                break;
+            default:
+                this.stato=StatoPaccoEnum.preparato;
+        }
+
+        dataStatoPacco=rs.getDate("data");
+
+        return this;
     }
 }
