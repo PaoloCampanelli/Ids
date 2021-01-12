@@ -63,8 +63,8 @@ public class ConsoleView implements IView{
     }
 
     private int login(String tipologia) throws SQLException {
-        String email = richiediEmail("Inserisci email: ");
-        String password = richiediString("Inserisci password: ");
+        String email = richiediString("Inserisci email").toUpperCase();
+        String password = richiediString("Inserisci password");
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
@@ -103,44 +103,59 @@ public class ConsoleView implements IView{
         }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
     }
 
-    protected String richiediString(String question){
-        String answer;
+    protected String richiediString(String domanda){
+        String risposta;
+        do {
+            risposta = leggiInput(domanda);
+            return risposta;
+        }while(risposta.isEmpty() || risposta.charAt(0) == ' ');
+    }
+
+   protected String richiediBoolean(String domanda) {
+       String risposta = leggiInput(domanda);
+       if (risposta.charAt(0) == 'S') {
+           return "S";
+       } else if (risposta.charAt(0) == 'N') {
+           return "N";
+       } else {
+           System.err.println("Input non valido!");
+           return richiediBoolean(domanda);
+       }
+   }
+
+
+    private String leggiInput(String domanda){
         try {
-            do {
-                System.out.println(question);
-                System.out.print("> ");
-                System.out.flush();
-                answer = getBr().readLine();
-                return answer;
-            }while(answer.isEmpty() || answer.charAt(0) == ' ');
-        } catch (IOException e) {
-            return "Errore: "+e.getMessage();
+            System.out.println(domanda);
+            System.out.print("> ");
+            System.out.flush();
+            return getBr().readLine();
+        }catch (IOException e){
+            return e.getMessage();
         }
     }
 
-   /* protected String richiediScelta(String question){
 
+    protected int richiediInt(String domanda){
+        String intero;
+        do{
+            intero = leggiInput(domanda);
+        }while(intero.isEmpty() || intero.equals("0"));
+        int numero = Integer.parseInt(intero);
+        return numero;
     }
 
-    */
 
-    private String richiediPassword(){
-        System.out.println("Password");
+    private String richiediPassword(String domanda){
         System.out.println("PASSWORD MINIMO 6 CARATTERI!");
-        String answer;
-        try {
+        String risposta;
             do {
-                System.out.print("> ");
-                System.out.flush();
-                answer = getBr().readLine();
-            } while (answer.length() < 5);
-            return answer;
-        }catch (IOException e) {
-            return "Errore: "+e.getMessage();
-        }
+                risposta = leggiInput(domanda);
+            } while (risposta.length() < 5);
+            return risposta;
     }
 
-    private String richiediEmail(String tipologia) throws SQLException {
+    private String richiediEmail(String domanda, String tipologia) throws SQLException {
         System.out.println("Email");
         String risposta;
         boolean controllo;
@@ -167,8 +182,8 @@ public class ConsoleView implements IView{
     private void inserimentoDati(String tipologia) throws SQLException{
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
-        String email = richiediEmail(tipologia);
-        String password = richiediPassword();
+        String email = richiediEmail("Email",tipologia);
+        String password = richiediPassword("Password");
         String telefono = richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {

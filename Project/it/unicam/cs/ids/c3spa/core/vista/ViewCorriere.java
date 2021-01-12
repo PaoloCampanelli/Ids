@@ -3,7 +3,6 @@ package it.unicam.cs.ids.c3spa.core.vista;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class ViewCorriere extends ConsoleView {
@@ -13,7 +12,7 @@ public class ViewCorriere extends ConsoleView {
         System.out.println("\n...Effettuato accesso come CORRIERE");
         System.out.println("----------------");
         System.out.println("Bentornato "+corriere.denominazione+"!");
-        sceltaCorriere(corriere);
+        menuCorriere(corriere);
     }
 
     private void listaCorriere(){
@@ -24,13 +23,13 @@ public class ViewCorriere extends ConsoleView {
     }
 
 
-    private void sceltaCorriere(Corriere corriere) throws SQLException {
+    private void menuCorriere(Corriere corriere) throws SQLException {
         while (on()) {
             listaCorriere();
-            String richiesta = richiediString("Digita scelta: ");
+            String richiesta = richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
-                    selezioneOrdine();
+                    selezioneOrdine(corriere);
                     break;
                 }
                 case "2": {
@@ -58,12 +57,26 @@ public class ViewCorriere extends ConsoleView {
     }
 
 
-    private void selezioneOrdine() throws SQLException {
+    private void selezioneOrdine(Corriere corriere) throws SQLException {
         getConsoleController().pacchiLiberi();
-
+        String richiesta;
+        do {
+            richiesta = richiediBoolean("Vuoi selezionare un pacco?" +
+                    "   -> Digita: S per confermare, N per tornare indietro").toUpperCase();
+            if (richiesta.equals("S")) {
+                System.out.println("SELEZIONE ORDINE ");
+                int idPacco = richiediInt("ID PACCO: ");
+                if (getConsoleController().controllaPacco(idPacco, corriere))
+                    System.out.println("Pacco preso in carico!");
+                else
+                    System.err.println("Errore nell'assegnamento!");
+            }
+        }while(!richiesta.equals("N"));
+        menuCorriere(corriere);
     }
 
-
-
-
 }
+
+
+
+

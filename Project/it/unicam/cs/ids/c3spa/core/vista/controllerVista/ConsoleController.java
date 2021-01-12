@@ -66,13 +66,13 @@ public class ConsoleController implements IController {
         return false;
     }
 
-    //Puo' stampare presa una categoria i negozi della mia citta' o di tutto il sistema
+
     public void checkList(String categoria, Cliente cliente) throws SQLException {
-        List<Negozio> lc = new GestoreNegozio().getByCategoriaAndCitta(categoria, cliente.indirizzo.citta);
-        //List<Negozio> lc = new GestoreNegozio().getByCategoria(categoria);
+        List<Negozio> lc = new GestoreNegozio().getByCategoria(categoria);
         System.out.println("Negozi che possiedono la categoria: " + categoria);
         for (Negozio negozio : lc) {
-                System.out.println("    > " + negozio.denominazione);
+            System.out.println("    > " + negozio.denominazione);
+            System.out.println("        > "+negozio.indirizzo);
         }
     }
 
@@ -80,7 +80,6 @@ public class ConsoleController implements IController {
         Cliente cliente = new Cliente();
         return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
     }
-
 
     public boolean aggiungiCategoria(String nome, Negozio negozio) {
         try {
@@ -106,7 +105,7 @@ public class ConsoleController implements IController {
     public void pacchiLiberi() throws SQLException {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
-            System.out.println("     > ["+pacco.id+" Destinatario: "
+            System.out.println("     > ["+pacco.id+"| Destinatario: "
                     +pacco.destinatario.denominazione
                     +" "+pacco.destinatario.indirizzo+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
         }
@@ -120,6 +119,21 @@ public class ConsoleController implements IController {
                     " "+pacco.destinatario.indirizzo+"]");
         }
     }
+
+   public boolean controllaPacco(int idPacco, Corriere corriere) throws SQLException {
+        GestorePacco gp = new GestorePacco();
+        List<Pacco> lp = gp.getPacchiSenzaCorriere();
+        for(Pacco pacco : lp){
+            if(pacco.id == idPacco){
+                pacco.setCorriere(corriere);
+                gp.save(pacco);
+                return true;
+            }else
+                System.out.println("NO!");
+                return false;
+        }
+        return false;
+   }
 
     public void setOff(){
         this.isOn = false;
