@@ -7,12 +7,10 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -40,7 +38,7 @@ public class ViewCommerciante extends ConsoleView {
     private void sceltaCommerciante(Negozio negozio) throws SQLException {
         while(on()){
             listaCommerciante();
-            String richiesta = richiediString("Digita scelta: ");
+            String richiesta = richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
                     nuovoOrdine(negozio);

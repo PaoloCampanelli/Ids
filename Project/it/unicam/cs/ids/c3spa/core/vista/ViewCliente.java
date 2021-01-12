@@ -27,7 +27,7 @@ public class ViewCliente extends ConsoleView{
     private void sceltaCliente(Cliente cliente) throws SQLException {
         while(on()){
             listaCliente();
-            String richiesta = richiediString("Digita scelta: ");
+            String richiesta = richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
                     getConsoleController().cercaNegozi(cliente, "1");
