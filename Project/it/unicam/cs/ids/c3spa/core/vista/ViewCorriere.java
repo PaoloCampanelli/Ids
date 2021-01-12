@@ -35,7 +35,7 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "2": {
-                    getConsoleController().ordiniCorriere(corriere.denominazione);
+                    getConsoleController().ordiniCorriere(corriere);
                     break;
                 }
                 case "3": {

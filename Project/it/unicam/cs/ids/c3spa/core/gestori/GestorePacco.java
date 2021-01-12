@@ -240,7 +240,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
     }
 
-    public List<Pacco> getByCorriere(String corriere) throws SQLException {
+    public List<Pacco> getByCorriere(Corriere corriere) throws SQLException {
         PreparedStatement st;
         ResultSet rs;
         List<Pacco> lp = new ArrayList<>();
@@ -248,12 +248,16 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
         try {
             st = conn.prepareStatement("SELECT distinct pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono FROM pacchi \n" +
-                    "INNER JOIN corriere_pacchi ON pacchi.paccoId= corriere_pacchi.paccoId\n" +
-                    "INNER JOIN corrieri ON corriere_pacchi.corriereId = corrieri.corriereId\n" +
-                    "WHERE corrieri.denominazione LIKE '%" + corriere + "%';");
+                    "INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
+                    "WHERE corrieri.corriereId LIKE '%" + corriere.id + "%';");
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
-                lp.add(new Pacco().mapData(rs));
+                Pacco p = new Pacco();
+                p.mapData(rs);
+                p.corriere = new GestoreCorriere().getById(p.corriere.id);
+                p.mittente = new GestoreNegozio().getById(p.mittente.id);
+                p.destinatario = new GestoreCliente().getById(p.destinatario.id);
+                lp.add(p);
             }
             st.close();
         } catch (SQLException e) {
