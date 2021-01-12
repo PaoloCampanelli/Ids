@@ -64,10 +64,11 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 Pacco p = new Pacco();
+                p.mapData(rs);
                 p.corriere = new GestoreCorriere().getById(p.corriere.id);
                 p.mittente = new GestoreNegozio().getById(p.mittente.id);
                 p.destinatario = new GestoreCliente().getById(p.destinatario.id);
-                lp.add(p.mapData(rs));
+                lp.add(p);
             }
             st.close();
         } catch (SQLException e) {
@@ -274,7 +275,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             st = conn.prepareStatement("SELECT * FROM progetto_ids.pacchi where corriere is null;");
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
-                lp.add(new Pacco().mapData(rs));
+                lp.add(new GestorePacco().getById(new Pacco().mapData(rs).id));
             }
             st.close();
         } catch (SQLException e) {

@@ -1,6 +1,4 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
-
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.StatoPacco;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
