@@ -26,19 +26,22 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
             while (rs.next() == true) {
                 c.mapData(rs);
             }
-
-            //Popolo le categorie collegate al negozio
-            st = conn.prepareStatement("SELECT * FROM progetto_ids.corriere_pacchi WHERE corriereId = ?"); // creo sempre uno statement sulla
-            st.setInt(1, c.id);
-            rs = st.executeQuery(); // faccio la query su uno statement
-            while (rs.next() == true) {
-                c.pacchiInConsegna.add(gp.getById(rs.getInt(2)));
-            }
             st.close();
+
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());
             e.printStackTrace();
         } // fine try-catch
+        ChiudiConnessione(conn);
+
+        //Popolo le categorie collegate al negozio
+/*        st = conn.prepareStatement("SELECT * FROM progetto_ids.corriere_pacchi WHERE corriereId = ?"); // creo sempre uno statement sulla
+        st.setInt(1, c.id);
+        rs = st.executeQuery(); // faccio la query su uno statement
+        while (rs.next() == true) {
+            c.pacchiInConsegna.add(gp.getById(rs.getInt(2)));
+        }
+        st.close();*/
 
         ChiudiConnessione(conn);
 
@@ -107,7 +110,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                     }
                 } else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.corrieri SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.corrieri SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE corriereId = ?"); // creo sempre uno statement sulla
                     st.setString(1, c.denominazione);
                     st.setString(2, c.indirizzo.citta);
                     st.setString(3, c.indirizzo.numero);
@@ -120,25 +123,6 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                     st.setInt(10, c.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
-                    st.close();
-                }
-
-                //Gestire le categorie
-                //Elimino tutte le categorie salvate per il negozio
-                st = conn.prepareStatement("DELETE FROM progetto_ids.corriere_pacchi WHERE corriereId = ?");
-                st.setInt(1,c.id);
-
-                st.executeUpdate();
-                st.close();
-
-                //Inserisco le categorie passate nell'oggetto
-                for (Pacco p:c.pacchiInConsegna
-                ) {
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.corriere_pacchi (corriereoId, paccoId) VALUES (?,?)");
-                    st.setInt(1,c.id);
-                    st.setInt(2,p.id);
-
-                    st.executeUpdate();
                     st.close();
                 }
 

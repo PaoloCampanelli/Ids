@@ -39,7 +39,7 @@ public class Main {
 
         System.out.println(new GestorePacco().getByMittente("Negozi"));
         System.out.println(new GestorePacco().getById(5));
-        System.out.println(new GestorePacco().assegnaPacco(p,cc));
+        //System.out.println(new GestorePacco().assegnaPacco(p,cc));
 
 
 

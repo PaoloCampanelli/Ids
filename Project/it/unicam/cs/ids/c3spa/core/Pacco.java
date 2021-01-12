@@ -55,7 +55,7 @@ public class Pacco  implements IMapData {
 		this.destinatario = new Cliente();
 		this.mittente = new Negozio();
 		this.dataPreparazione = dataAttuale;
-		this.corriere = null;
+		this.corriere = new Corriere();
 		this.statiPacco = new ArrayList<StatoPacco>();
 	}
 
@@ -65,7 +65,6 @@ public class Pacco  implements IMapData {
 		if (this.statiPacco.stream().noneMatch(p -> p.stato.equals(StatoPaccoEnum.assegnato))) {
 			this.corriere = corriere;
 			this.statiPacco.add(new StatoPacco(StatoPaccoEnum.assegnato, Date.from(Instant.now())));
-			corriere.pacchiInConsegna.add(this);
 		}
 		else
 			throw new ConcurrentModificationException("Il pacco è gia stato preso in consegna");
@@ -85,11 +84,14 @@ public class Pacco  implements IMapData {
 	@Override
 	public Pacco mapData(ResultSet rs) throws SQLException {
 		this.id = rs.getInt("paccoId");
-		this.destinatario = new GestoreCliente().getById(rs.getInt("destinatario"));
-		this.mittente = new GestoreNegozio().getById(rs.getInt("mittente"));
+		this.destinatario = new Cliente();
+		this.destinatario.id = rs.getInt("destinatario");
+		this.mittente = new Negozio();
+		this.mittente.id = rs.getInt("mittente");
 		this.dataPreparazione = rs.getDate("dataPreparazione");
 		this.dataConsegnaRichiesta = rs.getDate("dataConsegnaRichiesta");
-		this.corriere = new GestoreCorriere().getById(rs.getInt("corriere"));
+		this.corriere = new Corriere();
+		this.corriere.id = rs.getInt("corriere");
 		return this;
 	}
 
