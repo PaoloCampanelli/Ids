@@ -111,19 +111,6 @@ public class ConsoleView implements IView{
         }while(risposta.isEmpty() || risposta.charAt(0) == ' ');
     }
 
-   protected String richiediBoolean(String domanda) {
-       String risposta = leggiInput(domanda);
-       if (risposta.charAt(0) == 'S') {
-           return "S";
-       } else if (risposta.charAt(0) == 'N') {
-           return "N";
-       } else {
-           System.err.println("Input non valido!");
-           return richiediBoolean(domanda);
-       }
-   }
-
-
     private String leggiInput(String domanda){
         try {
             System.out.println(domanda);

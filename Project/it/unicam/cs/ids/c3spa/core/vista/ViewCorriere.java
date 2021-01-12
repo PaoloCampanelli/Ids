@@ -58,21 +58,23 @@ public class ViewCorriere extends ConsoleView {
 
 
     private void selezioneOrdine(Corriere corriere) throws SQLException {
-        getConsoleController().pacchiLiberi();
-        String richiesta;
-        do {
-            richiesta = richiediBoolean("Vuoi selezionare un pacco?" +
-                    "   -> Digita: S per confermare, N per tornare indietro").toUpperCase();
-            if (richiesta.equals("S")) {
-                System.out.println("SELEZIONE ORDINE ");
-                int idPacco = richiediInt("ID PACCO: ");
-                if (getConsoleController().controllaPacco(idPacco, corriere))
-                    System.out.println("Pacco preso in carico!");
-                else
-                    System.err.println("Errore nell'assegnamento!");
-            }
-        }while(!richiesta.equals("N"));
-        menuCorriere(corriere);
+        if(getConsoleController().pacchiLiberi()) {
+            String richiesta;
+            do {
+                richiesta = richiediString("Vuoi selezionare un pacco?" +
+                        "\n-> Digita: SI per confermare, NO per tornare indietro");
+                if (richiesta.equals("SI")) {
+                    System.out.println("SELEZIONE ORDINE ");
+                    int idPacco = richiediInt("ID PACCO: ");
+                    if (getConsoleController().controllaPacco(idPacco, corriere))
+                        System.out.println("Pacco preso in carico!");
+                    else
+                        System.err.println("Errore nell'assegnamento!");
+                }
+            } while (!richiesta.equals("N"));
+            menuCorriere(corriere);
+        }else
+            menuCorriere(corriere);
     }
 
 }

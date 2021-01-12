@@ -51,7 +51,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 default:
-                    getConsoleController().checkList(richiesta, cliente);
+                    getConsoleController().checkList(richiesta);
             }
         }
         arrivederci();
