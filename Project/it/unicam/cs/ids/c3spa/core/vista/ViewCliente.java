@@ -17,7 +17,7 @@ public class ViewCliente extends ConsoleView{
     }
 
     private void listaCliente() {
-        System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
+        System.out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale");
         System.out.println("1. MOSTRA TUTTI I NEGOZI");
         System.out.println("2. MOSTRA NEGOZI VICINO A ME");
         System.out.println("3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'");
@@ -44,6 +44,11 @@ public class ViewCliente extends ConsoleView{
                 }
                 case "EXIT": {
                     off();
+                    break;
+                }
+                case "LOGOUT": {
+                    System.out.println("Disconnessione da " + cliente.denominazione);
+                    logout();
                     break;
                 }
                 default:

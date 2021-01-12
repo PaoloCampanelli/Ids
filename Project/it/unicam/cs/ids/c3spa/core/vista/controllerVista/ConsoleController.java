@@ -107,7 +107,8 @@ public class ConsoleController implements IController {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
             System.out.println("     > ["+pacco.id+" Destinatario: "
-                    +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
+                    +pacco.destinatario.denominazione
+                    +" "+pacco.destinatario.indirizzo+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
         }
     }
 

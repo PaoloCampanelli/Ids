@@ -17,7 +17,7 @@ public class ViewCorriere extends ConsoleView {
     }
 
     private void listaCorriere(){
-        System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
+        System.out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale");
         System.out.println("1. VISUALIZZA ORDINI NON ASSEGNATI ");
         System.out.println("2. VISUALIZZA I MIEI ORDINI ");
         System.out.println("3. CONSEGNA PACCO ");
@@ -45,6 +45,11 @@ public class ViewCorriere extends ConsoleView {
                 }
                 case "EXIT": {
                     off();
+                    break;
+                }
+                case "LOGOUT": {
+                    System.out.println("Disconnessione da "+corriere.denominazione);
+                    logout();
                     break;
                 }
                 default:
