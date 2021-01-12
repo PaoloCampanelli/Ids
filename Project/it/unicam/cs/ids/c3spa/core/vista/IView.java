@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public interface IView {
 
-    void start() throws IOException, SQLException;
+    void start() throws SQLException;
 
     void arrivederci();
 }
