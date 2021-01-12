@@ -32,13 +32,12 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    private void autenticazione() throws IOException, SQLException {
-        System.out.println("Sei già registrato? SI / NO     || EXIT -> per uscire");
+    private void autenticazione() throws SQLException {
+        String input = richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
         while(on()){
-            String input = br.readLine().toUpperCase();
             String tipologia;
-            switch (input) {
-                case "NO":
+            switch (input.toUpperCase()) {
+                case "NO" :
                     tipologia = tipologia();
                     inserimentoDati(tipologia);
                     break;
@@ -63,7 +62,7 @@ public class ConsoleView implements IView{
         arrivederci();
     }
 
-    private int login(String tipologia) throws IOException, SQLException {
+    private int login(String tipologia) throws SQLException {
         String email = richiediEmail("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
         switch (tipologia) {
@@ -87,7 +86,7 @@ public class ConsoleView implements IView{
         return 0;
     }
 
-    private String tipologia() throws IOException {
+    private String tipologia(){
         String input = richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
         do{
             switch (input) {
@@ -104,51 +103,68 @@ public class ConsoleView implements IView{
         }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
     }
 
-    protected String richiediString(String question) throws IOException {
+    protected String richiediString(String question){
         String answer;
-        do {
-            System.out.println(question);
-            System.out.print("> ");
-            System.out.flush();
-            answer = getBr().readLine();
-        }while(answer.isEmpty() || answer.charAt(0) == ' ');
-            return answer;
+        try {
+            do {
+                System.out.println(question);
+                System.out.print("> ");
+                System.out.flush();
+                answer = getBr().readLine();
+                return answer;
+            }while(answer.isEmpty() || answer.charAt(0) == ' ');
+        } catch (IOException e) {
+            return "Errore: "+e.getMessage();
+        }
+    }
+
+   /* protected String richiediScelta(String question){
 
     }
 
-    private String richiediPassword() throws IOException {
+    */
+
+    private String richiediPassword(){
         System.out.println("Password");
         System.out.println("PASSWORD MINIMO 6 CARATTERI!");
         String answer;
-        do{
-            System.out.print("> ");
-            System.out.flush();
-            answer = getBr().readLine();
-        }while(answer.length()<5);
-        return answer;
+        try {
+            do {
+                System.out.print("> ");
+                System.out.flush();
+                answer = getBr().readLine();
+            } while (answer.length() < 5);
+            return answer;
+        }catch (IOException e) {
+            return "Errore: "+e.getMessage();
+        }
     }
 
-    private String richiediEmail(String tipologia) throws IOException, SQLException {
+    private String richiediEmail(String tipologia) throws SQLException {
         System.out.println("Email");
         String risposta;
         boolean controllo;
-        do{
-            System.out.print("> ");
-            System.out.flush();
-            risposta = getBr().readLine().toUpperCase();
-            controllo = getAccountController().controllaMail(tipologia, risposta);
-            if(!risposta.contains("@"))
-                System.err.println("\nEmail deve contenere @");
-            if(controllo) {
-                System.err.println("Email gia' esistente! Inserirne un'altra");
-            }else{
-                continue;
-            }
-        }while(!(risposta.contains("@")) || controllo);
-        return risposta.toUpperCase();
+        try {
+            do {
+                System.out.print("> ");
+                System.out.flush();
+                risposta = getBr().readLine().toUpperCase();
+                controllo = getAccountController().controllaMail(tipologia, risposta);
+                if (!risposta.contains("@"))
+                    System.err.println("\nEmail deve contenere @");
+                if (controllo) {
+                    System.err.println("Email gia' esistente! Inserirne un'altra");
+                } else {
+                    continue;
+                }
+            } while (!(risposta.contains("@")) || controllo);
+            return risposta.toUpperCase();
+        }catch (IOException e) {
+            return "Errore: "+e.getMessage();
+        }
     }
 
-    private void inserimentoDati(String tipologia) throws IOException, SQLException {
+    private void inserimentoDati(String tipologia) throws SQLException{
         System.out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
         String email = richiediEmail(tipologia);
@@ -174,7 +190,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private void redirectView(String tipologia, int id) throws IOException, SQLException {
+    private void redirectView(String tipologia, int id) throws SQLException {
         switch (tipologia) {
             case "CLIENTE":
                 ViewCliente viewCliente = new ViewCliente();
@@ -191,7 +207,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private Indirizzo inputIndirizzo() throws IOException {
+    private Indirizzo inputIndirizzo(){
         String via, numero, citta, cap, provincia;
         via = richiediString("Via");
         numero = richiediString("Numero");
@@ -215,7 +231,7 @@ public class ConsoleView implements IView{
         getConsoleController().setOff();
     }
 
-    protected void logout() throws IOException, SQLException {
+    protected void logout() throws SQLException {
         System.out.println(" - - - - - - - - - - - - ");
         System.out.println("        LOGOUT IN CORSO.....");
         System.out.println(" - - - - - - - - - - - - ");

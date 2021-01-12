@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ViewCorriere extends ConsoleView {
 
-    public void apriVista(int id) throws IOException, SQLException {
+    public void apriVista(int id) throws SQLException {
         Corriere corriere = new GestoreCorriere().getById(id);
         System.out.println("\n...Effettuato accesso come CORRIERE");
         System.out.println("----------------");
@@ -24,15 +24,13 @@ public class ViewCorriere extends ConsoleView {
     }
 
 
-    private void sceltaCorriere(Corriere corriere) throws IOException, SQLException {
+    private void sceltaCorriere(Corriere corriere) throws SQLException {
         while (on()) {
             listaCorriere();
-            System.out.print("> ");
-            String richiesta = getBr().readLine().toUpperCase();
+            String richiesta = richiediString("Digita scelta: ");
             switch (richiesta) {
                 case "1": {
-                    //Funziona va sviluppato il backend
-                    getConsoleController().pacchiLiberi();
+                    selezioneOrdine();
                     break;
                 }
                 case "2": {
@@ -58,5 +56,14 @@ public class ViewCorriere extends ConsoleView {
         }
         arrivederci();
     }
+
+
+    private void selezioneOrdine() throws SQLException {
+        getConsoleController().pacchiLiberi();
+
+    }
+
+
+
 
 }
