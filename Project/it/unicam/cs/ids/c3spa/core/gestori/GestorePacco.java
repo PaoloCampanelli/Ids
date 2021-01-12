@@ -26,6 +26,10 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             while (rs.next() == true) {
                 p.mapData(rs);
             }
+            st.close();
+            p.corriere = new GestoreCorriere().getById(p.corriere.id);
+            p.mittente = new GestoreNegozio().getById(p.mittente.id);
+            p.destinatario = new GestoreCliente().getById(p.destinatario.id);
 
             //Popolo le categorie collegate al negozio
             st = conn.prepareStatement("SELECT * FROM progetto_ids.pacco_statipacco WHERE paccoId = ?"); // creo sempre uno statement sulla
@@ -51,7 +55,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Statement st;
         ResultSet rs;
         String sql;
-        ArrayList<Pacco> p = new ArrayList<>();
+        ArrayList<Pacco> lp = new ArrayList<>();
         Connection conn = ApriConnessione();
 
         try {
@@ -59,9 +63,11 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             sql = "SELECT * FROM pacchi;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                Pacco a = new Pacco();
-                a.mapData(rs);
-                p.add(a);
+                Pacco p = new Pacco();
+                p.corriere = new GestoreCorriere().getById(p.corriere.id);
+                p.mittente = new GestoreNegozio().getById(p.mittente.id);
+                p.destinatario = new GestoreCliente().getById(p.destinatario.id);
+                lp.add(p.mapData(rs));
             }
             st.close();
         } catch (SQLException e) {
@@ -71,7 +77,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
         ChiudiConnessione(conn);
 
-        return p;
+        return lp;
     }
 
     @Override
@@ -82,8 +88,6 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             ResultSet rs;
             Connection conn = ApriConnessione();
             Pacco p = (Pacco) entity;
-
-
 
             try {
 

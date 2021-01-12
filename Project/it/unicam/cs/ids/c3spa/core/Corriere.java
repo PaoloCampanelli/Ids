@@ -10,8 +10,6 @@ import java.util.List;
 
 public class Corriere extends Account implements IMapData {
 
-	public List<Pacco> pacchiInConsegna;
-
 	public Corriere(int corriereId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id = corriereId;
 		this.denominazione = denominazione;
@@ -21,25 +19,13 @@ public class Corriere extends Account implements IMapData {
 		this.password = password;
 	}
 
-	public Corriere(int corriereId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password, List<Pacco> pacchiInConsegna) {
-		this.id = corriereId;
-		this.denominazione = denominazione;
-		this.indirizzo = indirizzo;
-		this.telefono = telefono;
-		this.eMail = eMail;
-		this.password = password;
-		this.pacchiInConsegna = pacchiInConsegna;
-	}
-
 	public Corriere() {
 		this.indirizzo = new Indirizzo();
-		this.pacchiInConsegna = new ArrayList<Pacco>();
 	}
 
 	public void prendiPacco(Pacco pacco) throws SQLException {
 		try {
 			pacco.setCorriere(this);
-			this.pacchiInConsegna.add(pacco);
 		}
 		catch (Exception e)
 		{
@@ -50,7 +36,6 @@ public class Corriere extends Account implements IMapData {
 	public void consegnaPacco(Pacco pacco) {
 		try {
 			pacco.setConsegnato();
-			this.pacchiInConsegna.remove(pacco);
 		}
 		catch (Exception e)
 		{
