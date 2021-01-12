@@ -25,7 +25,8 @@ public class ViewCommerciante extends ConsoleView {
     }
 
     private void listaCommerciante() {
-        System.out.println("Operazioni disponibili:     || EXIT -> per uscire");
+        System.out.println("Operazioni disponibili:     " +
+                "|| EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale");
         System.out.println("1. CREA ORDINE");
         System.out.println("2. AGGIUNGI CATEGORIA");
         System.out.println("3. RIMUOVI CATEGORIA");
@@ -74,9 +75,13 @@ public class ViewCommerciante extends ConsoleView {
                     getConsoleController().visualizzaClienti();
                     break;
                 }
-
                 case "EXIT": {
                     off();
+                    break;
+                }
+                case "LOGOUT": {
+                    System.out.println("Disconnessione da " + negozio.denominazione);
+                    logout();
                     break;
                 }
             }

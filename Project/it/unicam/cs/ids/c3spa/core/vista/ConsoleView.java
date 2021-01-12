@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,11 +34,10 @@ public class ConsoleView implements IView{
 
     private void autenticazione() throws IOException, SQLException {
         System.out.println("Sei già registrato? SI / NO     || EXIT -> per uscire");
-        String input;
-        String tipologia;
-        do {
-            input = br.readLine().toUpperCase();
-            switch(input) {
+        while(on()){
+            String input = br.readLine().toUpperCase();
+            String tipologia;
+            switch (input) {
                 case "NO":
                     tipologia = tipologia();
                     inserimentoDati(tipologia);
@@ -45,25 +45,26 @@ public class ConsoleView implements IView{
                 case "SI":
                     tipologia = tipologia();
                     int idUtente = login(tipologia);
-                    if(getAccountController().controllaID(tipologia, idUtente)){
+                    if (getAccountController().controllaID(tipologia, idUtente)) {
                         redirectView(tipologia, idUtente);
-                    }else{
+                    } else {
                         System.err.println("Credenziali non valide");
                         autenticazione();
                         break;
                     }
                 case "EXIT":
-                    System.exit(0);
+                    off();
                     break;
                 default:
                     System.err.println("Scelta non valida!");
                     autenticazione();
             }
-        }while(input.isEmpty());
+        }
+        arrivederci();
     }
 
     private int login(String tipologia) throws IOException, SQLException {
-        String email = richiediString("Inserisci email: ");
+        String email = richiediEmail("Inserisci email: ");
         String password = richiediString("Inserisci password: ");
         switch (tipologia) {
             case "CLIENTE":
@@ -88,18 +89,19 @@ public class ConsoleView implements IView{
 
     private String tipologia() throws IOException {
         String input = richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
-        switch (input) {
-            case "1":
-                return "CLIENTE";
-            case "2":
-                return "CORRIERE";
-            case "3":
-                return "COMMERCIANTE";
-            default:
-                System.err.println("Errore nell'inserimento tipologia");
-                tipologia();
-                return "";
-        }
+        do{
+            switch (input) {
+                case "1":
+                    return "CLIENTE";
+                case "2":
+                    return "CORRIERE";
+                case "3":
+                    return "COMMERCIANTE";
+                default:
+                    System.out.println("Tipologia non valida.");
+                    return tipologia();
+            }
+        }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
     }
 
     protected String richiediString(String question) throws IOException {
@@ -110,7 +112,7 @@ public class ConsoleView implements IView{
             System.out.flush();
             answer = getBr().readLine();
         }while(answer.isEmpty() || answer.charAt(0) == ' ');
-            return answer.toUpperCase();
+            return answer;
 
     }
 
@@ -189,7 +191,7 @@ public class ConsoleView implements IView{
         }
     }
 
-     private Indirizzo inputIndirizzo() throws IOException {
+    private Indirizzo inputIndirizzo() throws IOException {
         String via, numero, citta, cap, provincia;
         via = richiediString("Via");
         numero = richiediString("Numero");
@@ -213,6 +215,13 @@ public class ConsoleView implements IView{
         getConsoleController().setOff();
     }
 
+    protected void logout() throws IOException, SQLException {
+        System.out.println(" - - - - - - - - - - - - ");
+        System.out.println("        LOGOUT IN CORSO.....");
+        System.out.println(" - - - - - - - - - - - - ");
+        System.out.println("Benvenuto!");
+        autenticazione();
+    }
 
     public BufferedReader getBr() { return br; }
 
