@@ -127,6 +127,7 @@ public class ConsoleController implements IController {
 
    public boolean controllaPacco(int idPacco, Corriere corriere) throws SQLException {
         GestorePacco gp = new GestorePacco();
+        GestoreCorriere gc = new GestoreCorriere();
         List<Pacco> lp = gp.getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
             if(pacco.id == idPacco){
@@ -134,7 +135,6 @@ public class ConsoleController implements IController {
                 gp.save(pacco);
                 return true;
             }else
-                System.out.println("NO!");
                 return false;
         }
         return false;

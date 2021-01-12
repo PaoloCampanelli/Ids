@@ -5,21 +5,23 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 
 import java.sql.SQLException;
 
+import static java.lang.System.*;
+
 public class ViewCorriere extends ConsoleView {
 
     public void apriVista(int id) throws SQLException {
         Corriere corriere = new GestoreCorriere().getById(id);
-        System.out.println("\n...Effettuato accesso come CORRIERE");
-        System.out.println("----------------");
-        System.out.println("Bentornato "+corriere.denominazione+"!");
+        out.println("\n...Effettuato accesso come CORRIERE"
+                +"----------------"
+                +"Bentornato "+corriere.denominazione+"!");
         menuCorriere(corriere);
     }
 
     private void listaCorriere(){
-        System.out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale");
-        System.out.println("1. VISUALIZZA ORDINI NON ASSEGNATI ");
-        System.out.println("2. VISUALIZZA I MIEI ORDINI ");
-        System.out.println("3. CONSEGNA PACCO ");
+        out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
+                +"1. VISUALIZZA ORDINI NON ASSEGNATI "
+                +"2. VISUALIZZA I MIEI ORDINI "
+                +"3. CONSEGNA PACCO ");
     }
 
 
@@ -37,7 +39,7 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "3": {
-                    System.out.println("..implementazione in corso...");
+                    out.println("..implementazione in corso...");
                     break;
                 }
                 case "EXIT": {
@@ -45,12 +47,12 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "LOGOUT": {
-                    System.out.println("Disconnessione da "+corriere.denominazione);
+                    out.println("Disconnessione da "+corriere.denominazione);
                     logout();
                     break;
                 }
                 default:
-                    System.err.println("Comando non esistente");
+                    out.println("Comando non esistente");
             }
         }
         arrivederci();
@@ -62,16 +64,16 @@ public class ViewCorriere extends ConsoleView {
             String richiesta;
             do {
                 richiesta = richiediString("Vuoi selezionare un pacco?" +
-                        "\n-> Digita: SI per confermare, NO per tornare indietro");
+                        "\n-> Digita: SI per confermare, NO per tornare indietro").toUpperCase();
                 if (richiesta.equals("SI")) {
-                    System.out.println("SELEZIONE ORDINE ");
+                    out.println("SELEZIONE ORDINE ");
                     int idPacco = richiediInt("ID PACCO: ");
                     if (getConsoleController().controllaPacco(idPacco, corriere))
-                        System.out.println("Pacco preso in carico!");
+                        out.println("Pacco preso in carico!");
                     else
-                        System.err.println("Errore nell'assegnamento!");
+                        out.println("Errore nell'assegnamento!");
                 }
-            } while (!richiesta.equals("N"));
+            } while(!richiesta.equals("NO"));
             menuCorriere(corriere);
         }else
             menuCorriere(corriere);
