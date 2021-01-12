@@ -44,7 +44,7 @@ public class Main {
 
 
         System.out.println(new GestorePacco().getAll());
-        System.out.println(new GestorePacco().getPacchiSenzaCorriere());
+        System.out.println(new GestorePacco().getByCorriere(cc));
 
 
 

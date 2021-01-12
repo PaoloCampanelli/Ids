@@ -116,7 +116,7 @@ public class ConsoleController implements IController {
         return true;
     }
 
-    public void ordiniCorriere(String corriere) throws SQLException{
+    public void ordiniCorriere(Corriere corriere) throws SQLException{
         List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
         for(Pacco pacco : lp){
             System.out.println("     > ["+pacco.id+" Destinatario: "
