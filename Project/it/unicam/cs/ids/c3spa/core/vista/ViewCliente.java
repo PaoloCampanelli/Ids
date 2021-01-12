@@ -3,25 +3,26 @@ package it.unicam.cs.ids.c3spa.core.vista;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 
-import java.io.IOException;
+import static java.lang.System.*;
+
 import java.sql.SQLException;
 
 public class ViewCliente extends ConsoleView{
 
     public void apriVista(int id) throws SQLException {
         Cliente c = new GestoreCliente().getById(id);
-        System.out.println("\n...Effettuato accesso come CLIENTE");
-        System.out.println("----------------");
-        System.out.println("Bentornato "+c.denominazione+"!\n");
+        out.println("\n...Effettuato accesso come CLIENTE"
+                +"\n----------------"
+                +"\nBentornato "+c.denominazione+"!\n");
         sceltaCliente(c);
     }
 
     private void listaCliente() {
-        System.out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale");
-        System.out.println("1. MOSTRA TUTTI I NEGOZI");
-        System.out.println("2. MOSTRA NEGOZI VICINO A ME");
-        System.out.println("3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'");
-        System.out.println("4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+        out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
+                +"\n1. MOSTRA TUTTI I NEGOZI"
+                +"\n2. MOSTRA NEGOZI VICINO A ME"
+                +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
+                +"\n4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
@@ -46,12 +47,12 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 case "LOGOUT": {
-                    System.out.println("Disconnessione da " + cliente.denominazione);
+                    out.println("Disconnessione da " + cliente.denominazione);
                     logout();
                     break;
                 }
                 default:
-                    getConsoleController().checkList(richiesta, cliente);
+                    getConsoleController().checkList(richiesta);
             }
         }
         arrivederci();

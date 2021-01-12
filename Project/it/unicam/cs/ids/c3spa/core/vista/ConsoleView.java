@@ -12,22 +12,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.*;
+
 
 public class ConsoleView implements IView{
 
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader br = new BufferedReader(new InputStreamReader(in));
     private final ConsoleController consoleController = new ConsoleController();
     private final AccountController accountController = new AccountController();
 
     private void hello(){
-        System.out.println(" - - - - - - - - - - - - ");
-        System.out.println("       C3 V 1.0\n     Powered by C3 SPA    ");
-        System.out.println(" - - - - - - - - - - - - ");
-        System.out.println("Benvenuto!");
+        out.println(" - - - - - - - - - - - - ");
+        out.println("       C3 V 1.0\n     Powered by C3 SPA    ");
+        out.println(" - - - - - - - - - - - - ");
+        out.println("Benvenuto!");
     }
 
     @Override
-    public void start() throws IOException, SQLException {
+    public void start() throws SQLException {
         hello();
         autenticazione();
     }
@@ -47,7 +49,7 @@ public class ConsoleView implements IView{
                     if (getAccountController().controllaID(tipologia, idUtente)) {
                         redirectView(tipologia, idUtente);
                     } else {
-                        System.err.println("Credenziali non valide");
+                        out.println("Credenziali non valide");
                         autenticazione();
                         break;
                     }
@@ -55,7 +57,7 @@ public class ConsoleView implements IView{
                     off();
                     break;
                 default:
-                    System.err.println("Scelta non valida!");
+                    out.println("Scelta non valida!");
                     autenticazione();
             }
         }
@@ -97,7 +99,7 @@ public class ConsoleView implements IView{
                 case "3":
                     return "COMMERCIANTE";
                 default:
-                    System.out.println("Tipologia non valida.");
+                    out.println("Tipologia non valida.");
                     return tipologia();
             }
         }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
@@ -111,24 +113,11 @@ public class ConsoleView implements IView{
         }while(risposta.isEmpty() || risposta.charAt(0) == ' ');
     }
 
-   protected String richiediBoolean(String domanda) {
-       String risposta = leggiInput(domanda);
-       if (risposta.charAt(0) == 'S') {
-           return "S";
-       } else if (risposta.charAt(0) == 'N') {
-           return "N";
-       } else {
-           System.err.println("Input non valido!");
-           return richiediBoolean(domanda);
-       }
-   }
-
-
     private String leggiInput(String domanda){
         try {
-            System.out.println(domanda);
-            System.out.print("> ");
-            System.out.flush();
+            out.println(domanda);
+            out.print("> ");
+            out.flush();
             return getBr().readLine();
         }catch (IOException e){
             return e.getMessage();
@@ -147,7 +136,7 @@ public class ConsoleView implements IView{
 
 
     private String richiediPassword(String domanda){
-        System.out.println("PASSWORD MINIMO 6 CARATTERI!");
+        out.println("PASSWORD MINIMO 6 CARATTERI!");
         String risposta;
             do {
                 risposta = leggiInput(domanda);
@@ -156,19 +145,19 @@ public class ConsoleView implements IView{
     }
 
     private String richiediEmail(String domanda, String tipologia) throws SQLException {
-        System.out.println("Email");
+        out.println("Email");
         String risposta;
         boolean controllo;
         try {
             do {
-                System.out.print("> ");
-                System.out.flush();
+                out.print("> ");
+                out.flush();
                 risposta = getBr().readLine().toUpperCase();
                 controllo = getAccountController().controllaMail(tipologia, risposta);
                 if (!risposta.contains("@"))
-                    System.err.println("\nEmail deve contenere @");
+                    out.println("\nEmail deve contenere @");
                 if (controllo) {
-                    System.err.println("Email gia' esistente! Inserirne un'altra");
+                    out.println("Email gia' esistente! Inserirne un'altra");
                 } else {
                     continue;
                 }
@@ -180,7 +169,7 @@ public class ConsoleView implements IView{
     }
 
     private void inserimentoDati(String tipologia) throws SQLException{
-        System.out.println("Inserisci dati:");
+        out.println("Inserisci dati:");
         String denominazione=richiediString("Denominazione");
         String email = richiediEmail("Email",tipologia);
         String password = richiediPassword("Password");
@@ -233,9 +222,9 @@ public class ConsoleView implements IView{
     }
 
     public void arrivederci(){
-        System.out.println(" - - - - - - - - - - - - ");
-        System.out.println("  GRAZIE PER AVER USATO C3 ");
-        System.out.println(" - - - - - - - - - - - - ");
+        out.println(" - - - - - - - - - - - - ");
+        out.println("  GRAZIE PER AVER USATO C3 ");
+        out.println(" - - - - - - - - - - - - ");
     }
 
     protected boolean on(){
@@ -247,10 +236,10 @@ public class ConsoleView implements IView{
     }
 
     protected void logout() throws SQLException {
-        System.out.println(" - - - - - - - - - - - - ");
-        System.out.println("        LOGOUT IN CORSO.....");
-        System.out.println(" - - - - - - - - - - - - ");
-        System.out.println("Benvenuto!");
+        out.println(" - - - - - - - - - - - - ");
+        out.println("        LOGOUT IN CORSO.....");
+        out.println(" - - - - - - - - - - - - ");
+        out.println("Benvenuto!");
         autenticazione();
     }
 

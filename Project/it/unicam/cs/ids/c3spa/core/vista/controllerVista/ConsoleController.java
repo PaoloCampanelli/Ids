@@ -67,7 +67,7 @@ public class ConsoleController implements IController {
     }
 
 
-    public void checkList(String categoria, Cliente cliente) throws SQLException {
+    public void checkList(String categoria) throws SQLException {
         List<Negozio> lc = new GestoreNegozio().getByCategoria(categoria);
         System.out.println("Negozi che possiedono la categoria: " + categoria);
         for (Negozio negozio : lc) {
@@ -102,13 +102,18 @@ public class ConsoleController implements IController {
         return true;
     }
 
-    public void pacchiLiberi() throws SQLException {
+    public boolean pacchiLiberi() throws SQLException {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
+        if(lp.isEmpty()) {
+            System.err.println("Nessun pacco disponibile al momento!");
+            return false;
+            }
         for(Pacco pacco : lp){
-            System.out.println("     > ["+pacco.id+"| Destinatario: "
-                    +pacco.destinatario.denominazione
-                    +" "+pacco.destinatario.indirizzo+" Data consegna: "+pacco.dataConsegnaRichiesta+"]");
+            System.out.println("     > ["+pacco.id+"| Data consegna: "+pacco.dataConsegnaRichiesta
+                    +"\n           INFORMAZIONI DESTINATARIO: "+pacco.destinatario.denominazione+" "+pacco.destinatario.indirizzo
+                    +"\n           INFORMAZIONI MITTENTE: "+pacco.mittente.denominazione+" "+pacco.mittente.indirizzo+"]");
         }
+        return true;
     }
 
     public void ordiniCorriere(String corriere) throws SQLException{
@@ -122,6 +127,7 @@ public class ConsoleController implements IController {
 
    public boolean controllaPacco(int idPacco, Corriere corriere) throws SQLException {
         GestorePacco gp = new GestorePacco();
+        GestoreCorriere gc = new GestoreCorriere();
         List<Pacco> lp = gp.getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
             if(pacco.id == idPacco){
@@ -129,7 +135,6 @@ public class ConsoleController implements IController {
                 gp.save(pacco);
                 return true;
             }else
-                System.out.println("NO!");
                 return false;
         }
         return false;
