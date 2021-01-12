@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreStatoPacco;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,14 +57,15 @@ public class Pacco  implements IMapData {
 		this.dataPreparazione = dataAttuale;
 		this.corriere = null;
 		this.statiPacco = new ArrayList<StatoPacco>();
-		this.statiPacco.add(new StatoPacco(StatoPaccoEnum.preparato, dataAttuale));
 	}
 
-	public void setCorriere(Corriere corriere) {
+	public void  setCorriere(Corriere corriere) throws SQLException {
 		//Verifichiamo che il pacco non sia già assegnato ad un corriere
-		if (this.statiPacco.stream().noneMatch(p->p.stato.equals(StatoPaccoEnum.assegnato))) {
+		//b->b.stato.equals(StatoPaccoEnum.assegnato
+		if (this.statiPacco.stream().noneMatch(p -> p.stato.equals(StatoPaccoEnum.assegnato))) {
 			this.corriere = corriere;
 			this.statiPacco.add(new StatoPacco(StatoPaccoEnum.assegnato, Date.from(Instant.now())));
+			corriere.pacchiInConsegna.add(this);
 		}
 		else
 			throw new ConcurrentModificationException("Il pacco è gia stato preso in consegna");
