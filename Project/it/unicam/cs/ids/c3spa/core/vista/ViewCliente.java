@@ -13,16 +13,16 @@ public class ViewCliente extends ConsoleView{
         Cliente c = new GestoreCliente().getById(id);
         out.println("\n...Effettuato accesso come CLIENTE"
                 +"\n----------------"
-                +"Bentornato "+c.denominazione+"!\n");
+                +"\nBentornato "+c.denominazione+"!\n");
         sceltaCliente(c);
     }
 
     private void listaCliente() {
         out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
-                +"1. MOSTRA TUTTI I NEGOZI"
-                +"2. MOSTRA NEGOZI VICINO A ME"
-                +"3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
-                +"4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+                +"\n1. MOSTRA TUTTI I NEGOZI"
+                +"\n2. MOSTRA NEGOZI VICINO A ME"
+                +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
+                +"\n4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
