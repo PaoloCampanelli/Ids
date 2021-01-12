@@ -12,16 +12,16 @@ public class ViewCorriere extends ConsoleView {
     public void apriVista(int id) throws SQLException {
         Corriere corriere = new GestoreCorriere().getById(id);
         out.println("\n...Effettuato accesso come CORRIERE"
-                +"----------------"
-                +"Bentornato "+corriere.denominazione+"!");
+                +"\n----------------"
+                +"\nBentornato "+corriere.denominazione+"!");
         menuCorriere(corriere);
     }
 
     private void listaCorriere(){
         out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
-                +"1. VISUALIZZA ORDINI NON ASSEGNATI "
-                +"2. VISUALIZZA I MIEI ORDINI "
-                +"3. CONSEGNA PACCO ");
+                +"\n1. VISUALIZZA ORDINI NON ASSEGNATI "
+                +"\n2. VISUALIZZA I MIEI ORDINI "
+                +"\n3. CONSEGNA PACCO ");
     }
 
 

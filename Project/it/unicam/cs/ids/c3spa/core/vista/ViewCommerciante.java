@@ -19,22 +19,22 @@ public class ViewCommerciante extends ConsoleView {
     public void apriVista(int id) throws SQLException {
         Negozio negozio = new GestoreNegozio().getById(id);
         out.println("\n...Effettuato accesso come COMMERCIANTE"
-                +"----------------"
-                +"Bentornato "+negozio.denominazione+"!");
+                +"\n----------------"
+                +"\nBentornato "+negozio.denominazione+"!");
         menuCommerciante(negozio);
     }
 
     private void listaCommerciante() {
         out.println("Operazioni disponibili:     " +
                 "|| EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
-                +"1. CREA ORDINE"
-                +"2. AGGIUNGI CATEGORIA"
-                +"3. RIMUOVI CATEGORIA"
-                +"4. AGGIUNGI PROMOZIONE"
-                +"5. RIMUOVI PROMOZIONE"
-                +"6. ATTIVAZIONE PUBBLICITA"
-                +"7. VISUALIZZA CATEGORIE ATTIVE"
-                +"8. VISUALIZZA TUTTI I CLIENTI");
+                +"\n1. CREA ORDINE"
+                +"\n2. AGGIUNGI CATEGORIA"
+                +"\n3. RIMUOVI CATEGORIA"
+                +"\n4. AGGIUNGI PROMOZIONE"
+                +"\n5. RIMUOVI PROMOZIONE"
+                +"\n6. ATTIVAZIONE PUBBLICITA"
+                +"\n7. VISUALIZZA CATEGORIE ATTIVE"
+                +"\n8. VISUALIZZA TUTTI I CLIENTI");
     }
 
     private void menuCommerciante(Negozio negozio) throws SQLException {
