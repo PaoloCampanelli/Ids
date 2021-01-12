@@ -11,7 +11,6 @@ import java.util.List;
 public class Corriere extends Account implements IMapData {
 
 	public List<Pacco> pacchiInConsegna;
-	public String denominazione;
 
 	public Corriere(int corriereId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id = corriereId;
@@ -37,7 +36,7 @@ public class Corriere extends Account implements IMapData {
 		this.pacchiInConsegna = new ArrayList<Pacco>();
 	}
 
-	public void prendiPacco(Pacco pacco) {
+	public void prendiPacco(Pacco pacco) throws SQLException {
 		try {
 			pacco.setCorriere(this);
 			this.pacchiInConsegna.add(pacco);
@@ -74,16 +73,16 @@ public class Corriere extends Account implements IMapData {
 		return this;
 	}
 
-	@Override
-	public String toString() {
-		return "Corriere{" +
-				"pacchiInConsegna=" + pacchiInConsegna +
-				", id=" + id +
-				", denominazione='" + denominazione + '\'' +
-				", indirizzo=" + indirizzo +
-				", telefono='" + telefono + '\'' +
-				", eMail='" + eMail + '\'' +
-				", password='" + password + '\'' +
-				'}';
-	}
+//	@Override
+//	public String toString() {
+//		return "Corriere{" +
+//				"pacchiInConsegna=" + pacchiInConsegna +
+//				", id=" + id +
+//				", denominazione='" + denominazione + '\'' +
+//				", indirizzo=" + indirizzo +
+//				", telefono='" + telefono + '\'' +
+//				", eMail='" + eMail + '\'' +
+//				", password='" + password + '\'' +
+//				'}';
+//	}
 }

@@ -82,7 +82,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
             ResultSet rs;
             Connection conn = ApriConnessione();
             Pacco p = (Pacco) entity;
-            StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
+
 
 
             try {
@@ -91,6 +91,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
                     java.sql.Date dataPreparazione = Servizi.dataUtilToSql(p.dataPreparazione);
                     java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
+                    StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
 
                     st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario`, `mittente`,`corriere`, dataPreparazione, dataConsegnaRichiesta) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
@@ -101,6 +102,8 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
+                    new GestoreStatoPacco().save(sp);
+
                     if (rs.next()) {
                         p.id = rs.getInt(1);
                     } else {
@@ -125,9 +128,6 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                 }
 
 
-                new GestoreStatoPacco().save(sp);
-
-
                 //Gestire lo stato del pacco
                 //Elimino tutti gli stati salvati per il pacco
                 st = conn.prepareStatement("DELETE FROM progetto_ids.pacco_statipacco WHERE paccoId = ?");
@@ -138,9 +138,11 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                 //Inserisco le categorie passate nell'oggetto
                 for (StatoPacco stp:p.statiPacco
                 ) {
+                    new GestoreStatoPacco().save(stp);
                     st = conn.prepareStatement("INSERT INTO progetto_ids.pacco_statipacco (paccoId, statoId) VALUES (?,?)");
                     st.setInt(1,p.id);
-                    st.setInt(2,sp.id);
+                    st.setInt(2,stp.id);
+
 
                     st.executeUpdate();
                 }
@@ -281,9 +283,18 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
     }
 
-    public Pacco assegnaPacco(Pacco p, Corriere c){
-        return null;
+    public Boolean assegnaPacco(Pacco p, Corriere c) throws SQLException {
 
+        try {
+            p.setCorriere(c);
+            new GestorePacco().save(p);
+            new GestoreCorriere().save(c);
+            return true;
+            }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
 
+        return false;
     }
 }
