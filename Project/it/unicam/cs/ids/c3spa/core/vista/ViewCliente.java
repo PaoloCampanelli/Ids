@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ViewCliente extends ConsoleView{
 
-    public void apriVista(int id) throws IOException, SQLException {
+    public void apriVista(int id) throws SQLException {
         Cliente c = new GestoreCliente().getById(id);
         System.out.println("\n...Effettuato accesso come CLIENTE");
         System.out.println("----------------");
@@ -24,11 +24,10 @@ public class ViewCliente extends ConsoleView{
         System.out.println("4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
-    private void sceltaCliente(Cliente cliente) throws IOException, SQLException {
+    private void sceltaCliente(Cliente cliente) throws SQLException {
         while(on()){
             listaCliente();
-            System.out.print("> ");
-            String richiesta = getBr().readLine().toUpperCase();
+            String richiesta = richiediString("Digita scelta: ");
             switch (richiesta) {
                 case "1": {
                     getConsoleController().cercaNegozi(cliente, "1");
@@ -59,7 +58,7 @@ public class ViewCliente extends ConsoleView{
     }
 
 
-    private void ricercaPersonalizzata() throws IOException, SQLException {
+    private void ricercaPersonalizzata() throws SQLException {
         String categoria = richiediString("     CATEGORIA");
         String citta = richiediString("         IN QUALE CITTA'?");
         getConsoleController().cercaNegoziCategoria(categoria, citta);

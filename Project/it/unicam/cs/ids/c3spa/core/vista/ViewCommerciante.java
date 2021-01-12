@@ -16,7 +16,7 @@ import java.util.Iterator;
 
 public class ViewCommerciante extends ConsoleView {
 
-    public void apriVista(int id) throws IOException, SQLException {
+    public void apriVista(int id) throws SQLException {
         Negozio negozio = new GestoreNegozio().getById(id);
         System.out.println("\n...Effettuato accesso come COMMERCIANTE");
         System.out.println("----------------");
@@ -37,11 +37,10 @@ public class ViewCommerciante extends ConsoleView {
         System.out.println("8. VISUALIZZA TUTTI I CLIENTI");
     }
 
-    private void sceltaCommerciante(Negozio negozio) throws SQLException, IOException {
+    private void sceltaCommerciante(Negozio negozio) throws SQLException {
         while(on()){
             listaCommerciante();
-            System.out.print("> ");
-            String richiesta = getBr().readLine().toUpperCase();
+            String richiesta = richiediString("Digita scelta: ");
             switch (richiesta) {
                 case "1": {
                     nuovoOrdine(negozio);
@@ -90,7 +89,7 @@ public class ViewCommerciante extends ConsoleView {
     }
 
 
-    private void inserisciCategoria(Negozio negozio) throws IOException, SQLException {
+    private void inserisciCategoria(Negozio negozio){
         System.out.println("- - - - AGGIUNTA CATEGORIA - - - -");
         String nome = richiediString("Nome categoria");
         boolean controllo = getConsoleController().aggiungiCategoria(nome, negozio);
@@ -109,14 +108,13 @@ public class ViewCommerciante extends ConsoleView {
 
     private void stampaListe(Negozio negozio){
         System.out.println("- - - - CATEGORIE - - - -");
-        Iterator<CategoriaMerceologica> iterator = negozio.categorie.iterator();
-        while(iterator.hasNext()){
-            System.out.println("> "+iterator.next().nome);
+        for (CategoriaMerceologica categoriaMerceologica : negozio.categorie) {
+            System.out.println("> " + categoriaMerceologica.nome);
         }
         System.out.println("- - - - - - - - - - - - -");
     }
 
-    private void nuovoOrdine(Negozio negozio) throws IOException, SQLException {
+    private void nuovoOrdine(Negozio negozio) throws SQLException {
         String email = richiediString("Email destinatario");
         if (getAccountController().controllaMail("CLIENTE", email)) {
             int id = getAccountController().prendiIDCliente(email);
@@ -124,22 +122,21 @@ public class ViewCommerciante extends ConsoleView {
             Date date = inserimentoData();
             boolean controllo = getConsoleController().creazionePacco(cliente, negozio, date);
             if(controllo)
-                System.out.println(String.format("Pacco creato! Intestato a: " + cliente.denominazione + " in data " + date, "dd/MM/yyyy"));
+                System.out.printf("Pacco creato! Intestato a: " + cliente.denominazione + " in data " + date + "%n", "dd/MM/yyyy");
             else
                 System.err.println("Pacco non creato.");
         }
     }
 
     //Controlli implementati in futuro
-    private Date inserimentoData() throws IOException {
+    private Date inserimentoData(){
         System.out.println("Formato data dd/MM/yyyy");
         String giorno = richiediString("Giorno");
         String mese = richiediString("Mese");
         String anno = richiediString("Anno");
         String sData = giorno+"/"+mese+"/"+anno;
         try{
-            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
-            return data;
+            return new SimpleDateFormat("dd/MM/yyyy").parse(sData);
         }catch(ParseException e){
             System.err.println("Errore! ");
             return inserimentoData();
