@@ -58,16 +58,15 @@ public class Corriere extends Account implements IMapData {
 		return this;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Corriere{" +
-//				"pacchiInConsegna=" + pacchiInConsegna +
-//				", id=" + id +
-//				", denominazione='" + denominazione + '\'' +
-//				", indirizzo=" + indirizzo +
-//				", telefono='" + telefono + '\'' +
-//				", eMail='" + eMail + '\'' +
-//				", password='" + password + '\'' +
-//				'}';
-//	}
+	@Override
+	public String toString() {
+		return "Corriere{" +
+				"  id=" + id +
+				", denominazione='" + denominazione + '\'' +
+				", indirizzo=" + indirizzo +
+				", telefono='" + telefono + '\'' +
+				", eMail='" + eMail + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
 }

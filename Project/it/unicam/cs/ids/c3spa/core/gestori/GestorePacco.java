@@ -311,4 +311,19 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
         return false;
     }
+
+    public Boolean consegnaPacco(Pacco p, Corriere c) throws SQLException {
+
+        try {
+            p.setConsegnato();
+            new GestorePacco().save(p);
+            new GestoreCorriere().save(c);
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
+
+        return false;
+    }
 }
