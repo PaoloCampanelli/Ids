@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestoreCliente extends GestoreBase implements ICRUD {
+
+    private Cliente c = new Cliente();
+
     @Override
     public Cliente getById(int id) throws SQLException {
         PreparedStatement st;
         ResultSet rs;
         String sql;
-        Cliente c = new Cliente();
+       // Cliente c = new Cliente();
         Connection conn = ApriConnessione();
 
         try {
@@ -158,7 +161,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
             sql = "SELECT * FROM clienti WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                lc.add(new Cliente().mapData(rs));
+                lc.add(c.mapData(rs));
             }
             st.close();
         } catch (SQLException e) {
