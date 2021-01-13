@@ -247,9 +247,14 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT distinct pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono FROM pacchi \n" +
-                    "INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
-                    "WHERE corrieri.corriereId LIKE '%" + corriere.id + "%';");
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+                    "from pacchi\n" +
+                    "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
+                    "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +
+                    "                    INNER JOIN statipacchi ON pacco_statipacco.statoid = statipacchi.statoId\n" +
+                    "where pacchi.corriere = " + corriere.id + "\n" +
+                    "group by pacco_statipacco.paccoId\n" +
+                    "having count(stati)=2;");
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
                 Pacco p = new Pacco();
