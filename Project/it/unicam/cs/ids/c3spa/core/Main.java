@@ -18,7 +18,7 @@ public class Main {
         Cliente c = new GestoreCliente().getById(1);
         Negozio n = new GestoreNegozio().getById(1);
         Corriere cc = new GestoreCorriere().getById(1);
-        Pacco p =new GestorePacco().getById(2);
+        Pacco p =new GestorePacco().getById(4);
         
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getAll();
@@ -33,18 +33,20 @@ public class Main {
 
         //System.out.println(cc.toString());
         System.out.println(p.toString());
-//        System.out.println(ln.toString());
-
-//        System.out.println(cc.toString());
-//        System.out.println(n.toString());
+        System.out.println(cc.toString());
 
         //System.out.println(new GestorePacco().getByMittente("Negozi"));
-        System.out.println(new GestorePacco().getById(1));
-        //System.out.println(new GestorePacco().assegnaPacco(p,cc));
+        System.out.println(new GestorePacco().assegnaPacco(p,cc));
+
+        System.out.println(p.toString());
+        System.out.println(cc.toString());
+
+        System.out.println((new GestorePacco().consegnaPacco(p , cc)));
+
+        System.out.println(p.toString());
+        System.out.println(cc.toString());
 
 
-        System.out.println(new GestorePacco().getAll());
-        System.out.println(new GestorePacco().getByCorriere(cc));
 
 
 
