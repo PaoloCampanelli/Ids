@@ -28,17 +28,17 @@ public class GestoreClienteTest {
         Statement stmt = conn.createStatement();
         stmt.execute("delete from progetto_ids.clienti;");
         stmt.execute("alter table clienti AUTO_INCREMENT = 1;");
-        stmt.execute("INSERT INTO `progetto_ids`.`clienti` (`clienteId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES ('2', 'PAOLO CAMPANELLI', 'CAMERINO', '10', '62032', 'GIROLAMO DI GIOVANNI', 'MC', '1111341111', 'PAOLO.CAMPANELLI@GMAIL.COM', 'PAOLO!!');");
-        stmt.execute("INSERT INTO `progetto_ids`.`clienti` (`clienteId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES ('1', 'SARA COMPAGNUCCI', 'URBISAGLIA', '14', '62010', 'NONIO BASSO', 'MC', '34111111111', 'SARA.COMPAGNUCCI@GMAIL.COM', 'SARA!!');");
+        stmt.execute("INSERT INTO `progetto_ids`.`clienti` (`clienteId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES ('2', 'PAOLO CAMPANELLI', 'CAMERINO', '10', '62032', 'GIOVANNI', 'MC', '1111341111', 'PAOLO.CAMPANELLI@GMAIL.COM', 'PAOLO!!');");
+        stmt.execute("INSERT INTO `progetto_ids`.`clienti` (`clienteId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES ('1', 'SARA COMPAGNUCCI', 'URBISAGLIA', '14', '62010', 'BASSO', 'MC', '34111111111', 'SARA.COMPAGNUCCI@GMAIL.COM', 'SARA!!');");
         stmt.close();
         conn.close();
     }
 
 
     private List<Cliente> inseriscoClientiTest() throws SQLException {
-        Indirizzo indirizzoSara = new Indirizzo().CreaIndirizzo("NONIO BASSO", "14", "URBISAGLIA","62010",  "MC");
+        Indirizzo indirizzoSara = new Indirizzo().CreaIndirizzo("BASSO", "14", "URBISAGLIA","62010",  "MC");
         clienteSara.CreaAccount(1, "SARA COMPAGNUCCI", indirizzoSara, "34111111111", "SARA.COMPAGNUCCI@GMAIL.COM", "SARA!!");
-        Indirizzo indirizzoPaolo = new Indirizzo().CreaIndirizzo("GIROLAMO DI GIOVANNI", "10", "CAMERINO", "62032", "MC");
+        Indirizzo indirizzoPaolo = new Indirizzo().CreaIndirizzo("GIOVANNI", "10", "CAMERINO", "62032", "MC");
         clientePaolo.CreaAccount(2, "PAOLO CAMPANELLI", indirizzoPaolo, "1111341111", "PAOLO.CAMPANELLI@GMAIL.COM", "PAOLO!!");
         clienti.add(clienteSara);
         clienti.add(clientePaolo);
