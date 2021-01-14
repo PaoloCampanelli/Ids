@@ -36,20 +36,19 @@ public class Main {
         System.out.println(cc.toString());
 
         //System.out.println(new GestorePacco().getByMittente("Negozi"));
-        System.out.println(new GestorePacco().assegnaPacco(p,cc));
-
-        System.out.println(p.toString());
-        System.out.println(cc.toString());
-
-        System.out.println((new GestorePacco().consegnaPacco(p , cc)));
-
-        System.out.println(p.toString());
-        System.out.println(cc.toString());
+//        System.out.println(new GestorePacco().assegnaPacco(p,cc));
+//
+//        System.out.println(p.toString());
+//        System.out.println(cc.toString());
+//
+//        System.out.println((new GestorePacco().consegnaPacco(p , cc)));
+//
+//        System.out.println(p.toString());
+//        System.out.println(cc.toString());
 
         System.out.println(new GestorePacco().storicoByCorriere(cc));
-
-
-
+        System.out.println(new GestorePacco().storicoByCliente(new GestoreCliente().getById(9)));
+        System.out.println(new GestorePacco().storicoByNegozio(new GestoreNegozio().getById(2)));
 
 
 
