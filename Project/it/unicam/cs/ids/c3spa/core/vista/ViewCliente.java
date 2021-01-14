@@ -55,7 +55,6 @@ public class ViewCliente extends ConsoleView{
                     getConsoleController().checkList(richiesta);
             }
         }
-        arrivederci();
     }
 
 

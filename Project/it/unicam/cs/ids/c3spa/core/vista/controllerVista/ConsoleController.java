@@ -105,7 +105,7 @@ public class ConsoleController implements IController {
     public boolean pacchiLiberi() throws SQLException {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
         if(lp.isEmpty()) {
-            System.err.println("Nessun pacco disponibile al momento!");
+            System.out.println("Nessun pacco disponibile al momento!");
             return false;
             }
         for(Pacco pacco : lp){
@@ -116,18 +116,18 @@ public class ConsoleController implements IController {
         return true;
     }
 
-    public void ordiniCorriere(Corriere corriere) throws SQLException{
+    public List<Pacco> ordiniCorriere(Corriere corriere) throws SQLException{
         List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
         for(Pacco pacco : lp){
             System.out.println("     > ["+pacco.id+" Destinatario: "
                     +pacco.destinatario.denominazione+" Data consegna: "+pacco.dataConsegnaRichiesta+
                     " "+pacco.destinatario.indirizzo+"]");
         }
+        return lp;
     }
 
-   public boolean controllaPacco(int idPacco, Corriere corriere) throws SQLException {
+    public boolean controllaPacco(int idPacco, Corriere corriere) throws SQLException {
         GestorePacco gp = new GestorePacco();
-        GestoreCorriere gc = new GestoreCorriere();
         List<Pacco> lp = gp.getPacchiSenzaCorriere();
         for(Pacco pacco : lp){
             if(pacco.id == idPacco){
@@ -140,10 +140,21 @@ public class ConsoleController implements IController {
         return false;
    }
 
+    public boolean consegnaPacco(int idPacco, Corriere corriere) throws SQLException {
+        List<Pacco> lp = ordiniCorriere(corriere);
+        for (Pacco pacco : lp) {
+            if (pacco.id == idPacco) {
+                pacco.setConsegnato();
+                return true;
+            }else
+                return false;
+        }
+        return false;
+    }
+
     public void setOff(){
         this.isOn = false;
     }
-
 
     public boolean isOn() {
         return isOn;
