@@ -34,7 +34,8 @@ public class ViewCommerciante extends ConsoleView {
                 +"\n5. RIMUOVI PROMOZIONE"
                 +"\n6. ATTIVAZIONE PUBBLICITA"
                 +"\n7. VISUALIZZA CATEGORIE ATTIVE"
-                +"\n8. VISUALIZZA TUTTI I CLIENTI");
+                +"\n8. VISUALIZZA TUTTI I CLIENTI"
+                +"\n9. STORICO ORDINI");
     }
 
     private void menuCommerciante(Negozio negozio) throws SQLException {
@@ -74,6 +75,10 @@ public class ViewCommerciante extends ConsoleView {
                     getConsoleController().visualizzaClienti();
                     break;
                 }
+                case "9":{
+                    getConsoleController().storicoOrdiniNegozio(negozio);
+                    break;
+                }
                 case "EXIT": {
                     off();
                     break;
@@ -90,7 +95,7 @@ public class ViewCommerciante extends ConsoleView {
 
     private void inserisciCategoria(Negozio negozio){
         out.println("- - - - AGGIUNTA CATEGORIA - - - -");
-        String nome = richiediString("Nome categoria");
+        String nome = richiediString("Nome categoria").toUpperCase();
         boolean controllo = getConsoleController().aggiungiCategoria(nome, negozio);
         if(controllo)
             out.println("Categoria aggiunta correttamente\n" + "- - - - - - - - - - - - - - - - -");
@@ -131,17 +136,20 @@ public class ViewCommerciante extends ConsoleView {
 
     }
 
-    //Controlli implementati in futuro
     private Date inserimentoData(){
-        out.println("Formato data dd/MM/yyyy");
-        String giorno = richiediString("Giorno");
-        String mese = richiediString("Mese");
-        String anno = richiediString("Anno");
-        String sData = giorno+"/"+mese+"/"+anno;
         try{
-            return new SimpleDateFormat("dd/MM/yyyy").parse(sData);
+            int giorno, mese, anno;
+            boolean controllo;
+            do{
+                out.println("INSERISCI LA DATA DI CONSEGNA (NB: Non può essere una data passata!)");
+                giorno = richiediInt("Giorno");
+                mese = richiediInt("Mese");
+                anno = richiediInt("Anno");
+                controllo = getConsoleController().correggiData(giorno, mese, anno);
+            }while(!controllo);
+            return new SimpleDateFormat("dd/MM/yyyy").parse(giorno+"/"+mese+"/"+anno);
         }catch(ParseException e){
-            err.println("Errore! ");
+            err.println("Errore!");
             return inserimentoData();
         }
     }
