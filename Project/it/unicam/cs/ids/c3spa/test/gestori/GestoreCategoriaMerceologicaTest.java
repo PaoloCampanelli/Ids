@@ -6,6 +6,7 @@ import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GestoreCategoriaMerceologicaTest {
 
-    public GestoreCategoriaMerceologica gestoreCategoriaMerceologica = new GestoreCategoriaMerceologica();
+    public static GestoreCategoriaMerceologica gestoreCategoriaMerceologica = new GestoreCategoriaMerceologica();
     List<CategoriaMerceologica> categorieMerceologiche = new ArrayList<>();
-    CategoriaMerceologica categoriaFrutta = new CategoriaMerceologica();
-    CategoriaMerceologica categoriaAbbigliamento = new CategoriaMerceologica();
+    static List<CategoriaMerceologica> categorieSalvate = new ArrayList<>();
+
 
     @BeforeAll
     static void creaDataBaseTest() throws SQLException {
+        categorieSalvate = gestoreCategoriaMerceologica.getAll();
         Connection conn = GestoreBase.ApriConnessione();
         Statement stmt = conn.createStatement();
         stmt.execute("delete from progetto_ids.categoriemerceologiche;");
@@ -43,6 +45,20 @@ class GestoreCategoriaMerceologicaTest {
         categorieMerceologiche.add(categoriaAbbigliamento);
         return categorieMerceologiche;
     }
+
+
+    @AfterAll
+    static void resetCategorie() throws SQLException {
+        Connection conn = GestoreBase.ApriConnessione();
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from progetto_ids.categoriemerceologiche;");
+        for(CategoriaMerceologica categoria :categorieSalvate){
+            stmt.execute("INSERT INTO `progetto_ids`.`categoriemerceologiche` (`categoriaId`, `nome`, `isCancellato`) VALUES ('"+categoria.idCategoria+"', '"+categoria.nome+"', '0');");
+        }
+        stmt.close();
+        conn.close();
+    }
+
 
     @Test
     void getById() throws SQLException {
