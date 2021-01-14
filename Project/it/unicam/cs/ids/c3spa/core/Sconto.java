@@ -44,7 +44,4 @@ public class Sconto implements IMapData {
 		return this;
 	}
 
-	public double calcolaScontoPercentuale(double importo, double percentuale){
-		return importo = importo * (1 - percentuale/100);
-	}
 }
