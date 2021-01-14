@@ -46,6 +46,8 @@ public class Main {
         System.out.println(p.toString());
         System.out.println(cc.toString());
 
+        System.out.println(new GestorePacco().storicoByCorriere(cc));
+
 
 
 
