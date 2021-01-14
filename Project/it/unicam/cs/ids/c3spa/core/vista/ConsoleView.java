@@ -225,6 +225,7 @@ public class ConsoleView implements IView{
         out.println(" - - - - - - - - - - - - ");
         out.println("  GRAZIE PER AVER USATO C3 ");
         out.println(" - - - - - - - - - - - - ");
+        System.exit(1);
     }
 
     protected boolean on(){
