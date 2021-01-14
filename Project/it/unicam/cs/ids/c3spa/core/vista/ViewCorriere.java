@@ -39,7 +39,7 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "3": {
-                    out.println("..implementazione in corso...");
+                    effettuaConsegna(corriere);
                     break;
                 }
                 case "EXIT": {
@@ -53,9 +53,9 @@ public class ViewCorriere extends ConsoleView {
                 }
                 default:
                     out.println("Comando non esistente");
+                    break;
             }
         }
-        arrivederci();
     }
 
 
@@ -78,6 +78,21 @@ public class ViewCorriere extends ConsoleView {
         }else
             menuCorriere(corriere);
     }
+
+    public void effettuaConsegna(Corriere corriere) throws SQLException {
+        boolean consegnato = true;
+        getConsoleController().ordiniCorriere(corriere);
+        int idPacco = richiediInt("Digita l'ID del pacco consegnato");
+        while(consegnato) {
+            if (getConsoleController().consegnaPacco(idPacco, corriere)) {
+                out.println("IL PACCO E' STATO CONSEGNATO CORRETTAMENTE!");
+                consegnato = false;
+            } else
+                out.println("Errore!");
+        }
+    }
+
+
 
 }
 
