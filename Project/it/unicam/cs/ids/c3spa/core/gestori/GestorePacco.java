@@ -326,4 +326,39 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
         return false;
     }
+
+    public List<Pacco> storicoByCorriere (Corriere corriere) throws SQLException {
+
+        PreparedStatement st;
+        ResultSet rs;
+        List<Pacco> lp = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+                    "from pacchi\n" +
+                    "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
+                    "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +
+                    "                    INNER JOIN statipacchi ON pacco_statipacco.statoid = statipacchi.statoId\n" +
+                    "where pacchi.corriere = " + corriere.id + "\n" +
+                    "group by pacco_statipacco.paccoId\n" +
+                    "having count(stati)=3;");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Pacco p = new Pacco();
+                p.mapData(rs);
+                p.corriere = new GestoreCorriere().getById(p.corriere.id);
+                p.mittente = new GestoreNegozio().getById(p.mittente.id);
+                p.destinatario = new GestoreCliente().getById(p.destinatario.id);
+                lp.add(p);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return lp;
+    }
 }
