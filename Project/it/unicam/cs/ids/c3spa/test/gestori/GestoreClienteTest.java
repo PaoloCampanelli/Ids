@@ -1,9 +1,11 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
+import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +19,15 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GestoreClienteTest {
-    public GestoreCliente gestoreCliente = new GestoreCliente();
+    public static GestoreCliente gestoreCliente = new GestoreCliente();
+    static List<Cliente> clientiSalvati = new ArrayList<>();
     List<Cliente> clienti = new ArrayList<>();
     Cliente clienteSara = new Cliente();
     Cliente clientePaolo= new Cliente();
 
-@BeforeAll
+    @BeforeAll
     static void creaDataBaseTest() throws SQLException {
+        clientiSalvati = gestoreCliente.getAll();
         Connection conn = GestoreBase.ApriConnessione();
         Statement stmt = conn.createStatement();
         stmt.execute("delete from progetto_ids.clienti;");
@@ -34,6 +38,18 @@ public class GestoreClienteTest {
         conn.close();
     }
 
+    @AfterAll
+    static void resetClienti() throws SQLException {
+        Connection conn = GestoreBase.ApriConnessione();
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from progetto_ids.clienti;");
+        for(Cliente cliente : clientiSalvati){
+            stmt.execute("INSERT INTO `progetto_ids`.`clienti` (`clienteId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`) VALUES ('"+cliente.id+"', '"+cliente.denominazione+"','"+cliente.indirizzo.citta+"', '"+cliente.indirizzo.numero+"', " +
+                    "'"+cliente.indirizzo.cap+"', '"+ cliente.indirizzo.via+"', '"+cliente.indirizzo.provincia+"', '"+cliente.telefono+"', '"+cliente.eMail+"', '"+cliente.password+"');");
+        }
+        stmt.close();
+        conn.close();
+    }
 
     private List<Cliente> inseriscoClientiTest() throws SQLException {
         Indirizzo indirizzoSara = new Indirizzo().CreaIndirizzo("BASSO", "14", "URBISAGLIA","62010",  "MC");
