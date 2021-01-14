@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.test;
+package it.unicam.cs.ids.c3spa.test.gestori;
 
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import org.junit.jupiter.api.Test;
