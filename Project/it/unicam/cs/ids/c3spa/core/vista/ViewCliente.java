@@ -22,7 +22,8 @@ public class ViewCliente extends ConsoleView{
                 +"\n1. MOSTRA TUTTI I NEGOZI"
                 +"\n2. MOSTRA NEGOZI VICINO A ME"
                 +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
-                +"\n4. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+                +"\n4. MOSTRA STORICO ORDINI"
+                +"\n5. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
@@ -40,6 +41,10 @@ public class ViewCliente extends ConsoleView{
                 }
                 case "3": {
                     ricercaPersonalizzata();
+                    break;
+                }
+                case "4": {
+                        out.println("..implementazione in corso..");
                     break;
                 }
                 case "EXIT": {
