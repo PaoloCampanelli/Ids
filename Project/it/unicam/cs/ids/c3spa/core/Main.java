@@ -3,15 +3,38 @@ package it.unicam.cs.ids.c3spa.core;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
+import it.unicam.cs.ids.c3spa.core.vista.ViewCliente;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.IController;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
 public class Main {
 
+    private IView view;
+    private IController controller;
+
+    public Main(IView view, IController controller){
+        this.view = view;
+        this.controller = controller;
+    }
+
+    private static Main consoleApp(){
+        IView view = new ConsoleView();
+        IController controller = new ConsoleController();
+        return new Main(view, controller);
+    }
+
+    private void run() throws SQLException {
+        view.start();
+        view.arrivederci();
+    }
+
+
     public static void main(String[] args) throws SQLException, IOException {
-        IView v = new ConsoleView();
         System.out.println(Servizi.caricamento());
 
         //Lettura del cliente numero 1
@@ -50,17 +73,7 @@ public class Main {
         System.out.println(new GestorePacco().storicoByCliente(new GestoreCliente().getById(9)));
         System.out.println(new GestorePacco().storicoByNegozio(new GestoreNegozio().getById(2)));
 
-
-
-
-
-
-
-        //Launcher start View
-        //Bisogna implementare tutte le operazioni del controller
-        v.start();
-
-
+        consoleApp().run();
 
     }
 }
