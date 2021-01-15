@@ -2,6 +2,8 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.CorriereController;
 
 import java.sql.SQLException;
 
@@ -9,6 +11,11 @@ import static java.lang.System.*;
 
 public class ViewCorriere extends ConsoleView {
 
+    private CorriereController corriereController;
+
+    public ViewCorriere(){
+        this.corriereController = new CorriereController();
+    }
     public void apriVista(int id) throws SQLException {
         Corriere corriere = new GestoreCorriere().getById(id);
         out.println("\n...Effettuato accesso come CORRIERE"
@@ -26,16 +33,16 @@ public class ViewCorriere extends ConsoleView {
 
 
     private void menuCorriere(Corriere corriere) throws SQLException {
-        while (on()) {
+        while (getConsoleController().isOn()) {
             listaCorriere();
-            String richiesta = richiediString("Digita scelta: ").toUpperCase();
+            String richiesta = getConsoleController().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
                     selezioneOrdine(corriere);
                     break;
                 }
                 case "2": {
-                    getConsoleController().ordiniCorriere(corriere);
+                    corriereController.ordiniCorriere(corriere);
                     break;
                 }
                 case "3": {
@@ -43,7 +50,7 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "EXIT": {
-                    off();
+                    getConsoleController().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -60,15 +67,15 @@ public class ViewCorriere extends ConsoleView {
 
 
     private void selezioneOrdine(Corriere corriere) throws SQLException {
-        if(getConsoleController().pacchiLiberi()) {
+        if(corriereController.pacchiLiberi()) {
             String richiesta;
             do {
-                richiesta = richiediString("Vuoi selezionare un pacco?" +
+                richiesta = getConsoleController().richiediString("Vuoi selezionare un pacco?" +
                         "\n-> Digita: SI per confermare, NO per tornare indietro").toUpperCase();
                 if (richiesta.equals("SI")) {
                     out.println("SELEZIONE ORDINE ");
-                    int idPacco = richiediInt("ID PACCO: ");
-                    if (getConsoleController().controllaPacco(idPacco, corriere))
+                    int idPacco = getConsoleController().richiediInt("ID PACCO: ");
+                    if (corriereController.controllaPacco(idPacco, corriere))
                         out.println("Pacco preso in carico!");
                     else
                         out.println("Errore nell'assegnamento!");
@@ -81,10 +88,10 @@ public class ViewCorriere extends ConsoleView {
 
     public void effettuaConsegna(Corriere corriere) throws SQLException {
         boolean consegnato = true;
-        getConsoleController().ordiniCorriere(corriere);
-        int idPacco = richiediInt("Digita l'ID del pacco consegnato");
+        corriereController.ordiniCorriere(corriere);
+        int idPacco = getConsoleController().richiediInt("Digita l'ID del pacco consegnato");
         while(consegnato) {
-            if (getConsoleController().consegnaPacco(idPacco, corriere)) {
+            if (corriereController.consegnaPacco(idPacco, corriere)) {
                 out.println("IL PACCO E' STATO CONSEGNATO CORRETTAMENTE!");
                 consegnato = false;
             } else

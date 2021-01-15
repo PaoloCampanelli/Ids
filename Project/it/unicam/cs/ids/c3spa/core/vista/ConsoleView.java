@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ClienteController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 
 import javax.swing.*;
@@ -17,9 +18,9 @@ import static java.lang.System.*;
 
 public class ConsoleView implements IView{
 
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(in));
     private final ConsoleController consoleController = new ConsoleController();
     private final AccountController accountController = new AccountController();
+    private final ClienteController clienteController = new ClienteController();
 
     private void hello(){
         out.println(" - - - - - - - - - - - - ");
@@ -35,8 +36,8 @@ public class ConsoleView implements IView{
     }
 
     private void autenticazione() throws SQLException {
-        String input = richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
-        while(on()){
+        String input = getConsoleController().richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
+        while(getConsoleController().isOn()){
             String tipologia;
             switch (input.toUpperCase()) {
                 case "NO" :
@@ -54,7 +55,7 @@ public class ConsoleView implements IView{
                         break;
                     }
                 case "EXIT":
-                    off();
+                    getConsoleController().setOff();
                     break;
                 default:
                     out.println("Scelta non valida!");
@@ -65,8 +66,8 @@ public class ConsoleView implements IView{
     }
 
     private int login(String tipologia) throws SQLException {
-        String email = richiediString("Inserisci email").toUpperCase();
-        String password = richiediString("Inserisci password");
+        String email = getConsoleController().richiediString("Inserisci email").toUpperCase();
+        String password = getConsoleController().richiediString("Inserisci password");
         switch (tipologia) {
             case "CLIENTE":
                 if (getAccountController().controllaCliente(email, password)) {
@@ -89,7 +90,7 @@ public class ConsoleView implements IView{
     }
 
     private String tipologia(){
-        String input = richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
+        String input = getConsoleController().richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
         do{
             switch (input) {
                 case "1":
@@ -105,75 +106,39 @@ public class ConsoleView implements IView{
         }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
     }
 
-    protected String richiediString(String domanda){
-        String risposta;
-        do {
-            risposta = leggiInput(domanda);
-            return risposta;
-        }while(risposta.isEmpty() || risposta.charAt(0) == ' ');
-    }
-
-    private String leggiInput(String domanda){
-        try {
-            out.println(domanda);
-            out.print("> ");
-            out.flush();
-            return getBr().readLine();
-        }catch (IOException e){
-            return e.getMessage();
-        }
-    }
-
-
-    protected int richiediInt(String domanda){
-        String intero;
-        do{
-            intero = leggiInput(domanda);
-        }while(intero.isEmpty() || intero.equals("0"));
-        int numero = Integer.parseInt(intero);
-        return numero;
-    }
-
 
     private String richiediPassword(String domanda){
         out.println("PASSWORD MINIMO 6 CARATTERI!");
         String risposta;
             do {
-                risposta = leggiInput(domanda);
+                risposta = getConsoleController().leggiInput(domanda);
             } while (risposta.length() < 5);
             return risposta;
     }
 
     private String richiediEmail(String domanda, String tipologia) throws SQLException {
-        out.println("Email");
         String risposta;
         boolean controllo;
-        try {
-            do {
-                out.print("> ");
-                out.flush();
-                risposta = getBr().readLine().toUpperCase();
-                controllo = getAccountController().controllaMail(tipologia, risposta);
-                if (!risposta.contains("@"))
-                    out.println("\nEmail deve contenere @");
-                if (controllo) {
-                    out.println("Email gia' esistente! Inserirne un'altra");
-                } else {
-                    continue;
-                }
-            } while (!(risposta.contains("@")) || controllo);
-            return risposta.toUpperCase();
-        }catch (IOException e) {
-            return "Errore: "+e.getMessage();
-        }
+        do {
+            risposta = getConsoleController().leggiInput("Email");
+            controllo = getAccountController().controllaMail(tipologia, risposta);
+            if (!risposta.contains("@"))
+                out.println("\nEmail deve contenere @");
+            if (controllo) {
+                out.println("Email gia' esistente! Inserirne un'altra");
+            } else {
+                continue;
+            }
+        } while (!(risposta.contains("@")) || controllo);
+        return risposta.toUpperCase();
     }
 
     private void inserimentoDati(String tipologia) throws SQLException{
         out.println("Inserisci dati:");
-        String denominazione=richiediString("Denominazione");
+        String denominazione= getConsoleController().richiediString("Denominazione");
         String email = richiediEmail("Email",tipologia);
         String password = richiediPassword("Password");
-        String telefono = richiediString("Telefono");
+        String telefono = getConsoleController().richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
             case "CLIENTE":
@@ -213,12 +178,12 @@ public class ConsoleView implements IView{
 
     private Indirizzo inputIndirizzo(){
         String via, numero, citta, cap, provincia;
-        via = richiediString("Via");
-        numero = richiediString("Numero");
-        citta = richiediString("Citta'");
-        cap = richiediString("cap");
-        provincia = richiediString("Provincia");
-        return getConsoleController().indirizzoAccount(via, numero, citta, cap, provincia);
+        via = getConsoleController().richiediString("Via");
+        numero = getConsoleController().richiediString("Numero");
+        citta = getConsoleController().richiediString("Citta'");
+        cap = getConsoleController().richiediString("cap");
+        provincia = getConsoleController().richiediString("Provincia");
+        return getClienteController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
     public void arrivederci(){
@@ -226,14 +191,6 @@ public class ConsoleView implements IView{
         out.println("  GRAZIE PER AVER USATO C3 ");
         out.println(" - - - - - - - - - - - - ");
         System.exit(1);
-    }
-
-    protected boolean on(){
-        return getConsoleController().isOn();
-    }
-
-    protected void off(){
-        getConsoleController().setOff();
     }
 
     protected void logout() throws SQLException {
@@ -244,9 +201,9 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    public BufferedReader getBr() { return br; }
+    public ConsoleController getConsoleController() { return consoleController; }
 
-    protected ConsoleController getConsoleController() { return consoleController; }
+    public AccountController getAccountController() { return accountController; }
 
-    protected AccountController getAccountController() { return accountController; }
+    public ClienteController getClienteController() { return clienteController; }
 }

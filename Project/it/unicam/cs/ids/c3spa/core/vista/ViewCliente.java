@@ -2,12 +2,19 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ClienteController;
 
 import static java.lang.System.*;
 
 import java.sql.SQLException;
 
 public class ViewCliente extends ConsoleView{
+
+    private ClienteController clienteController;
+
+    public ViewCliente(){
+        this.clienteController = new ClienteController();
+    }
 
     public void apriVista(int id) throws SQLException {
         Cliente c = new GestoreCliente().getById(id);
@@ -27,20 +34,22 @@ public class ViewCliente extends ConsoleView{
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
-        while(on()){
+        while(getConsoleController().isOn()){
             listaCliente();
-            String richiesta = richiediString("Digita scelta: ").toUpperCase();
+            String richiesta = getConsoleController().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
-                    getConsoleController().cercaNegozi(cliente, "1");
+                    clienteController.cercaNegozi(cliente, "1");
                     break;
                 }
                 case "2": {
-                    getConsoleController().cercaNegozi(cliente, "2");
+                    clienteController.cercaNegozi(cliente, "2");
                     break;
                 }
                 case "3": {
-                    ricercaPersonalizzata();
+                    String categoria = getConsoleController().richiediString("     CATEGORIA");
+                    String citta = getConsoleController().richiediString("         IN QUALE CITTA'?");
+                    clienteController.cercaNegoziCategoria(categoria, citta);
                     break;
                 }
                 case "4": {
@@ -48,7 +57,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 case "EXIT": {
-                    off();
+                    getConsoleController().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -57,16 +66,10 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 default:
-                    getConsoleController().checkList(richiesta);
+                    clienteController.checkList(richiesta);
             }
         }
     }
 
-
-    private void ricercaPersonalizzata() throws SQLException {
-        String categoria = richiediString("     CATEGORIA");
-        String citta = richiediString("         IN QUALE CITTA'?");
-        getConsoleController().cercaNegoziCategoria(categoria, citta);
-    }
 
 }
