@@ -6,6 +6,7 @@ import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.NegozioController;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,6 +16,12 @@ import java.util.Date;
 import static java.lang.System.*;
 
 public class ViewCommerciante extends ConsoleView {
+
+    private NegozioController negozioController;
+
+    public ViewCommerciante(){
+        this.negozioController = new NegozioController();
+    }
 
     public void apriVista(int id) throws SQLException {
         Negozio negozio = new GestoreNegozio().getById(id);
@@ -39,9 +46,9 @@ public class ViewCommerciante extends ConsoleView {
     }
 
     private void menuCommerciante(Negozio negozio) throws SQLException {
-        while(on()){
+        while(getConsoleController().isOn()){
             listaCommerciante();
-            String richiesta = richiediString("Digita scelta: ").toUpperCase();
+            String richiesta = getConsoleController().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
                     nuovoOrdine(negozio);
@@ -68,19 +75,19 @@ public class ViewCommerciante extends ConsoleView {
                     break;
                 }
                 case "7": {
-                    stampaListe(negozio);
+                    negozioController.stampaListe(negozio);
                     break;
                 }
                 case "8":{
-                    getConsoleController().visualizzaClienti();
+                    negozioController.visualizzaClienti();
                     break;
                 }
                 case "9":{
-                    getConsoleController().storicoOrdiniNegozio(negozio);
+                    negozioController.storicoOrdiniNegozio(negozio);
                     break;
                 }
                 case "EXIT": {
-                    off();
+                    getConsoleController().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -95,8 +102,8 @@ public class ViewCommerciante extends ConsoleView {
 
     private void inserisciCategoria(Negozio negozio){
         out.println("- - - - AGGIUNTA CATEGORIA - - - -");
-        String nome = richiediString("Nome categoria").toUpperCase();
-        boolean controllo = getConsoleController().aggiungiCategoria(nome, negozio);
+        String nome = getConsoleController().richiediString("Nome categoria").toUpperCase();
+        boolean controllo = negozioController.aggiungiCategoria(nome, negozio);
         if(controllo)
             out.println("Categoria aggiunta correttamente\n" + "- - - - - - - - - - - - - - - - -");
         else
@@ -110,21 +117,14 @@ public class ViewCommerciante extends ConsoleView {
     }
      */
 
-    private void stampaListe(Negozio negozio){
-        out.println("- - - - CATEGORIE - - - -");
-        for (CategoriaMerceologica categoriaMerceologica : negozio.categorie) {
-            out.println("> " + categoriaMerceologica.nome);
-        }
-        out.println("- - - - - - - - - - - - -");
-    }
 
     private void nuovoOrdine(Negozio negozio) throws SQLException {
-        String email = richiediString("Email destinatario").toUpperCase();
+        String email = getConsoleController().richiediString("Email destinatario").toUpperCase();
         if((getAccountController().controllaMail("CLIENTE", email))){
             int id = getAccountController().prendiIDCliente(email);
             Cliente cliente = new GestoreCliente().getById(id);
             Date date = inserimentoData();
-            boolean controllo = getConsoleController().creazionePacco(cliente, negozio, date);
+            boolean controllo = negozioController.creazionePacco(cliente, negozio, date);
             if(controllo)
                 out.printf("Pacco creato! Intestato a: " + cliente.denominazione + " in data " + date + "%n", "dd/MM/yyyy");
             else
@@ -142,14 +142,14 @@ public class ViewCommerciante extends ConsoleView {
             boolean controllo;
             do{
                 out.println("INSERISCI LA DATA DI CONSEGNA (NB: Non può essere una data passata!)");
-                giorno = richiediInt("Giorno");
-                mese = richiediInt("Mese");
-                anno = richiediInt("Anno");
-                controllo = getConsoleController().correggiData(giorno, mese, anno);
+                giorno = getConsoleController().richiediInt("Giorno");
+                mese = getConsoleController().richiediInt("Mese");
+                anno = getConsoleController().richiediInt("Anno");
+                controllo = negozioController.correggiData(giorno, mese, anno);
             }while(!controllo);
             return new SimpleDateFormat("dd/MM/yyyy").parse(giorno+"/"+mese+"/"+anno);
         }catch(ParseException e){
-            err.println("Errore!");
+            out.println("Errore!");
             return inserimentoData();
         }
     }
