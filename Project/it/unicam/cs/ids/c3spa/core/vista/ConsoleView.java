@@ -18,9 +18,13 @@ import static java.lang.System.*;
 
 public class ConsoleView implements IView{
 
-    private final ConsoleController consoleController = new ConsoleController();
-    private final AccountController accountController = new AccountController();
-    private final ClienteController clienteController = new ClienteController();
+    private ConsoleController consoleController;
+    private AccountController accountController;
+
+    public ConsoleView(){
+        this.consoleController = new ConsoleController();
+        this.accountController = new AccountController();
+    }
 
     private void hello(){
         out.println(" - - - - - - - - - - - - ");
@@ -183,7 +187,7 @@ public class ConsoleView implements IView{
         citta = getConsoleController().richiediString("Citta'");
         cap = getConsoleController().richiediString("cap");
         provincia = getConsoleController().richiediString("Provincia");
-        return getClienteController().indirizzoAccount(via, numero, citta, cap, provincia);
+        return getAccountController().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
     public void arrivederci(){
@@ -205,5 +209,4 @@ public class ConsoleView implements IView{
 
     public AccountController getAccountController() { return accountController; }
 
-    public ClienteController getClienteController() { return clienteController; }
 }

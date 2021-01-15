@@ -67,9 +67,4 @@ public class ClienteController {
         }
     }
 
-    public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia) {
-        Cliente cliente = new Cliente();
-        return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
-    }
-
 }

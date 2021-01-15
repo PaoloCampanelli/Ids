@@ -41,6 +41,11 @@ public class AccountController{
         return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
     }
 
+    public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia) {
+        Cliente cliente = new Cliente();
+        return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
+    }
+
     public int prendiIDCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
