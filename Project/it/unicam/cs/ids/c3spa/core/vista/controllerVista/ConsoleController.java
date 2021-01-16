@@ -35,19 +35,15 @@ public class ConsoleController implements IController {
     public InputController getInput() {
         return inputController;
     }
-
     public AccountController getAccount() {
         return accountController;
     }
-
     public NegozioController getNegozio() {
         return negozioController;
     }
-
     public CorriereController getCorriere() {
         return corriereController;
     }
-
     public ClienteController getCliente() {
         return clienteController;
     }

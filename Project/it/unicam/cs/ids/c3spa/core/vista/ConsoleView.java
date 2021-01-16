@@ -16,7 +16,6 @@ public class ConsoleView implements IView{
         this.consoleController = controller;
     }
 
-
     private void hello(){
         out.println(" - - - - - - - - - - - - ");
         out.println("       C3 V 1.0\n     Powered by C3 SPA    ");
@@ -65,19 +64,19 @@ public class ConsoleView implements IView{
         String password = getInput().richiediString("Inserisci password");
         switch (tipologia) {
             case "CLIENTE":
-                if (getAccount().controllaCliente(email, password)) {
-                    int idC = getAccount().prendiIDCliente(email, password);
+                if (getAccount().controllaDati("CLIENTE", email, password)) {
+                    int idC = getAccount().prendiID("CLIENTE",email, password);
                     return idC;
                 }
                 break;
             case "CORRIERE":
-                if (getAccount().controllaCorriere(email, password)) {
+                if (getAccount().controllaDati("CORRIERE", email, password)) {
                     int idCr;
-                    return idCr = getAccount().prendiIDCorriere(email,password);
+                    return idCr = getAccount().prendiID("CORRIERE",email,password);
                 }
             case "COMMERCIANTE":
-                if(getAccount().controllaNegozio(email, password)){
-                    int idN = getAccount().prendiIDNegozio(email,password);
+                if(getAccount().controllaDati("COMMERCIANTE", email, password)){
+                    int idN = getAccount().prendiID("COMMERCIANTE", email,password);
                     return idN;
                 }
         }
@@ -86,21 +85,22 @@ public class ConsoleView implements IView{
 
     private String tipologia(){
         String input = getInput().richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
-        do{
-            switch (input) {
-                case "1":
-                    return "CLIENTE";
-                case "2":
-                    return "CORRIERE";
-                case "3":
-                    return "COMMERCIANTE";
-                default:
-                    out.println("Tipologia non valida.");
-                    return tipologia();
+        switch (input) {
+            case "1": {
+                return "CLIENTE";
             }
-        }while(!((input).equals("1")||!(input).equals("2")||!(input).equals("3")));
+            case "2": {
+                return "CORRIERE";
+            }
+            case "3": {
+                return "COMMERCIANTE";
+            }
+            default: {
+                out.println("Tipologia non valida.");
+                return tipologia();
+            }
+        }
     }
-
 
     private String richiediPassword(String domanda){
         out.println("PASSWORD MINIMO 6 CARATTERI!");
@@ -136,38 +136,44 @@ public class ConsoleView implements IView{
         String telefono = getInput().richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
-            case "CLIENTE":
+            case "CLIENTE": {
                 Cliente cliente = getAccount().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                int idC = getAccount().prendiIDCliente(email,password);
+                int idC = getAccount().prendiID("CLIENTE", email, password);
                 redirectView(tipologia, idC);
                 break;
-            case "CORRIERE":
+            }
+            case "CORRIERE": {
                 Corriere corriere = getAccount().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-                int idCr = getAccount().prendiIDCorriere(email,password);
+                int idCr = getAccount().prendiID("CORRIERE", email, password);
                 redirectView(tipologia, idCr);
                 break;
-            case "COMMERCIANTE":
+            }
+            case "COMMERCIANTE": {
                 Negozio n = getAccount().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                int idN = getAccount().prendiIDNegozio(email, password);
+                int idN = getAccount().prendiID("COMMERCIANTE", email, password);
                 redirectView(tipologia, idN);
                 break;
+            }
         }
     }
 
     private void redirectView(String tipologia, int id) throws SQLException {
         switch (tipologia) {
-            case "CLIENTE":
+            case "CLIENTE": {
                 ViewCliente viewCliente = new ViewCliente(consoleController);
                 viewCliente.apriVista(id);
                 break;
-            case "CORRIERE":
-               ViewCorriere viewCorriere = new ViewCorriere(consoleController);
-               viewCorriere.apriVista(id);
-               break;
-            case "COMMERCIANTE":
+            }
+            case "CORRIERE":{
+                ViewCorriere viewCorriere = new ViewCorriere(consoleController);
+                viewCorriere.apriVista(id);
+                break;
+            }
+            case "COMMERCIANTE": {
                 ViewCommerciante viewCommerciante = new ViewCommerciante(consoleController);
                 viewCommerciante.apriVista(id);
                 break;
+            }
         }
     }
 
@@ -197,25 +203,20 @@ public class ConsoleView implements IView{
     }
 
     public InputController getInput() {
-        return consoleController.getInput();
+         return consoleController.getInput();
     }
-
     public AccountController getAccount(){
         return consoleController.getAccount();
     }
-
     public CorriereController getCorriere(){
         return consoleController.getCorriere();
     }
-
     public ClienteController getCliente(){
         return consoleController.getCliente();
     }
-
     public NegozioController getNegozio(){
         return consoleController.getNegozio();
     }
-
     public ConsoleController getConsole(){
         return consoleController;
     }

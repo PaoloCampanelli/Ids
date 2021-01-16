@@ -51,7 +51,6 @@ public class ClienteController extends ConsoleController {
         }
     }
 
-
     private boolean trovaPromozioni() {
         System.out.println("...implementazione in corso...");
         return false;
