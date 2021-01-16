@@ -2,14 +2,13 @@ package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteController {
+public class ClienteController extends ConsoleController {
 
     public void cercaNegozi(Cliente cliente, String scelta) throws SQLException {
         GestoreNegozio gn = new GestoreNegozio();

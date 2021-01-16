@@ -2,8 +2,10 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.CorriereController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.InputController;
 
 import java.sql.SQLException;
 
@@ -11,11 +13,10 @@ import static java.lang.System.*;
 
 public class ViewCorriere extends ConsoleView {
 
-    private CorriereController corriereController;
-
-    public ViewCorriere(){
-        this.corriereController = new CorriereController();
+    public ViewCorriere(ConsoleController controller) {
+        super(controller);
     }
+
     public void apriVista(int id) throws SQLException {
         Corriere corriere = new GestoreCorriere().getById(id);
         out.println("\n...Effettuato accesso come CORRIERE"
@@ -33,16 +34,16 @@ public class ViewCorriere extends ConsoleView {
 
 
     private void menuCorriere(Corriere corriere) throws SQLException {
-        while (getConsoleController().isOn()) {
+        while (getConsole().isOn()) {
             listaCorriere();
-            String richiesta = getConsoleController().richiediString("Digita scelta: ").toUpperCase();
+            String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
                     selezioneOrdine(corriere);
                     break;
                 }
                 case "2": {
-                    corriereController.ordiniCorriere(corriere);
+                    getCorriere().ordiniCorriere(corriere);
                     break;
                 }
                 case "3": {
@@ -50,7 +51,7 @@ public class ViewCorriere extends ConsoleView {
                     break;
                 }
                 case "EXIT": {
-                    getConsoleController().setOff();
+                    getInput().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -67,41 +68,39 @@ public class ViewCorriere extends ConsoleView {
 
 
     private void selezioneOrdine(Corriere corriere) throws SQLException {
-        if(corriereController.pacchiLiberi()) {
-            String richiesta;
-            do {
-                richiesta = getConsoleController().richiediString("Vuoi selezionare un pacco?" +
-                        "\n-> Digita: SI per confermare, NO per tornare indietro").toUpperCase();
-                if (richiesta.equals("SI")) {
-                    out.println("SELEZIONE ORDINE ");
-                    int idPacco = getConsoleController().richiediInt("ID PACCO: ");
-                    if (corriereController.controllaPacco(idPacco, corriere))
-                        out.println("Pacco preso in carico!");
-                    else
-                        out.println("Errore nell'assegnamento!");
-                }
-            } while(!richiesta.equals("NO"));
-            menuCorriere(corriere);
-        }else
-            menuCorriere(corriere);
+        if(getCorriere().pacchiLiberi()) {
+            out.println("SELEZIONE ORDINE");
+            int idPacco = getInput().richiediInt("Digita l'ID:      || 0 -> per tornare indietro");
+            if(idPacco==0)
+                menuCorriere(corriere);
+            else {
+                if (getCorriere().controllaPacco(idPacco, corriere))
+                    out.println("Pacco preso in carico!");
+                else
+                    out.println("Errore nell'assegnamento!");
+            }
+        }
+        menuCorriere(corriere);
     }
 
     public void effettuaConsegna(Corriere corriere) throws SQLException {
-        boolean consegnato = true;
-        corriereController.ordiniCorriere(corriere);
-        int idPacco = getConsoleController().richiediInt("Digita l'ID del pacco consegnato");
-        while(consegnato) {
-            if (corriereController.consegnaPacco(idPacco, corriere)) {
+        getCorriere().ordiniCorriere(corriere);
+        int idPacco = getInput().richiediInt("Digita l'ID:      || 0 -> per tornare indietro");
+        if(idPacco==0)
+            menuCorriere(corriere);
+        else{
+            if(!getCorriere().consegnaPacco(idPacco, corriere)) {
+                out.println("ERRORE! Pacco NON consegnato!");
+            }else
                 out.println("IL PACCO E' STATO CONSEGNATO CORRETTAMENTE!");
-                consegnato = false;
-            } else
-                out.println("Errore!");
         }
     }
 
-
-
 }
+
+
+
+
 
 
 

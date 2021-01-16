@@ -3,11 +3,8 @@ package it.unicam.cs.ids.c3spa.core;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
-import it.unicam.cs.ids.c3spa.core.vista.ViewCliente;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.IController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
@@ -23,8 +20,13 @@ public class Main {
     }
 
     private static Main consoleApp(){
-        IView view = new ConsoleView();
-        IController controller = new ConsoleController();
+        InputController inputController = new InputController();
+        AccountController accountController = new AccountController();
+        NegozioController negozioController = new NegozioController();
+        CorriereController corriereController = new CorriereController();
+        ClienteController clienteController = new ClienteController();
+        ConsoleController controller = new ConsoleController(inputController, accountController, negozioController, corriereController, clienteController);
+        IView view = new ConsoleView(controller);
         return new Main(view, controller);
     }
 
@@ -34,7 +36,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException{
         System.out.println(Servizi.caricamento());
 
         //Lettura del cliente numero 1
