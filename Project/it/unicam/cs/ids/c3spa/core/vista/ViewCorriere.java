@@ -2,10 +2,8 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.CorriereController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.InputController;
+
 
 import java.sql.SQLException;
 
@@ -31,7 +29,6 @@ public class ViewCorriere extends ConsoleView {
                 +"\n2. VISUALIZZA I MIEI ORDINI "
                 +"\n3. CONSEGNA PACCO ");
     }
-
 
     private void menuCorriere(Corriere corriere) throws SQLException {
         while (getConsole().isOn()) {
@@ -65,7 +62,6 @@ public class ViewCorriere extends ConsoleView {
             }
         }
     }
-
 
     private void selezioneOrdine(Corriere corriere) throws SQLException {
         if(getCorriere().pacchiLiberi()) {
