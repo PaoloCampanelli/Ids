@@ -17,7 +17,7 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class NegozioController {
+public class NegozioController extends ConsoleController {
 
     public void visualizzaClienti() throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();

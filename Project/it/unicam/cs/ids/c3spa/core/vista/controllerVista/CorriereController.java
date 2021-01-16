@@ -7,7 +7,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereController {
+public class CorriereController extends ConsoleController {
 
     public boolean pacchiLiberi() throws SQLException {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
@@ -47,9 +47,8 @@ public class CorriereController {
         return false;
     }
 
-
     public boolean consegnaPacco(int idPacco, Corriere corriere) throws SQLException {
-        List<Pacco> lp = ordiniCorriere(corriere);
+        List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
         for (Pacco pacco : lp) {
             if (pacco.id == idPacco) {
                 pacco.setConsegnato();

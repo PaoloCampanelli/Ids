@@ -1,52 +1,57 @@
 package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-
-import static java.lang.System.in;
-import static java.lang.System.out;
 
 public class ConsoleController implements IController {
 
-    private boolean isOn = true;
+    private boolean isOn;
+    private InputController inputController;
+    private AccountController accountController;
+    private NegozioController negozioController;
+    private CorriereController corriereController;
+    private ClienteController clienteController;
+
+    public ConsoleController(InputController inputController, AccountController accountController, NegozioController negozioController, CorriereController corriereController, ClienteController clienteController) {
+        this.isOn = true;
+        this.inputController = inputController;
+        this.accountController = accountController;
+        this.negozioController = negozioController;
+        this.corriereController = corriereController;
+        this.clienteController = clienteController;
+    }
+
+    public ConsoleController() {
+    }
 
     public void setOff(){
         this.isOn = false;
     }
 
-    public String richiediString(String domanda){
-        String risposta;
-        risposta = leggiInput(domanda);
-        while (risposta.isEmpty() || risposta.charAt(0) == ' ') {
-            risposta = leggiInput(domanda);
-        }
-        return risposta;
-    }
-
-    public String leggiInput(String domanda){
-        final BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        try {
-            out.println(domanda);
-            out.print("> ");
-            out.flush();
-            return br.readLine();
-        }catch (IOException e){
-            return e.getMessage();
-        }
-    }
-
-    public int richiediInt(String domanda){
-        String intero;
-        do{
-            intero = leggiInput(domanda);
-        }while(intero.isEmpty() || intero.equals("0"));
-        return Integer.parseInt(intero);
-    }
-
     public boolean isOn() {
         return isOn;
     }
+
+
+    public InputController getInput() {
+        return inputController;
+    }
+
+    public AccountController getAccount() {
+        return accountController;
+    }
+
+    public NegozioController getNegozio() {
+        return negozioController;
+    }
+
+    public CorriereController getCorriere() {
+        return corriereController;
+    }
+
+    public ClienteController getCliente() {
+        return clienteController;
+    }
+
 }
+
+

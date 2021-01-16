@@ -2,7 +2,10 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ClienteController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.InputController;
 
 import static java.lang.System.*;
 
@@ -10,10 +13,8 @@ import java.sql.SQLException;
 
 public class ViewCliente extends ConsoleView{
 
-    private ClienteController clienteController;
-
-    public ViewCliente(){
-        this.clienteController = new ClienteController();
+    public ViewCliente(ConsoleController controller) {
+        super(controller);
     }
 
     public void apriVista(int id) throws SQLException {
@@ -34,22 +35,22 @@ public class ViewCliente extends ConsoleView{
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
-        while(getConsoleController().isOn()){
+        while(getConsole().isOn()){
             listaCliente();
-            String richiesta = getConsoleController().richiediString("Digita scelta: ").toUpperCase();
+            String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
-                    clienteController.cercaNegozi(cliente, "1");
+                    getCliente().cercaNegozi(cliente, "1");
                     break;
                 }
                 case "2": {
-                    clienteController.cercaNegozi(cliente, "2");
+                    getCliente().cercaNegozi(cliente, "2");
                     break;
                 }
                 case "3": {
-                    String categoria = getConsoleController().richiediString("     CATEGORIA");
-                    String citta = getConsoleController().richiediString("         IN QUALE CITTA'?");
-                    clienteController.cercaNegoziCategoria(categoria, citta);
+                    String categoria = getInput().richiediString("     CATEGORIA");
+                    String citta = getInput().richiediString("         IN QUALE CITTA'?");
+                    getCliente().cercaNegoziCategoria(categoria, citta);
                     break;
                 }
                 case "4": {
@@ -57,7 +58,7 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 case "EXIT": {
-                    getConsoleController().setOff();
+                    getCliente().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -66,10 +67,9 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 default:
-                    clienteController.checkList(richiesta);
+                   getCliente().checkList(richiesta);
             }
         }
     }
-
 
 }

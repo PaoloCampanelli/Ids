@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -9,7 +8,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AccountController{
+public class AccountController extends ConsoleController {
 
     private int ID = 0;
 
@@ -49,7 +48,7 @@ public class AccountController{
     public int prendiIDCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email, password)){
-            return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().orElse(null).id;
+            return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get().id;
         }
         return 0;
     }
@@ -57,7 +56,7 @@ public class AccountController{
     public int prendiIDCliente(String email) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
         if(controllaCliente(email)){
-            return lc.stream().filter(cliente -> cliente.eMail.equals(email)).findAny().orElse(null).id;
+            return lc.stream().filter(cliente -> cliente.eMail.equals(email)).findAny().get().id;
         }
         return 0;
     }
@@ -70,7 +69,7 @@ public class AccountController{
     public int prendiIDNegozio(String email, String password) throws SQLException {
         List<Negozio> ln = new GestoreNegozio().getAll();
         if(controllaNegozio(email, password)){
-            return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().orElse(null).id;
+            return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().get().id;
         }
         return 0;
     }
@@ -83,7 +82,7 @@ public class AccountController{
     public int prendiIDCorriere(String email, String password) throws SQLException {
         List<Corriere> lcr = new GestoreCorriere().getAll();
         if(controllaCorriere(email, password)){
-            return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().orElse(null).id;
+            return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().get().id;
         }
         return 0;
     }
@@ -121,7 +120,6 @@ public class AccountController{
         }
         return false;
     }
-
 
 
 }

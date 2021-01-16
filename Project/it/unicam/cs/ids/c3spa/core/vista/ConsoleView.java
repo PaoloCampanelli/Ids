@@ -1,17 +1,9 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ClienteController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.vista.controllerVista.*;
 
-import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.*;
 
@@ -19,12 +11,11 @@ import static java.lang.System.*;
 public class ConsoleView implements IView{
 
     private ConsoleController consoleController;
-    private AccountController accountController;
 
-    public ConsoleView(){
-        this.consoleController = new ConsoleController();
-        this.accountController = new AccountController();
+    public ConsoleView(ConsoleController controller){
+        this.consoleController = controller;
     }
+
 
     private void hello(){
         out.println(" - - - - - - - - - - - - ");
@@ -39,9 +30,9 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    private void autenticazione() throws SQLException {
-        String input = getConsoleController().richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
-        while(getConsoleController().isOn()){
+    private void autenticazione() throws SQLException{
+        String input = getInput().richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
+        while(getConsole().isOn()){
             String tipologia;
             switch (input.toUpperCase()) {
                 case "NO" :
@@ -51,7 +42,7 @@ public class ConsoleView implements IView{
                 case "SI":
                     tipologia = tipologia();
                     int idUtente = login(tipologia);
-                    if (getAccountController().controllaID(tipologia, idUtente)) {
+                    if (getAccount().controllaID(tipologia, idUtente)) {
                         redirectView(tipologia, idUtente);
                     } else {
                         out.println("Credenziali non valide");
@@ -59,7 +50,7 @@ public class ConsoleView implements IView{
                         break;
                     }
                 case "EXIT":
-                    getConsoleController().setOff();
+                    getInput().setOff();
                     break;
                 default:
                     out.println("Scelta non valida!");
@@ -70,23 +61,23 @@ public class ConsoleView implements IView{
     }
 
     private int login(String tipologia) throws SQLException {
-        String email = getConsoleController().richiediString("Inserisci email").toUpperCase();
-        String password = getConsoleController().richiediString("Inserisci password");
+        String email = getInput().richiediString("Inserisci email").toUpperCase();
+        String password = getInput().richiediString("Inserisci password");
         switch (tipologia) {
             case "CLIENTE":
-                if (getAccountController().controllaCliente(email, password)) {
-                    int idC = getAccountController().prendiIDCliente(email, password);
+                if (getAccount().controllaCliente(email, password)) {
+                    int idC = getAccount().prendiIDCliente(email, password);
                     return idC;
                 }
                 break;
             case "CORRIERE":
-                if (getAccountController().controllaCorriere(email, password)) {
+                if (getAccount().controllaCorriere(email, password)) {
                     int idCr;
-                    return idCr = getAccountController().prendiIDCorriere(email,password);
+                    return idCr = getAccount().prendiIDCorriere(email,password);
                 }
             case "COMMERCIANTE":
-                if(getAccountController().controllaNegozio(email, password)){
-                    int idN = getAccountController().prendiIDNegozio(email,password);
+                if(getAccount().controllaNegozio(email, password)){
+                    int idN = getAccount().prendiIDNegozio(email,password);
                     return idN;
                 }
         }
@@ -94,7 +85,7 @@ public class ConsoleView implements IView{
     }
 
     private String tipologia(){
-        String input = getConsoleController().richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
+        String input = getInput().richiediString("Digita (1,2,3) per selezionare la tua tipologia utente (1. Cliente, 2. Corriere, 3. Commerciante)");
         do{
             switch (input) {
                 case "1":
@@ -115,7 +106,7 @@ public class ConsoleView implements IView{
         out.println("PASSWORD MINIMO 6 CARATTERI!");
         String risposta;
             do {
-                risposta = getConsoleController().leggiInput(domanda);
+                risposta = getInput().leggiInput(domanda);
             } while (risposta.length() < 5);
             return risposta;
     }
@@ -124,8 +115,8 @@ public class ConsoleView implements IView{
         String risposta;
         boolean controllo;
         do {
-            risposta = getConsoleController().leggiInput("Email");
-            controllo = getAccountController().controllaMail(tipologia, risposta);
+            risposta = getInput().leggiInput("Email");
+            controllo = getAccount().controllaMail(tipologia, risposta);
             if (!risposta.contains("@"))
                 out.println("\nEmail deve contenere @");
             if (controllo) {
@@ -139,25 +130,25 @@ public class ConsoleView implements IView{
 
     private void inserimentoDati(String tipologia) throws SQLException{
         out.println("Inserisci dati:");
-        String denominazione= getConsoleController().richiediString("Denominazione");
+        String denominazione= getInput().richiediString("Denominazione");
         String email = richiediEmail("Email",tipologia);
         String password = richiediPassword("Password");
-        String telefono = getConsoleController().richiediString("Telefono");
+        String telefono = getInput().richiediString("Telefono");
         Indirizzo indirizzo = inputIndirizzo();
         switch (tipologia) {
             case "CLIENTE":
-                Cliente cliente = getAccountController().creatoreCliente(denominazione, email, password, telefono, indirizzo);
-                int idC = getAccountController().prendiIDCliente(email,password);
+                Cliente cliente = getAccount().creatoreCliente(denominazione, email, password, telefono, indirizzo);
+                int idC = getAccount().prendiIDCliente(email,password);
                 redirectView(tipologia, idC);
                 break;
             case "CORRIERE":
-                Corriere corriere = getAccountController().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
-                int idCr = getAccountController().prendiIDCorriere(email,password);
+                Corriere corriere = getAccount().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
+                int idCr = getAccount().prendiIDCorriere(email,password);
                 redirectView(tipologia, idCr);
                 break;
             case "COMMERCIANTE":
-                Negozio n = getAccountController().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
-                int idN = getAccountController().prendiIDNegozio(email, password);
+                Negozio n = getAccount().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
+                int idN = getAccount().prendiIDNegozio(email, password);
                 redirectView(tipologia, idN);
                 break;
         }
@@ -166,15 +157,15 @@ public class ConsoleView implements IView{
     private void redirectView(String tipologia, int id) throws SQLException {
         switch (tipologia) {
             case "CLIENTE":
-                ViewCliente viewCliente = new ViewCliente();
+                ViewCliente viewCliente = new ViewCliente(consoleController);
                 viewCliente.apriVista(id);
                 break;
             case "CORRIERE":
-               ViewCorriere viewCorriere = new ViewCorriere();
+               ViewCorriere viewCorriere = new ViewCorriere(consoleController);
                viewCorriere.apriVista(id);
                break;
             case "COMMERCIANTE":
-                ViewCommerciante viewCommerciante = new ViewCommerciante();
+                ViewCommerciante viewCommerciante = new ViewCommerciante(consoleController);
                 viewCommerciante.apriVista(id);
                 break;
         }
@@ -182,12 +173,12 @@ public class ConsoleView implements IView{
 
     private Indirizzo inputIndirizzo(){
         String via, numero, citta, cap, provincia;
-        via = getConsoleController().richiediString("Via");
-        numero = getConsoleController().richiediString("Numero");
-        citta = getConsoleController().richiediString("Citta'");
-        cap = getConsoleController().richiediString("cap");
-        provincia = getConsoleController().richiediString("Provincia");
-        return getAccountController().indirizzoAccount(via, numero, citta, cap, provincia);
+        via = getInput().richiediString("Via");
+        numero = getInput().richiediString("Numero");
+        citta = getInput().richiediString("Citta'");
+        cap = getInput().richiediString("cap");
+        provincia = getInput().richiediString("Provincia");
+        return getAccount().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
     public void arrivederci(){
@@ -205,8 +196,28 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    public ConsoleController getConsoleController() { return consoleController; }
+    public InputController getInput() {
+        return consoleController.getInput();
+    }
 
-    public AccountController getAccountController() { return accountController; }
+    public AccountController getAccount(){
+        return consoleController.getAccount();
+    }
+
+    public CorriereController getCorriere(){
+        return consoleController.getCorriere();
+    }
+
+    public ClienteController getCliente(){
+        return consoleController.getCliente();
+    }
+
+    public NegozioController getNegozio(){
+        return consoleController.getNegozio();
+    }
+
+    public ConsoleController getConsole(){
+        return consoleController;
+    }
 
 }
