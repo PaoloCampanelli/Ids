@@ -97,7 +97,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
 
                     java.sql.Date dataPreparazione = Servizi.dataUtilToSql(p.dataPreparazione);
                     java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
-                    StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
+                    StatoPacco sp = ((Pacco) entity).statiPacco.get(0);
 
                     st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario`, `mittente`,`corriere`,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
@@ -258,7 +258,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, pacchi.`indirizzo.citta`, pacchi.`indirizzo.numero`, pacchi.`indirizzo.cap`, pacchi.`indirizzo.via`, pacchi.`indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
                     "from pacchi\n" +
                     "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
                     "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +
@@ -346,7 +346,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, pacchi.`indirizzo.citta`, pacchi.`indirizzo.numero`, pacchi.`indirizzo.cap`, pacchi.`indirizzo.via`, pacchi.`indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
                     "from pacchi\n" +
                     "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
                     "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +
@@ -381,7 +381,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, pacchi.`indirizzo.citta`, pacchi.`indirizzo.numero`, pacchi.`indirizzo.cap`, pacchi.`indirizzo.via`, pacchi.`indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
                     "from pacchi\n" +
                     "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
                     "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +
@@ -416,7 +416,7 @@ public class GestorePacco extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
+            st = conn.prepareStatement("select  pacchi.paccoId, destinatario, mittente, corriere, pacchi.`indirizzo.citta`, pacchi.`indirizzo.numero`, pacchi.`indirizzo.cap`, pacchi.`indirizzo.via`, pacchi.`indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta, denominazione, eMail, telefono, count(pacco_statipacco.statoId) as stati\n" +
                     "from pacchi\n" +
                     "                    INNER JOIN corrieri ON corrieri.corriereId = pacchi.corriere\n" +
                     "                    INNER JOIN pacco_statipacco ON pacco_statipacco.paccoid = pacchi.paccoId\n" +

@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.core.controller;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
@@ -45,12 +46,7 @@ public class CorriereController{
 
     public boolean consegnaPacco(int idPacco, Corriere corriere) throws SQLException {
         GestorePacco gp = new GestorePacco();
-        List<Pacco> lp = gp.getByCorriere(corriere);
-        for (Pacco pacco : lp) {
-            if (pacco.id == idPacco)
-                return gp.consegnaPacco(pacco, corriere);
-        }
-        return false;
+        return gp.consegnaPacco(new GestorePacco().getById(idPacco), corriere);
     }
 
     public void storicoOrdini(Corriere corriere) throws SQLException {
