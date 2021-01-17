@@ -37,24 +37,18 @@ public class CorriereController{
         GestorePacco gp = new GestorePacco();
         List<Pacco> lp = gp.getPacchiSenzaCorriere();
         for (Pacco pacco : lp) {
-            if (pacco.id == idPacco) {
-                pacco.setCorriere(corriere);
-                gp.save(pacco);
-                return true;
-            } else
-                return false;
+            if (pacco.id == idPacco)
+                return gp.assegnaPacco(pacco, corriere);
         }
         return false;
     }
 
     public boolean consegnaPacco(int idPacco, Corriere corriere) throws SQLException {
-        List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
+        GestorePacco gp = new GestorePacco();
+        List<Pacco> lp = gp.getByCorriere(corriere);
         for (Pacco pacco : lp) {
-            if (pacco.id == idPacco) {
-                pacco.setConsegnato();
-                return true;
-            }else
-                return false;
+            if (pacco.id == idPacco)
+                return gp.consegnaPacco(pacco, corriere);
         }
         return false;
     }
@@ -62,7 +56,7 @@ public class CorriereController{
     public void storicoOrdini(Corriere corriere) throws SQLException {
         List<Pacco> lp = new GestorePacco().storicoByCorriere(corriere);
         if(lp.size() == 0){
-            System.out.println("NON HAI PRESO IN CARICO NESSUN ORDINE!");
+            System.out.println("NON HAI COMPLETATO NESSUN ORDINE!");
         }
         for(Pacco pacco : lp){
             System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente+" il "+pacco.dataPreparazione+"\n" +
