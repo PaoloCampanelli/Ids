@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.controller;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Negozio;
-import it.unicam.cs.ids.c3spa.core.Pacco;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -39,10 +36,8 @@ public class NegozioController{
         return false;
     }
 
-    public boolean creazionePacco(Cliente cliente, Negozio negozio, Date data) throws SQLException {
-        Pacco pacco = new Pacco(cliente, negozio, data);
-//        StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
-//        new GestoreStatoPacco().save(sp);
+    public boolean creazionePacco(Cliente cliente, Negozio negozio, Date data, Indirizzo indirizzo) throws SQLException {
+        Pacco pacco = new Pacco(cliente, negozio, data, cliente.indirizzo);
         new GestorePacco().save(pacco);
         return true;
     }

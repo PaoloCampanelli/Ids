@@ -48,26 +48,9 @@ public class Main {
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-
-        //System.out.println(new GestoreNegozio().getById(1).toString());
-        //System.out.println(new GestoreNegozio().getByCategoria("frutta"));
-        //n.categorie.add(new GestoreCategoriaMerceologica().getById(2));
-        //new GestoreNegozio().save(n);
-
-        //System.out.println(cc.toString());
         System.out.println(p.toString());
         System.out.println(cc.toString());
 
-        //System.out.println(new GestorePacco().getByMittente("Negozi"));
-//        System.out.println(new GestorePacco().assegnaPacco(p,cc));
-//
-//        System.out.println(p.toString());
-//        System.out.println(cc.toString());
-//
-//        System.out.println((new GestorePacco().consegnaPacco(p , cc)));
-//
-//        System.out.println(p.toString());
-//        System.out.println(cc.toString());
 
         System.out.println(new GestorePacco().storicoByCorriere(cc));
         System.out.println(new GestorePacco().storicoByCliente(new GestoreCliente().getById(9)));

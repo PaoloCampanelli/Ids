@@ -99,12 +99,17 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                     java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
                     StatoPacco sp = new StatoPacco(StatoPaccoEnum.preparato, Date.from(Instant.now()));
 
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario`, `mittente`,`corriere`, dataPreparazione, dataConsegnaRichiesta) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.pacchi (`destinatario`, `mittente`,`corriere`,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, dataPreparazione, dataConsegnaRichiesta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
                     st.setInt(2, p.mittente.id);
                     st.setNull(3, Types.INTEGER);
-                    st.setDate(4, dataPreparazione);
-                    st.setDate(5, dataRichiesta);
+                    st.setString(4, p.indirizzo.citta);
+                    st.setString(5, p.indirizzo.numero);
+                    st.setString(6, p.indirizzo.cap);
+                    st.setString(7, p.indirizzo.via);
+                    st.setString(8, p.indirizzo.provincia);
+                    st.setDate(9, dataPreparazione);
+                    st.setDate(10, dataRichiesta);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
@@ -121,13 +126,18 @@ public class GestorePacco extends GestoreBase implements ICRUD {
                     java.sql.Date dataPreparazione = Servizi.dataUtilToSql(p.dataPreparazione);
                     java.sql.Date dataRichiesta = Servizi.dataUtilToSql(p.dataConsegnaRichiesta);
 
-                    st = conn.prepareStatement("UPDATE progetto_ids.pacchi SET `destinatario` = ?, `mittente` = ?, `corriere` = ?, dataPreparazione = ?, dataConsegnaRichiesta = ? WHERE paccoId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.pacchi SET `destinatario` = ?, `mittente` = ?, `corriere` = ?,`indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, dataPreparazione = ?, dataConsegnaRichiesta = ? WHERE paccoId = ?"); // creo sempre uno statement sulla
                     st.setInt(1, p.destinatario.id);
                     st.setInt(2, p.mittente.id);
                     st.setInt(3, p.corriere.id);
-                    st.setDate(4, dataPreparazione);
-                    st.setDate(5, dataRichiesta);
-                    st.setInt(6, p.id);
+                    st.setString(4, p.indirizzo.citta);
+                    st.setString(5, p.indirizzo.numero);
+                    st.setString(6, p.indirizzo.cap);
+                    st.setString(7, p.indirizzo.via);
+                    st.setString(8, p.indirizzo.provincia);
+                    st.setDate(9, dataPreparazione);
+                    st.setDate(10, dataRichiesta);
+                    st.setInt(11, p.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
 

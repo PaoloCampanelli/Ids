@@ -5,7 +5,6 @@ import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.Date;
 
 public class StatoPacco implements IMapData<StatoPacco> {
@@ -27,8 +26,6 @@ public class StatoPacco implements IMapData<StatoPacco> {
     }
 
     public StatoPacco() {
-//        this.stato = StatoPaccoEnum.preparato;
-//        this.dataStatoPacco=Date.from(Instant.now());
     }
 
     @Override

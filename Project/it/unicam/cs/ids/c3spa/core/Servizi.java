@@ -54,6 +54,11 @@ public class Servizi {
                 "  `destinatario` INT NOT NULL,\n" +
                 "  `mittente` INT NOT NULL,\n" +
                 "  `corriere` INT NULL,\n" +
+                "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
+                "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
+                "  `indirizzo.via` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
                 "  `dataPreparazione` DATE NOT NULL,\n" +
                 "  `dataConsegnaRichiesta` DATE NOT NULL,\n" +
                 "  PRIMARY KEY (`paccoId`));");

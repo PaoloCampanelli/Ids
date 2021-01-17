@@ -2,10 +2,7 @@ package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreStatoPacco;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,9 +19,10 @@ public class Pacco  implements IMapData {
 	public Corriere corriere;
 	public Date dataPreparazione;
 	public Date dataConsegnaRichiesta;
+	public Indirizzo indirizzo;
 	public List<StatoPacco> statiPacco;
 
-	public Pacco CreaPacco(int idPacco, Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta) {
+	public Pacco CreaPacco(int idPacco, Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta, Indirizzo indirizzo) {
 		Date dataAttuale = Date.from(Instant.now());
 		this.id = idPacco;
 		this.destinatario = destinatario;
@@ -32,12 +30,13 @@ public class Pacco  implements IMapData {
 		this.dataPreparazione = dataAttuale;
 		this.dataConsegnaRichiesta = dataConsegnaRichiesta;
 		this.corriere = null;
+		this.indirizzo = indirizzo;
 		this.statiPacco = new ArrayList<StatoPacco>();
 		this.statiPacco.add(new StatoPacco(StatoPaccoEnum.preparato, dataAttuale));
 		return this;
 	}
 
-	public Pacco(Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta){
+	public Pacco(Cliente destinatario, Negozio mittente, Date dataConsegnaRichiesta, Indirizzo indirizzo){
 		Date dataAttuale = Date.from(Instant.now());
 		this.id = 0;
 		this.destinatario = destinatario;
@@ -45,6 +44,7 @@ public class Pacco  implements IMapData {
 		this.dataPreparazione = dataAttuale;
 		this.dataConsegnaRichiesta = dataConsegnaRichiesta;
 		this.corriere = null;
+		this.indirizzo = indirizzo;
 		this.statiPacco = new ArrayList<StatoPacco>();
 		this.statiPacco.add(new StatoPacco(StatoPaccoEnum.preparato, dataAttuale));
 	}
@@ -56,6 +56,7 @@ public class Pacco  implements IMapData {
 		this.mittente = new Negozio();
 		this.dataPreparazione = dataAttuale;
 		this.corriere = new Corriere();
+		this.indirizzo = this.destinatario.indirizzo;
 		this.statiPacco = new ArrayList<StatoPacco>();
 	}
 
@@ -92,11 +93,16 @@ public class Pacco  implements IMapData {
 		this.dataConsegnaRichiesta = rs.getDate("dataConsegnaRichiesta");
 		this.corriere = new Corriere();
 		this.corriere.id = rs.getInt("corriere");
+		this.indirizzo.citta = rs.getString("indirizzo.citta");
+		this.indirizzo.numero = rs.getString("indirizzo.numero");
+		this.indirizzo.cap = rs.getString("indirizzo.cap");
+		this.indirizzo.via = rs.getString("indirizzo.via");
+		this.indirizzo.provincia = rs.getString("indirizzo.provincia");
 		return this;
 	}
 
 	@Override
-	public String  toString() {
+	public String toString() {
 		return "Pacco{" +
 				"id=" + id +
 				", destinatario=" + destinatario +
@@ -104,6 +110,7 @@ public class Pacco  implements IMapData {
 				", corriere=" + corriere +
 				", dataPreparazione=" + dataPreparazione +
 				", dataConsegnaRichiesta=" + dataConsegnaRichiesta +
+				", indirizzo=" + indirizzo +
 				", statiPacco=" + statiPacco +
 				'}';
 	}
