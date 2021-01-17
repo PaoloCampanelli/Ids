@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.controller.Console.ConsoleController;
 
 
 import java.sql.SQLException;

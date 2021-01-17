@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.controller;
+package it.unicam.cs.ids.c3spa.core.controller.Console;
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
@@ -74,8 +74,20 @@ public class ClienteController{
         }
         for(Pacco pacco : lp){
             System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente+" il "+pacco.dataPreparazione+"\n" +
-                    "        Consegna prevista "+pacco.dataConsegnaRichiesta+" [STATO ATTUALE="+pacco.statiPacco+"]");
+                    "        Consegna prevista "+pacco.dataConsegnaRichiesta);
         }
     }
+
+    public void statoOrdine(int id) throws SQLException {
+        Pacco pacco = new GestorePacco().getById(id);
+        if(pacco.statiPacco.size()==1){
+            System.out.println("  "+id+"| STATO: IN PREPARAZIONE");
+        }else if(pacco.statiPacco.size()==2){
+            System.out.println("  "+id+"| STATO: ASSEGNATO AL CORRIERE");
+        }else if(pacco.statiPacco.size()==3) {
+            System.out.println("  "+id + "| STATO: CONSEGNATO");
+        }
+    }
+
 
 }

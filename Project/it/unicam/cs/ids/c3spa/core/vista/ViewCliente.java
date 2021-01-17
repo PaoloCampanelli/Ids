@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.controller.Console.ConsoleController;
 
 import static java.lang.System.*;
 
@@ -29,7 +29,9 @@ public class ViewCliente extends ConsoleView{
                 +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
                 +"\n4. MOSTRA STORICO ORDINI"
                 +"\n5. VISUALIZZA SCONTI"
-                +"\n6. DIGITA LA CATEGORIA DA RICERCARE -> 'FRUTTA', 'VERDURA'..."
+                +"\n6. VISUALIZZA ORDINI"
+                +"\n7. VISUALIZZA STATO ORDINE"
+                +"\n#. DIGITA LA CATEGORIA DA RICERCARE -> 'FRUTTA', 'VERDURA'..."
                 +"\n-------------------"
                 +"\n10. MODIFICA DATI");
     }
@@ -59,6 +61,15 @@ public class ViewCliente extends ConsoleView{
                 }
                 case "5": {
                     out.println("..implementazione in corso..");
+                    break;
+                }
+                case "6": {
+                    out.println("..implementazione in corso..");
+                    break;
+                }
+                case "7": {
+                    int id= getInput().richiediInt("ID PACCO");
+                    getCliente().statoOrdine(id);
                     break;
                 }
                 case "10": {
