@@ -3,9 +3,8 @@ package it.unicam.cs.ids.c3spa.core;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.*;
+import it.unicam.cs.ids.c3spa.core.controller.*;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 

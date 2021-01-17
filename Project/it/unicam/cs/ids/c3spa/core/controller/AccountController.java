@@ -1,6 +1,11 @@
-package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
+package it.unicam.cs.ids.c3spa.core.controller;
 
-import it.unicam.cs.ids.c3spa.core.*;
+import it.unicam.cs.ids.c3spa.core.Cliente;
+import it.unicam.cs.ids.c3spa.core.Corriere;
+import it.unicam.cs.ids.c3spa.core.Indirizzo;
+import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -29,8 +34,9 @@ public class AccountController{
     }
 
     public Indirizzo indirizzoAccount(String via, String numero, String citta, String cap, String provincia) {
-        Cliente cliente = new Cliente();
-        return cliente.indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
+        Indirizzo indirizzo = new Indirizzo();
+        indirizzo.CreaIndirizzo(via, numero, citta, cap, provincia);
+        return indirizzo;
     }
 
     public boolean controllaDati(String tipologia, String email, String password) throws SQLException {
@@ -118,6 +124,42 @@ public class AccountController{
             }
         }
         return false;
+    }
+
+    public void modificaDenominazione(Account account, String input) throws SQLException {
+        account.denominazione = input;
+        accettaModifiche(account);
+    }
+
+    public void modificaPassword(Account account, String input) throws SQLException {
+        account.SetPassword(input);
+        accettaModifiche(account);
+    }
+
+    public void modificaIndirizzo(Account account, Indirizzo indirizzo) throws SQLException {
+        account.indirizzo = indirizzo;
+        accettaModifiche(account);
+    }
+
+    public void modificaNumero(Account account, String numero) throws SQLException{
+        account.telefono = numero;
+        accettaModifiche(account);
+    }
+
+    private void accettaModifiche(Account account) throws SQLException {
+        Cliente cliente = account instanceof Cliente ? ((Cliente) account) : null;
+        Negozio negozio = account instanceof Negozio ? ((Negozio) account) : null;
+        Corriere corriere = account instanceof Corriere ? ((Corriere) account) : null;
+        if(cliente!=null){
+            GestoreCliente gc = new GestoreCliente();
+            gc.save(account);
+        }else if(negozio!=null) {
+            GestoreNegozio gn = new GestoreNegozio();
+            gn.save(account);
+        }else if(corriere!=null){
+            GestoreCorriere gc = new GestoreCorriere();
+            gc.save(account);
+        }
     }
 
 }

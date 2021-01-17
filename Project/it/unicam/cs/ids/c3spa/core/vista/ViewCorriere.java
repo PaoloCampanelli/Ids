@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
 
 
 import java.sql.SQLException;
@@ -28,7 +28,9 @@ public class ViewCorriere extends ConsoleView {
                 +"\n1. VISUALIZZA ORDINI NON ASSEGNATI "
                 +"\n2. VISUALIZZA I MIEI ORDINI "
                 +"\n3. CONSEGNA PACCO "
-                +"\n4. STORICO ORDINI ");
+                +"\n4. STORICO ORDINI "
+                +"\n-------------------"
+                +"\n10. MODIFICA DATI");
     }
 
     private void menuCorriere(Corriere corriere) throws SQLException {
@@ -50,6 +52,10 @@ public class ViewCorriere extends ConsoleView {
                 }
                 case "4": {
                     getCorriere().storicoOrdini(corriere);
+                    break;
+                }
+                case "10": {
+                    sceltaModifica(corriere);
                     break;
                 }
                 case "EXIT": {
