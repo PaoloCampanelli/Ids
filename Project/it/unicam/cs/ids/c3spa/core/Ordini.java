@@ -22,7 +22,7 @@ public class Ordini {
 			if(pacco.id > maxId)
 				maxId = pacco.id;
 		}
-		Pacco p = new Pacco().CreaPacco(maxId++,destinatario,mittente,dataConsegnaRichiesta);
+		Pacco p = new Pacco().CreaPacco(maxId++,destinatario,mittente,dataConsegnaRichiesta, destinatario.indirizzo);
 		this.pacchi.add(p);
 		return  p;
 	}

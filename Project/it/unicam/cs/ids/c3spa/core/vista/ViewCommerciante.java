@@ -126,7 +126,7 @@ public class ViewCommerciante extends ConsoleView {
             int id = getAccount().prendiIDCliente(email);
             Cliente cliente = new GestoreCliente().getById(id);
             Date date = inserimentoData();
-            boolean controllo = getNegozio().creazionePacco(cliente, negozio, date);
+            boolean controllo = getNegozio().creazionePacco(cliente, negozio, date, cliente.indirizzo);
             if(controllo)
                 out.printf("Pacco creato! Intestato a: " + cliente.denominazione + " in data " + date + "%n", "dd/MM/yyyy");
             else

@@ -151,14 +151,14 @@ public class AccountController{
         Negozio negozio = account instanceof Negozio ? ((Negozio) account) : null;
         Corriere corriere = account instanceof Corriere ? ((Corriere) account) : null;
         if(cliente!=null){
-            GestoreCliente gc = new GestoreCliente();
-            gc.save(account);
+            new GestoreCliente().save(cliente);
+
         }else if(negozio!=null) {
             GestoreNegozio gn = new GestoreNegozio();
-            gn.save(account);
+            gn.save(negozio);
         }else if(corriere!=null){
             GestoreCorriere gc = new GestoreCorriere();
-            gc.save(account);
+            gc.save(corriere);
         }
     }
 
