@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-public class InputController extends ConsoleController {
+public class InputController{
 
     public String richiediString(String domanda){
         String risposta;

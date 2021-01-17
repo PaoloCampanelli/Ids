@@ -79,11 +79,11 @@ public class ViewCommerciante extends ConsoleView {
                     break;
                 }
                 case "9":{
-                    getNegozio().storicoOrdiniNegozio(negozio);
+                    getNegozio().storicoOrdini(negozio);
                     break;
                 }
                 case "EXIT": {
-                    getInput().setOff();
+                    getConsole().setOff();
                     break;
                 }
                 case "LOGOUT": {

@@ -32,7 +32,6 @@ public class Main {
 
     private void run() throws SQLException {
         view.start();
-        view.arrivederci();
     }
 
 
