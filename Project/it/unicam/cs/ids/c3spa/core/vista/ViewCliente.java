@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
+import it.unicam.cs.ids.c3spa.core.controller.ConsoleController;
 
 import static java.lang.System.*;
 
@@ -22,19 +22,21 @@ public class ViewCliente extends ConsoleView{
         sceltaCliente(c);
     }
 
-    private void listaCliente() {
+    private void menuCliente() {
         out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
                 +"\n1. MOSTRA TUTTI I NEGOZI"
                 +"\n2. MOSTRA NEGOZI VICINO A ME"
                 +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
                 +"\n4. MOSTRA STORICO ORDINI"
                 +"\n5. VISUALIZZA SCONTI"
-                +"\n6. DIGITA LA CATEGORIA DA RICERCARE -> 'FRUTTA', 'VERDURA'...");
+                +"\n6. DIGITA LA CATEGORIA DA RICERCARE -> 'FRUTTA', 'VERDURA'..."
+                +"\n-------------------"
+                +"\n10. MODIFICA DATI");
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
         while(getConsole().isOn()){
-            listaCliente();
+            menuCliente();
             String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();
             switch (richiesta) {
                 case "1": {
@@ -57,6 +59,10 @@ public class ViewCliente extends ConsoleView{
                 }
                 case "5": {
                     out.println("..implementazione in corso..");
+                    break;
+                }
+                case "10": {
+                    sceltaModifica(cliente);
                     break;
                 }
                 case "EXIT": {

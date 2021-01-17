@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
+package it.unicam.cs.ids.c3spa.core.controller;
 
 
 

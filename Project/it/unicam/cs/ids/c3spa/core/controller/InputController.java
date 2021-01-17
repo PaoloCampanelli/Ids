@@ -1,10 +1,9 @@
-package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
+package it.unicam.cs.ids.c3spa.core.controller;
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 
 import static java.lang.System.in;
 import static java.lang.System.out;

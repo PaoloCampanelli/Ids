@@ -4,7 +4,7 @@ import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.*;
+import it.unicam.cs.ids.c3spa.core.controller.*;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -38,7 +38,9 @@ public class ViewCommerciante extends ConsoleView {
                 +"\n6. ATTIVAZIONE PUBBLICITA"
                 +"\n7. VISUALIZZA CATEGORIE ATTIVE"
                 +"\n8. VISUALIZZA TUTTI I CLIENTI"
-                +"\n9. STORICO ORDINI");
+                +"\n9. STORICO ORDINI"
+                +"\n-------------------"
+                +"\n10. MODIFICA DATI");
     }
 
     private void menuCommerciante(Negozio negozio) throws SQLException {
@@ -80,6 +82,10 @@ public class ViewCommerciante extends ConsoleView {
                 }
                 case "9":{
                     getNegozio().storicoOrdini(negozio);
+                    break;
+                }
+                case "10": {
+                    sceltaModifica(negozio);
                     break;
                 }
                 case "EXIT": {

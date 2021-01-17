@@ -1,7 +1,8 @@
 package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.*;
+import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.controller.*;
 
 import java.sql.SQLException;
 
@@ -44,7 +45,7 @@ public class ConsoleView implements IView{
             switch (input.toUpperCase()) {
                 case "NO" :
                     tipologia = tipologia();
-                    inserimentoDati(tipologia);
+                    creazioneAccount(tipologia);
                     break;
                 case "SI":
                     tipologia = tipologia();
@@ -136,7 +137,7 @@ public class ConsoleView implements IView{
         return risposta.toUpperCase();
     }
 
-    private void inserimentoDati(String tipologia) throws SQLException{
+    private void creazioneAccount(String tipologia) throws SQLException{
         out.println("Inserisci dati:");
         String denominazione= getInput().richiediString("Denominazione");
         String email = richiediEmail("Email",tipologia);
@@ -147,19 +148,19 @@ public class ConsoleView implements IView{
             case "CLIENTE": {
                 Cliente cliente = getAccount().creatoreCliente(denominazione, email, password, telefono, indirizzo);
                 int idC = getAccount().prendiID("CLIENTE", email, password);
-                redirectView(tipologia, idC);
+                redirectView("CLIENTE", idC);
                 break;
             }
             case "CORRIERE": {
                 Corriere corriere = getAccount().creatoreCorriere(denominazione, email, password, telefono, indirizzo);
                 int idCr = getAccount().prendiID("CORRIERE", email, password);
-                redirectView(tipologia, idCr);
+                redirectView("CORRIERE", idCr);
                 break;
             }
             case "COMMERCIANTE": {
                 Negozio n = getAccount().creatoreCommerciante(denominazione, email, password, telefono, indirizzo);
                 int idN = getAccount().prendiID("COMMERCIANTE", email, password);
-                redirectView(tipologia, idN);
+                redirectView("COMMERCIANTE", idN);
                 break;
             }
         }
@@ -187,13 +188,57 @@ public class ConsoleView implements IView{
 
     private Indirizzo inputIndirizzo(){
         String via, numero, citta, cap, provincia;
-        via = getInput().richiediString("Via");
-        numero = getInput().richiediString("Numero");
-        citta = getInput().richiediString("Citta'");
-        cap = getInput().richiediString("cap");
+        out.println("INSERISCI INDIRIZZO");
         provincia = getInput().richiediString("Provincia");
+        citta = getInput().richiediString("Citta'");
+        numero = getInput().richiediString("Numero civico");
+        via = getInput().richiediString("Via");
+        cap = getInput().richiediString("CAP");
         return getAccount().indirizzoAccount(via, numero, citta, cap, provincia);
     }
+
+    protected void sceltaModifica(Account account) throws SQLException {
+        menuModifica();
+        int richiesta = getInput().richiediInt("Digita scelta: ");
+        switch (richiesta){
+            case 0:{
+                break;
+            }
+            case 1:{
+                String nuovaDenom = getInput().richiediString("DIGITA NUOVA DENOMINAZIONE");
+                getAccount().modificaDenominazione(account, nuovaDenom);
+                sceltaModifica(account);
+                break;
+            }
+            case 2:{
+                String nuovaPass = richiediPassword("DIGITA NUOVA PASSWORD");
+                getAccount().modificaPassword(account, nuovaPass);
+                sceltaModifica(account);
+                break;
+            }
+            case 3:{
+                Indirizzo indirizzo = inputIndirizzo();
+                getAccount().modificaIndirizzo(account, indirizzo);
+                sceltaModifica(account);
+                break;
+            }
+            case 4:{
+                String numero = getInput().richiediString("DIGITA NUOVO NUMERO TELEFONICO: ");
+                getAccount().modificaNumero(account, numero);
+                sceltaModifica(account);
+                break;
+            }
+        }
+    }
+
+    private void menuModifica(){
+        out.println("Operazioni disponibili:     || 0 -> per tornare indietro"
+                +"\n1. MODIFICA DENOMINAZIONE"
+                +"\n2. MODIFICA PASSWORD"
+                +"\n3. MODIFICA INDIRIZZO"
+                +"\n4. MODIFICA TELEFONO");
+    }
+
 
     protected void logout() throws SQLException {
         out.println(" - - - - - - - - - - - - ");
