@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;

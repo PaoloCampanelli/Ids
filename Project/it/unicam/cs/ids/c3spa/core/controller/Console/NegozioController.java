@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.controller;
+package it.unicam.cs.ids.c3spa.core.controller.Console;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
@@ -46,7 +46,7 @@ public class NegozioController{
         List<Pacco> lp = new GestorePacco().storicoByNegozio(negozio);
         for (Pacco pacco : lp)
             System.out.println("    > " + pacco.id + "| in data: " + pacco.dataPreparazione+"" +
-                    "\n[Destinatario: "+pacco.destinatario);
+                    "\n[Destinatario: "+pacco.destinatario.denominazione+" Corriere: "+pacco.corriere.denominazione+"]");
     }
 
     public boolean correggiData(int giorno, int meseInput, int anno) {

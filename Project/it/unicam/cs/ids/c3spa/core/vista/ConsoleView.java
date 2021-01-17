@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.controller.*;
+import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 
 import java.sql.SQLException;
 
@@ -186,7 +186,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private Indirizzo inputIndirizzo(){
+    protected Indirizzo inputIndirizzo(){
         String via, numero, citta, cap, provincia;
         out.println("INSERISCI INDIRIZZO");
         provincia = getInput().richiediString("Provincia");

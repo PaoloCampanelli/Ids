@@ -1,6 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.controller;
+package it.unicam.cs.ids.c3spa.core.controller.Console;
 
 
+import it.unicam.cs.ids.c3spa.core.controller.Console.*;
+import it.unicam.cs.ids.c3spa.core.controller.IController;
 
 public class ConsoleController implements IController {
 
@@ -19,6 +21,7 @@ public class ConsoleController implements IController {
         this.corriereController = corriereController;
         this.clienteController = clienteController;
     }
+
     public ConsoleController(){
     }
 

@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.controller;
+package it.unicam.cs.ids.c3spa.core.controller.Console;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
@@ -26,6 +26,9 @@ public class CorriereController{
 
     public List<Pacco> ordiniCorriere(Corriere corriere) throws SQLException {
         List<Pacco> lp = new GestorePacco().getByCorriere(corriere);
+        if(lp.size() == 0){
+            System.out.println("Non hai preso nessun pacco in carico!");
+        }
         for (Pacco pacco : lp) {
             System.out.println("     > [" + pacco.id + " Destinatario: "
                     + pacco.destinatario.denominazione + " Data consegna: " + pacco.dataConsegnaRichiesta +
@@ -55,9 +58,9 @@ public class CorriereController{
             System.out.println("NON HAI COMPLETATO NESSUN ORDINE!");
         }
         for(Pacco pacco : lp){
-            System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente+" il "+pacco.dataPreparazione+"\n" +
-                    "        [Destinatario: "+pacco.destinatario+" "+pacco.destinatario.indirizzo+"\n"+
-                    "        Consegna prevista: "+pacco.dataConsegnaRichiesta+" [STATO ATTUALE="+pacco.statiPacco+"]");
+            System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente.denominazione+" il "+pacco.dataPreparazione+"\n" +
+                    "        [Destinatario: "+pacco.destinatario.denominazione+" "+pacco.destinatario.indirizzo+"\n"+
+                    "        Consegna prevista: "+pacco.dataConsegnaRichiesta+"]");
         }
     }
 
