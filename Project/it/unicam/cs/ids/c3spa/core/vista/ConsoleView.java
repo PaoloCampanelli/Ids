@@ -29,6 +29,14 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
+    @Override
+    public void arrivederci(){
+        out.println(" - - - - - - - - - - - - ");
+        out.println("  GRAZIE PER AVER USATO C3 ");
+        out.println(" - - - - - - - - - - - - ");
+        System.exit(1);
+    }
+
     private void autenticazione() throws SQLException{
         String input = getInput().richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
         while(getConsole().isOn()){
@@ -49,7 +57,7 @@ public class ConsoleView implements IView{
                         break;
                     }
                 case "EXIT":
-                    getInput().setOff();
+                    getConsole().setOff();
                     break;
                 default:
                     out.println("Scelta non valida!");
@@ -187,13 +195,6 @@ public class ConsoleView implements IView{
         return getAccount().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
-    public void arrivederci(){
-        out.println(" - - - - - - - - - - - - ");
-        out.println("  GRAZIE PER AVER USATO C3 ");
-        out.println(" - - - - - - - - - - - - ");
-        System.exit(1);
-    }
-
     protected void logout() throws SQLException {
         out.println(" - - - - - - - - - - - - ");
         out.println("        LOGOUT IN CORSO.....");
@@ -202,22 +203,22 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    public InputController getInput() {
+    protected InputController getInput() {
          return consoleController.getInput();
     }
-    public AccountController getAccount(){
+    protected AccountController getAccount(){
         return consoleController.getAccount();
     }
-    public CorriereController getCorriere(){
+    protected CorriereController getCorriere(){
         return consoleController.getCorriere();
     }
-    public ClienteController getCliente(){
+    protected ClienteController getCliente(){
         return consoleController.getCliente();
     }
-    public NegozioController getNegozio(){
+    protected NegozioController getNegozio(){
         return consoleController.getNegozio();
     }
-    public ConsoleController getConsole(){
+    protected ConsoleController getConsole(){
         return consoleController;
     }
 

@@ -8,7 +8,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AccountController extends ConsoleController {
+public class AccountController{
 
     public Cliente creatoreCliente(String denominazione, String email, String password, String telefono, Indirizzo indirizzo) throws SQLException {
         Cliente cliente = new Cliente(denominazione, indirizzo, telefono, email, password);

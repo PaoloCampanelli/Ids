@@ -27,7 +27,8 @@ public class ViewCorriere extends ConsoleView {
         out.println("Operazioni disponibili:     || EXIT -> per uscire       LOGOUT -> per tornare alla pagina principale"
                 +"\n1. VISUALIZZA ORDINI NON ASSEGNATI "
                 +"\n2. VISUALIZZA I MIEI ORDINI "
-                +"\n3. CONSEGNA PACCO ");
+                +"\n3. CONSEGNA PACCO "
+                +"\n4. STORICO ORDINI ");
     }
 
     private void menuCorriere(Corriere corriere) throws SQLException {
@@ -47,8 +48,12 @@ public class ViewCorriere extends ConsoleView {
                     effettuaConsegna(corriere);
                     break;
                 }
+                case "4": {
+                    getCorriere().storicoOrdini(corriere);
+                    break;
+                }
                 case "EXIT": {
-                    getInput().setOff();
+                    getConsole().setOff();
                     break;
                 }
                 case "LOGOUT": {
@@ -91,6 +96,7 @@ public class ViewCorriere extends ConsoleView {
                 out.println("IL PACCO E' STATO CONSEGNATO CORRETTAMENTE!");
         }
     }
+
 
 }
 

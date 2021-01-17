@@ -19,8 +19,7 @@ public class ConsoleController implements IController {
         this.corriereController = corriereController;
         this.clienteController = clienteController;
     }
-
-    public ConsoleController() {
+    public ConsoleController(){
     }
 
     public void setOff(){
@@ -30,7 +29,6 @@ public class ConsoleController implements IController {
     public boolean isOn() {
         return isOn;
     }
-
 
     public InputController getInput() {
         return inputController;

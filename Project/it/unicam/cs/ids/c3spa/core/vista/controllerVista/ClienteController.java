@@ -3,12 +3,14 @@ package it.unicam.cs.ids.c3spa.core.vista.controllerVista;
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.Pacco;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteController extends ConsoleController {
+public class ClienteController{
 
     public void cercaNegozi(Cliente cliente, String scelta) throws SQLException {
         GestoreNegozio gn = new GestoreNegozio();
@@ -62,6 +64,17 @@ public class ClienteController extends ConsoleController {
         for (Negozio negozio : lc) {
             System.out.println("    > " + negozio.denominazione);
             System.out.println("        > " + negozio.indirizzo);
+        }
+    }
+
+    public void storicoOrdini(Cliente cliente) throws SQLException {
+        List<Pacco> lp = new GestorePacco().storicoByCliente(cliente);
+        if(lp.size()==0){
+            System.out.println("NON HAI EFFETTUATO NESSUN ORDINE!");
+        }
+        for(Pacco pacco : lp){
+            System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente+" il "+pacco.dataPreparazione+"\n" +
+                    "        Consegna prevista "+pacco.dataConsegnaRichiesta+" [STATO ATTUALE="+pacco.statiPacco+"]");
         }
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class NegozioController extends ConsoleController {
+public class NegozioController{
 
     public void visualizzaClienti() throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
@@ -47,10 +47,11 @@ public class NegozioController extends ConsoleController {
         return true;
     }
 
-    public void storicoOrdiniNegozio(Negozio negozio) throws SQLException {
+    public void storicoOrdini(Negozio negozio) throws SQLException {
         List<Pacco> lp = new GestorePacco().storicoByNegozio(negozio);
         for (Pacco pacco : lp)
-            System.out.println("    > " + pacco.id + "| Destinatario: " + pacco.destinatario + " in data: " + pacco.dataPreparazione);
+            System.out.println("    > " + pacco.id + "| in data: " + pacco.dataPreparazione+"" +
+                    "\n[Destinatario: "+pacco.destinatario);
     }
 
     public boolean correggiData(int giorno, int meseInput, int anno) {
@@ -77,4 +78,5 @@ public class NegozioController extends ConsoleController {
         }
         out.println("- - - - - - - - - - - - -");
     }
+
 }

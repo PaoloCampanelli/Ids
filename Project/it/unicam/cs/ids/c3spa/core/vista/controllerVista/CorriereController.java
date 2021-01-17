@@ -7,7 +7,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereController extends ConsoleController {
+public class CorriereController{
 
     public boolean pacchiLiberi() throws SQLException {
         List<Pacco> lp = new GestorePacco().getPacchiSenzaCorriere();
@@ -58,4 +58,17 @@ public class CorriereController extends ConsoleController {
         }
         return false;
     }
+
+    public void storicoOrdini(Corriere corriere) throws SQLException {
+        List<Pacco> lp = new GestorePacco().storicoByCorriere(corriere);
+        if(lp.size() == 0){
+            System.out.println("NON HAI PRESO IN CARICO NESSUN ORDINE!");
+        }
+        for(Pacco pacco : lp){
+            System.out.println("    > "+pacco.id+"| spedito da: "+pacco.mittente+" il "+pacco.dataPreparazione+"\n" +
+                    "        [Destinatario: "+pacco.destinatario+" "+pacco.destinatario.indirizzo+"\n"+
+                    "        Consegna prevista: "+pacco.dataConsegnaRichiesta+" [STATO ATTUALE="+pacco.statiPacco+"]");
+        }
+    }
+
 }

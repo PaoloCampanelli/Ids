@@ -2,10 +2,7 @@ package it.unicam.cs.ids.c3spa.core.vista;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.AccountController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ClienteController;
 import it.unicam.cs.ids.c3spa.core.vista.controllerVista.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.vista.controllerVista.InputController;
 
 import static java.lang.System.*;
 
@@ -31,7 +28,8 @@ public class ViewCliente extends ConsoleView{
                 +"\n2. MOSTRA NEGOZI VICINO A ME"
                 +"\n3. MOSTRA TUTTI I NEGOZI PER CATEGORIA E CITTA'"
                 +"\n4. MOSTRA STORICO ORDINI"
-                +"\n5. Digita la categoria da ricercare -> 'FRUTTA', 'VERDURA'...");
+                +"\n5. VISUALIZZA SCONTI"
+                +"\n6. DIGITA LA CATEGORIA DA RICERCARE -> 'FRUTTA', 'VERDURA'...");
     }
 
     private void sceltaCliente(Cliente cliente) throws SQLException {
@@ -54,11 +52,15 @@ public class ViewCliente extends ConsoleView{
                     break;
                 }
                 case "4": {
-                        out.println("..implementazione in corso..");
+                    getCliente().storicoOrdini(cliente);
+                    break;
+                }
+                case "5": {
+                    out.println("..implementazione in corso..");
                     break;
                 }
                 case "EXIT": {
-                    getCliente().setOff();
+                    getConsole().setOff();
                     break;
                 }
                 case "LOGOUT": {
