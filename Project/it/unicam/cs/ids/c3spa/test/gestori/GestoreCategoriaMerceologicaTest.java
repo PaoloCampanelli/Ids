@@ -74,7 +74,10 @@ class GestoreCategoriaMerceologicaTest {
     }
 
     @Test
-    void save() {
+    void save() throws SQLException {
+        inseriscoCategorieTest();
+        CategoriaMerceologica nuovaCategoria = new CategoriaMerceologica(0, "CATEGORIA");
+        assertEquals(new GestoreCategoriaMerceologica().save(nuovaCategoria).toString(), gestoreCategoriaMerceologica.getById(nuovaCategoria.idCategoria).toString());
     }
 
     @Test
