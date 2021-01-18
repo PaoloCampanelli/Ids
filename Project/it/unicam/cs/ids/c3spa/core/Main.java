@@ -49,9 +49,9 @@ public class Main {
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(new GestoreCategoriaMerceologica().getById(1).toString());
         System.out.println(new GestoreNegozio().getById(1));
-        System.out.println(new GestoreNegozio().getAll());
+//        new GestoreNegozio().delete(1);
+//        System.out.println(new GestoreNegozio().getById(1));
 
         consoleApp().run();
 

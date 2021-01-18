@@ -128,7 +128,7 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
 
         try {
 
-            sql = "UPDATE `progetto_ids`.`categoriemerceologiche` SET `isCancellato` = '1' WHERE (`scontoId` = '"+id+"');";
+            sql = "UPDATE `progetto_ids`.`sconti` SET `isCancellato` = '1' WHERE (`scontoId` = '"+id+"');";
 
             st = conn.createStatement(); // creo sempre uno statement sulla
             st.execute(sql); // faccio la query su uno statement
