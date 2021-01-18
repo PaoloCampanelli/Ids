@@ -17,7 +17,7 @@ public class GestoreStatoPacco extends GestoreBase implements ICRUD {
 
         try {
 
-            st = conn.prepareStatement("SELECT * FROM statipacchi WHERE statoId = ?"); // creo sempre uno statement sulla
+            st = conn.prepareStatement("SELECT * FROM statipacchi WHERE statoId = ? AND isCancellato = 0"); // creo sempre uno statement sulla
             st.setInt(1,id);
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
@@ -43,7 +43,7 @@ public class GestoreStatoPacco extends GestoreBase implements ICRUD {
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            rs = st.executeQuery("SELECT * FROM statipacchi;"); // faccio la query su uno statement
+            rs = st.executeQuery("SELECT * FROM statipacchi where isCancellato = 0;"); // faccio la query su uno statement
             while (rs.next() == true) {
                 StatoPacco a = new StatoPacco();
                 a.mapData(rs);
@@ -115,6 +115,23 @@ public class GestoreStatoPacco extends GestoreBase implements ICRUD {
 
     @Override
     public void delete(int id) throws SQLException {
+
+        Statement st;
+        String sql;
+        Connection conn = ApriConnessione();
+
+        try {
+
+            sql = "UPDATE `progetto_ids`.`statipacchi` SET `isCancellato` = '1' WHERE (`paccoId` = '"+id+"');";
+
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            st.execute(sql); // faccio la query su uno statement
+            GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+
+        } // fine try-catch
 
     }
 }

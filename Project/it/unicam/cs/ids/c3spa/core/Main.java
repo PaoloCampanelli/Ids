@@ -42,20 +42,16 @@ public class Main {
         Cliente c = new GestoreCliente().getById(1);
         Negozio n = new GestoreNegozio().getById(1);
         Corriere cc = new GestoreCorriere().getById(1);
-        Pacco p =new GestorePacco().getById(4);
+        Pacco p =new GestorePacco().getById(1);
         
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getAll();
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(p.toString());
-        System.out.println(cc.toString());
-
-
-        System.out.println(new GestorePacco().storicoByCorriere(cc));
-        System.out.println(new GestorePacco().storicoByCliente(new GestoreCliente().getById(9)));
-        System.out.println(new GestorePacco().storicoByNegozio(new GestoreNegozio().getById(2)));
+        System.out.println(new GestoreCategoriaMerceologica().getById(1).toString());
+        System.out.println(new GestoreNegozio().getById(1));
+        System.out.println(new GestoreNegozio().getAll());
 
         consoleApp().run();
 

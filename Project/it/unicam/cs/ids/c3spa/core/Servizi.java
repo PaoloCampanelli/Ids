@@ -22,6 +22,7 @@ public class Servizi {
                 "  `telefono` VARCHAR(20) NOT NULL,\n" +
                 "  `eMail` VARCHAR(45) NOT NULL,\n" +
                 "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`negozioId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`clienti` (\n" +
@@ -35,6 +36,7 @@ public class Servizi {
                 "  `telefono` VARCHAR(20) NOT NULL,\n" +
                 "  `eMail` VARCHAR(45) NOT NULL,\n" +
                 "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`clienteId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`categoriemerceologiche` (\n" +
@@ -61,6 +63,7 @@ public class Servizi {
                 "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
                 "  `dataPreparazione` DATE NOT NULL,\n" +
                 "  `dataConsegnaRichiesta` DATE NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`paccoId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`pacco_statipacco` (\n" +
@@ -72,6 +75,7 @@ public class Servizi {
                 "  `statoId` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `stato` ENUM('preparato', 'assegnato', 'consegnato') NOT NULL,\n" +
                 "  `data` DATE NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`statoId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`sconti` (\n" +
@@ -81,6 +85,7 @@ public class Servizi {
                 "  `dataFine` DATE NOT NULL,\n" +
                 "  `negozioId` INT NOT NULL,\n" +
                 "  `categoriaMerceologicaId` INT NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`scontoId`));");
 
         stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`corrieri` (\n" +
@@ -94,6 +99,7 @@ public class Servizi {
                 "  `telefono` VARCHAR(20) NOT NULL,\n" +
                 "  `eMail` VARCHAR(45) NOT NULL,\n" +
                 "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`corriereId`));");
 
 
