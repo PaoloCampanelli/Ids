@@ -20,7 +20,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT * FROM progetto_ids.corrieri WHERE corriereId = ?"); // creo sempre uno statement sulla
+            st = conn.prepareStatement("SELECT * FROM progetto_ids.corrieri WHERE corriereId = ? AND isCancellato = 0"); // creo sempre uno statement sulla
             st.setInt(1, id);
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
@@ -33,18 +33,6 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
             e.printStackTrace();
         } // fine try-catch
         ChiudiConnessione(conn);
-
-        //Popolo le categorie collegate al negozio
-/*        st = conn.prepareStatement("SELECT * FROM progetto_ids.corriere_pacchi WHERE corriereId = ?"); // creo sempre uno statement sulla
-        st.setInt(1, c.id);
-        rs = st.executeQuery(); // faccio la query su uno statement
-        while (rs.next() == true) {
-            c.pacchiInConsegna.add(gp.getById(rs.getInt(2)));
-        }
-        st.close();*/
-
-        ChiudiConnessione(conn);
-
         return c;
     }
 
@@ -58,7 +46,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM corrieri;";
+            sql = "SELECT * FROM corrieri where isCancellato = 0;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 Corriere c = new Corriere();
@@ -147,7 +135,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
 
         try {
 
-            sql = "DELETE FROM `progetto_ids`.`corrieri` WHERE (`corriereId` = '"+id+"');";
+            sql = "UPDATE `progetto_ids`.`categoriemerceologiche` SET `isCancellato` = '1' WHERE (`corriereId` = '"+id+"');";
 
             st = conn.createStatement(); // creo sempre uno statement sulla
             st.execute(sql); // faccio la query su uno statement

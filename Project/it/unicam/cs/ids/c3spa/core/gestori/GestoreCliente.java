@@ -20,7 +20,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
         try {
 
-            st = conn.prepareStatement("SELECT * FROM clienti WHERE clienteId = ?"); // creo sempre uno statement sulla
+            st = conn.prepareStatement("SELECT * FROM clienti WHERE clienteId = ? AND isCancellato = 0"); // creo sempre uno statement sulla
             st.setInt(1,id);
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
@@ -47,7 +47,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM clienti;";
+            sql = "SELECT * FROM clienti where isCancellato = 0;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 Cliente a = new Cliente();
@@ -135,7 +135,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
         try {
 
-            sql = "DELETE FROM `progetto_ids`.`clienti` WHERE (`clienteId` = '"+id+"');";
+            sql = "UPDATE `progetto_ids`.`categoriemerceologiche` SET `isCancellato` = '1' WHERE (`clienteId` = '"+id+"');";
 
             st = conn.createStatement(); // creo sempre uno statement sulla
             st.execute(sql); // faccio la query su uno statement
