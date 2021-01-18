@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
@@ -75,11 +74,20 @@ public class GestoreClienteTest {
     }
 
     @Test
-    void save() {
+    void save() throws SQLException {
+        inseriscoClientiTest();
+        Indirizzo nuovoIndirizzo = new Indirizzo().CreaIndirizzo("ROMA", "1", "MACERATA", "62100", "MC");
+        Cliente nuovoCliente = new Cliente("CLIENTE", nuovoIndirizzo, "1", "CLIENTE@", "CLIENTE!!");
+        assertEquals(new GestoreCliente().save(nuovoCliente).toString(), gestoreCliente.getById(nuovoCliente.id).toString());
     }
 
     @Test
-    void delete() {
+    void delete() throws SQLException {
+        Indirizzo ind = new Indirizzo().CreaIndirizzo("ROMA", "12", "MACERATA", "62100", "MC");
+        Cliente cl = new Cliente("CLIENTEDACANCELLARE", ind, "1", "CLIENTEDACANCELLARE@", "CLIENTE2!!");
+        new GestoreCliente().save(cl);
+        new GestoreCliente().delete(cl.id);
+        assertFalse(cl.equals(gestoreCliente.getById(cl.id)));
     }
 
     @Test
