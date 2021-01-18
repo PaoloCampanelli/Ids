@@ -81,6 +81,10 @@ class GestoreCategoriaMerceologicaTest {
     }
 
     @Test
-    void delete() {
+    void delete() throws SQLException {
+        CategoriaMerceologica cat= new CategoriaMerceologica(0, "CATEGORIADACANCELLARE");
+        new GestoreCategoriaMerceologica().save(cat);
+        new GestoreCategoriaMerceologica().delete(cat.idCategoria);
+        assertFalse(cat.equals(gestoreCategoriaMerceologica.getById(cat.idCategoria)));
     }
 }
