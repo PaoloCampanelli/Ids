@@ -123,8 +123,7 @@ public class ViewCommerciante extends ConsoleView {
     private void nuovoOrdine(Negozio negozio) throws SQLException {
         String email = getInput().richiediString("Email destinatario").toUpperCase();
         if((getAccount().controllaMail("CLIENTE", email))){
-            int id = getAccount().prendiIDCliente(email);
-            Cliente cliente = new GestoreCliente().getById(id);
+            Cliente cliente = getAccount().prendiCliente(email);
             Date date = inserimentoData();
             boolean controllo = getNegozio().creazionePacco(cliente, negozio, date, cliente.indirizzo);
             if(controllo)

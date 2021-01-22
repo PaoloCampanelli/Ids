@@ -79,17 +79,13 @@ public class AccountController{
         return 0;
     }
 
-    public boolean controllaCliente(String email) throws SQLException {
-        List<Cliente> lc = new GestoreCliente().getAll();
-        return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email));
-    }
-
-    public int prendiIDCliente(String email) throws SQLException {
-        List<Cliente> lc = new GestoreCliente().getAll();
-        if(controllaCliente(email)){
-            return lc.stream().filter(cliente -> cliente.eMail.equals(email)).findAny().get().id;
+    public Cliente prendiCliente(String email) throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getByEMail(email);
+        Cliente clienteEsistente = null;
+        for(Cliente cliente : lc){
+            clienteEsistente = cliente;
         }
-        return 0;
+        return clienteEsistente;
     }
 
     public boolean controllaMail(String tipologia, String email) throws SQLException {
