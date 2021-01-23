@@ -1,11 +1,8 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -74,10 +71,17 @@ class GestoreCategoriaMerceologicaTest {
     }
 
     @Test
-    void save() {
+    void save() throws SQLException {
+        inseriscoCategorieTest();
+        CategoriaMerceologica nuovaCategoria = new CategoriaMerceologica(0, "CATEGORIA");
+        assertEquals(new GestoreCategoriaMerceologica().save(nuovaCategoria).toString(), gestoreCategoriaMerceologica.getById(nuovaCategoria.idCategoria).toString());
     }
 
     @Test
-    void delete() {
+    void delete() throws SQLException {
+        CategoriaMerceologica cat= new CategoriaMerceologica(0, "CATEGORIADACANCELLARE");
+        new GestoreCategoriaMerceologica().save(cat);
+        new GestoreCategoriaMerceologica().delete(cat.idCategoria);
+        assertFalse(cat.equals(gestoreCategoriaMerceologica.getById(cat.idCategoria)));
     }
 }
