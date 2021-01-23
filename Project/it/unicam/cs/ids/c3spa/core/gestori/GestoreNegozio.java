@@ -178,13 +178,23 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         String sql;
         List<Negozio> ln = new ArrayList<>();
         Connection conn = ApriConnessione();
+        GestoreCategoriaMerceologica gcm = new GestoreCategoriaMerceologica();
+        Negozio n = new Negozio();
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
             sql = "SELECT * FROM negozi WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                ln.add(new Negozio().mapData(rs));
+                ln.add(n.mapData(rs));
+            }
+            //Popolo le categorie collegate al negozio
+
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
+            ps.setInt(1, n.id);
+            rs = ps.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                n.categorie.add(gcm.getById(rs.getInt(2)));
             }
             st.close();
         } catch (SQLException e) {
