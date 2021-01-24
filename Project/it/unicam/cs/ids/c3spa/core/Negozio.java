@@ -36,6 +36,7 @@ public class Negozio extends Account implements IMapData {
 	}
 
 	public Negozio() {
+		this.token = 5;
 		this.indirizzo = new Indirizzo();
 		this.categorie = new ArrayList<CategoriaMerceologica>();
 	}

@@ -50,7 +50,7 @@ public class GestoreClienteTest {
         conn.close();
     }
 
-    private List<Cliente> inseriscoClientiTest() throws SQLException {
+    private List<Cliente> inseriscoClienti() throws SQLException {
         Indirizzo indirizzoSara = new Indirizzo().CreaIndirizzo("BASSO", "14", "URBISAGLIA","62010",  "MC");
         clienteSara.CreaAccount(1, "SARA COMPAGNUCCI", indirizzoSara, "34111111111", "SARA.COMPAGNUCCI@GMAIL.COM", "SARA!!");
         Indirizzo indirizzoPaolo = new Indirizzo().CreaIndirizzo("GIOVANNI", "10", "CAMERINO", "62032", "MC");
@@ -62,20 +62,19 @@ public class GestoreClienteTest {
 
     @Test
     void getById() throws SQLException {
-        inseriscoClientiTest();
+        inseriscoClienti();
         assertEquals(clienti.stream().filter(i->i.id == 1).findAny().orElse(null).toString(), new GestoreCliente().getById(1).toString());
         assertEquals(clienti.stream().filter(i->i.id == 2).findAny().orElse(null).toString(), new GestoreCliente().getById(2).toString());
     }
 
     @Test
     void getAll() throws SQLException {
-    inseriscoClientiTest();
+    inseriscoClienti();
         assertEquals(clienti.toString(), gestoreCliente.getAll().toString());
     }
 
     @Test
     void save() throws SQLException {
-        inseriscoClientiTest();
         Indirizzo nuovoIndirizzo = new Indirizzo().CreaIndirizzo("ROMA", "1", "MACERATA", "62100", "MC");
         Cliente nuovoCliente = new Cliente("CLIENTE", nuovoIndirizzo, "1", "CLIENTE@", "CLIENTE!!");
         assertEquals(new GestoreCliente().save(nuovoCliente).toString(), gestoreCliente.getById(nuovoCliente.id).toString());
@@ -92,14 +91,14 @@ public class GestoreClienteTest {
 
     @Test
     void getByEMail() throws SQLException {
-    inseriscoClientiTest();
+    inseriscoClienti();
     assertEquals(clienti.stream().filter(e->e.eMail.equals("SARA.COMPAGNUCCI@GMAIL.COM")).collect(Collectors.toList()).toString(), new GestoreCliente().getByEMail("SARA.COMPAGNUCCI@GMAIL.COM").toString());
     assertEquals(clienti.stream().filter(e->e.eMail.equals("PAOLO.CAMPANELLI@GMAIL.COM")).collect(Collectors.toList()).toString(), new GestoreCliente().getByEMail("PAOLO.CAMPANELLI@GMAIL.COM").toString());
     }
 
     @Test
     void getByDenominazione() throws SQLException {
-    inseriscoClientiTest();
+    inseriscoClienti();
         assertEquals(clienti.stream().filter(e->e.denominazione.equals("SARA COMPAGNUCCI")).collect(Collectors.toList()).toString(), new GestoreCliente().getByDenominazione("SARA COMPAGNUCCI").toString());
         assertEquals(clienti.stream().filter(e->e.denominazione.equals("PAOLO CAMPANELLI")).collect(Collectors.toList()).toString(), new GestoreCliente().getByDenominazione("PAOLO CAMPANELLI").toString());
 

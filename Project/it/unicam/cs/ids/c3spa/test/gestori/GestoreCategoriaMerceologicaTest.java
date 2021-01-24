@@ -28,7 +28,7 @@ class GestoreCategoriaMerceologicaTest {
         Connection conn = GestoreBase.ApriConnessione();
         Statement stmt = conn.createStatement();
         stmt.execute("delete from progetto_ids.categoriemerceologiche;");
-        stmt.execute("alter table clienti AUTO_INCREMENT = 1;");
+        stmt.execute("alter table categoriemerceologiche AUTO_INCREMENT = 1;");
         stmt.execute("INSERT INTO `progetto_ids`.`categoriemerceologiche` (`categoriaId`, `nome`, `isCancellato`) VALUES ('1', 'FRUTTA', '0');");
         stmt.execute("INSERT INTO `progetto_ids`.`categoriemerceologiche` (`categoriaId`, `nome`, `isCancellato`) VALUES ('2', 'ABBIGLIAMENTO', '0');");
         stmt.close();

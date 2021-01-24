@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.c3spa.test;
 
-import com.mysql.cj.protocol.Resultset;
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import org.junit.jupiter.api.Test;
 
