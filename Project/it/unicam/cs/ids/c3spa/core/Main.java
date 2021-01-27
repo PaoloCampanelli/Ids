@@ -40,7 +40,7 @@ public class Main {
 
         //Lettura del cliente numero 1
         Cliente c = new GestoreCliente().getById(1);
-        Negozio n = new GestoreNegozio().getById(1);
+        Negozio n = new GestoreNegozio().getById(2);
         Corriere cc = new GestoreCorriere().getById(1);
         Pacco p =new GestorePacco().getById(1);
         
@@ -49,7 +49,10 @@ public class Main {
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(new GestoreNegozio().getById(1));
+        System.out.println(new GestoreNegozio().getById(2));
+        System.out.println(new GestorePacco().getById(2));
+        System.out.println(new GestorePacco().getByMittente(n));
+        System.out.println(new GestorePacco().storicoByNegozio(n));
 //        new GestoreNegozio().delete(1);
 //        System.out.println(new GestoreNegozio().getById(1));
 
