@@ -261,7 +261,9 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     "                    WHERE nome LIKE '%"+categoria+"%' AND `indirizzo.citta` LIKE '%"+citta+"%';");
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
-                ln.add(new Negozio().mapData(rs));
+                Negozio n = new Negozio().mapData(rs);
+                n.categorie.add(new CategoriaMerceologica().mapData(rs));
+                ln.add(n);
             }
             st.close();
         } catch (SQLException e) {
@@ -289,6 +291,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             while (rs.next() == true) {
                 Negozio a = new Negozio();
                 a.mapData(rs);
+                a.categorie.add(new CategoriaMerceologica().mapData(rs));
                 n.add(a);
             }
             st.close();
