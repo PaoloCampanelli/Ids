@@ -1,11 +1,17 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import it.unicam.cs.ids.c3spa.GUI.ViewFX;
 import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
 import it.unicam.cs.ids.c3spa.core.vista.IView;
 import it.unicam.cs.ids.c3spa.core.controller.*;
+import javafx.application.Application;
 
+import static java.lang.System.in;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.List;
 
@@ -35,7 +41,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException, IOException {
         System.out.println(Servizi.caricamento());
 
         //Lettura del cliente numero 1
@@ -56,7 +62,18 @@ public class Main {
 //        new GestoreNegozio().delete(1);
 //        System.out.println(new GestoreNegozio().getById(1));
 
-        consoleApp().run();
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        System.out.println("1. ConsoleView \n2. GUI");
+        System.out.print("> ");
+        System.out.flush();
+        String risposta = br.readLine();
+        if(risposta.equals("2")) {
+            Application.launch(ViewFX.class);
+        }else if(risposta.equals("1")){
+            consoleApp().run();
+        }
+
+
 
     }
 }
