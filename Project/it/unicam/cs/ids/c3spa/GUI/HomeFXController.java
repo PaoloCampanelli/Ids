@@ -46,7 +46,7 @@ public class HomeFXController extends Application implements FXController {
 	
 	public void actionAccedi(ActionEvent actionEvent) throws IOException {
 		String tipologia = tipoLogin.getValue();
-		String fxml = "login.fxml";
+		String fxml = "resources/login.fxml";
 		if(tipologia.equals("CLIENTE")) {
 			apriStage(fxml, ClienteFXController.getInstance());
 		}else if(tipologia.equals("NEGOZIO")) {
