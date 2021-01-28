@@ -89,7 +89,6 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
-                    st.close();
                     if (rs.next()) {
                         c.id = rs.getInt(1);
                     } else {

@@ -49,7 +49,7 @@ public class Main {
         Negozio n = new GestoreNegozio().getById(2);
         Corriere cc = new GestoreCorriere().getById(1);
         Pacco p =new GestorePacco().getById(1);
-        
+
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getAll();
         List<Corriere> lcc = new GestoreCorriere().getAll();
@@ -59,6 +59,10 @@ public class Main {
         System.out.println(new GestorePacco().getById(2));
         System.out.println(new GestorePacco().getByMittente(n));
         System.out.println(new GestorePacco().storicoByNegozio(n));
+
+//        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");
+//        new GestoreCorriere().save(ng);
+
 //        new GestoreNegozio().delete(1);
 //        System.out.println(new GestoreNegozio().getById(1));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));

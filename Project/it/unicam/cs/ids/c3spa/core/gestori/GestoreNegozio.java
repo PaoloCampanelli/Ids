@@ -94,7 +94,6 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
-                    st.close();
                     if (rs.next()) {
                         n.id = rs.getInt(1);
                     } else {
