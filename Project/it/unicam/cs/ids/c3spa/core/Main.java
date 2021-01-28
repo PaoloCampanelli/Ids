@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.GUI.ViewFX;
+import it.unicam.cs.ids.c3spa.GUI.HomeFXController;
 import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
@@ -61,14 +61,13 @@ public class Main {
         System.out.println(new GestorePacco().storicoByNegozio(n));
 //        new GestoreNegozio().delete(1);
 //        System.out.println(new GestoreNegozio().getById(1));
-
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         System.out.println("1. ConsoleView \n2. GUI");
         System.out.print("> ");
         System.out.flush();
         String risposta = br.readLine();
         if(risposta.equals("2")) {
-            Application.launch(ViewFX.class);
+            Application.launch(HomeFXController.class);
         }else if(risposta.equals("1")){
             consoleApp().run();
         }
