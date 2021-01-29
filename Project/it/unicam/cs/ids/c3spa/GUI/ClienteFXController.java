@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.FXTabella;
+import it.unicam.cs.ids.c3spa.GUI.Tabelle.*;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -47,7 +47,7 @@ public class ClienteFXController implements FXController {
         if ((controllaInfo(email, password))) {
             if (controllaCliente(email, password)) {
                 setCliente(prendiCliente(email, password));
-                apriStageController("cliente.fxml", getInstance(), getCliente());
+                apriStage("login.fxml", null);
             } else
                 lblLogin.setText("Email e/o password non corretto");
         } else
@@ -58,18 +58,18 @@ public class ClienteFXController implements FXController {
 
 
     public void actionRicercaNegozi(ActionEvent actionEvent) throws IOException, SQLException {
-        //apriStageTabella("tabellaNegozi.fxml", new TabNegoziFXController(), cliente);
+        apriStageTabella("tabellaNegozi.fxml", new TabNegoziFXController(), cliente);
     }
 
     public void actionRicercaNegoziByCitta(ActionEvent actionEvent) throws SQLException, IOException {
-        //apriStage("tabellaCitta.fxml", cliente, "", " ", new TabCittaFXController());
+        apriStage("tabellaCitta.fxml", cliente, "", " ", new TabCittaFXController());
     }
 
     //Non va bene la query %...% -> SE DIGITO T MI RIPORTA T-ECH T-ECNOLOGIA...
     public void actionRicercaCategoria(ActionEvent actionEvent) throws IOException, SQLException {
         lblErrore2.setText("");
         if (!(txtCategoria.getText().isBlank())) {
-            //apriStage("tabellaCategoria.fxml", cliente, " ", txtCategoria.getText().toUpperCase(), new TabCategoriaFXController());
+            apriStage("tabellaCategoria.fxml", cliente, " ", txtCategoria.getText().toUpperCase(), new TabCategoriaFXController());
         }else
             lblErrore2.setText("Valore non valido!");
     }
@@ -78,7 +78,7 @@ public class ClienteFXController implements FXController {
     public void actionRicercaCittaCategoria(ActionEvent actionEvent) throws IOException, SQLException {
         lblErrore1.setText("");
         if (!(txtCitta.getText().isBlank() || txtCategoriaCitta.getText().isBlank())) {
-            //apriStage("tabellaCittaCategoria.fxml", cliente, txtCitta.getText().toUpperCase(), txtCategoriaCitta.getText().toUpperCase(), new TabCittaCategoriaFXController());
+            apriStage("tabellaCittaCategoria.fxml", cliente, txtCitta.getText().toUpperCase(), txtCategoriaCitta.getText().toUpperCase(), new TabCittaCategoriaFXController());
         }else
             lblErrore1.setText("Valori non validi!");
     }
