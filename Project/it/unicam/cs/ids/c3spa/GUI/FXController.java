@@ -13,13 +13,13 @@ import javafx.stage.Stage;
 public interface FXController {
 
 	default void apriStage(String fxml, Object controller) throws IOException {
-		   FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-           loader.setController(controller);
-           Parent root = loader.load();
-           Stage stage = new Stage();
-           stage.setTitle("C3");
-           stage.setScene(new Scene(root));
-           stage.showAndWait();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setController(controller);
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("C3");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
 	}
 	
 	
@@ -47,8 +47,6 @@ public interface FXController {
 		stage.showAndWait();
 	}
 	
-	
-
 
 	
 }

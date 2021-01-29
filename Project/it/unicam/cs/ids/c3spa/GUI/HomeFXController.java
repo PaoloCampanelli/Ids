@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import javafx.application.Application;
@@ -41,7 +42,7 @@ public class HomeFXController extends Application implements FXController {
 	}
 	
 	public void actionRegistrati(ActionEvent actionEvent) throws IOException {
-		//apriStage("registrazione.fxml", new RegistrazioneFXController());
+		apriStage("resources/registrazione.fxml", new RegistrazioneFXController());
 	}
 	
 	public void actionAccedi(ActionEvent actionEvent) throws IOException {
@@ -50,19 +51,19 @@ public class HomeFXController extends Application implements FXController {
 		if(tipologia.equals("CLIENTE")) {
 			apriStage(fxml, ClienteFXController.getInstance());
 		}else if(tipologia.equals("NEGOZIO")) {
-			//apriStage(fxml, NegozioFXController.getInstance());
+			apriStage(fxml, NegozioFXController.getInstance());
 		}else if(tipologia.equals("CORRIERE")) {
-			//apriStage(fxml, CorriereFXController.getInstance());
+			apriStage(fxml, CorriereFXController.getInstance());
 		}
 	}
 	
 	@Override
-	public void initData(Account account) {}
+	public void initData(Account account) throws SQLException {}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/home.fxml"));
-        loader.getController();
+        loader.setController(HomeFXController.getInstance());
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setTitle("C3 - BENVENUTO");
