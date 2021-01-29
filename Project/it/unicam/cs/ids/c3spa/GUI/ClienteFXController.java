@@ -4,12 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCittaCategoriaFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCittaFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.FXTabella;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaFXController;
+import it.unicam.cs.ids.c3spa.GUI.Tabelle.*;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
@@ -97,8 +92,8 @@ public class ClienteFXController implements FXController  {
 		apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), cliente);
 	}
 	
-	public void actionOrdiniAttivi(ActionEvent actionEvent) {
-		//TODO 
+	public void actionOrdiniAttivi(ActionEvent actionEvent) throws IOException, SQLException {
+		//apriStageTabella("resources/tabellaOrdine.fxml", new TabOrdineFXController(), cliente);
 	}
 	
 	public void actionVisualizzaSconti(ActionEvent actionEvent) {

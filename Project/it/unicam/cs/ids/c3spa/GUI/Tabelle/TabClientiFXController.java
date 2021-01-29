@@ -28,10 +28,6 @@ public class TabClientiFXController implements FXTabella {
 	@FXML
 	private TableColumn<Cliente, String> tbNumero;
 	@FXML
-	private TableColumn<Cliente, String> tbVia;
-	@FXML
-	private TableColumn<Cliente, String> tbCivico;
-	@FXML
 	private TableColumn<Cliente, String> tbCitta;
 	
 	@FXML
