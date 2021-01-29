@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ClienteFXController implements FXController  {
@@ -117,7 +118,7 @@ public class ClienteFXController implements FXController  {
 		Alert alert = new Alert(AlertType.NONE,
 				"Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
 		alert.setTitle("Avvertimento!");
-		alert.showAndWait();
+		alert.show();
 		return alert.getResult();
 	}
 	
@@ -131,6 +132,7 @@ public class ClienteFXController implements FXController  {
 	private void apriStage(String fxml, Cliente cliente, String citta, String categoria, FXTabella controller) throws IOException, SQLException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
 		Stage stage = new Stage();
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
 		stage.setScene(new Scene(loader.load()));	
 		controller = loader.getController();
 		controller.initData(cliente, citta, categoria);

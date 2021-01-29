@@ -15,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class HomeFXController extends Application implements FXController {
@@ -33,12 +35,15 @@ public class HomeFXController extends Application implements FXController {
 	Button btnLogin, btnRegistrati;
 	@FXML
 	private ChoiceBox<String> tipoLogin;
+	@FXML
+	private ImageView logo;
 	
-	ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE","CORRIERE","NEGOZIO");
+	private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE","CORRIERE","NEGOZIO");
 
 	public void initialize() {
 		tipoLogin.setItems(tipologiaDisponibile);
 		tipoLogin.setValue("CLIENTE");
+		logo.setImage(new Image(getClass().getResourceAsStream("resources/logo.png")));
 	}
 	
 	public void actionRegistrati(ActionEvent actionEvent) throws IOException {
@@ -66,6 +71,7 @@ public class HomeFXController extends Application implements FXController {
         loader.setController(HomeFXController.getInstance());
         Parent root = loader.load();
         Stage stage = new Stage();
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
         stage.setTitle("C3 - BENVENUTO");
         stage.setScene(new Scene(root));
         stage.showAndWait();
