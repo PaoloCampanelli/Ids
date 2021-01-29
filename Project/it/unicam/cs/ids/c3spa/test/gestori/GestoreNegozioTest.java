@@ -10,12 +10,15 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 public class GestoreNegozioTest {
@@ -100,13 +103,24 @@ public class GestoreNegozioTest {
 
     @Test
     void save() throws SQLException {
-      /*  Indirizzo nuovoIndirizzo = new Indirizzo().CreaIndirizzo("ROMA", "1", "MACERATA", "62100", "MC");
-        Negozio nuovoNegozio = new Negozio( "NEGOZIO", nuovoIndirizzo, "3473243333", "NEGOZIO@", "NEGOZIO!!" );
-        assertEquals(new GestoreNegozio().save(nuovoNegozio), gestoreNegozio.getById(nuovoNegozio.id).toString());*/
+        Indirizzo indirizzo = new Indirizzo().CreaIndirizzo("ROMA", "12", "CAMERINO", "62032", "MC");
+        Negozio negozio = new Negozio( "ACQUA MARINA", indirizzo, "073733313", "ACQUAMARINA@GMAIL.COM", "ACQUAMARINA!!");
+        negozi.add(negozio);
+        gestoreNegozio.save(negozio);
+        assertEquals(negozi.stream().filter(a->a.id==3).findAny().orElse(null).toString(), gestoreNegozio.getById(negozio.id).toString());
     }
 
     @Test
-    void delete() {
+    void delete() throws SQLException {
+        Indirizzo indirizzo = new Indirizzo().CreaIndirizzo("ROMA", "2", "CAMERINO", "62032", "MC");
+        Negozio negozio = new Negozio( 4,"TECNO", indirizzo, "073733313", "TECNO@GMAIL.COM", "TECNO!!");
+        CategoriaMerceologica categoria= new CategoriaMerceologica(4, "COMPUTER");
+        negozio.categorie.add(categoria);
+        List<Negozio> n= new ArrayList<>();
+        n.add(negozio);
+        gestoreNegozio.save(negozio);
+        gestoreNegozio.delete(4);
+        assertFalse(negozio.equals(gestoreNegozio.getById(1)));
     }
 
     @Test
