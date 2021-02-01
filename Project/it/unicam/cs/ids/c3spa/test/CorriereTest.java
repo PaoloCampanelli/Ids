@@ -16,8 +16,9 @@ class CorriereTest {
         Corriere corriereBartolini= new Corriere(1, "BARTOLINI", indirizzoBartolini, "07111111111", "BARTOLINI@GMAIL.COM", "BARTOLINI!!");
         Indirizzo indirizzoDhl = new Indirizzo().CreaIndirizzo("SETIFICIO", "10", "CAMERINO", "62032", "MC");
         Corriere corriereDhl = new Corriere( 2, "DHL", indirizzoDhl, "0711341111", "DHL@GMAIL.COM", "DHL!!!");
-        assertEquals(corriereBartolini, corriereBartolini.CreaAccount(1, "BARTOLINI", indirizzoBartolini, "07111111111", "BARTOLINI@GMAIL.COM", "BARTOLINI!!"));
-        assertEquals(corriereDhl, corriereDhl.CreaAccount(2, "DHL", indirizzoDhl, "0711341111", "DHL@GMAIL.COM", "DHL!!!"));
+        Corriere corriere = new Corriere();
+        assertNotEquals(corriereDhl, corriereBartolini);
+        assertNotEquals(corriere, corriereBartolini);
     }
 
 }

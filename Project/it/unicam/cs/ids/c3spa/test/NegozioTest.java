@@ -19,9 +19,22 @@ class NegozioTest {
         Negozio negozioFruttivendolo = new Negozio( "FRUTTIVENDOLO", indirizzoFruttivendolo, "073733333", "FRUTTIVENDOLO@GMAIL.COM", "FRUTTIVENDOLO!!");
         Indirizzo indirizzoMercatoDellaCasa = new Indirizzo().CreaIndirizzo("CONVENTO", "10", "URBISAGLIA", "62010", "MC");
         Negozio negozioMercatoDellaCasa = new Negozio( "MERCATO DELLA CASA", indirizzoMercatoDellaCasa, "073333333", "MERCATODELLACASA@GMAIL.COM", "MERCATO DELLA CASA!!");
-        assertEquals(negozioFruttivendolo, negozioFruttivendolo.CreaAccount(1,"FRUTTIVENDOLO", indirizzoFruttivendolo, "073733333", "FRUTTIVENDOLO@GMAIL.COM", "FRUTTIVENDOLO!!"));
-        assertEquals(negozioMercatoDellaCasa, negozioMercatoDellaCasa.CreaAccount(2, "MERCATO DELLA CASA", indirizzoMercatoDellaCasa, "073333333", "MERCATODELLACASA@GMAIL.COM", "MERCATO DELLA CASA!!"));
+        Negozio negozio = new Negozio();
+        assertNotEquals(negozioFruttivendolo, negozioMercatoDellaCasa);
+        assertNotEquals(negozio, negozioFruttivendolo);
     }
+
+    @Test
+    public void construttoreNegozio() throws SQLException {
+        Indirizzo indirizzoFruttivendolo = new Indirizzo().CreaIndirizzo("ROMA", "1", "CAMERINO", "62032", "MC");
+        Negozio negozioFruttivendolo = new Negozio( 1, "FRUTTIVENDOLO", indirizzoFruttivendolo, "073733333", "FRUTTIVENDOLO@GMAIL.COM", "FRUTTIVENDOLO!!");
+        Indirizzo indirizzoMercatoDellaCasa = new Indirizzo().CreaIndirizzo("CONVENTO", "10", "URBISAGLIA", "62010", "MC");
+        Negozio negozioMercatoDellaCasa = new Negozio( 2, "MERCATO DELLA CASA", indirizzoMercatoDellaCasa, "073333333", "MERCATODELLACASA@GMAIL.COM", "MERCATO DELLA CASA!!");
+        Negozio negozio = new Negozio();
+        assertNotEquals(negozioFruttivendolo, negozioMercatoDellaCasa);
+        assertNotEquals(negozio, negozioFruttivendolo);
+    }
+
 
     @Test
     void aggiungiCategoria() {
@@ -39,10 +52,6 @@ class NegozioTest {
         negozio.rimuoviCategoria(categoriaAbbigliamento);
         assertFalse(negozio.categorie.contains(categoriaFrutta));
         assertFalse(negozio.categorie.contains(categoriaAbbigliamento));
-    }
-
-    @Test
-    void attivaPubblicita() {
     }
 
 }
