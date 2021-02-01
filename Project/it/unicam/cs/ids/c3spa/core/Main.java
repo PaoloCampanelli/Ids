@@ -79,5 +79,8 @@ public class Main {
 
 
 
+        Servizi ser = new Servizi();
+        System.out.println(ser.caricamento());
+        System.out.println("Main.main");
     }
 }
