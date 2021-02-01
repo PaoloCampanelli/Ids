@@ -59,6 +59,7 @@ public class Main {
         System.out.println(new GestorePacco().getById(2));
         System.out.println(new GestorePacco().getByMittente(n));
         System.out.println(new GestorePacco().storicoByNegozio(n));
+        System.out.println(new GestorePacco().getByDestinatario(c));
 
 //        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");
 //        new GestoreCorriere().save(ng);

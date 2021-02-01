@@ -39,7 +39,7 @@ public class TabOrdineFXController implements FXTabella {
 
 
     public void settaTabella(Cliente cliente) throws SQLException {
-        List<Pacco> pacchi = new GestorePacco().getByDestinatario(cliente.denominazione);
+        List<Pacco> pacchi = new GestorePacco().getByDestinatario(cliente);
         ln = FXCollections.observableArrayList(pacchi);
         ln.removeIf(p -> p.statiPacco.size()==3);
         tbId.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
