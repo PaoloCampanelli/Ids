@@ -46,11 +46,20 @@ public class TabOrdineFXController implements FXTabella {
         tbMittente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
         tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tbConsegna.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataConsegnaRichiesta.toString()));
-        tbStato.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().statiPacco.size())));
+        tbStato.setCellValueFactory(cd -> new SimpleStringProperty(prendiPacco(cd.getValue())));
         tabellaOrdini.setItems(ln);
         tabellaOrdini.setPlaceholder(new Label("Non hai effettuato ordini"));
     }
 
+    private String prendiPacco(Pacco pacco){
+        if(pacco.statiPacco.size()==1){
+            return "NON ASSEGNATO";
+        }else if (pacco.statiPacco.size()==2){
+            return "PRESO IN CARICO";
+        }
+        return "";
+
+    }
 
     @Override
     public void initData(Account account) throws SQLException {
