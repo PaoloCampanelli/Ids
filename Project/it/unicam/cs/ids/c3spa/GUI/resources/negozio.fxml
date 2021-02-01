@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="455.0" maxWidth="575.0" minHeight="314.0" minWidth="575.0" prefHeight="314.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.NegozioFXController">
+   <children>
+      <Separator layoutY="66.0" prefHeight="6.0" prefWidth="575.0" />
+      <Separator layoutY="111.0" prefHeight="25.0" prefWidth="575.0" />
+      <Separator layoutX="350.0" layoutY="68.0" orientation="VERTICAL" prefHeight="247.0" prefWidth="28.0" />
+      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="371.0">
+         <children>
+            <Label prefHeight="60.0" prefWidth="165.0" text="BENTORNATO, " textFill="#0004ff">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="122.0" textFill="#0004ff">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label fx:id="lblErrore2" layoutX="108.0" layoutY="219.0" prefHeight="17.0" prefWidth="150.0" />
+      <Label fx:id="lblErrore3" layoutX="102.0" layoutY="373.0" prefHeight="17.0" prefWidth="150.0" />
+      <Label layoutX="149.0" layoutY="136.0" text="LISTE" textFill="#0004ff">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="36.0" layoutY="87.0" prefHeight="227.0" prefWidth="537.0" spacing="70.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+               <children>
+                  <Button fx:id="btnCreaOrdine" mnemonicParsing="false" onAction="#actionOrdine" prefHeight="25.0" prefWidth="130.0" text="CREA ORDINE" />
+                  <Button fx:id="btnCatAttive" mnemonicParsing="false" onAction="#actionListaCategorie" prefHeight="25.0" prefWidth="130.0" text="CATEGORIE" />
+                  <Button fx:id="btnPromozioni" mnemonicParsing="false" onAction="#actionListaPromozioni" prefHeight="25.0" prefWidth="130.0" text="PROMOZIONI" />
+               </children>
+            </VBox>
+            <VBox prefHeight="228.0" prefWidth="129.0" spacing="50.0">
+               <children>
+                  <Button fx:id="btnModifica" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
+                  <Button fx:id="btnListaCliente" mnemonicParsing="false" onAction="#actionListaClienti" prefHeight="25.0" prefWidth="130.0" text="LISTA CLIENTI" />
+                  <Button fx:id="btnStorico" mnemonicParsing="false" onAction="#actionStoricoOrdiniNegozio" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
+               </children>
+            </VBox>
+            <VBox prefHeight="42.0" prefWidth="130.0" spacing="50.0">
+               <children>
+                  <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionAttivaPubblicita" prefHeight="25.0" prefWidth="130.0" text="ATTIVA PUBBLICITA'" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</Pane>

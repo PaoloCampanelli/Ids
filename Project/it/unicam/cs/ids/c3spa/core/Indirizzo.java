@@ -17,7 +17,17 @@ public class Indirizzo {
 		return this;
 	}
 
+	public Indirizzo(String via, String numero , String citta, String cap, String provincia ) {
+		this.via = via;
+		this.numero = numero;
+		this.citta = citta;
+		this.cap = cap;
+		this.provincia = provincia;
+	}
 
+	public Indirizzo() {
+
+	}
 
 	@Override
 	 public String toString() {

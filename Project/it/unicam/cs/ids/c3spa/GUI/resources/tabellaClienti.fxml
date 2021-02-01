@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.Tabelle.TabClientiFXController">
+   <children>
+      <TableView fx:id="tabellaClienti" prefHeight="500.0" prefWidth="227.0">
+        <columns>
+          <TableColumn fx:id="tbNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tbNumero" prefWidth="75.0" text="Numero" />
+          <TableColumn fx:id="tbCitta" prefWidth="75.0" text="Citta'" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

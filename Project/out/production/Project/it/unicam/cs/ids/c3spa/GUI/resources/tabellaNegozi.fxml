@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:controller="it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController" maxHeight="400.0" maxWidth="563.0" minHeight="400.0" minWidth="563.0" prefHeight="400.0" prefWidth="563.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tabellaNegozi" layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="565.0">
+        <columns>
+          <TableColumn fx:id="tbNome" prefWidth="75.0" text="Negozio" />
+          <TableColumn fx:id="tbNumero" prefWidth="141.0" text="Numero telefonico" />
+            <TableColumn fx:id="tbVia" prefWidth="105.0" text="Via" />
+            <TableColumn fx:id="tbCivico" minWidth="0.0" prefWidth="78.0" text="Civico" />
+            <TableColumn fx:id="tbCitta" prefWidth="166.0" text="Città" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
