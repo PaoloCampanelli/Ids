@@ -25,7 +25,7 @@ public class TabOrdineFXController implements FXTabella {
     @FXML
     private TableView<Pacco> tabellaOrdini;
     @FXML
-    private TableColumn<Pacco, String> tbId;
+    private TableColumn<Pacco, String> tbID;
     @FXML
     private TableColumn<Pacco, String> tbMittente;
     @FXML
@@ -42,7 +42,7 @@ public class TabOrdineFXController implements FXTabella {
         List<Pacco> pacchi = new GestorePacco().getByDestinatario(cliente.denominazione);
         ln = FXCollections.observableArrayList(pacchi);
         ln.removeIf(p -> p.statiPacco.size()==3);
-        tbId.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
+        tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbMittente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
         tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tbConsegna.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataConsegnaRichiesta.toString()));

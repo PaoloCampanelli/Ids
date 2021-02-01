@@ -93,7 +93,7 @@ public class ClienteFXController implements FXController  {
 	}
 	
 	public void actionOrdiniAttivi(ActionEvent actionEvent) throws IOException, SQLException {
-		//apriStageTabella("resources/tabellaOrdine.fxml", new TabOrdineFXController(), cliente);
+		apriStageTabella("resources/tabellaOrdine.fxml", new TabOrdineFXController(), cliente);
 	}
 	
 	public void actionVisualizzaSconti(ActionEvent actionEvent) {
