@@ -12,6 +12,7 @@ import java.util.List;
 public class Negozio extends Account implements IMapData {
 	public int token;
 	public List<CategoriaMerceologica> categorie;
+	public List<Sconto> sconti;
 
 	public Negozio(int negozioId, String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
 		this.id= negozioId;
@@ -21,7 +22,8 @@ public class Negozio extends Account implements IMapData {
 		this.eMail = eMail;
 		this.password= password;
 		this.token = 5; //TOKEN INIZIALI
-		this.categorie = new ArrayList<CategoriaMerceologica>();
+		this.categorie = new ArrayList<>();
+		this.sconti = new ArrayList<>();
 	}
 
 	public Negozio(String denominazione, Indirizzo indirizzo, String telefono, String eMail, String password) {
@@ -32,13 +34,15 @@ public class Negozio extends Account implements IMapData {
 		this.eMail = eMail;
 		this.password= password;
 		this.token = 5; //TOKEN INIZIALI
-		this.categorie = new ArrayList<CategoriaMerceologica>();
+		this.categorie = new ArrayList<>();
+		this.sconti = new ArrayList<>();
 	}
 
 	public Negozio() {
 		this.token = 5;
 		this.indirizzo = new Indirizzo();
-		this.categorie = new ArrayList<CategoriaMerceologica>();
+		this.categorie = new ArrayList<>();
+		this.sconti = new ArrayList<>();
 	}
 
 	@Override
@@ -71,6 +75,15 @@ public class Negozio extends Account implements IMapData {
 		}
 	}
 
+	public Sconto aggiungiSconto(Sconto sconto) {
+		//verifico che lo sconto che voglio aggiungere non sia già presente, se è gia presente lo ritorno.
+		if (sconti.stream().anyMatch(s->s.id==sconto.id )) {
+			return sconto;
+		}
+		sconti.add(sconto);
+		return sconto;
+	}
+
 	public boolean attivaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
 		if(token <= 0){
 			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token");
@@ -98,15 +111,5 @@ public class Negozio extends Account implements IMapData {
 				'}';
 	}
 
-	/*	public List<Pacco> getPacchi() {
-		return pacchi;
-	}*/
 
-/*	public String getIndirizzo() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setIndirizzo(String aIndirizzo) {
-		throw new UnsupportedOperationException();
-	}*/
 }

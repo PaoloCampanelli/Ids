@@ -1,9 +1,11 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 
 import it.unicam.cs.ids.c3spa.core.Sconto;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,5 +140,36 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
             System.out.println("errore:" + e.getMessage());
 
         } // fine try-catch
+    }
+
+    public List<Sconto> getScontiAttivi() throws SQLException {
+
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Sconto> s = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM sconti \n" +
+                    "where isCancellato = 0 \n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date()";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Sconto a= new Sconto();
+                a.mapData(rs);
+                s.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return s;
     }
 }
