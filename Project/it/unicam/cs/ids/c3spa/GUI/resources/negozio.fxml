@@ -13,14 +13,14 @@
       <Separator layoutY="66.0" prefHeight="6.0" prefWidth="575.0" />
       <Separator layoutY="111.0" prefHeight="25.0" prefWidth="575.0" />
       <Separator layoutX="350.0" layoutY="68.0" orientation="VERTICAL" prefHeight="247.0" prefWidth="28.0" />
-      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="371.0">
+      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="560.0">
          <children>
             <Label prefHeight="60.0" prefWidth="165.0" text="BENTORNATO, " textFill="#0004ff">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="122.0" textFill="#0004ff">
+            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="374.0" textFill="#0004ff">
                <font>
                   <Font size="22.0" />
                </font>

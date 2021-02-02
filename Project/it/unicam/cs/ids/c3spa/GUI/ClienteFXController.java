@@ -102,9 +102,10 @@ public class ClienteFXController implements FXController  {
 	
 	public void actionModificaInfo(ActionEvent actionEvent) throws IOException, SQLException {
 		if(alertModifica() == ButtonType.OK) {
-			apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), cliente);
 			Stage attuale = (Stage) btnModifica.getScene().getWindow();
-	    	attuale.close();
+			attuale.close();
+			apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), cliente);
+
 		}
 	}
 
@@ -116,7 +117,7 @@ public class ClienteFXController implements FXController  {
 		Alert alert = new Alert(AlertType.NONE,
 				"Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
 		alert.setTitle("Avvertimento!");
-		alert.show();
+		alert.showAndWait();
 		return alert.getResult();
 	}
 	

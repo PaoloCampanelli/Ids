@@ -14,14 +14,14 @@
 <Pane maxHeight="740.0" maxWidth="958.0" minHeight="314.0" minWidth="575.0" prefHeight="697.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.CorriereFXController">
    <children>
       <Separator layoutY="55.0" prefHeight="17.0" prefWidth="856.0" />
-      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="371.0">
+      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="691.0">
          <children>
             <Label prefHeight="60.0" prefWidth="165.0" text="BENTORNATO, " textFill="#0004ff">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="122.0" textFill="#0004ff">
+            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="509.0" textFill="#0004ff">
                <font>
                   <Font size="22.0" />
                </font>
