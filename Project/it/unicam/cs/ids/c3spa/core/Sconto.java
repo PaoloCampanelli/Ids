@@ -29,8 +29,6 @@ public class Sconto implements IMapData {
 	}
 
 	public Sconto() {
-		Date dataAttuale = Date.from(Instant.now());
-		this.dataInizio = dataAttuale;
 		this.categoriaMerceologica = new CategoriaMerceologica();
 		this.negozio = new Negozio();
 	}

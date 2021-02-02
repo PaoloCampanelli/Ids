@@ -23,7 +23,9 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             }
 
             //Popolo le categorie collegate al negozio
-            st = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
+            st = conn.prepareStatement("SELECT  negozio_categoriemerceologiche.negozioId, negozio_categoriemerceologiche.categoriaId  FROM negozio_categoriemerceologiche                   \n" +
+                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
+                    "WHERE negozioId = ? AND isCancellato = 0;"); // creo sempre uno statement sulla
             st.setInt(1, n.id);
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {

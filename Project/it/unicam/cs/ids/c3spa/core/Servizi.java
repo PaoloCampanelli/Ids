@@ -14,6 +14,7 @@ public class Servizi {
         stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
                 "  `negozioId` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `denominazione` VARCHAR(45) NOT NULL,\n" +
+                "  `token` INT NULL DEFAULT 5,\n" +
                 "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
                 "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
                 "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
@@ -102,7 +103,13 @@ public class Servizi {
                 "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`corriereId`));");
 
-
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`pubblicita` (\n" +
+                "  `pubblicitaId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `dataInizio` DATE NOT NULL,\n" +
+                "  `dataFine` DATE NOT NULL,\n" +
+                "  `negozioId` INT NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
+                "  PRIMARY KEY (`pubblicitaId`));");
 
 
         stmt.close();

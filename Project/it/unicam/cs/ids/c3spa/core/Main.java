@@ -57,6 +57,7 @@ public class Main {
 
         System.out.println(new GestoreNegozio().getById(2));
         System.out.println(new GestoreSconto().getScontiAttivi());
+        System.out.println(new GestoreSconto().getByNegozio(n));
 
 
 //        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");

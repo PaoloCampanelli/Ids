@@ -49,6 +49,7 @@ public class Negozio extends Account implements IMapData {
 	public Negozio mapData(ResultSet rs) throws SQLException {
 		this.id = rs.getInt("negozioId");
 		this.denominazione = rs.getString("denominazione");
+		this.token = rs.getInt("token");
 		this.indirizzo.citta = rs.getString("indirizzo.citta");
 		this.indirizzo.numero = rs.getString("indirizzo.numero");
 		this.indirizzo.cap = rs.getString("indirizzo.cap");
