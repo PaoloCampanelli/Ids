@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
-import java.sql.SQLException;
-
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+
+import java.sql.SQLException;
 
 public interface FXTabella {
 	

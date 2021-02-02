@@ -39,7 +39,7 @@ public class TabCategoriaFXController implements FXTabella {
 	@FXML
 	private TableColumn<Negozio, String> tbCivico;
 	
-	public void setta(Cliente cliente, String citta, String categoria) throws SQLException {
+	public void setta(String categoria) throws SQLException {
 		List<Negozio> negozi = new GestoreNegozio().getByCategoria(categoria);
 	    ln = FXCollections.observableArrayList(negozi);
 	    tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
@@ -62,7 +62,7 @@ public class TabCategoriaFXController implements FXTabella {
 	@Override
 	public void initData(Account account, String citta, String categoria) throws SQLException {
 		lblCategoria.setText(categoria);
-		setta(cliente, citta, categoria);
+		setta(categoria);
 	}
 
 	public void setCliente(Cliente cliente) {

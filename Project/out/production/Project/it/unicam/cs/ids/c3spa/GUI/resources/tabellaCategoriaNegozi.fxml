@@ -18,7 +18,8 @@
       <Button fx:id="btnInserisci" layoutX="240.0" layoutY="86.0" mnemonicParsing="false" onAction="#actionInserisci" text="INSERISCI" />
       <TextField fx:id="txtCategoria" layoutX="240.0" layoutY="54.0" promptText="Digita categoria" />
       <Button fx:id="btnRimuovi" layoutX="241.0" layoutY="188.0" mnemonicParsing="false" onAction="#actionRimuovi" text="RIMUOVI" />
-      <Label fx:id="lblCategoria" layoutX="219.0" layoutY="37.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label fx:id="lblCategoria" layoutX="241.0" layoutY="37.0" prefHeight="17.0" prefWidth="149.0" textFill="#0a0909" />
       <TextField fx:id="txtID" layoutX="240.0" layoutY="151.0" prefHeight="25.0" prefWidth="68.0" promptText="ID" />
+      <Label fx:id="lblID" layoutX="240.0" layoutY="134.0" prefHeight="17.0" prefWidth="149.0" textFill="#0a0909" />
    </children>
 </AnchorPane>

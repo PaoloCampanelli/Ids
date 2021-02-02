@@ -19,8 +19,7 @@ public class Sconto implements IMapData {
 	public Negozio negozio;
 	public CategoriaMerceologica categoriaMerceologica;
 
-	public Sconto (int id, String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
-		this.id = id;
+	public Sconto (String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
 		this.tipo = tipo;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;

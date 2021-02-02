@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
+import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabScontiFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -40,7 +41,7 @@ public class NegozioFXController implements FXController{
 	@FXML	
 	private PasswordField txtPassword;
 	@FXML 
-	private Label lblLogin, lblUtente, lblErrore2, lblErrore3;
+	private Label lblLogin, lblUtente, lblErrore2, lblErrore3, lblToken;
 	@FXML
 	private Button btnAccedi, btnCreaOrdine, btnCatAttive, btnStorico, btnSconti, btnOrdini, btnListaCliente, btnModifica, btnPromozioni;
 	
@@ -89,8 +90,8 @@ public class NegozioFXController implements FXController{
 		apriStage("resources/contatti.fxml", new ContattiFXController());
 	}
     
-    public void actionListaPromozioni(ActionEvent actionEvent) {
-    	//TODO
+    public void actionListaPromozioni(ActionEvent actionEvent) throws IOException, SQLException {
+    	apriStageTabella("resources/tabellaSconti.fxml", new TabScontiFXController(), negozio);
     }
     	
 	private ButtonType alertModifica() throws SQLException {
@@ -146,6 +147,7 @@ public class NegozioFXController implements FXController{
 	public void initData(Account account) throws SQLException {
 		lblUtente.setText(account.denominazione);
 		setNegozio(account);
+		lblToken.setText("Token disponibili: "+negozio.token);
 	}
 
 

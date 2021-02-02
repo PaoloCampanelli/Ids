@@ -52,11 +52,12 @@
             </VBox>
             <VBox prefHeight="42.0" prefWidth="130.0" spacing="50.0">
                <children>
-                  <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionAttivaPubblicita" prefHeight="25.0" prefWidth="130.0" text="ATTIVA PUBBLICITA'" />
+                  <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionAttivaPubblicita" prefHeight="25.0" prefWidth="130.0" text="PUBBLICITA'" />
                   <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="150.0" text="CONTATTI" />
                </children>
             </VBox>
          </children>
       </HBox>
+      <Label fx:id="lblToken" layoutX="405.0" layoutY="69.0" prefHeight="17.0" prefWidth="129.0" textFill="#0004ff" />
    </children>
 </Pane>
