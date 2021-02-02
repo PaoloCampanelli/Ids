@@ -28,8 +28,6 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="btnModifica" layoutX="216.0" layoutY="72.0" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
-      <Button fx:id="btnStorico" layoutX="443.0" layoutY="72.0" mnemonicParsing="false" onAction="#actionStoricoOrdiniNegozio" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
       <TableView fx:id="tabellaOrdini" layoutX="21.0" layoutY="459.0" prefHeight="201.0" prefWidth="655.0">
         <columns>
           <TableColumn fx:id="tbOID" prefWidth="60.33332824707031" text="ID" />
@@ -81,5 +79,12 @@
          </children>
       </VBox>
       <Separator layoutX="676.0" layoutY="551.0" prefHeight="17.0" prefWidth="194.0" />
+      <HBox layoutX="82.0" layoutY="72.0" prefHeight="30.0" prefWidth="655.0" spacing="70.0">
+         <children>
+            <Button fx:id="btnModifica" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
+            <Button fx:id="btnStorico" mnemonicParsing="false" onAction="#actionStoricoOrdiniNegozio" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
+            <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="120.0" text="CONTATTI" />
+         </children>
+      </HBox>
    </children>
 </Pane>

@@ -31,11 +31,13 @@ public class TabCategoriaNegoziFXController implements FXTabella {
 	@FXML
 	private Button btnInserisci, btnRimuovi;
 	@FXML
-	private Label lblCategoria;
+	private Label lblCategoria, lblID;
 	@FXML
-	private TextField txtCategoria;
+	private TextField txtCategoria, txtID;
 	@FXML
 	private TableView<CategoriaMerceologica> tabellaCategoria;
+	@FXML
+	private TableColumn<CategoriaMerceologica, String> tbID;
 	@FXML
 	private TableColumn<CategoriaMerceologica, String> tbNome;
 	
@@ -43,6 +45,8 @@ public class TabCategoriaNegoziFXController implements FXTabella {
 		tabellaCategoria.setPlaceholder(new Label("Non hai categorie attive!"));
 		List<CategoriaMerceologica> categoria = negozio.categorie;
 		lcm = FXCollections.observableArrayList(categoria);
+		lcm.removeIf(c -> c.idCategoria == 0);
+		tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().idCategoria)));
 		tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().nome));
 		tabellaCategoria.setItems(lcm);	
 	}
@@ -50,36 +54,36 @@ public class TabCategoriaNegoziFXController implements FXTabella {
 	 public void actionInserisci(ActionEvent actionEvent) throws SQLException {
 		 String nome = txtCategoria.getText().toUpperCase();
 		 CategoriaMerceologica categoria = new CategoriaMerceologica(nome);
-		 if(!(nome.isBlank())) {
-			 	negozio.aggiungiCategoria(categoria);
-				 lcm.add(categoria);
-				 new GestoreCategoriaMerceologica().save(categoria);
-				 new GestoreNegozio().save(negozio);
-			 }else
-				 lblCategoria.setText("Categoria gi� presente");
-			 txtCategoria.clear();
-		 } 
+		 if(!(nome.isBlank())){
+		 	if(negozio.aggiungiCategoria(categoria)){
+				lcm.add(categoria);
+				new GestoreCategoriaMerceologica().save(categoria);
+				new GestoreNegozio().save(negozio);
+			}
+		 }else
+		 	lblCategoria.setText("Categoria gia' presente");
+		 txtCategoria.clear();
+	}
+
+	 public void actionRimuovi(ActionEvent actionEvent) throws SQLException {
+		try{
+			int id = Integer.parseInt(txtID.getText());
+			CategoriaMerceologica categoria = prendiCategoria(id);
+			if(negozio.rimuoviCategoria(categoria)){
+				lcm.remove(categoria);
+				new GestoreCategoriaMerceologica().delete(id);
+			}else
+				lblID.setText("ID non presente");
+			txtCategoria.clear();
+		}catch(NumberFormatException e){
+			lblID.setText("ID non valido");
+		}
+	 }
 
 	 
 	 
-	 
-	 public void actionRimuovi(ActionEvent actionEvent) throws SQLException {
-		 String nome = txtCategoria.getText().toUpperCase();
-		 CategoriaMerceologica categoria = new CategoriaMerceologica(nome);
-		 if(!(nome.isBlank())) {
-			 if(negozio.categorie.contains(categoria)){
-				 int id = prendiID(categoria);
-				 lcm.remove(categoria);
-				 new GestoreCategoriaMerceologica().delete(id);
-			 }else
-				 lblCategoria.setText("Categoria non presente");
-			 txtCategoria.clear();
-		 } 
-	 }
-	 
-	 
-	private int prendiID(CategoriaMerceologica categoria) {
-		 return negozio.categorie.stream().filter(c -> c.nome.equals(categoria.nome)).findAny().get().idCategoria;
+	private CategoriaMerceologica prendiCategoria(int idCategoria) {
+		 return negozio.categorie.stream().filter(c -> c.idCategoria==idCategoria).findAny().get();
 	}
 	
 	@Override
