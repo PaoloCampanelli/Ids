@@ -84,6 +84,10 @@ public class NegozioFXController implements FXController{
 	    attuale.close();
     	}
     }
+
+	public void actionContatti(ActionEvent actionEvent) throws IOException {
+		apriStage("resources/contatti.fxml", new ContattiFXController());
+	}
     
     public void actionListaPromozioni(ActionEvent actionEvent) {
     	//TODO
@@ -143,5 +147,6 @@ public class NegozioFXController implements FXController{
 		lblUtente.setText(account.denominazione);
 		setNegozio(account);
 	}
-	
+
+
 }

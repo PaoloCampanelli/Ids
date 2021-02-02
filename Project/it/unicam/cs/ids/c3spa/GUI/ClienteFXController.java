@@ -107,7 +107,10 @@ public class ClienteFXController implements FXController  {
 	    	attuale.close();
 		}
 	}
-	
+
+	public void actionContatti(ActionEvent actionEvent) throws IOException {
+		apriStage("resources/contatti.fxml", new ContattiFXController());
+	}
 	
 	private ButtonType alertModifica() throws SQLException {
 		Alert alert = new Alert(AlertType.NONE,

@@ -163,6 +163,10 @@ public class CorriereFXController implements FXController {
 	public void actionStoricoOrdiniNegozio(ActionEvent actionEvent) throws IOException, SQLException {
 		apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), corriere);
 	}
+
+	public void actionContatti(ActionEvent actionEvent) throws IOException {
+		apriStage("resources/contatti.fxml", new ContattiFXController());
+	}
 	
 	private void avvertiConsegna(Pacco pacco) throws SQLException {
 		Alert alert = new Alert(AlertType.CONFIRMATION,

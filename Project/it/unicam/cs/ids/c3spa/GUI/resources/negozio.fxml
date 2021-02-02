@@ -53,6 +53,7 @@
             <VBox prefHeight="42.0" prefWidth="130.0" spacing="50.0">
                <children>
                   <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionAttivaPubblicita" prefHeight="25.0" prefWidth="130.0" text="ATTIVA PUBBLICITA'" />
+                  <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="150.0" text="CONTATTI" />
                </children>
             </VBox>
          </children>
