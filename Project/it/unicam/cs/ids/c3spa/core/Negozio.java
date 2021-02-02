@@ -60,19 +60,23 @@ public class Negozio extends Account implements IMapData {
 		return this;
 	}
 
-	public CategoriaMerceologica aggiungiCategoria(CategoriaMerceologica categoriaMerceologica) {
+	public boolean aggiungiCategoria(CategoriaMerceologica categoriaMerceologica) {
 		//verifico che la categoria che voglio aggiungere non sia già presente, se è gia presente la ritorno.
 		if (categorie.stream().anyMatch(c->c.idCategoria==categoriaMerceologica.idCategoria )) {
-			return categoriaMerceologica;
+			return false;
 		}
-		categorie.add(categoriaMerceologica);
-		return categoriaMerceologica;
+		if (categorie.stream().anyMatch(c->c.nome.equals(categoriaMerceologica.nome))){
+			return false;
+		}else{
+			categorie.add(categoriaMerceologica);
+			return true;
+		}
 	}
 
-	public void rimuoviCategoria(CategoriaMerceologica cat){
-		if(categorie.contains(cat)){
-			categorie.remove(cat);
-		}
+	public boolean rimuoviCategoria(CategoriaMerceologica cat){
+		if(categorie.contains(cat))
+			return categorie.remove(cat);
+		return false;
 	}
 
 	public Sconto aggiungiSconto(Sconto sconto) {

@@ -9,15 +9,16 @@
 
 <AnchorPane prefHeight="302.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaNegoziFXController">
    <children>
-      <TableView fx:id="tabellaCategoria" prefHeight="302.0" prefWidth="178.0">
+      <TableView fx:id="tabellaCategoria" prefHeight="302.0" prefWidth="211.0">
         <columns>
-          <TableColumn fx:id="tbNome" prefWidth="177.0" text="CATEGORIA" />
-            <TableColumn prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="tbID" prefWidth="41.0" text="ID" />
+          <TableColumn fx:id="tbNome" prefWidth="211.0" text="CATEGORIA" />
         </columns>
       </TableView>
-      <Button fx:id="btnInserisci" layoutX="219.0" layoutY="103.0" mnemonicParsing="false" onAction="#actionInserisci" text="INSERISCI" />
-      <TextField fx:id="txtCategoria" layoutX="219.0" layoutY="64.0" promptText="Digita categoria" />
-      <Button fx:id="btnRimuovi" layoutX="300.0" layoutY="103.0" mnemonicParsing="false" onAction="#actionRimuovi" text="RIMUOVI" />
+      <Button fx:id="btnInserisci" layoutX="240.0" layoutY="86.0" mnemonicParsing="false" onAction="#actionInserisci" text="INSERISCI" />
+      <TextField fx:id="txtCategoria" layoutX="240.0" layoutY="54.0" promptText="Digita categoria" />
+      <Button fx:id="btnRimuovi" layoutX="241.0" layoutY="188.0" mnemonicParsing="false" onAction="#actionRimuovi" text="RIMUOVI" />
       <Label fx:id="lblCategoria" layoutX="219.0" layoutY="37.0" prefHeight="17.0" prefWidth="149.0" />
+      <TextField fx:id="txtID" layoutX="240.0" layoutY="151.0" prefHeight="25.0" prefWidth="68.0" promptText="ID" />
    </children>
 </AnchorPane>
