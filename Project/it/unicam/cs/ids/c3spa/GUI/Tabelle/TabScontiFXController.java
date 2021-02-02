@@ -114,17 +114,20 @@ public class TabScontiFXController implements FXTabella{
                         inizio = Date.from(ldInizio.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                         if(ldInizio.isBefore(ldFine)){
                             Sconto sconto = new Sconto(tipo, inizio, fine, negozio, categoriaMerceologica);
-                            recapInfo(sconto);
+                            if(recapInfo(sconto) == ButtonType.OK) {
+                                sconti.add(sconto);
+                                new GestoreSconto().save(sconto);
+                            }
                         }
                     } else
                         inizio = Date.from(Instant.now());
                     if (checkData(ldFine)) {
                         Sconto sconto = new Sconto(tipo, inizio, fine, negozio, categoriaMerceologica);
                         if(recapInfo(sconto) == ButtonType.OK){
-                                sconti.add(sconto);
-                                new GestoreSconto().save(sconto);
-                            }
-                        }
+                            sconti.add(sconto);
+                            new GestoreSconto().save(sconto);
+                    }
+                }
                     }else
                     lblError.setText(id + " non presente");
                 }
