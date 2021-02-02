@@ -59,6 +59,9 @@ public class Main {
         System.out.println(new GestoreSconto().getScontiAttivi());
         System.out.println(new GestoreSconto().getByNegozio(n));
 
+        Sconto sc = new Sconto("5x1",p.dataPreparazione, p.dataConsegnaRichiesta, n , new GestoreCategoriaMerceologica().getById(6));
+        System.out.println(new GestoreSconto().save(sc));
+
 
 //        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");
 //        new GestoreCorriere().save(ng);

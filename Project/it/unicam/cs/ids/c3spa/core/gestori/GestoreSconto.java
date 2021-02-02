@@ -78,16 +78,16 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
             try {
 
                 if (s.id == 0) { // è un inserimento
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.sconti (tipo, dataInizio, dataFine, `negozio.id`, `categoria.id`) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
-                    st.setString(1, s.tipo);
-                    st.setDate(2,(java.sql.Date)s.dataInizio);
-                    st.setDate(3, (java.sql.Date)s.dataInizio);
-                    st.setInt(4, s.negozio.id);
-                    st.setInt(5, s.categoriaMerceologica.idCategoria);
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.sconti (scontoId, tipo, dataInizio, dataFine, negozioId, categoriaMerceologicaId) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st.setInt(1, s.id);
+                    st.setString(2, s.tipo);
+                    st.setDate(3,(java.sql.Date)s.dataInizio);
+                    st.setDate(4, (java.sql.Date)s.dataInizio);
+                    st.setInt(5, s.negozio.id);
+                    st.setInt(6, s.categoriaMerceologica.idCategoria);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
-                    st.close();
                     if (rs.next()) {
                         s.id = rs.getInt(1);
                     } else {
@@ -105,10 +105,11 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
                     st.setInt(6, s.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
-                    st.close();
+
                 }
 
                 GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+                st.close();
                 return s;
             } catch (SQLException e) {
                 System.out.println("errore:" + e.getMessage());
