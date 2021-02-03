@@ -8,16 +8,15 @@ import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NegozioFXStage implements FXStage {
+public class NegozioFXController implements FXStage {
 
-    private static NegozioFXStage istanza;
+    private static NegozioFXController istanza;
     private Negozio negozio;
     @FXML
     private TextField txtMail;
@@ -28,12 +27,12 @@ public class NegozioFXStage implements FXStage {
     @FXML
     private Button btnAccedi, btnCreaOrdine, btnCatAttive, btnStorico, btnSconti, btnOrdini, btnListaCliente, btnModifica, btnPromozioni;
 
-    public NegozioFXStage() {
+    public NegozioFXController() {
     }
 
-    public static NegozioFXStage getInstance() {
+    public static NegozioFXController getInstance() {
         if (istanza == null) {
-            istanza = new NegozioFXStage();
+            istanza = new NegozioFXController();
         }
         return istanza;
     }
@@ -43,7 +42,7 @@ public class NegozioFXStage implements FXStage {
     }
 
     public void actionOrdine() throws IOException, SQLException {
-        apriStageController("resources/creaOrdine.fxml", new OrdineFXStage(), getNegozio());
+        apriStageController("resources/creaOrdine.fxml", new OrdineFXController(), getNegozio());
     }
 
     public void actionListaClienti() throws IOException, SQLException {
@@ -75,15 +74,7 @@ public class NegozioFXStage implements FXStage {
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
-        apriStageController("resources/sconti.fxml", new ScontiFXStage(), getNegozio());
-    }
-
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
+        apriStageController("resources/sconti.fxml", new ScontiFXControllerFXStage(), getNegozio());
     }
 
     /**

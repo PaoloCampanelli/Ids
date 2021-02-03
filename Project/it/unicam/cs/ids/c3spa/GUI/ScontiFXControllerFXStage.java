@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ScontiFXStage implements FXStage {
+public class ScontiFXControllerFXStage implements FXStage {
 
     private ObservableList<String> selezionaData = FXCollections.observableArrayList("OGGI", "DIVERSA");
     private ObservableList<Sconto> sconti;

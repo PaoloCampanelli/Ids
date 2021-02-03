@@ -5,6 +5,8 @@ import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -51,6 +53,13 @@ public interface FXStage extends FXController {
         stage.showAndWait();
     }
 
+    default ButtonType alertModifica() {
+        Alert alert = new Alert(Alert.AlertType.NONE,
+                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
+        alert.setTitle("Avvertimento!");
+        alert.showAndWait();
+        return alert.getResult();
+    }
 
 
 }

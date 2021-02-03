@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="559.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ScontiFXStage">
+<AnchorPane prefHeight="559.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ScontiFXControllerFXStage">
     <children>
         <TableView fx:id="tabellaSconti" layoutX="239.0" layoutY="198.0" prefHeight="319.0" prefWidth="471.0">
             <columns>

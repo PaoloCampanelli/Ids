@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RegistrazioneFXStage implements FXStage {
+public class RegistrazioneFXController implements FXStage {
 
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     @FXML
@@ -33,7 +33,7 @@ public class RegistrazioneFXStage implements FXStage {
     @FXML
     private Button btnRegistrati;
 
-    public RegistrazioneFXStage() {
+    public RegistrazioneFXController() {
     }
 
     @FXML
@@ -62,9 +62,8 @@ public class RegistrazioneFXStage implements FXStage {
      * Costruisce l'account tramite i parametri in input. Effettua dei controlli e rimanda alla view corrispondente.
      *
      * @throws SQLException
-     * @throws IOException
      */
-    private void registrazione() throws SQLException, IOException {
+    private void registrazione() throws SQLException {
         lblErrore.setText(" ");
         String email = txtEmail.getText().toUpperCase();
         String nome = txtNome.getText();
@@ -86,21 +85,18 @@ public class RegistrazioneFXStage implements FXStage {
                         GestoreCliente gc = new GestoreCliente();
                         Cliente nuovo = new Cliente(nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/cliente.fxml", ClienteFXStage.getInstance(), nuovo);
                         break;
                     }
                     case "NEGOZIO": {
                         GestoreNegozio gc = new GestoreNegozio();
                         Negozio nuovo = new Negozio(nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/negozio.fxml", NegozioFXStage.getInstance(), nuovo);
                         break;
                     }
                     case "CORRIERE": {
                         GestoreCorriere gc = new GestoreCorriere();
                         Corriere nuovo = new Corriere(0, nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/corriere.fxml", CorriereFXStage.getInstance(), nuovo);
                         break;
                     }
                 }

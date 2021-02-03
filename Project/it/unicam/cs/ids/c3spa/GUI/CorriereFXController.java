@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereFXStage implements FXStage {
+public class CorriereFXController implements FXStage {
 
-    private static CorriereFXStage istanza;
+    private static CorriereFXController istanza;
     private Corriere corriere;
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Pacco> ordiniCorriere;
@@ -58,7 +58,7 @@ public class CorriereFXStage implements FXStage {
     @FXML
     private TableColumn<Pacco, String> tbOConsegna;
 
-    public CorriereFXStage() {
+    public CorriereFXController() {
     }
 
     /**
@@ -66,9 +66,9 @@ public class CorriereFXStage implements FXStage {
      *
      * @return l'istanza di CorriereFXController
      */
-    public static CorriereFXStage getInstance() {
+    public static CorriereFXController getInstance() {
         if (istanza == null) {
-            istanza = new CorriereFXStage();
+            istanza = new CorriereFXController();
         }
         return istanza;
     }
@@ -144,8 +144,8 @@ public class CorriereFXStage implements FXStage {
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCorriere());
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
+            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCorriere());
             attuale.close();
         }
 
@@ -178,14 +178,6 @@ public class CorriereFXStage implements FXStage {
             new GestorePacco().save(pacco);
             ordiniCorriere.removeIf(p -> p.id == pacco.id);
         }
-    }
-
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
     }
 
     /**

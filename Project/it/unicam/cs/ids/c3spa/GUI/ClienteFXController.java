@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -16,9 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteFXStage implements FXStage {
+public class ClienteFXController implements FXStage {
 
-    private static ClienteFXStage istanza;
+    private static ClienteFXController istanza;
     private Cliente cliente;
     @FXML
     private TextField txtMail, txtCategoriaCitta, txtCitta, txtCategoria;
@@ -28,7 +27,7 @@ public class ClienteFXStage implements FXStage {
     private Button btnAccedi, btnRicerca1, btnRicerca2, btnRicerca3, btnRicerca4, btnModifica, btnStorico, btnOrdini, btnSconti;
     @FXML
     private Label lblLogin, lblUtente, lblCittaUtente, lblErrore1, lblErrore2;
-    public ClienteFXStage() {
+    public ClienteFXController() {
     }
 
     /**
@@ -36,9 +35,9 @@ public class ClienteFXStage implements FXStage {
      *
      * @return l'istanza di ClienteFXController
      */
-    public static ClienteFXStage getInstance() {
+    public static ClienteFXController getInstance() {
         if (istanza == null) {
-            istanza = new ClienteFXStage();
+            istanza = new ClienteFXController();
         }
         return istanza;
     }
@@ -89,8 +88,8 @@ public class ClienteFXStage implements FXStage {
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            attuale.close();
             apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCliente());
+            attuale.close();
         }
     }
 
@@ -98,13 +97,7 @@ public class ClienteFXStage implements FXStage {
         apriStage("resources/contatti.fxml", new ContattiFXController());
     }
 
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
-    }
+
 
     /**
      * Inizializza i dati dell'account

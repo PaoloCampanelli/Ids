@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="455.0" maxWidth="575.0" minHeight="455.0" minWidth="575.0" prefHeight="455.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ClienteFXStage">
+<Pane maxHeight="455.0" maxWidth="575.0" minHeight="455.0" minWidth="575.0" prefHeight="455.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ClienteFXController">
    <children>
       <Separator layoutY="66.0" prefHeight="6.0" prefWidth="575.0" />
       <Separator layoutY="115.0" prefHeight="6.0" prefWidth="575.0" />
