@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereFXController implements FXController {
+public class CorriereFXStage implements FXStage {
 
-    private static CorriereFXController istanza;
+    private static CorriereFXStage istanza;
     private Corriere corriere;
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Pacco> ordiniCorriere;
@@ -58,7 +58,7 @@ public class CorriereFXController implements FXController {
     @FXML
     private TableColumn<Pacco, String> tbOConsegna;
 
-    public CorriereFXController() {
+    public CorriereFXStage() {
     }
 
     /**
@@ -66,9 +66,9 @@ public class CorriereFXController implements FXController {
      *
      * @return l'istanza di CorriereFXController
      */
-    public static CorriereFXController getInstance() {
+    public static CorriereFXStage getInstance() {
         if (istanza == null) {
-            istanza = new CorriereFXController();
+            istanza = new CorriereFXStage();
         }
         return istanza;
     }
@@ -152,7 +152,7 @@ public class CorriereFXController implements FXController {
     }
 
     public void actionStoricoOrdiniNegozio() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCorriere());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCorriere());
     }
 
     public void actionContatti() throws IOException {

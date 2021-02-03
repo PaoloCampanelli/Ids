@@ -2,7 +2,6 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabScontiFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -16,9 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NegozioFXController implements FXController {
+public class NegozioFXStage implements FXStage {
 
-    private static NegozioFXController istanza;
+    private static NegozioFXStage istanza;
     private Negozio negozio;
     @FXML
     private TextField txtMail;
@@ -29,12 +28,12 @@ public class NegozioFXController implements FXController {
     @FXML
     private Button btnAccedi, btnCreaOrdine, btnCatAttive, btnStorico, btnSconti, btnOrdini, btnListaCliente, btnModifica, btnPromozioni;
 
-    public NegozioFXController() {
+    public NegozioFXStage() {
     }
 
-    public static NegozioFXController getInstance() {
+    public static NegozioFXStage getInstance() {
         if (istanza == null) {
-            istanza = new NegozioFXController();
+            istanza = new NegozioFXStage();
         }
         return istanza;
     }
@@ -44,19 +43,19 @@ public class NegozioFXController implements FXController {
     }
 
     public void actionOrdine() throws IOException, SQLException {
-        apriStageController("resources/creaOrdine.fxml", new OrdineFXController(), getNegozio());
+        apriStageController("resources/creaOrdine.fxml", new OrdineFXStage(), getNegozio());
     }
 
     public void actionListaClienti() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaClienti.fxml", new TabNegoziFXController(), getNegozio());
+        apriStageController("resources/tabellaClienti.fxml", new TabNegoziFXController(), getNegozio());
     }
 
     public void actionListaCategorie() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaCategoriaNegozi.fxml", new TabCategoriaNegoziFXController(), getNegozio());
+        apriStageController("resources/tabellaCategoriaNegozi.fxml", new TabCategoriaNegoziFXController(), getNegozio());
     }
 
     public void actionStoricoOrdiniNegozio() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getNegozio());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getNegozio());
     }
 
     public void actionAttivaPubblicita() {
@@ -76,7 +75,7 @@ public class NegozioFXController implements FXController {
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaSconti.fxml", new TabScontiFXController(), getNegozio());
+        apriStageController("resources/sconti.fxml", new ScontiFXStage(), getNegozio());
     }
 
     private ButtonType alertModifica() {

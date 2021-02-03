@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RegistrazioneFXController implements FXController {
+public class RegistrazioneFXStage implements FXStage {
 
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     @FXML
@@ -33,7 +33,7 @@ public class RegistrazioneFXController implements FXController {
     @FXML
     private Button btnRegistrati;
 
-    public RegistrazioneFXController() {
+    public RegistrazioneFXStage() {
     }
 
     @FXML
@@ -86,21 +86,21 @@ public class RegistrazioneFXController implements FXController {
                         GestoreCliente gc = new GestoreCliente();
                         Cliente nuovo = new Cliente(nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/cliente.fxml", ClienteFXController.getInstance(), nuovo);
+                        apriStageController("resources/cliente.fxml", ClienteFXStage.getInstance(), nuovo);
                         break;
                     }
                     case "NEGOZIO": {
                         GestoreNegozio gc = new GestoreNegozio();
                         Negozio nuovo = new Negozio(nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/negozio.fxml", NegozioFXController.getInstance(), nuovo);
+                        apriStageController("resources/negozio.fxml", NegozioFXStage.getInstance(), nuovo);
                         break;
                     }
                     case "CORRIERE": {
                         GestoreCorriere gc = new GestoreCorriere();
                         Corriere nuovo = new Corriere(0, nome, indirizzo, numero, email, passw);
                         gc.save(nuovo);
-                        apriStageController("resources/corriere.fxml", CorriereFXController.getInstance(), nuovo);
+                        apriStageController("resources/corriere.fxml", CorriereFXStage.getInstance(), nuovo);
                         break;
                     }
                 }

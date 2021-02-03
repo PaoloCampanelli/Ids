@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteFXController implements FXController {
+public class ClienteFXStage implements FXStage {
 
-    private static ClienteFXController istanza;
+    private static ClienteFXStage istanza;
     private Cliente cliente;
     @FXML
     private TextField txtMail, txtCategoriaCitta, txtCitta, txtCategoria;
@@ -28,7 +28,7 @@ public class ClienteFXController implements FXController {
     private Button btnAccedi, btnRicerca1, btnRicerca2, btnRicerca3, btnRicerca4, btnModifica, btnStorico, btnOrdini, btnSconti;
     @FXML
     private Label lblLogin, lblUtente, lblCittaUtente, lblErrore1, lblErrore2;
-    public ClienteFXController() {
+    public ClienteFXStage() {
     }
 
     /**
@@ -36,9 +36,9 @@ public class ClienteFXController implements FXController {
      *
      * @return l'istanza di ClienteFXController
      */
-    public static ClienteFXController getInstance() {
+    public static ClienteFXStage getInstance() {
         if (istanza == null) {
-            istanza = new ClienteFXController();
+            istanza = new ClienteFXStage();
         }
         return istanza;
     }
@@ -49,11 +49,11 @@ public class ClienteFXController implements FXController {
 
 
     public void actionRicercaNegozi() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
+        apriStageController("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
     }
 
     public void actionRicercaNegoziByCitta() throws SQLException, IOException {
-        apriStageTabella("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
+        apriStageController("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
     }
 
 
@@ -75,11 +75,11 @@ public class ClienteFXController implements FXController {
     }
 
     public void actionStoricoOrdiniCliente() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCliente());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCliente());
     }
 
     public void actionOrdiniAttivi() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaOrdine.fxml", new TabOrdineFXController(), getCliente());
+        apriStageController("resources/tabellaOrdine.fxml", new TabOrdineFXController(), getCliente());
     }
 
     public void actionVisualizzaSconti() {

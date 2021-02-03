@@ -1,27 +1,26 @@
-package it.unicam.cs.ids.c3spa.GUI.Tabelle;
+package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Sconto;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreSconto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 
-public class TabScontiFXController implements FXTabella {
+public class ScontiFXStage implements FXStage {
 
     private ObservableList<String> selezionaData = FXCollections.observableArrayList("OGGI", "DIVERSA");
     private ObservableList<Sconto> sconti;
@@ -37,8 +36,6 @@ public class TabScontiFXController implements FXTabella {
 
     @FXML
     private TableView tabellaSconti;
-    @FXML
-    private TableColumn<Sconto, String> tbSID;
     @FXML
     private TableColumn<Sconto, String> tbSTipo;
     @FXML
@@ -58,7 +55,7 @@ public class TabScontiFXController implements FXTabella {
     @FXML
     private HBox hboxNascosta;
     @FXML
-    private Label lblError;
+    private Label lblErrore, lblErrore1;
 
     @FXML
     public void initialize() {
@@ -78,9 +75,8 @@ public class TabScontiFXController implements FXTabella {
     }
 
     private void setTabellaSconti(Negozio negozio) throws SQLException {
-        List<Sconto> listaSconti = new GestoreSconto().getAll();
+        List<Sconto> listaSconti = new GestoreSconto().getScontiAttiviByNegozio(negozio);
         sconti = FXCollections.observableArrayList(listaSconti);
-        tbSID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbSInizio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataInizio.toString()));
         tbSFine.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataFine.toString()));
         tbSTipo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().tipo));
@@ -89,57 +85,39 @@ public class TabScontiFXController implements FXTabella {
         tabellaSconti.setPlaceholder(new Label(("Non hai sconti attivi!")));
     }
 
-
-    public void actionScopri(ActionEvent actionEvent) {
-        if (sceltaData.getValue().equals("DIVERSA")) {
-            hboxNascosta.setDisable(false);
-        } else
-            hboxNascosta.setDisable(true);
+    public void actionScopri() {
+        hboxNascosta.setDisable(!sceltaData.getValue().equals("DIVERSA"));
     }
 
-    public void actionConferma(ActionEvent actionEvent) throws SQLException {
-        inserimentoInfo();
+    public void actionConferma() {
+        lblErrore1.setText(" ");
+        inserimentoInfo(txtTipo.getText().toUpperCase(),Integer.parseInt(txtIDCategoria.getText()));
     }
 
-    private void inserimentoInfo() throws SQLException {
-        String tipo = txtTipo.getText().toUpperCase();
-        LocalDate ldFine = dpFine.getValue();
-        try {
-            if (!tipo.isBlank()) {
-                int id = Integer.parseInt(txtIDCategoria.getText());
-                CategoriaMerceologica categoriaMerceologica = prendiCategoria(id);
-                Date fine = Date.from(ldFine.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-                if (categoriaMerceologica != null) {
-                    Date inizio;
-                    if (sceltaData.getValue().equals("DIVERSA")) {
-                        LocalDate ldInizio = dpInizio.getValue();
-                        inizio = Date.from(ldInizio.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-                        if (ldInizio.isBefore(ldFine)) {
-                            Sconto sconto = new Sconto(tipo, inizio, fine, negozio, categoriaMerceologica);
-                            if (recapInfo(sconto) == ButtonType.OK) {
-                                sconti.add(sconto);
-                                new GestoreSconto().save(sconto);
-                            }
-                        }
-                    } else
-                        inizio = Date.from(Instant.now());
-                    if (checkData(ldFine)) {
-                        Sconto sconto = new Sconto(tipo, inizio, fine, negozio, categoriaMerceologica);
-                        if (recapInfo(sconto) == ButtonType.OK) {
-                            sconti.add(sconto);
-                            new GestoreSconto().save(sconto);
-                        }
-                    }
-                } else
-                    lblError.setText(id + " non presente");
-            }
-        } catch (NumberFormatException | SQLException e) {
-            e.getMessage();
-        }
+    private void inserimentoInfo(String tipo, int id){
+        if (!tipo.isBlank()) {
+            CategoriaMerceologica categoriaMerceologica = prendiCategoria(id);
+            if (categoriaMerceologica != null) {
+                Date fine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                Date inizio = new Date();
+                if (sceltaData.getValue().equals("DIVERSA")) {
+                    inizio = Date.from(dpInizio.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                }else if(sceltaData.getValue().equals("OGGI")) {
+                    dpInizio.setValue(LocalDate.now());
+                }
+                if (dpInizio.getValue().isBefore(dpFine.getValue())) {
+                    Sconto sconto = new Sconto(tipo, inizio, fine, getNegozio(), categoriaMerceologica);
+                    confermaSconto(sconto);
+                }else
+                    lblErrore1.setText("Date non valide!");
+            } else
+                lblErrore.setText(id + " non presente");
+        }else
+            lblErrore1.setText("Tipologia di sconto non valida");
     }
 
 
-    private ButtonType recapInfo(Sconto sconto) throws SQLException {
+    private void confermaSconto(Sconto sconto){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "TIPO: " + sconto.tipo +
                         "\nINZIO: " + sconto.dataInizio.toString() +
@@ -148,11 +126,10 @@ public class TabScontiFXController implements FXTabella {
                 , ButtonType.OK, ButtonType.NO);
         alert.setTitle("Conferma pacco");
         alert.showAndWait();
-        return alert.getResult();
-    }
-
-    private boolean checkData(LocalDate fine) {
-        return !fine.isBefore(LocalDate.now());
+        if(alert.getResult() == ButtonType.OK) {
+            sconti.add(sconto);
+            new GestoreNegozio().creaSconto(sconto, getNegozio());
+        }
     }
 
 
@@ -166,11 +143,6 @@ public class TabScontiFXController implements FXTabella {
         setNegozio(account);
         settaCategoria(negozio);
         setTabellaSconti(negozio);
-    }
-
-    @Override
-    public void initData(Account account, String citta, String categoria) throws SQLException {
-
     }
 
     public Negozio getNegozio() {

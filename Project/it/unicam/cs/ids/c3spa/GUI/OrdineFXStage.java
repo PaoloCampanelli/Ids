@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrdineFXController implements FXController {
+public class OrdineFXStage implements FXStage {
 
     private Negozio negozio;
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("PREDEFINITO", "NUOVO");
@@ -57,7 +57,7 @@ public class OrdineFXController implements FXController {
     @FXML
     private ChoiceBox<String> selezionaIndirizzo;
 
-    public OrdineFXController() {
+    public OrdineFXStage() {
     }
 
     @FXML

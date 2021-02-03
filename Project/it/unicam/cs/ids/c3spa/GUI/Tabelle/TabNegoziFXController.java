@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabNegoziFXController implements FXTabella {
+public class TabNegoziFXController implements FXTabella{
 
     private ObservableList<Negozio> ln;
 

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class HomeFXController implements FXController {
+public class HomeFXStage implements FXStage {
 
     private final ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     @FXML
@@ -31,7 +31,7 @@ public class HomeFXController implements FXController {
     }
 
     public void actionRegistrati() throws IOException {
-        apriStage("resources/registrazione.fxml", new RegistrazioneFXController());
+        apriStage("resources/registrazione.fxml", new RegistrazioneFXStage());
     }
 
     public void actionAccedi() throws IOException {
@@ -39,13 +39,13 @@ public class HomeFXController implements FXController {
         String fxml = "resources/login.fxml";
         switch (tipologia) {
             case "CLIENTE":
-                apriStage(fxml, ClienteFXController.getInstance());
+                apriStage(fxml, ClienteFXStage.getInstance());
                 break;
             case "NEGOZIO":
-                apriStage(fxml, NegozioFXController.getInstance());
+                apriStage(fxml, NegozioFXStage.getInstance());
                 break;
             case "CORRIERE":
-                apriStage(fxml, CorriereFXController.getInstance());
+                apriStage(fxml, CorriereFXStage.getInstance());
                 break;
         }
     }

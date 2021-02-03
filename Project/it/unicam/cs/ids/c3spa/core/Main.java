@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.GUI.HomeFXController;
 import it.unicam.cs.ids.c3spa.GUI.ViewFX;
 import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
