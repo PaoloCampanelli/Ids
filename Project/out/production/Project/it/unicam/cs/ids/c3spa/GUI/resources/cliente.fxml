@@ -39,27 +39,6 @@
             <Label prefHeight="26.0" prefWidth="87.0" text=" nel sistema" />
          </children>
       </HBox>
-      <HBox layoutX="17.0" layoutY="82.0" prefHeight="362.0" prefWidth="538.0" spacing="56.0">
-         <children>
-            <Button fx:id="btnModifica" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
-            <VBox prefHeight="237.0" prefWidth="164.0" spacing="54.0">
-               <children>
-                  <Button fx:id="btnOrdini" mnemonicParsing="false" onAction="#actionOrdiniAttivi" prefHeight="25.0" prefWidth="130.0" text="CONTROLLA ORDINI" />
-                  <Button fx:id="btnRicerca1" mnemonicParsing="false" onAction="#actionRicercaNegozi" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
-                  <Button fx:id="btnRicerca2" mnemonicParsing="false" onAction="#actionRicercaNegoziByCitta" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
-                  <Button fx:id="btnRicerca3" mnemonicParsing="false" onAction="#actionRicercaCittaCategoria" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
-                  <Button fx:id="btnRicerca4" mnemonicParsing="false" onAction="#actionRicercaCategoria" prefHeight="25.0" prefWidth="130.0" text="RICERCA " />
-               </children>
-            </VBox>
-            <VBox prefHeight="362.0" prefWidth="158.0" spacing="54.0">
-               <children>
-                  <Button fx:id="btnStorico" mnemonicParsing="false" onAction="#actionStoricoOrdiniCliente" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
-                  <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionVisualizzaSconti" prefHeight="25.0" prefWidth="130.0" text="VISUALIZZA SCONTI" />
-                  <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="130.0" text="CONTATTI" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
       <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="526.0">
          <children>
             <Label prefHeight="60.0" prefWidth="165.0" text="BENTORNATO, " textFill="#0004ff">
@@ -76,5 +55,18 @@
       </HBox>
       <Label fx:id="lblErrore1" layoutX="99.0" layoutY="331.0" prefHeight="17.0" prefWidth="108.0" textFill="RED" />
       <Label fx:id="lblErrore2" layoutX="99.0" layoutY="400.0" prefHeight="17.0" prefWidth="108.0" textFill="RED" />
+      <Button fx:id="btnRicerca4" layoutX="195.0" layoutY="405.0" mnemonicParsing="false" onAction="#actionRicercaCategoria" prefHeight="25.0" prefWidth="130.0" text="RICERCA " />
+      <Button fx:id="btnRicerca3" layoutX="195.0" layoutY="327.0" mnemonicParsing="false" onAction="#actionRicercaCittaCategoria" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
+      <Button fx:id="btnRicerca2" layoutX="195.0" layoutY="230.0" mnemonicParsing="false" onAction="#actionRicercaNegoziByCitta" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
+      <Button fx:id="btnRicerca1" layoutX="195.0" layoutY="159.0" mnemonicParsing="false" onAction="#actionRicercaNegozi" prefHeight="25.0" prefWidth="130.0" text="RICERCA NEGOZI" />
+      <Button fx:id="btnOrdini" layoutX="195.0" layoutY="82.0" mnemonicParsing="false" onAction="#actionOrdiniAttivi" prefHeight="25.0" prefWidth="130.0" text="CONTROLLA ORDINI" />
+      <VBox layoutX="375.0" layoutY="82.0" prefHeight="232.0" prefWidth="158.0" spacing="54.0">
+         <children>
+            <Button fx:id="btnStorico" mnemonicParsing="false" onAction="#actionStoricoOrdiniCliente" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
+            <Button fx:id="btnSconti" mnemonicParsing="false" onAction="#actionVisualizzaSconti" prefHeight="25.0" prefWidth="130.0" text="VISUALIZZA SCONTI" />
+            <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="130.0" text="CONTATTI" />
+         </children>
+      </VBox>
+      <Button fx:id="btnModifica" layoutX="32.0" layoutY="82.0" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
    </children>
 </Pane>
