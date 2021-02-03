@@ -6,5 +6,4 @@ public interface IView {
 
     void start() throws SQLException;
 
-    void arrivederci();
 }
