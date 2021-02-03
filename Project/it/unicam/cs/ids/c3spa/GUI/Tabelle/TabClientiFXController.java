@@ -39,12 +39,14 @@ public class TabClientiFXController implements FXTabella {
         tabellaClienti.setPlaceholder(new Label("C3 non contiene ancora clienti!"));
     }
 
+
     @Override
     public void initData(Account account) throws SQLException {
+
     }
 
     @Override
     public void initData(Account account, String citta, String categoria) throws SQLException {
-    }
 
+    }
 }

@@ -81,8 +81,8 @@ public class ClienteFXController implements FXStage {
         apriStageController("resources/tabellaOrdine.fxml", new TabOrdineFXController(), getCliente());
     }
 
-    public void actionVisualizzaSconti() {
-        //TODO
+    public void actionVisualizzaSconti() throws IOException, SQLException {
+        apriStageController("resources/tabellaSconti.fxml", new TabScontiFXController(), getCliente());
     }
 
     public void actionModificaInfo() throws IOException, SQLException {
