@@ -83,16 +83,17 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             try {
 
                 if (n.id == 0) { // è un inserimento
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozi (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozi (denominazione, token, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setString(1, n.denominazione);
-                    st.setString(2, n.indirizzo.citta);
-                    st.setString(3, n.indirizzo.numero);
-                    st.setString(4, n.indirizzo.cap);
-                    st.setString(5, n.indirizzo.via);
-                    st.setString(6, n.indirizzo.provincia);
-                    st.setString(7, n.telefono);
-                    st.setString(8, n.eMail);
-                    st.setString(9, n.password);
+                    st.setInt(2, n.token);
+                    st.setString(3, n.indirizzo.citta);
+                    st.setString(4, n.indirizzo.numero);
+                    st.setString(5, n.indirizzo.cap);
+                    st.setString(6, n.indirizzo.via);
+                    st.setString(7, n.indirizzo.provincia);
+                    st.setString(8, n.telefono);
+                    st.setString(9, n.eMail);
+                    st.setString(10, n.password);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
@@ -104,17 +105,18 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     }
                 } else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, token = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
                     st.setString(1, n.denominazione);
-                    st.setString(2, n.indirizzo.citta);
-                    st.setString(3, n.indirizzo.numero);
-                    st.setString(4, n.indirizzo.cap);
-                    st.setString(5, n.indirizzo.via);
-                    st.setString(6, n.indirizzo.provincia);
-                    st.setString(7, n.telefono);
-                    st.setString(8, n.eMail);
-                    st.setString(9, n.password);
-                    st.setInt(10, n.id);
+                    st.setInt(2, n.token);
+                    st.setString(3, n.indirizzo.citta);
+                    st.setString(4, n.indirizzo.numero);
+                    st.setString(5, n.indirizzo.cap);
+                    st.setString(6, n.indirizzo.via);
+                    st.setString(7, n.indirizzo.provincia);
+                    st.setString(8, n.telefono);
+                    st.setString(9, n.eMail);
+                    st.setString(10, n.password);
+                    st.setInt(11, n.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
                     st.close();
@@ -304,5 +306,34 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         ChiudiConnessione(conn);
 
         return n;
+    }
+
+    public boolean creaSconto(Sconto sconto , Negozio negozio){
+
+        try {
+            negozio.aggiungiSconto(sconto);
+            new GestoreSconto().save(sconto);
+        }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean creaPubblicita(Pubblicita pubblicita , Negozio negozio){
+        try {
+            negozio.aggiungiPubblicita(pubblicita);
+            new GestorePubblicita().save(pubblicita);
+            new GestoreNegozio().save(negozio);
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
+
+        return false;
+
+
     }
 }

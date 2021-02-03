@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 
+import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pubblicita;
 import it.unicam.cs.ids.c3spa.core.Sconto;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
@@ -67,11 +68,114 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
 
     @Override
     public Object save(Object entity) throws SQLException {
+        if (entity instanceof Pubblicita) {
+
+            PreparedStatement st;
+            ResultSet rs;
+            Connection conn = ApriConnessione();
+            Pubblicita p = (Pubblicita) entity;
+
+            try {
+
+                if (p.id == 0) { // è un inserimento
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.pubblicita (pubblicitaId, dataInizio, dataFine, negozioId) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st.setInt(1, p.id);
+                    st.setDate(2,(java.sql.Date)p.dataInizio);
+                    st.setDate(3, (java.sql.Date)p.dataInizio);
+                    st.setInt(4, p.negozio.id);
+
+                    st.executeUpdate(); // faccio la query su uno statement
+                    rs = st.getGeneratedKeys();
+                    if (rs.next()) {
+                        p.id = rs.getInt(1);
+                    } else {
+
+                        throw new SQLException("Inserimento non effettuato!");
+                    }
+                } else //é una modifica
+                {
+                    st = conn.prepareStatement("UPDATE progetto_ids.pubblicita SET dataInizio = ?, dataFine = ?, `negozioId` = ? WHERE pubblicitaId = ?"); // creo sempre uno statement sulla
+                    st.setDate(1,(java.sql.Date)p.dataInizio);
+                    st.setDate(2, (java.sql.Date)p.dataInizio);
+                    st.setInt(3, p.negozio.id);
+                    st.setInt(4, p.id);
+
+                    st.executeUpdate(); // faccio la query su uno statement
+
+                }
+
+                GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+                st.close();
+                return p;
+            } catch (SQLException e) {
+                System.out.println("errore:" + e.getMessage());
+                return null;
+            } // fine try-catch
+        }
+
+        System.out.println("errore: salvataggio non riuscito");
         return null;
     }
 
     @Override
     public void delete(int id) throws SQLException {
+
+        Statement st;
+        String sql;
+        Connection conn = ApriConnessione();
+
+        try {
+
+            sql = "UPDATE `progetto_ids`.`pubblicita` SET `isCancellato` = '1' WHERE (`pubblicitaId` = '"+id+"');";
+
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            st.execute(sql); // faccio la query su uno statement
+            GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+
+        } // fine try-catch
+    }
+
+    public List<Pubblicita> getPubblicitaAttive() throws SQLException {
+
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Pubblicita> p = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM pubblicita \n" +
+                    "where isCancellato = 0 \n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date()";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Pubblicita a = new Pubblicita();
+                a.mapData(rs);
+                a.negozio = new GestoreNegozio().getById(a.id);
+                p.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return p;
+    }
+
+
+    public List<Negozio> getOrderByPubblicita() throws SQLException {
+
+        List<Negozio> ln = new GestoreNegozio().getAll();
+        List<Pubblicita> lp= new GestorePubblicita().getAll();
+        return null;
 
     }
 }

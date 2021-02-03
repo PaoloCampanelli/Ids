@@ -48,19 +48,20 @@ public class Main {
         Cliente c = new GestoreCliente().getById(1);
         Negozio n = new GestoreNegozio().getById(2);
         Corriere cc = new GestoreCorriere().getById(1);
-        Pacco p =new GestorePacco().getById(1);
+        Pacco p =new GestorePacco().getById(6);
+        Pubblicita pb = new Pubblicita( p.dataPreparazione, p.dataConsegnaRichiesta, n);
 
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getAll();
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(new GestoreNegozio().getById(2));
-        System.out.println(new GestoreSconto().getScontiAttivi());
-        System.out.println(new GestoreSconto().getByNegozio(n));
+//        System.out.println(new GestoreNegozio().getById(2));
+//        System.out.println(new GestoreSconto().getScontiAttivi());
+//        System.out.println(new GestoreSconto().getScontiAttiviByNegozio(n));
 
-        Sconto sc = new Sconto("5x1",p.dataPreparazione, p.dataConsegnaRichiesta, n , new GestoreCategoriaMerceologica().getById(6));
-        System.out.println(new GestoreSconto().save(sc));
+        System.out.println(new GestoreNegozio().creaPubblicita(pb, n));
+
 
 
 //        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");

@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class Pubblicita implements IMapData {
-	private int id;
-	private Date dataInizio;
-	private Date dataFine;
-	private Negozio negozio;
+	public int id;
+	public Date dataInizio;
+	public Date dataFine;
+	public Negozio negozio;
 
 	public Pubblicita (int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
 		this.id = idPubblicita;
@@ -25,6 +25,12 @@ public class Pubblicita implements IMapData {
 		this.negozio=new Negozio();
 	}
 
+	public Pubblicita (Date dataInizio, Date dataFine, Negozio negozio){
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.negozio = negozio;
+	}
+
 	@Override
 	public Object mapData(ResultSet rs) throws SQLException {
 		this.id = rs.getInt("pubblicitaId");
@@ -32,5 +38,15 @@ public class Pubblicita implements IMapData {
 		this.dataFine = rs.getDate("dataFine");
 		this.negozio = new GestoreNegozio().getById(rs.getInt("negozioId"));
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "Pubblicita{" +
+				"id=" + id +
+				", dataInizio=" + dataInizio +
+				", dataFine=" + dataFine +
+				", negozio=" + negozio +
+				'}';
 	}
 }

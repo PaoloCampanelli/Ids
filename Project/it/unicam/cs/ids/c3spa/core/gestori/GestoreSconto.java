@@ -173,7 +173,7 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
         return s;
     }
 
-    public List<Sconto> getByNegozio(Negozio negozio) throws SQLException {
+    public List<Sconto> getScontiAttiviByNegozio(Negozio negozio) throws SQLException {
         PreparedStatement st;
         ResultSet rs;
         List<Sconto> ls = new ArrayList<>();
@@ -181,7 +181,10 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
 
         try {
 
-            st = conn.prepareStatement("SELECT * FROM sconti where isCancellato = 0 and negozioId ="+negozio.id+" ;");
+            st = conn.prepareStatement("SELECT * FROM sconti where isCancellato = 0 " +
+                    "                       AND current_date() <= dataFine " +
+                    "                       AND   dataInizio <= current_date() " +
+                    "                       AND negozioId ="+negozio.id+";");
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
                 Sconto s = new Sconto();

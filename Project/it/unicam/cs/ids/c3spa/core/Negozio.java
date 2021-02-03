@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
+import com.mysql.cj.util.TimeUtil;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Negozio extends Account implements IMapData {
 	public int token;
@@ -89,13 +91,22 @@ public class Negozio extends Account implements IMapData {
 		return sconto;
 	}
 
-	public boolean attivaPubblicita(int idPubblicita, Date dataInizio, Date dataFine, Negozio negozio){
-		if(token <= 0){
+	public Pubblicita aggiungiPubblicita(Pubblicita pubblicita){
+		if(pubblicita.negozio.token <= 0){
 			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token");
 		}
-		new Pubblicita(idPubblicita, dataInizio, dataFine, negozio);
-		token--;
-		return true;
+		double diff = pubblicita.dataFine.getTime()-pubblicita.dataInizio.getTime();
+		diff = diff /86000000;
+		int tok = (int) diff;
+		if(pubblicita.negozio.token-tok >= 0){
+			pubblicita.negozio.token= token-tok;
+			return pubblicita;
+		}
+		else{
+			throw new IllegalArgumentException("non ha abbastanza token per questo lasso di tempo");
+		}
+
+
 	}
 
 	public List<CategoriaMerceologica> getCategorie() {
