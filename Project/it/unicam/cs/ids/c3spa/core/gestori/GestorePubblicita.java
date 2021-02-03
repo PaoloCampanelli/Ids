@@ -170,12 +170,48 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
         return p;
     }
 
+    public List<Negozio> getNegoziConPubblicitaAttiva() throws SQLException {
 
-    public List<Negozio> getOrderByPubblicita() throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT distinct negozi.negozioId ,denominazione, token, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password \n" +
+                    "FROM pubblicita inner join negozi \n" +
+                    "on pubblicita.negozioId = negozi.negozioId\n" +
+                    "where pubblicita.isCancellato = 0\n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date()";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio a = new Negozio();
+                a.mapData(rs);
+                a = new GestoreNegozio().getById(a.id);
+                ln.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return ln;
+    }
+
+    public List<Negozio> OrderByPubblicita() throws SQLException {
 
         List<Negozio> ln = new GestoreNegozio().getAll();
-        List<Pubblicita> lp= new GestorePubblicita().getAll();
-        return null;
+        List<Negozio> lp= new GestorePubblicita().getNegoziConPubblicitaAttiva();
+        List<Negozio> ret = new ArrayList<Negozio>(lp);
+        ln.removeAll(lp);
+        ret.addAll(ln);
+        return ret;
 
     }
 }

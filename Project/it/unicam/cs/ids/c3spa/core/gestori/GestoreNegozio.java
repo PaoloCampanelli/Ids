@@ -313,6 +313,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         try {
             negozio.aggiungiSconto(sconto);
             new GestoreSconto().save(sconto);
+            return true;
         }
         catch (Exception e){
             System.out.println("errore:" + e.getMessage());
