@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.ConcurrentModificationException;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PaccoTest {
