@@ -30,8 +30,6 @@ public class TabCittaFXController implements FXTabella {
     @FXML
     private TableColumn<Negozio, String> tbVia;
     @FXML
-    private TableColumn<Negozio, String> tbCivico;
-    @FXML
     private TableColumn<Negozio, String> tbCategoria;
     public TabCittaFXController() {
     }
@@ -48,8 +46,7 @@ public class TabCittaFXController implements FXTabella {
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbCategoria.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categorie.toString()));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
-        tbVia.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.via));
-        tbCivico.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.numero));
+        tbVia.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tabellaCitta.setItems(ln);
         tabellaCitta.setPlaceholder(new Label("C3 non contiene negozi a " + cliente.indirizzo.citta));
     }

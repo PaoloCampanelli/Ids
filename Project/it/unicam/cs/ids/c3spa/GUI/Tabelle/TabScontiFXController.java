@@ -42,7 +42,7 @@ public class TabScontiFXController implements FXTabella{
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().negozio.denominazione));
         tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().negozio.indirizzo.toString()));
         tbTipo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().tipo));
-        tbCategoria.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categoriaMerceologica.toString()));
+        tbCategoria.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categoriaMerceologica.nome));
         tbFine.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataFine.toString()));
         tabellaSconti.setItems(ls);
         tabellaSconti.setPlaceholder(new Label("C3 non contiene sconti!"));

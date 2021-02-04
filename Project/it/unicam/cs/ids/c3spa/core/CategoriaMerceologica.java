@@ -32,9 +32,6 @@ public class CategoriaMerceologica implements IMapData {
 
 	@Override
 	public String toString() {
-		return "CategoriaMerceologica{" +
-				"idCategoria=" + idCategoria +
-				", nome='" + nome + '\'' +
-				'}';
+		return nome;
 	}
 }

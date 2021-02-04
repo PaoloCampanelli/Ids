@@ -26,10 +26,6 @@ public class TabNegoziFXController implements FXTabella{
     private TableColumn<Negozio, String> tbNumero;
     @FXML
     private TableColumn<Negozio, String> tbVia;
-    @FXML
-    private TableColumn<Negozio, String> tbCivico;
-    @FXML
-    private TableColumn<Negozio, String> tbCitta;
 
     @FXML
     public void initialize() throws SQLException {
@@ -37,9 +33,7 @@ public class TabNegoziFXController implements FXTabella{
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
-        tbVia.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.via));
-        tbCivico.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.numero));
-        tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.citta));
+        tbVia.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tabellaNegozi.setItems(ln);
         tabellaNegozi.setPlaceholder(new Label("C3 non contiene ancora negozi!"));
     }

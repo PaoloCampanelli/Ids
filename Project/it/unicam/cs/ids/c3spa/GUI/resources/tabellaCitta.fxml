@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCittaFXController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCittaFXController">
    <children>
       <TableView fx:id="tabellaCitta" layoutY="68.0" prefHeight="416.0" prefWidth="606.0">
         <columns>
-          <TableColumn fx:id="tbNome" prefWidth="129.0" text="Denominazione" />
-          <TableColumn fx:id="tbCategoria" prefWidth="176.0" text="Categoria" />
-            <TableColumn fx:id="tbNumero" prefWidth="97.0" text="Telefono" />
-            <TableColumn fx:id="tbVia" prefWidth="157.0" text="Via" />
-            <TableColumn fx:id="tbCivico" prefWidth="46.0" text="Civico" />
+          <TableColumn fx:id="tbNome" prefWidth="129.0" text="NOME" />
+          <TableColumn fx:id="tbCategoria" prefWidth="176.0" text="CATEGORIE" />
+            <TableColumn fx:id="tbNumero" prefWidth="84.0" text="TELEFONO" />
+            <TableColumn fx:id="tbVia" prefWidth="216.0" text="INDIRIZZO" />
         </columns>
       </TableView>
       <HBox layoutX="59.0" prefHeight="68.0" prefWidth="368.0">

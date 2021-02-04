@@ -48,9 +48,7 @@ public class TabCategoriaFXController implements FXTabella {
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
-        tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.citta));
-        tbVia.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.via));
-        tbCivico.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.numero));
+        tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tabellaCategoria.setItems(ln);
         tabellaCategoria.setPlaceholder(new Label("C3 non contiene questa categoria!"));
     }

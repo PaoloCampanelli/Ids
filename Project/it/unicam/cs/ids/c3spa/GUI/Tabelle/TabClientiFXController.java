@@ -34,7 +34,7 @@ public class TabClientiFXController implements FXTabella {
         ln = FXCollections.observableArrayList(clienti);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
-        tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.citta));
+        tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tabellaClienti.setItems(ln);
         tabellaClienti.setPlaceholder(new Label("C3 non contiene ancora clienti!"));
     }
