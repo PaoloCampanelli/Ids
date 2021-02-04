@@ -6,6 +6,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -17,7 +18,7 @@ import java.util.List;
 import static it.unicam.cs.ids.c3spa.test.gestori.GestoreClienteTest.gestoreCliente;
 import static it.unicam.cs.ids.c3spa.test.gestori.GestoreNegozioTest.gestoreNegozio;
 
-class GestorePaccoTest{
+public class GestorePaccoTest{
 
     public static GestorePacco gestorePacco = new GestorePacco();
     List<Pacco> pacchi = new ArrayList<>();
@@ -92,5 +93,57 @@ class GestorePaccoTest{
         }
         stmt.close();
         conn.close();
+    }
+
+    @Test
+    void getById() {
+    }
+
+    @Test
+    void getAll() {
+    }
+
+    @Test
+    void save() {
+    }
+
+    @Test
+    void delete() {
+    }
+
+    @Test
+    void getByDestinatario() {
+    }
+
+    @Test
+    void getByMittente() {
+    }
+
+    @Test
+    void getByCorriere() {
+    }
+
+    @Test
+    void getPacchiSenzaCorriere() {
+    }
+
+    @Test
+    void assegnaPacco() {
+    }
+
+    @Test
+    void consegnaPacco() {
+    }
+
+    @Test
+    void storicoByCorriere() {
+    }
+
+    @Test
+    void storicoByCliente() {
+    }
+
+    @Test
+    void storicoByNegozio() {
     }
 }

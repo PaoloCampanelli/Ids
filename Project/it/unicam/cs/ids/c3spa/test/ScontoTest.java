@@ -11,7 +11,7 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScontoTest {
+public class ScontoTest {
 
     @Test
     public void Sconto(){
