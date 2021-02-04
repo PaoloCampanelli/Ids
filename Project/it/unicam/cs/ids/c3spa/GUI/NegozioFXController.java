@@ -58,8 +58,8 @@ public class NegozioFXController implements FXStage {
         apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getNegozio());
     }
 
-    public void actionAttivaPubblicita() {
-        //TODO
+    public void actionAttivaPubblicita() throws IOException, SQLException {
+        apriStageController("resources/pubblicita.fxml", new PubblicitaFXController(), getNegozio());
     }
 
     public void actionModificaInfo() throws IOException, SQLException {

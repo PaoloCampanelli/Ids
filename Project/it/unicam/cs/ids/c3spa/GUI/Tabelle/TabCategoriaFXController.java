@@ -29,10 +29,7 @@ public class TabCategoriaFXController implements FXTabella {
     private TableColumn<Negozio, String> tbNumero;
     @FXML
     private TableColumn<Negozio, String> tbCitta;
-    @FXML
-    private TableColumn<Negozio, String> tbVia;
-    @FXML
-    private TableColumn<Negozio, String> tbCivico;
+
 
     public TabCategoriaFXController() {
     }
