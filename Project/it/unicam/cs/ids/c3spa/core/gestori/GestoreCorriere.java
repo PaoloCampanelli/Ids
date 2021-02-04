@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Corriere;
-import it.unicam.cs.ids.c3spa.core.Negozio;
-import it.unicam.cs.ids.c3spa.core.Pacco;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
 
 import java.sql.*;
@@ -85,7 +82,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                     st.setString(6, c.indirizzo.provincia);
                     st.setString(7, c.telefono);
                     st.setString(8, c.eMail);
-                    st.setString(9, c.password);
+                    st.setString(9, new Servizi().encrypt(c.password));
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
@@ -106,7 +103,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                     st.setString(6, c.indirizzo.provincia);
                     st.setString(7, c.telefono);
                     st.setString(8, c.eMail);
-                    st.setString(9, c.password);
+                    st.setString(9, new Servizi().encrypt(c.password));
                     st.setInt(10, c.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
@@ -119,6 +116,9 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                 System.out.println("errore:" + e.getMessage());
                 return null;
             } // fine try-catch
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         System.out.println("errore: salvataggio non riuscito");

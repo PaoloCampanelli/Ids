@@ -1,11 +1,7 @@
 package it.unicam.cs.ids.c3spa.core.controller.Console;
 
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Corriere;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -43,18 +39,35 @@ public class AccountController{
         switch(tipologia){
             case "CLIENTE":{
                 List<Cliente> lc = new GestoreCliente().getAll();
-                return lc.stream().anyMatch(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password));
+                return lc.stream().anyMatch(cliente -> {
+                    try {
+                        return cliente.eMail.equals(email) && password.equals(new Servizi().decrypt(cliente.password));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }return false;
+                });
             }
             case "COMMERCIANTE":{
                 List<Negozio> ln = new GestoreNegozio().getAll();
-                return ln.stream().anyMatch(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password));
+                return ln.stream().anyMatch(negozio -> {
+                    try {
+                        return negozio.eMail.equals(email) && password.equals(new Servizi().decrypt(negozio.password));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }return false;
+                });
             }
             case "CORRIERE":{
                 List<Corriere> ln = new GestoreCorriere().getAll();
-                return ln.stream().anyMatch(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password));
+                return ln.stream().anyMatch(corriere -> {
+                    try {
+                        return corriere.eMail.equals(email) && password.equals(new Servizi().decrypt(corriere.password));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }return false;
+                });
             }
-        }
-        return false;
+        }return false;
     }
 
     public int prendiID(String tipologia, String email, String password) throws SQLException {
@@ -62,21 +75,38 @@ public class AccountController{
             case "CLIENTE":{
                 List<Cliente> lc = new GestoreCliente().getAll();
                 if(controllaDati("CLIENTE", email, password))
-                    return lc.stream().filter(cliente -> cliente.eMail.equals(email) && cliente.password.equals(password)).findAny().get().id;
+                    return lc.stream().filter(cliente -> {
+                        try {
+                            return cliente.eMail.equals(email) && password.equals(new Servizi().decrypt(cliente.password));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }return false;
+                    }).findAny().get().id;
             }
             case "COMMERCIANTE":{
                 List<Negozio> ln = new GestoreNegozio().getAll();
                 if(controllaDati("COMMERCIANTE", email, password))
-                    return ln.stream().filter(negozio -> negozio.eMail.equals(email) && negozio.password.equals(password)).findAny().get().id;
+                    return ln.stream().filter(negozio -> {
+                        try {
+                            return negozio.eMail.equals(email) && password.equals(new Servizi().decrypt(negozio.password));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }return false;
+                    }).findAny().get().id;
             }
             case "CORRIERE":{
                 List<Corriere> lcr = new GestoreCorriere().getAll();
                 if(controllaDati("CORRIERE", email, password)){
-                    return lcr.stream().filter(corriere -> corriere.eMail.equals(email) && corriere.password.equals(password)).findAny().get().id;
+                    return lcr.stream().filter(corriere -> {
+                        try {
+                            return corriere.eMail.equals(email) && password.equals(new Servizi().decrypt(corriere.password));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }return false;
+                    }).findAny().get().id;
                 }
             }
-        }
-        return 0;
+        }return 0;
     }
 
     public Cliente prendiCliente(String email) throws SQLException {

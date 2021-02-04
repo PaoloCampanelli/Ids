@@ -90,7 +90,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     st.setString(6, n.indirizzo.provincia);
                     st.setString(7, n.telefono);
                     st.setString(8, n.eMail);
-                    st.setString(9, n.password);
+                    st.setString(9, new Servizi().encrypt(n.password));
 
                     st.executeUpdate(); // faccio la query su uno statement
                     rs = st.getGeneratedKeys();
@@ -111,7 +111,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     st.setString(6, n.indirizzo.provincia);
                     st.setString(7, n.telefono);
                     st.setString(8, n.eMail);
-                    st.setString(9, n.password);
+                    st.setString(9, new Servizi().encrypt(n.password));
                     st.setInt(10, n.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
@@ -143,6 +143,9 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                 System.out.println("errore:" + e.getMessage());
                 return null;
             } // fine try-catch
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         System.out.println("errore: salvataggio non riuscito");
