@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class HomeFXController implements FXController {
+public class HomeFXController implements FXStage {
 
     private final ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     @FXML

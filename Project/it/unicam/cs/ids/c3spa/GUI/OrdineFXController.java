@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrdineFXController implements FXController {
+public class OrdineFXController implements FXStage {
 
     private Negozio negozio;
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("PREDEFINITO", "NUOVO");

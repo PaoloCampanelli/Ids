@@ -1,18 +1,12 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
+import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 
 import java.sql.SQLException;
 
-public interface FXTabella {
+public interface FXTabella extends FXController {
 
-    /**
-     * Inizializza i dati dell'account
-     *
-     * @param account account loggato
-     * @throws SQLException
-     */
-    void initData(Account account) throws SQLException;
 
     /**
      * Inizializza i dati dell'account

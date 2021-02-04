@@ -2,21 +2,19 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
-import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabScontiFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NegozioFXController implements FXController {
+public class NegozioFXController implements FXStage {
 
     private static NegozioFXController istanza;
     private Negozio negozio;
@@ -48,15 +46,15 @@ public class NegozioFXController implements FXController {
     }
 
     public void actionListaClienti() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaClienti.fxml", new TabNegoziFXController(), getNegozio());
+        apriStageController("resources/tabellaClienti.fxml", new TabNegoziFXController(), getNegozio());
     }
 
     public void actionListaCategorie() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaCategoriaNegozi.fxml", new TabCategoriaNegoziFXController(), getNegozio());
+        apriStageController("resources/tabellaCategoriaNegozi.fxml", new TabCategoriaNegoziFXController(), getNegozio());
     }
 
     public void actionStoricoOrdiniNegozio() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getNegozio());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getNegozio());
     }
 
     public void actionAttivaPubblicita() {
@@ -76,15 +74,7 @@ public class NegozioFXController implements FXController {
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaSconti.fxml", new TabScontiFXController(), getNegozio());
-    }
-
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
+        apriStageController("resources/sconti.fxml", new ScontiFXControllerFXStage(), getNegozio());
     }
 
     /**

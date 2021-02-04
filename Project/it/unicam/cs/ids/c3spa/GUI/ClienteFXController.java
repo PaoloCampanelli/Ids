@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteFXController implements FXController {
+public class ClienteFXController implements FXStage {
 
     private static ClienteFXController istanza;
     private Cliente cliente;
@@ -49,11 +48,11 @@ public class ClienteFXController implements FXController {
 
 
     public void actionRicercaNegozi() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
+        apriStageController("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
     }
 
     public void actionRicercaNegoziByCitta() throws SQLException, IOException {
-        apriStageTabella("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
+        apriStageController("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
     }
 
 
@@ -75,22 +74,22 @@ public class ClienteFXController implements FXController {
     }
 
     public void actionStoricoOrdiniCliente() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCliente());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCliente());
     }
 
     public void actionOrdiniAttivi() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaOrdine.fxml", new TabOrdineFXController(), getCliente());
+        apriStageController("resources/tabellaOrdine.fxml", new TabOrdineFXController(), getCliente());
     }
 
-    public void actionVisualizzaSconti() {
-        //TODO
+    public void actionVisualizzaSconti() throws IOException, SQLException {
+        apriStageController("resources/tabellaSconti.fxml", new TabScontiFXController(), getCliente());
     }
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            attuale.close();
             apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCliente());
+            attuale.close();
         }
     }
 
@@ -98,13 +97,7 @@ public class ClienteFXController implements FXController {
         apriStage("resources/contatti.fxml", new ContattiFXController());
     }
 
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
-    }
+
 
     /**
      * Inizializza i dati dell'account

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereFXController implements FXController {
+public class CorriereFXController implements FXStage {
 
     private static CorriereFXController istanza;
     private Corriere corriere;
@@ -144,15 +144,15 @@ public class CorriereFXController implements FXController {
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCorriere());
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
+            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCorriere());
             attuale.close();
         }
 
     }
 
     public void actionStoricoOrdiniNegozio() throws IOException, SQLException {
-        apriStageTabella("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCorriere());
+        apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCorriere());
     }
 
     public void actionContatti() throws IOException {
@@ -178,14 +178,6 @@ public class CorriereFXController implements FXController {
             new GestorePacco().save(pacco);
             ordiniCorriere.removeIf(p -> p.id == pacco.id);
         }
-    }
-
-    private ButtonType alertModifica() {
-        Alert alert = new Alert(AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Avvertimento!");
-        alert.showAndWait();
-        return alert.getResult();
     }
 
     /**
