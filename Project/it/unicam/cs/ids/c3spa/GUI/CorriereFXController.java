@@ -3,6 +3,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
@@ -250,7 +251,14 @@ public class CorriereFXController implements FXStage {
      */
     private boolean controllaCorriere(String email, String password) throws SQLException {
         List<Corriere> lc = new GestoreCorriere().getAll();
-        return lc.stream().anyMatch(c -> c.eMail.equals(email) && c.password.equals(password));
+        return lc.stream().anyMatch(c -> {
+            try {
+                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        });
     }
 
     /**

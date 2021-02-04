@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabCategoriaNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.fxml.FXML;
@@ -119,7 +120,14 @@ public class NegozioFXController implements FXStage {
      */
     private boolean controllaNegozio(String email, String password) throws SQLException {
         List<Negozio> ln = new GestoreNegozio().getAll();
-        return ln.stream().anyMatch(c -> c.eMail.equals(email) && c.password.equals(password));
+        return ln.stream().anyMatch(c -> {
+            try {
+                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(password));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        });
     }
 
     /**

@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.*;
 import it.unicam.cs.ids.c3spa.core.Cliente;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import javafx.fxml.FXML;
@@ -154,7 +155,14 @@ public class ClienteFXController implements FXStage {
      */
     private boolean controllaCliente(String email, String password) throws SQLException {
         List<Cliente> lc = new GestoreCliente().getAll();
-        return lc.stream().anyMatch(c -> c.eMail.equals(email) && c.password.equals(password));
+        return lc.stream().anyMatch(c -> {
+            try {
+                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        });
     }
 
     /**
@@ -168,7 +176,14 @@ public class ClienteFXController implements FXStage {
     private Cliente prendiCliente(String email, String password) throws SQLException {
         GestoreCliente gc = new GestoreCliente();
         List<Cliente> lc = gc.getAll();
-        int id = lc.stream().filter(c -> c.eMail.equals(email) && c.password.equals(password)).findAny().get().id;
+        int id = lc.stream().filter(c -> {
+            try {
+                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }).findAny().get().id;
         return gc.getById(id);
     }
 
