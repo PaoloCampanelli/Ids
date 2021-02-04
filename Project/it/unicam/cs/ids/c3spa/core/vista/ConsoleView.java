@@ -30,7 +30,7 @@ public class ConsoleView implements IView{
         autenticazione();
     }
 
-    @Override
+
     public void arrivederci(){
         out.println(" - - - - - - - - - - - - ");
         out.println("  GRAZIE PER AVER USATO C3 ");

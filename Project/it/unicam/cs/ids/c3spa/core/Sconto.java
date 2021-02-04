@@ -7,7 +7,9 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Sconto implements IMapData {
 	public int id;
@@ -17,8 +19,7 @@ public class Sconto implements IMapData {
 	public Negozio negozio;
 	public CategoriaMerceologica categoriaMerceologica;
 
-	public Sconto (int id, String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
-		this.id = id;
+	public Sconto (String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
 		this.tipo = tipo;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
@@ -27,8 +28,6 @@ public class Sconto implements IMapData {
 	}
 
 	public Sconto() {
-		Date dataAttuale = Date.from(Instant.now());
-		this.dataInizio = dataAttuale;
 		this.categoriaMerceologica = new CategoriaMerceologica();
 		this.negozio = new Negozio();
 	}
@@ -43,5 +42,31 @@ public class Sconto implements IMapData {
 		this.categoriaMerceologica = new GestoreCategoriaMerceologica().getById(rs.getInt("categoriaMerceologicaId"));
 		return this;
 	}
+	
+	public List<Sconto> controlloSconti(List<Sconto> ls){
 
+		java.sql.Date oggi = Servizi.dataUtilToSql(Date.from(Instant.now()));
+		List<Sconto> attivi = new ArrayList<>();
+
+		for (Sconto sconto: ls)
+		{
+			if(oggi.after(sconto.dataInizio) && oggi.before(sconto.dataFine))
+			{
+				attivi.add(sconto);
+			}
+		}
+		return attivi;
+	}
+
+	@Override
+	public String toString() {
+		return "Sconto{" +
+				"id=" + id +
+				", tipo='" + tipo + '\'' +
+				", dataInizio=" + dataInizio +
+				", dataFine=" + dataFine +
+				", negozio=" + negozio +
+				", categoriaMerceologica=" + categoriaMerceologica +
+				'}';
+	}
 }

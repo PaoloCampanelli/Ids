@@ -14,22 +14,20 @@
 <Pane maxHeight="740.0" maxWidth="958.0" minHeight="314.0" minWidth="575.0" prefHeight="697.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.CorriereFXController">
    <children>
       <Separator layoutY="55.0" prefHeight="17.0" prefWidth="856.0" />
-      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="371.0">
+      <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="691.0">
          <children>
             <Label prefHeight="60.0" prefWidth="165.0" text="BENTORNATO, " textFill="#0004ff">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="122.0" textFill="#0004ff">
+            <Label fx:id="lblUtente" prefHeight="51.0" prefWidth="509.0" textFill="#0004ff">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <Button fx:id="btnModifica" layoutX="216.0" layoutY="72.0" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
-      <Button fx:id="btnStorico" layoutX="443.0" layoutY="72.0" mnemonicParsing="false" onAction="#actionStoricoOrdiniNegozio" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
       <TableView fx:id="tabellaOrdini" layoutX="21.0" layoutY="459.0" prefHeight="201.0" prefWidth="655.0">
         <columns>
           <TableColumn fx:id="tbOID" prefWidth="60.33332824707031" text="ID" />
@@ -81,5 +79,12 @@
          </children>
       </VBox>
       <Separator layoutX="676.0" layoutY="551.0" prefHeight="17.0" prefWidth="194.0" />
+      <HBox layoutX="82.0" layoutY="72.0" prefHeight="30.0" prefWidth="655.0" spacing="70.0">
+         <children>
+            <Button fx:id="btnModifica" mnemonicParsing="false" onAction="#actionModificaInfo" prefHeight="25.0" prefWidth="130.0" text="MODIFICA DATI" />
+            <Button fx:id="btnStorico" mnemonicParsing="false" onAction="#actionStoricoOrdiniNegozio" prefHeight="25.0" prefWidth="130.0" text="STORICO ORDINI" />
+            <Button mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="120.0" text="CONTATTI" />
+         </children>
+      </HBox>
    </children>
 </Pane>

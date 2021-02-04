@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.GUI.HomeFXController;
+import it.unicam.cs.ids.c3spa.GUI.ViewFX;
 import it.unicam.cs.ids.c3spa.core.controller.Console.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
 import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
@@ -40,6 +40,9 @@ public class Main {
         view.start();
     }
 
+    private static void launchGui(){
+        Application.launch(ViewFX.class);
+    }
 
     public static void main(String[] args) throws SQLException, IOException {
         System.out.println(Servizi.caricamento());
@@ -55,11 +58,15 @@ public class Main {
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(new GestoreNegozio().getById(2));
-        System.out.println(new GestorePacco().getById(2));
-        System.out.println(new GestorePacco().getByMittente(n));
-        System.out.println(new GestorePacco().storicoByNegozio(n));
-        System.out.println(new GestorePacco().getByDestinatario(c));
+        Sconto sc = new Sconto("3x2",p.dataPreparazione,p.dataConsegnaRichiesta,n, new GestoreCategoriaMerceologica().getById(6));
+
+        System.out.println(new GestoreNegozio().creaSconto(sc, n));
+
+
+
+        //Sconto sc = new Sconto("5x1",p.dataPreparazione, p.dataConsegnaRichiesta, n , new GestoreCategoriaMerceologica().getById(6));
+        //System.out.println(new GestoreSconto().save(sc));
+
 
 //        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");
 //        new GestoreCorriere().save(ng);
@@ -72,15 +79,10 @@ public class Main {
         System.out.flush();
         String risposta = br.readLine();
         if(risposta.equals("2")) {
-            Application.launch(HomeFXController.class);
+            launchGui();
         }else if(risposta.equals("1")){
             consoleApp().run();
         }
-
-
-
-        Servizi ser = new Servizi();
-        System.out.println(ser.caricamento());
-        System.out.println("Main.main");
     }
+
 }

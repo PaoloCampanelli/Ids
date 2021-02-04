@@ -23,7 +23,9 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             }
 
             //Popolo le categorie collegate al negozio
-            st = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
+            st = conn.prepareStatement("SELECT  negozio_categoriemerceologiche.negozioId, negozio_categoriemerceologiche.categoriaId  FROM negozio_categoriemerceologiche                   \n" +
+                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
+                    "WHERE negozioId = ? AND isCancellato = 0;"); // creo sempre uno statement sulla
             st.setInt(1, n.id);
             rs = st.executeQuery(); // faccio la query su uno statement
             while (rs.next() == true) {
@@ -81,7 +83,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
             try {
 
                 if (n.id == 0) { // è un inserimento
-                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozi (denominazione, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("INSERT INTO progetto_ids.negozi (denominazione, token, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setString(1, n.denominazione);
                     st.setString(2, n.indirizzo.citta);
                     st.setString(3, n.indirizzo.numero);
@@ -102,7 +104,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     }
                 } else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.negozi SET denominazione = ?, token = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE negozioId = ?"); // creo sempre uno statement sulla
                     st.setString(1, n.denominazione);
                     st.setString(2, n.indirizzo.citta);
                     st.setString(3, n.indirizzo.numero);
@@ -229,7 +231,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                    INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
                     "                    WHERE nome LIKE '%"+categoria+"%';");
@@ -257,7 +259,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "                    INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                    INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
                     "                    WHERE nome LIKE '%"+categoria+"%' AND `indirizzo.citta` LIKE '%"+citta+"%';");
@@ -286,7 +288,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            sql = "SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "                    INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                   INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
@@ -305,5 +307,35 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         ChiudiConnessione(conn);
 
         return n;
+    }
+
+    public boolean creaSconto(Sconto sconto , Negozio negozio){
+
+        try {
+            negozio.aggiungiSconto(sconto);
+            new GestoreSconto().save(sconto);
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean creaPubblicita(Pubblicita pubblicita , Negozio negozio){
+        try {
+            negozio.aggiungiPubblicita(pubblicita);
+            new GestorePubblicita().save(pubblicita);
+            new GestoreNegozio().save(negozio);
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("errore:" + e.getMessage());
+        }
+
+        return false;
+
+
     }
 }

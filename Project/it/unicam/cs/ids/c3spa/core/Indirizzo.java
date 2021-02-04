@@ -31,12 +31,6 @@ public class Indirizzo {
 
 	@Override
 	 public String toString() {
-		 return "Indirizzo{" +
-				 "via='" + via + '\'' +
-				 ", numero=" + numero +
-				 ", citta='" + citta + '\'' +
-				 ", cap='" + cap + '\'' +
-				 ", provincia='" + provincia + '\'' +
-				 '}';
+		 return via+", "+numero+" "+citta+", "+cap+" "+provincia;
 	 }
  }

@@ -64,6 +64,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnConferma" layoutX="65.0" layoutY="410.0" mnemonicParsing="false" onAction="#actionConferma" prefHeight="25.0" prefWidth="108.0" text="CONFERMA" />
-      <Button fx:id="btnPulisci" layoutX="220.0" layoutY="410.0" mnemonicParsing="false" onAction="#actionPulisci" prefHeight="25.0" prefWidth="108.0" text="PULISCI" />
+      <Button layoutX="220.0" layoutY="410.0" mnemonicParsing="false" onAction="#actionPulisci" prefHeight="25.0" prefWidth="108.0" text="PULISCI" />
    </children>
 </AnchorPane>

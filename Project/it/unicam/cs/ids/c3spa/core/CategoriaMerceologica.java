@@ -22,10 +22,6 @@ public class CategoriaMerceologica implements IMapData {
 
 	}
 
-	public void rimuoviCategoria(int id, String nome){
-		this.idCategoria = id;
-		this.nome = nome;
-	}
 
 	@Override
 	public CategoriaMerceologica mapData(ResultSet rs) throws SQLException {
@@ -36,9 +32,6 @@ public class CategoriaMerceologica implements IMapData {
 
 	@Override
 	public String toString() {
-		return "CategoriaMerceologica{" +
-				"idCategoria=" + idCategoria +
-				", nome='" + nome + '\'' +
-				'}';
+		return nome;
 	}
 }
