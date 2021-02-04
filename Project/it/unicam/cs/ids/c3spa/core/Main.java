@@ -58,11 +58,9 @@ public class Main {
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        System.out.println(new GestoreNegozio().getById(2));
-        System.out.println(new GestoreSconto().getScontiAttiviByNegozio(n));
-        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttiva());
-        System.out.println(new GestorePubblicita().OrderByPubblicita());
-        System.out.println(new GestoreNegozio().getAll());
+        Sconto sc = new Sconto("3x2",p.dataPreparazione,p.dataConsegnaRichiesta,n, new GestoreCategoriaMerceologica().getById(6));
+
+        System.out.println(new GestoreNegozio().creaSconto(sc, n));
 
 
 

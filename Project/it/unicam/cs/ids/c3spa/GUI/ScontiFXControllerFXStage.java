@@ -3,6 +3,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Sconto;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreSconto;
@@ -106,7 +107,7 @@ public class ScontiFXControllerFXStage implements FXStage {
                     dpInizio.setValue(LocalDate.now());
                 }
                 if (dpInizio.getValue().isBefore(dpFine.getValue())) {
-                    Sconto sconto = new Sconto(tipo, inizio, fine, getNegozio(), categoriaMerceologica);
+                    Sconto sconto = new Sconto(tipo, Servizi.dataUtilToSql(inizio), Servizi.dataUtilToSql(fine), getNegozio(), categoriaMerceologica);
                     confermaSconto(sconto);
                 }else
                     lblErrore1.setText("Date non valide!");
