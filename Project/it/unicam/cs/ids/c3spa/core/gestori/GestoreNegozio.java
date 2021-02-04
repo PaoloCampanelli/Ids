@@ -230,7 +230,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                    INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
                     "                    WHERE nome LIKE '%"+categoria+"%';");
@@ -258,7 +258,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         Connection conn = ApriConnessione();
 
         try {
-            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "                    INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                    INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
                     "                    WHERE nome LIKE '%"+categoria+"%' AND `indirizzo.citta` LIKE '%"+citta+"%';");
@@ -287,7 +287,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT distinct negozi.negozioId, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
+            sql = "SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome FROM negozi\n" +
                     "                    INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
                     "                   INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
