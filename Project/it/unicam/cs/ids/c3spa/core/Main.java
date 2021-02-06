@@ -52,15 +52,16 @@ public class Main {
         Negozio n = new GestoreNegozio().getById(2);
         Corriere cc = new GestoreCorriere().getById(1);
         Pacco p =new GestorePacco().getById(1);
+        Amministratore a = new GestoreAmministratore().getById(1);
 
         List<Cliente> lc = new GestoreCliente().getAll();
         List<Negozio> ln = new GestoreNegozio().getAll();
         List<Corriere> lcc = new GestoreCorriere().getAll();
         List<Pacco> lp = new GestorePacco().getAll();
 
-        Sconto sc = new Sconto("3x2",p.dataPreparazione,p.dataConsegnaRichiesta,n, new GestoreCategoriaMerceologica().getById(6));
 
-        System.out.println(new GestoreNegozio().creaSconto(sc, n));
+        System.out.println(new GestoreAmministratore().getClientiCancellati(a));
+        //System.out.println(new GestoreAmministratore().aggiungiToken(3,n,a));
 
 
 
