@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class GestoreNegozioTest {
@@ -105,10 +107,8 @@ public class GestoreNegozioTest {
     void save() throws SQLException {
         Indirizzo indirizzo = new Indirizzo().CreaIndirizzo("ROMA", "12", "CAMERINO", "62032", "MC");
         Negozio negozio = new Negozio( "ACQUA MARINA", indirizzo, "073733313", "ACQUAMARINA@GMAIL.COM", "ACQUAMARINA!!");
-        negozi.add(negozio);
-        gestoreNegozio.save(negozio);
-        assertEquals(negozi.stream().filter(a->a.id==3).findAny().orElse(null).toString(), gestoreNegozio.getById(negozio.id).toString());
-    }
+        assertTrue(new GestoreNegozio().save(negozio).toString()!=null);
+        }
 
     @Test
     void delete() throws SQLException {
