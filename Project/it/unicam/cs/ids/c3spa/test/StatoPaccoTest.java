@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.sql.Date;
 import java.time.Instant;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class StatoPaccoTest {

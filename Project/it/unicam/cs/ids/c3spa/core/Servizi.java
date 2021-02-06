@@ -128,6 +128,21 @@ public class Servizi {
                 "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`pubblicitaId`));");
 
+        stmt.execute("CREATE TABLE IF NOT EXISTS `progetto_ids`.`amministratori` (\n" +
+                "  `amministratoreId` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `denominazione` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.citta` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.numero` VARCHAR(10) NOT NULL,\n" +
+                "  `indirizzo.cap` VARCHAR(5) NOT NULL,\n" +
+                "  `indirizzo.via` VARCHAR(45) NOT NULL,\n" +
+                "  `indirizzo.provincia` VARCHAR(2) NOT NULL,\n" +
+                "  `telefono` VARCHAR(20) NOT NULL,\n" +
+                "  `eMail` VARCHAR(45) NOT NULL,\n" +
+                "  `password` VARCHAR(45) NOT NULL,\n" +
+                "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
+                "  PRIMARY KEY (`amministratoreId`))" +
+                "As Select 1 As amministratoreId, \"nome e cognome\" as denominazione, \"citta\" as `indirizzo.citta`, \"numero\" as `indirizzo.numero` ,\"cap\" as `indirizzo.cap`,\"via\" as `indirizzo.via`, \"pr\" as`indirizzo.provincia`,\"1234567890\" as telefono, \"amministratore@mail\" as eMail ,123456 as password, 0 as isCancellato");
+
 
         stmt.close();
         conn.close();

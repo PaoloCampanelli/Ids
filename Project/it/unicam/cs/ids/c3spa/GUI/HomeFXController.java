@@ -4,6 +4,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -50,7 +51,12 @@ public class HomeFXController implements FXStage {
         }
     }
 
+    public void actionAdminPanel(ActionEvent actionEvent) throws IOException {
+        apriStage("resources/login.fxml", new AdminFXController());
+    }
+
     public void initData(Account account) throws SQLException {
     }
+
 
 }

@@ -2,9 +2,14 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.*;
 import it.unicam.cs.ids.c3spa.core.Cliente;
+import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +24,9 @@ import java.util.List;
 public class ClienteFXController implements FXStage {
 
     private static ClienteFXController istanza;
+
+    private ObservableList<Negozio> listaNegozi;
+
     private Cliente cliente;
     @FXML
     private TextField txtMail, txtCategoriaCitta, txtCitta, txtCategoria;
@@ -28,6 +36,15 @@ public class ClienteFXController implements FXStage {
     private Button btnAccedi, btnRicerca1, btnRicerca2, btnRicerca3, btnRicerca4, btnModifica, btnStorico, btnOrdini, btnSconti;
     @FXML
     private Label lblLogin, lblUtente, lblCittaUtente, lblErrore1, lblErrore2;
+    @FXML
+    private TableView<Negozio> tabellaPubblicita;
+    @FXML
+    private TableColumn<Negozio, String> tbNome;
+    @FXML
+    private TableColumn<Negozio, String> tbIndirizzo;
+    @FXML
+    private TableColumn<Negozio, String> tbCategorie;
+
     public ClienteFXController() {
     }
 
@@ -108,6 +125,7 @@ public class ClienteFXController implements FXStage {
     @Override
     public void initData(Account account) throws SQLException {
         setCliente(account);
+        settaNegozi();
         lblCittaUtente.setText(account.indirizzo.citta);
         lblUtente.setText(account.denominazione);
 
@@ -122,6 +140,20 @@ public class ClienteFXController implements FXStage {
         controller.initData(getCliente(), citta, categoria);
         stage.setTitle("C3");
         stage.show();
+    }
+
+    /**
+     * Setta un ObservableList di Pubblicita'
+     * @throws SQLException
+     */
+    private void settaNegozi() throws SQLException {
+        List<Negozio> negozi = new GestorePubblicita().getNegoziConPubblicitaAttiva();
+        listaNegozi = FXCollections.observableArrayList(negozi);
+        tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
+        tbCategorie.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categorie.toString()));
+        tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
+        tabellaPubblicita.setItems(listaNegozi);
+        tabellaPubblicita.setPlaceholder(new Label("Non ci sono pubblicita'!"));
     }
 
     /**
