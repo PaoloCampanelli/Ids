@@ -122,7 +122,7 @@ public class NegozioFXController implements FXStage {
         List<Negozio> ln = new GestoreNegozio().getAll();
         return ln.stream().anyMatch(c -> {
             try {
-                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(password));
+                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
             } catch (Exception e) {
                 e.printStackTrace();
             }
