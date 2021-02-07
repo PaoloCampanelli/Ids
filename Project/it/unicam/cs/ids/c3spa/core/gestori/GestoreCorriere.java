@@ -103,7 +103,7 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
                     st.setString(6, c.indirizzo.provincia);
                     st.setString(7, c.telefono);
                     st.setString(8, c.eMail);
-                    st.setString(9, new Servizi().encrypt(c.password));
+                    st.setString(9, c.password);
                     st.setInt(10, c.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
@@ -147,5 +147,18 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
 
     }
 
+    public Corriere cambiaPassword(Corriere corriere) throws Exception {
+
+        PreparedStatement st;
+        ResultSet rs;
+        Connection conn = ApriConnessione();
+        st = conn.prepareStatement("UPDATE progetto_ids.corrieri SET password = ? WHERE corriereId = ?"); // creo sempre uno statement sulla
+        st.setString(1, new Servizi().encrypt(corriere.password));
+        st.setInt(2, corriere.id);
+        st.executeUpdate(); // faccio la query su uno statement
+
+        GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+        return corriere;
+    }
 
 }

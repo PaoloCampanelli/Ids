@@ -44,7 +44,7 @@ public class Main {
         System.out.println(Servizi.caricamento());
 
         //Lettura del cliente numero 1
-        Cliente c = new GestoreCliente().getById(1);
+        Cliente c = new GestoreCliente().getById(5);
         Negozio n = new GestoreNegozio().getById(2);
         Corriere cc = new GestoreCorriere().getById(1);
         Pacco p =new GestorePacco().getById(1);
@@ -58,18 +58,12 @@ public class Main {
 
         System.out.println(new GestoreAmministratore().getClientiCancellati(a));
         //System.out.println(new GestoreAmministratore().aggiungiToken(3,n,a));
+//        c.password = "654321";
+//        System.out.println(new GestoreCliente().cambiaPassword(c));
+
+        System.out.println();
 
 
-
-        //Sconto sc = new Sconto("5x1",p.dataPreparazione, p.dataConsegnaRichiesta, n , new GestoreCategoriaMerceologica().getById(6));
-        //System.out.println(new GestoreSconto().save(sc));
-
-
-//        Corriere ng = new Corriere(0,"frs", c.indirizzo, "1","7@4", "123456");
-//        new GestoreCorriere().save(ng);
-
-//        new GestoreNegozio().delete(1);
-//        System.out.println(new GestoreNegozio().getById(1));
 
         launchGui();
 

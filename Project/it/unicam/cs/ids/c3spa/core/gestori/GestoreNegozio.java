@@ -115,7 +115,7 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
                     st.setString(7, n.indirizzo.provincia);
                     st.setString(8, n.telefono);
                     st.setString(9, n.eMail);
-                    st.setString(10, new Servizi().encrypt(n.password));
+                    st.setString(10, n.password);
                     st.setInt(11, n.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
@@ -339,5 +339,19 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         return false;
 
 
+    }
+
+    public Negozio cambiaPassword(Negozio negozio) throws Exception {
+
+        PreparedStatement st;
+        ResultSet rs;
+        Connection conn = ApriConnessione();
+        st = conn.prepareStatement("UPDATE progetto_ids.clienti SET password = ? WHERE clienteId = ?"); // creo sempre uno statement sulla
+        st.setString(1, new Servizi().encrypt(negozio.password));
+        st.setInt(2,negozio.id);
+        st.executeUpdate(); // faccio la query su uno statement
+
+        GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+        return negozio;
     }
 }
