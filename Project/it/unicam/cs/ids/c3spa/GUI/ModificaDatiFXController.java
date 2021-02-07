@@ -34,13 +34,19 @@ public class ModificaDatiFXController implements FXController {
 
     public void actionConferma() throws Exception {
         if (negozio != null) {
-            accettaModifiche(negozio);
+            if(accettaModifiche(negozio) ==1){
+                new GestoreNegozio().cambiaPassword(negozio);
+            }
             new GestoreNegozio().save(negozio);
         } else if (cliente != null) {
-            accettaModifiche(cliente);
+            if(accettaModifiche(cliente) == 1){
+                new GestoreCliente().cambiaPassword(cliente);
+            }
             new GestoreCliente().save(cliente);
         } else if (corriere != null) {
-            accettaModifiche(corriere);
+            if(accettaModifiche(corriere) == 1){
+                new GestoreCorriere().cambiaPassword(corriere);
+            }
             new GestoreCorriere().save(corriere);
         }
         alert();
@@ -78,16 +84,19 @@ public class ModificaDatiFXController implements FXController {
     }
 
     /**
+     *
      * Riceve le determinate modifiche dell'utente e le setta
      *
      * @param account account da modificare
      */
-    private void accettaModifiche(Account account){
+    private int accettaModifiche(Account account){
+        int i = 0;
         if (!txtNome.getText().isBlank()) {
             account.denominazione = txtNome.getText().toUpperCase();
         }
         if (!txtPassword.getText().isBlank() && (txtPassword.getText().length() > 6)) {
             account.password = txtPassword.getText();
+            i++;
         }
         if (!txtNumero.getText().isBlank() && txtNumero.getText().length() == 10) {
             account.telefono = txtNumero.getText().toUpperCase();
@@ -107,6 +116,7 @@ public class ModificaDatiFXController implements FXController {
         if ((!txtProv.getText().isBlank())) {
             account.indirizzo.provincia = txtProv.getText().toUpperCase();
         }
+        return i;
     }
 
     /**

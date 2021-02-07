@@ -16,7 +16,7 @@ public class AdminFXController implements FXStage {
     private Amministratore amministratore;
 
     @FXML
-    private TextField txtMail, txtPassword;
+    TextField txtMail, txtPassword;
 
     public void actionAccedi() throws IOException, SQLException {
         accedi(txtMail.getText().toUpperCase(), txtPassword.getText());

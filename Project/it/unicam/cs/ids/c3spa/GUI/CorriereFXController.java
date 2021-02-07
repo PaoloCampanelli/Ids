@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import javafx.beans.property.SimpleStringProperty;
@@ -155,8 +156,8 @@ public class CorriereFXController implements FXStage {
         apriStageController("resources/tabellaStorico.fxml", new TabStoricoFXController(), getCorriere());
     }
 
-    public void actionContatti() throws IOException {
-        apriStage("resources/contatti.fxml", new ContattiFXController());
+    public void actionContatti() throws IOException, SQLException {
+        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
     }
 
     /**

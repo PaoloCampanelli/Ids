@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,6 +51,11 @@ public class HomeFXController implements FXStage {
                 break;
         }
     }
+
+    public void actionContatti() throws SQLException, IOException {
+        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+    }
+
 
     public void actionAdminPanel(ActionEvent actionEvent) throws IOException {
         apriStage("resources/login.fxml", new AdminFXController());
