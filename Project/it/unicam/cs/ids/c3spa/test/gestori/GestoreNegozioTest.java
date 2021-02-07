@@ -120,7 +120,7 @@ public class GestoreNegozioTest {
         n.add(negozio);
         gestoreNegozio.save(negozio);
         gestoreNegozio.delete(4);
-        assertFalse(negozio.equals(gestoreNegozio.getById(1)));
+        assertFalse(negozio.equals(gestoreNegozio.getById(4)));
     }
 
     @Test
