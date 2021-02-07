@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
-import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Negozio;
@@ -63,7 +62,7 @@ public class ModificaDatiFXController implements FXController {
     private void alert() {
         Alert alert = new Alert(AlertType.INFORMATION, "Il sistema verra' riavviato! Effettua il login nuovamente!");
         alert.setTitle("Ricarica applicazione");
-        alert.show();
+        alert.showAndWait();
     }
 
     /**
@@ -83,30 +82,30 @@ public class ModificaDatiFXController implements FXController {
      *
      * @param account account da modificare
      */
-    private void accettaModifiche(Account account) {
+    private void accettaModifiche(Account account){
         if (!txtNome.getText().isBlank()) {
-            account.denominazione = txtNome.getText();
+            account.denominazione = txtNome.getText().toUpperCase();
         }
         if (!txtPassword.getText().isBlank() && (txtPassword.getText().length() > 6)) {
-            account.SetPassword(txtPassword.getText());
+            account.password = txtPassword.getText();
         }
         if (!txtNumero.getText().isBlank() && txtNumero.getText().length() == 10) {
-            account.telefono = txtNumero.getText();
+            account.telefono = txtNumero.getText().toUpperCase();
         }
         if (!txtCitta.getText().isBlank()) {
-            account.indirizzo.citta = txtCitta.getText();
+            account.indirizzo.citta = txtCitta.getText().toUpperCase();
         }
         if ((!txtCap.getText().isBlank()) && txtCap.getText().length() == 5) {
-            account.indirizzo.cap = txtCap.getText();
+            account.indirizzo.cap = txtCap.getText().toUpperCase();
         }
         if ((!txtCivico.getText().isBlank())) {
-            account.indirizzo.numero = txtCivico.getText();
+            account.indirizzo.numero = txtCivico.getText().toUpperCase();
         }
         if ((!txtVia.getText().isBlank())) {
-            account.indirizzo.via = txtVia.getText();
+            account.indirizzo.via = txtVia.getText().toUpperCase();
         }
         if ((!txtProv.getText().isBlank())) {
-            account.indirizzo.provincia = txtProv.getText();
+            account.indirizzo.provincia = txtProv.getText().toUpperCase();
         }
     }
 

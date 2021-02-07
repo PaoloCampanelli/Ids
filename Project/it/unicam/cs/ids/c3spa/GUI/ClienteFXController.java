@@ -166,8 +166,9 @@ public class ClienteFXController implements FXStage {
      * @throws IOException
      */
     private void accedi(String email, String password)  throws SQLException, IOException {
+        List<Cliente> lc = new GestoreCliente().getAll();
         if ((controllaInfo(email, password))) {
-            if (controllaCliente(email, password)) {
+            if (cercaAccount(lc, email, password)) {
                 setCliente(prendiCliente(email, password));
                 apriStageController("resources/cliente.fxml", getInstance(), getCliente());
             } else
@@ -176,26 +177,7 @@ public class ClienteFXController implements FXStage {
             lblLogin.setText("Errore nell'inserimento dati");
     }
 
-    /**
-     * Controlla se esiste un cliente con email e password inserite
-     *
-     * @param email    email inserita
-     * @param password password inserita
-     * @return true
-     * se il cliente esiste
-     * @throws SQLException
-     */
-    private boolean controllaCliente(String email, String password) throws SQLException {
-        List<Cliente> lc = new GestoreCliente().getAll();
-        return lc.stream().anyMatch(c -> {
-            try {
-                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        });
-    }
+
 
     /**
      * Prende il cliente corrispondente
@@ -220,36 +202,12 @@ public class ClienteFXController implements FXStage {
     }
 
     /**
-     * Controlla i parametri passati
-     *
-     * @param email    email inserita
-     * @param password password inserita
-     * @return true
-     * se l'email e la password non e' vuota, password maggiore di 6 caratteri
-     */
-    private boolean controllaInfo(String email, String password) {
-        return !email.isBlank() && !password.isBlank() && password.length() >= 6;
-    }
-
-    /**
      * @return cliente
      */
     public Cliente getCliente() {
         return cliente;
     }
 
-    /**
-     * Setta il cliente, se la mail corrisponde ad un account esistente
-     *
-     * @param email email inserita
-     * @throws SQLException eccezione
-     */
-    public void setCliente(String email) throws SQLException {
-        List<Cliente> lc = new GestoreCliente().getByEMail(email);
-        for (Cliente cliente : lc) {
-            this.cliente = cliente;
-        }
-    }
 
     /**
      * Setta l'account se e' un cliente

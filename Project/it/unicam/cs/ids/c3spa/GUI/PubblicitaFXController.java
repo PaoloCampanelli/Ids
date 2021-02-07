@@ -2,15 +2,14 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pubblicita;
+import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.ZoneId;
@@ -37,36 +36,45 @@ public class PubblicitaFXController implements FXStage{
     private TableColumn<Pubblicita, String> tbFine;
 
     //Da modificare poi
-    public void actionSettaToken(ActionEvent actionEvent) {
-        lblConta.setText("TOKEN NECESSARI: 1");
+    public void actionSettaToken() {
+        lblConta.setText("NECESSARI: 1");
     }
 
     public void actionAttiva() throws SQLException {
         settaPubblicita();
-        Stage attuale = (Stage) btnAttiva.getScene().getWindow();
-        attuale.close();
     }
 
     private void settaTabella() throws SQLException {
+
         List<Pubblicita> pubblicita = new GestorePubblicita().getPubblicitaAttive();
-        listaPubblicita = FXCollections.observableArrayList(pubblicita);
-        tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
-        tbInizio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataInizio.toString()));
-        tbFine.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataFine.toString()));
-        tabellaPubblicita.setItems(listaPubblicita);
-        tabellaPubblicita.setPlaceholder(new Label("Non ci sono pubblicita'!"));
+        if(pubblicita.size()>1) {
+            listaPubblicita = FXCollections.observableArrayList(pubblicita);
+            tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
+            tbInizio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataInizio.toString()));
+            tbFine.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataFine.toString()));
+            tabellaPubblicita.setItems(listaPubblicita);
+        }else
+            tabellaPubblicita.setPlaceholder(new Label("Non ci sono pubblicita'!"));
+        lblToken.setText("I TUOI TOKEN: "+getNegozio().token);
     }
 
     private void settaPubblicita() throws SQLException {
         Date dataInizio = Date.from(dpInizio.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         Date dataFine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         if (dataInizio.before(dataFine)) {
-            Pubblicita pubblicita = new Pubblicita(dataInizio, dataFine, getNegozio());
-            if(recapInfo(pubblicita) == ButtonType.OK){
+            Pubblicita pubblicita = new Pubblicita(Servizi.dataUtilToSql(dataInizio), Servizi.dataUtilToSql(dataFine), getNegozio());
+            if(getNegozio().token==0){
+                lblConta.setText("CONTATTA ADMIN!");
+            }else{
+                if(recapInfo(pubblicita) == ButtonType.OK){
                     new GestorePubblicita().save(pubblicita);
+                    //new GestoreNegozio().save(getNegozio());
+                    listaPubblicita.add(pubblicita);
                     //Attualmente toglie automaticamente un token alla volta
-                    getNegozio().token = getNegozio().token - 1;
+                    aggiornaToken();
+                }
             }
+
         }
     }
 
@@ -79,13 +87,18 @@ public class PubblicitaFXController implements FXStage{
         return alert.getResult();
     }
 
+    public void aggiornaToken(){
+        getNegozio().token -= 1;
+        lblToken.setText("I TUOI TOKEN: "+getNegozio().token);
+    }
+
 
 
     @Override
     public void initData(Account account) throws SQLException {
         setNegozio(account);
+        settaTabella();
         lblToken.setText("I TUOI TOKEN: "+getNegozio().token);
-
     }
 
     private void setNegozio(Account account){

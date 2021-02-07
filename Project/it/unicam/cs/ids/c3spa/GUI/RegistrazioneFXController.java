@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -66,14 +65,14 @@ public class RegistrazioneFXController implements FXStage {
     private void registrazione() throws SQLException {
         lblErrore.setText(" ");
         String email = txtEmail.getText().toUpperCase();
-        String nome = txtNome.getText();
+        String nome = txtNome.getText().toUpperCase();
         String passw = txtPassword.getText();
-        String numero = txtNumero.getText();
-        String via = txtVia.getText();
-        String citta = txtCitta.getText();
-        String prov = txtProv.getText();
-        String cap = txtCap.getText();
-        String civico = txtCivico.getText();
+        String numero = txtNumero.getText().toUpperCase();
+        String via = txtVia.getText().toUpperCase();
+        String citta = txtCitta.getText().toUpperCase();
+        String prov = txtProv.getText().toUpperCase();
+        String cap = txtCap.getText().toUpperCase();
+        String civico = txtCivico.getText().toUpperCase();
         String tipologia = tipologia();
         if (controllaInfo(tipologia, email, nome, passw, numero)) {
             if (controllaIndirizzo(via, citta, prov, cap, civico)) {

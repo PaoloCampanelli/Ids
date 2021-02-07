@@ -3,7 +3,6 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
-import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
@@ -191,8 +190,9 @@ public class CorriereFXController implements FXStage {
      * @throws IOException
      */
     private void accedi(String email, String password)  throws SQLException, IOException {
+        List<Corriere> lc = new GestoreCorriere().getAll();
         if ((controllaInfo(email, password))) {
-            if (controllaCorriere(email, password)) {
+            if (cercaAccount(lc, email, password)) {
                 setCorriere(prendiCorriere(email));
                 apriStageController("resources/corriere.fxml", getInstance(), getCorriere());
             }
@@ -226,40 +226,8 @@ public class CorriereFXController implements FXStage {
         return new GestorePacco().getById(idPacco);
     }
 
-    /**
-     * Controlla i parametri passati
-     *
-     * @param email    email inserita
-     * @param password password inserita
-     * @return true
-     * se l'email e la password non e' vuota, password maggiore di 6 caratteri
-     */
-    private boolean controllaInfo(String email, String password) {
-        return !email.isBlank() && !password.isBlank() && password.length() >= 6;
-    }
 
 
-
-    /**
-     * Controlla se il corriere, con email e password inseriti, esiste
-     *
-     * @param email    email inserita
-     * @param password password inserita
-     * @return true
-     * se il corriere esiste
-     * @throws SQLException
-     */
-    private boolean controllaCorriere(String email, String password) throws SQLException {
-        List<Corriere> lc = new GestoreCorriere().getAll();
-        return lc.stream().anyMatch(c -> {
-            try {
-                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        });
-    }
 
     /**
      * Prende il corriere con email corrispondente

@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
-import it.unicam.cs.ids.c3spa.GUI.FXController;
+import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,6 +60,5 @@ public interface FXStage extends FXController {
         alert.showAndWait();
         return alert.getResult();
     }
-
 
 }

@@ -1,14 +1,10 @@
 package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Cliente extends Account implements IMapData<Cliente>
 {

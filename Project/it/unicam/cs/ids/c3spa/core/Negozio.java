@@ -1,15 +1,12 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import com.mysql.cj.util.TimeUtil;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class Negozio extends Account implements IMapData {
 	public int token;

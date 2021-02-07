@@ -55,6 +55,8 @@ public class OrdineFXController implements FXStage {
     @FXML
     private TableColumn<Pacco, String> tbIndirizzoPacco;
     @FXML
+    private TableColumn<Pacco, String> tbDataPacco;
+    @FXML
     private ChoiceBox<String> selezionaIndirizzo;
 
     public OrdineFXController() {
@@ -79,6 +81,7 @@ public class OrdineFXController implements FXStage {
         tbId.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbDestinatario.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().destinatario.eMail));
         tbIndirizzoPacco.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
+        tbDataPacco.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataConsegnaRichiesta.toString()));
         pacchiNonAssegnati.removeIf(p -> p.id == 0);
         tabellaPacchi.setItems(pacchiNonAssegnati);
         tabellaPacchi.setPlaceholder(new Label(negozio.denominazione + " non contiene pacchi!"));
