@@ -57,7 +57,9 @@ public class Main {
 
 
         System.out.println(new GestoreAmministratore().getClientiCancellati(a));
-        //System.out.println(new GestoreAmministratore().aggiungiToken(3,n,a));
+        System.out.println(new GestoreAmministratore().getById(1));
+        System.out.println(new GestoreAmministratore().getNegoziCancellati(a));
+        System.out.println(new GestoreAmministratore().ripristinaNegozio(n));
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 

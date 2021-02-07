@@ -25,10 +25,11 @@ public class Servizi {
     private String myEncryptionScheme;
     private SecretKey key;
 
-    public static String caricamento() throws SQLException {
+    public static String caricamento() throws Exception {
 
         Connection conn = GestoreBase.ApriConnessione();
         Statement stmt= conn.createStatement();
+        String s =new Servizi().encrypt("123456");
         stmt.execute("CREATE TABLE IF NOT EXISTS`progetto_ids`.`negozi` (\n" +
                 "  `negozioId` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `denominazione` VARCHAR(45) NOT NULL,\n" +
@@ -142,7 +143,7 @@ public class Servizi {
                 "  `password` VARCHAR(45) NOT NULL,\n" +
                 "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
                 "  PRIMARY KEY (`amministratoreId`))" +
-                "As Select 1 As amministratoreId, \"nome e cognome\" as denominazione, \"citta\" as `indirizzo.citta`, \"numero\" as `indirizzo.numero` ,\"cap\" as `indirizzo.cap`,\"via\" as `indirizzo.via`, \"pr\" as`indirizzo.provincia`,\"1234567890\" as telefono, \"amministratore@mail\" as eMail ,123456 as password, 0 as isCancellato");
+                "As Select 1 As amministratoreId, \"nome e cognome\" as denominazione, \"citta\" as `indirizzo.citta`, \"numero\" as `indirizzo.numero` ,\"cap\" as `indirizzo.cap`,\"via\" as `indirizzo.via`, \"pr\" as`indirizzo.provincia`,\"1234567890\" as telefono, \"amministratore@mail\" as eMail ,\""+s+"\" as password, 0 as isCancellato");
 
 
         stmt.close();

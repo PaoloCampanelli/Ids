@@ -223,8 +223,8 @@ public class GestoreAmministratore extends GestoreBase implements ICRUD {
             while (rs.next() == true) {
                 Negozio a = new Negozio();
                 a.mapData(rs);
-                Negozio b = new GestoreNegozio().getById(a.id);
-                n.add(b);
+
+                n.add(a);
             }
             st.close();
         } catch (SQLException e) {
