@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unicam.cs.ids.c3spa.GUI.AdminFXController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="275.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.AdminFXController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="PANNELLO DI CONTROLLO" textFill="#0004ff">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Separator layoutY="45.0" prefHeight="25.0" prefWidth="355.0" />
+      <Button fx:id="btnModifica" layoutX="211.0" layoutY="66.0" mnemonicParsing="false" onAction="#actionModifica" text="MODIFICA DATI" />
+      <Separator layoutY="95.0" prefHeight="18.0" prefWidth="355.0" />
+      <Button layoutX="24.0" layoutY="125.0" mnemonicParsing="false" onAction="#actionGestisci" prefHeight="25.0" prefWidth="135.0" text="GESTIONE ACCOUNT" />
+      <Button layoutX="24.0" layoutY="197.0" mnemonicParsing="false" onAction="#actionRecupera" text="RIPRISTINA ACCOUNT" />
+      <Label fx:id="lblNome" layoutX="24.0" layoutY="66.0" prefHeight="25.0" prefWidth="159.0" textFill="#0004ff" />
+      <ImageView fx:id="logo" fitHeight="103.0" fitWidth="135.0" layoutX="194.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
 </AnchorPane>
