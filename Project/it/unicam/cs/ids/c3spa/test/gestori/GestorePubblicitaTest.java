@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,25 +82,40 @@ class GestorePubblicitaTest {
     }
 
     @Test
-    void getAll() {
+    void getAll() throws SQLException {
         inseriscoPubblicita();
-
+        assertEquals(pubblicita.toString(), gestorePubblicita.getAll().toString());
     }
 
     @Test
-    void save() {
+    void save() throws SQLException {
+        Indirizzo indirizzo = new Indirizzo().CreaIndirizzo("ROMA", "12", "CAMERINO", "62032", "MC");
+        Negozio negozio = new Negozio( "ACQUA MARINA", indirizzo, "073733313", "ACQUAMARINA@GMAIL.COM", "ACQUAMARINA!!");
+        Pubblicita p = new Pubblicita(3, Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(100000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(400000))), negozio);
+        assertTrue(gestorePubblicita.save(p).toString()!=null);
     }
 
     @Test
-    void delete() {
+    void delete() throws SQLException {
+        Indirizzo indirizzo = new Indirizzo().CreaIndirizzo("ROMA", "12", "CAMERINO", "62032", "MC");
+        Negozio negozio = new Negozio( "ACQUA MARINA", indirizzo, "073733313", "ACQUAMARINA@GMAIL.COM", "ACQUAMARINA!!");
+        Pubblicita p = new Pubblicita(4, Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(300000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(625000))), negozio);
+        pubblicita.add(p);
+        gestorePubblicita.save(p);
+        gestorePubblicita.delete(p.id);
+        assertFalse(p.equals(gestorePubblicita.getById(4)));
     }
 
     @Test
-    void getPubblicitaAttive() {
+    void getPubblicitaAttive() throws SQLException {
+        inseriscoPubblicita();
+        assertEquals(pubblicita.stream().filter(d->d.dataInizio.before(Date.from(Instant.now())) || d.dataInizio.equals(Date.from(Instant.now()))).filter(f->f.dataFine.after(Date.from(Instant.now()))).collect(Collectors.toList()).toString(), gestorePubblicita.getPubblicitaAttive().toString());
     }
 
     @Test
-    void getNegoziConPubblicitaAttiva() {
+    void getNegoziConPubblicitaAttiva() throws SQLException {
+        inseriscoPubblicita();
+        assertEquals(gestorePubblicita.getNegoziConPubblicitaAttiva().toString(), negozi.stream().filter(n->n.id==1).collect(Collectors.toList()).toString());
     }
 
     @Test
