@@ -126,8 +126,8 @@ public class GestoreNegozioTest {
     @Test
     void getByEMail() throws SQLException {
         inseriscoNegozi();
-        assertEquals(negozi.stream().filter(e->e.eMail.equals("FRUTTIVENDOLO@GMAIL.COM")).collect(Collectors.toList()).toString(), gestoreNegozio.getByEMail("FRUTTIVENDOLO@GMAIL.COM").toString());
-        assertEquals(negozi.stream().filter(e->e.eMail.equals("MERCATODELLACASA@GMAIL.COM")).collect(Collectors.toList()).toString(), gestoreNegozio.getByEMail("MERCATODELLACASA@GMAIL.COM").toString());
+        assertEquals(negozi.stream().filter(e->e.eMail.equals("FRUTTIVENDOLO@GMAIL.COM")).findAny().orElse(null).toString(), gestoreNegozio.getByEMail("FRUTTIVENDOLO@GMAIL.COM").toString());
+        assertEquals(negozi.stream().filter(e->e.eMail.equals("MERCATODELLACASA@GMAIL.COM")).findAny().orElse(null).toString(), gestoreNegozio.getByEMail("MERCATODELLACASA@GMAIL.COM").toString());
 
     }
 

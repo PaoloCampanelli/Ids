@@ -94,8 +94,8 @@ public class GestoreClienteTest {
     @Test
     void getByEMail() throws SQLException {
     inseriscoClienti();
-    assertEquals(clienti.stream().filter(e->e.eMail.equals("SARA.COMPAGNUCCI@GMAIL.COM")).collect(Collectors.toList()).toString(), new GestoreCliente().getByEMail("SARA.COMPAGNUCCI@GMAIL.COM").toString());
-    assertEquals(clienti.stream().filter(e->e.eMail.equals("PAOLO.CAMPANELLI@GMAIL.COM")).collect(Collectors.toList()).toString(), new GestoreCliente().getByEMail("PAOLO.CAMPANELLI@GMAIL.COM").toString());
+    assertEquals(clienti.stream().filter(e->e.eMail.equals("SARA.COMPAGNUCCI@GMAIL.COM")).findAny().orElse(null).toString(), new GestoreCliente().getByEMail("SARA.COMPAGNUCCI@GMAIL.COM").toString());
+    assertEquals(clienti.stream().filter(e->e.eMail.equals("PAOLO.CAMPANELLI@GMAIL.COM")).findAny().orElse(null).toString(), new GestoreCliente().getByEMail("PAOLO.CAMPANELLI@GMAIL.COM").toString());
     }
 
     @Test
