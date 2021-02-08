@@ -110,12 +110,7 @@ public class AccountController{
     }
 
     public Cliente prendiCliente(String email) throws SQLException {
-        List<Cliente> lc = new GestoreCliente().getByEMail(email);
-        Cliente clienteEsistente = null;
-        for(Cliente cliente : lc){
-            clienteEsistente = cliente;
-        }
-        return clienteEsistente;
+        return new GestoreCliente().getByEMail(email);
     }
 
     public boolean controllaMail(String tipologia, String email) throws SQLException {

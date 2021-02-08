@@ -119,8 +119,7 @@ public class TabRipristinaFXController implements FXController {
     private void ripristinaCliente(String email) throws SQLException {
         GestoreCliente gc = new GestoreCliente();
        if(cercaCliente(email)){
-           List<Cliente> cl = gc.getByEMail(email);
-           Cliente cliente = cl.stream().findFirst().get();
+           Cliente cliente = gc.getByEMail(email);
             if(alertRipristina(cliente) == ButtonType.OK){
                 new GestoreAmministratore().ripristinaCliente(cliente);
                 gc.save(cliente);
@@ -133,8 +132,7 @@ public class TabRipristinaFXController implements FXController {
     private void ripristinaNegozio(String email) throws SQLException {
         GestoreNegozio gn = new GestoreNegozio();
         if(cercaNegozio(email)){
-            List<Negozio> cl = gn.getByEMail(email);
-            Negozio negozio = cl.stream().findFirst().get();
+            Negozio negozio = gn.getByEMail(email);
             if(alertRipristina(negozio) == ButtonType.OK){
                 new GestoreAmministratore().ripristinaNegozio(negozio);
                 gn.save(negozio);

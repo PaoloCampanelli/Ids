@@ -81,7 +81,7 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
                     st = conn.prepareStatement("INSERT INTO progetto_ids.pubblicita (pubblicitaId, dataInizio, dataFine, negozioId) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS); // creo sempre uno statement sulla
                     st.setInt(1, p.id);
                     st.setDate(2,(java.sql.Date)p.dataInizio);
-                    st.setDate(3, (java.sql.Date)p.dataInizio);
+                    st.setDate(3, (java.sql.Date)p.dataFine);
                     st.setInt(4, p.negozio.id);
 
                     st.executeUpdate(); // faccio la query su uno statement
@@ -96,7 +96,7 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
                 {
                     st = conn.prepareStatement("UPDATE progetto_ids.pubblicita SET dataInizio = ?, dataFine = ?, `negozioId` = ? WHERE pubblicitaId = ?"); // creo sempre uno statement sulla
                     st.setDate(1,(java.sql.Date)p.dataInizio);
-                    st.setDate(2, (java.sql.Date)p.dataInizio);
+                    st.setDate(2, (java.sql.Date)p.dataFine);
                     st.setInt(3, p.negozio.id);
                     st.setInt(4, p.id);
 
@@ -152,6 +152,37 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
                     "where isCancellato = 0 \n" +
                     "AND current_date() <= dataFine\n" +
                     "AND   dataInizio <= current_date()";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Pubblicita a = new Pubblicita();
+                a.mapData(rs);
+                a.negozio = new GestoreNegozio().getById(a.id);
+                p.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return p;
+    }
+
+    public List<Pubblicita> getPubblicitaByNegozio(Negozio negozio) throws SQLException {
+
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Pubblicita> p = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM pubblicita \n" +
+                    "where isCancellato = 0 \n" +
+                    "AND   negozioId = "+negozio.id;
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
                 Pubblicita a = new Pubblicita();
