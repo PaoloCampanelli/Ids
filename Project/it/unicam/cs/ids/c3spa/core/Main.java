@@ -56,10 +56,7 @@ public class Main {
         List<Pacco> lp = new GestorePacco().getAll();
 
 
-        System.out.println(new GestoreAmministratore().getClientiCancellati(a));
-        System.out.println(new GestoreAmministratore().getById(1));
-        System.out.println(new GestoreAmministratore().getNegoziCancellati(a));
-        System.out.println(new GestoreAmministratore().ripristinaNegozio(n));
+        System.out.println(new GestorePubblicita().getPubblicitaByNegozio(n));
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 

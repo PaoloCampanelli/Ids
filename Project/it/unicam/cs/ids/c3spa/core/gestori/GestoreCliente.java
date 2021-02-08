@@ -152,7 +152,7 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
 
     }
 
-    public List<Cliente> getByString(String colonna, String stringaDaRicercare) throws SQLException {
+    private List<Cliente> getByString(String colonna, String stringaDaRicercare) throws SQLException {
         Statement st;
         ResultSet rs;
         String sql;
@@ -176,9 +176,9 @@ public class GestoreCliente extends GestoreBase implements ICRUD {
         return lc;
     }
 
-    public List<Cliente> getByEMail(String eMail) throws SQLException {
+    public Cliente getByEMail(String eMail) throws SQLException {
         String colonna= "eMail";
-        return getByString(colonna, eMail);
+        return getByString(colonna, eMail).stream().findFirst().orElse(null);
     }
 
     public List<Cliente> getByDenominazione(String denominazione) throws SQLException {

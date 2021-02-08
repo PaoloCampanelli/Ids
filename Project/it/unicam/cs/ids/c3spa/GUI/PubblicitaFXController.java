@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pubblicita;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -47,7 +48,7 @@ public class PubblicitaFXController implements FXStage{
     private void settaTabella() throws SQLException {
 
         List<Pubblicita> pubblicita = new GestorePubblicita().getPubblicitaAttive();
-        if(pubblicita.size()>1) {
+        if(pubblicita.size()>=1) {
             listaPubblicita = FXCollections.observableArrayList(pubblicita);
             tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
             tbInizio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataInizio.toString()));
@@ -67,15 +68,12 @@ public class PubblicitaFXController implements FXStage{
                 lblConta.setText("CONTATTA ADMIN!");
             }else{
                 if(recapInfo(pubblicita) == ButtonType.OK){
-                    new GestorePubblicita().save(pubblicita);
-                    //new GestoreNegozio().save(getNegozio());
-                    listaPubblicita.add(pubblicita);
-                    //Attualmente toglie automaticamente un token alla volta
-                    aggiornaToken();
+                    new GestoreNegozio().creaPubblicita(pubblicita, getNegozio());
                 }
             }
 
         }
+        settaTabella();
     }
 
     private ButtonType recapInfo(Pubblicita pubblicita) throws SQLException {

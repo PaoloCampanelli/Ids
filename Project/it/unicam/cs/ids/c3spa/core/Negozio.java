@@ -90,11 +90,11 @@ public class Negozio extends Account implements IMapData {
 
 	public Pubblicita aggiungiPubblicita(Pubblicita pubblicita){
 		if(pubblicita.negozio.token <= 0){
-			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token");
+			throw new IllegalArgumentException("Per usufruire della pubblicità bisogna possedere almeno un token, contatti un amministratore");
 		}
 		double diff = pubblicita.dataFine.getTime()-pubblicita.dataInizio.getTime();
 		diff = diff /86000000;
-		int tok = (int) diff;
+		int tok = Pubblicita.tokenNecessari(pubblicita.dataInizio, pubblicita.dataFine);
 		if(pubblicita.negozio.token-tok >= 0){
 			pubblicita.negozio.token= token-tok;
 			return pubblicita;

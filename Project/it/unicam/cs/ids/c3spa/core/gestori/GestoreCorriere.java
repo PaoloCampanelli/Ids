@@ -161,4 +161,34 @@ public class GestoreCorriere  extends GestoreBase implements ICRUD {
         return corriere;
     }
 
+    private List<Corriere> getByString(String colonna, String stringaDaRicercare) throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        List<Corriere> lc = new ArrayList<>();
+        Connection conn = ApriConnessione();
+        Corriere c = new Corriere();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM corrieri WHERE (`"+colonna+"` like '%"+stringaDaRicercare+"%');";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                lc.add(c.mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return lc;
+    }
+
+    public Corriere getByEMail(String eMail) throws SQLException {
+        String colonna= "eMail";
+        return getByString(colonna, eMail).stream().findFirst().orElse(null);
+    }
+
 }

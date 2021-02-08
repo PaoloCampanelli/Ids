@@ -40,6 +40,12 @@ public class Pubblicita implements IMapData {
 		return this;
 	}
 
+	public static int tokenNecessari(Date dataInizio, Date dataFine){
+
+		double diff = dataFine.getTime()-dataInizio.getTime();
+		diff = diff /86000000;
+		return  (int) diff;
+	}
 	@Override
 	public String toString() {
 		return "Pubblicita{" +
