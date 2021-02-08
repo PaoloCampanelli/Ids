@@ -143,11 +143,12 @@ public class TabGestioneFXController implements FXController {
                 if(cercaCliente(id)){
                     if (alertEliminazione(cliente) == ButtonType.OK) {
                         gc.delete(id);
-                        settaClienti();
+
                     } else {
                         txtIDN.clear();
                         lblCliente.setText("");
                     }
+                    settaClienti();
                 }else
                     lblCliente.setText("ID NON TROVATO");
             }
@@ -161,8 +162,9 @@ public class TabGestioneFXController implements FXController {
                    } else {
                        txtIDN.clear();
                        lblNegozio.setText("");
-                       settaNegozi();
+
                    }
+                   settaNegozi();
                 }else
                    lblNegozio.setText("ID NON TROVATO");
                }
@@ -176,8 +178,9 @@ public class TabGestioneFXController implements FXController {
                    } else {
                        txtIDN.clear();
                        lblCorriere.setText("");
-                       settaCorrieri();
+
                    }
+                   settaCorrieri();
                } else
                    lblCorriere.setText("ID NON TROVATO");
            }

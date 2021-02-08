@@ -1,9 +1,11 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
+import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -22,12 +24,14 @@ public class ModificaDatiFXController implements FXController {
     private Cliente cliente;
     private Negozio negozio;
     private Corriere corriere;
+    private Amministratore amministatore;
     @FXML
     private TextField txtNome, txtNumero, txtCitta, txtProv, txtCivico, txtVia, txtCap;
     @FXML
     private Button btnConferma;
     @FXML
     private PasswordField txtPassword;
+
 
     public ModificaDatiFXController() {
     }
@@ -48,6 +52,12 @@ public class ModificaDatiFXController implements FXController {
                 new GestoreCorriere().cambiaPassword(corriere);
             }
             new GestoreCorriere().save(corriere);
+        }
+        else if (amministatore != null) {
+            if (accettaModifiche(amministatore) == 1) {
+                //new GestoreAmministratore().cambiaPassword(amministatore);
+            }
+            new GestoreAmministratore().save(amministatore);
         }
         alert();
         Stage attuale = (Stage) btnConferma.getScene().getWindow();
@@ -146,6 +156,8 @@ public class ModificaDatiFXController implements FXController {
             this.cliente = (Cliente) account;
         } else if (account instanceof Corriere) {
             this.corriere = (Corriere) account;
+        }else if (account instanceof Amministratore){
+            this.amministatore = (Amministratore) account;
         }
     }
 

@@ -31,10 +31,10 @@ public class AdminFXController implements FXStage {
     ImageView logo;
 
     public void actionAccedi() throws IOException, SQLException {
-        /*DA RIMUOVERE
+        //DA RIMUOVERE
         txtMail.setText("AMMINISTRATORE@MAIL");
         txtPassword.setText("123456");
-        */
+
         accedi(txtMail.getText().toUpperCase(), txtPassword.getText());
     }
 

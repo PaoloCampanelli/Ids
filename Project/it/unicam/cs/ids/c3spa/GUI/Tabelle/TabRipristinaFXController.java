@@ -144,18 +144,15 @@ public class TabRipristinaFXController implements FXController {
 
     private void ripristinaCorriere(String email) throws SQLException {
         GestoreCorriere gc = new GestoreCorriere();
-        /*
         if(cercaCorriere(email)){
-            List<Negozio> cl = gc.getByEMail(email);
-            Corriere corriere = cl.stream().findFirst().get();
+            Corriere corriere = gc.getByEMail(email);
             if(alertRipristina(corriere) == ButtonType.OK){
                 new GestoreAmministratore().ripristinaCorriere(corriere);
                 gc.save(corriere);
+                settaCorrieri(getAdmin());
             }
         }else
          lblCorriere.setText("NON TROVATO!");
-
-         */
     }
 
     private boolean cercaCliente(String email) {
