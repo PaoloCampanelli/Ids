@@ -20,12 +20,23 @@ public class Sconto implements IMapData {
 	public CategoriaMerceologica categoriaMerceologica;
 
 	public Sconto (String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		this.id = 0;
 		this.tipo = tipo;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.negozio = negozio;
 		this.categoriaMerceologica = categoriaMerceologica;
 	}
+
+	public Sconto (int scontoId, String tipo, Date dataInizio, Date dataFine, Negozio negozio, CategoriaMerceologica categoriaMerceologica){
+		this.id = scontoId;
+		this.tipo = tipo;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.negozio = negozio;
+		this.categoriaMerceologica = categoriaMerceologica;
+	}
+
 
 	public Sconto() {
 		this.categoriaMerceologica = new CategoriaMerceologica();
