@@ -13,7 +13,6 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -99,19 +98,17 @@ public class TabRipristinaFXController implements FXController {
         return amministratore;
     }
 
-    public void actionRipristinaCliente(ActionEvent actionEvent) throws SQLException {
+    public void actionRipristinaCliente() throws SQLException {
         lblCliente.setText("");
         ripristinaCliente(txtID.getText().toUpperCase());
     }
 
-
-    public void actionRipristinaCorriere(ActionEvent actionEvent) throws SQLException {
+    public void actionRipristinaCorriere() throws SQLException {
         lblCorriere.setText("");
         ripristinaCorriere(txtIDCC.getText().toUpperCase());
     }
 
-
-    public void actionRipristinaNegozio(ActionEvent actionEvent) throws SQLException {
+    public void actionRipristinaNegozio() throws SQLException {
         lblCorriere.setText("");
         ripristinaNegozio(txtIDN.getText().toUpperCase());
     }

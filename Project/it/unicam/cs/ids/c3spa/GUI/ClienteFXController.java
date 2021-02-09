@@ -78,7 +78,7 @@ public class ClienteFXController implements FXStage {
     public void actionRicercaCategoria() throws IOException, SQLException {
         lblErrore2.setText("");
         if (!(txtCategoria.getText().isBlank()))
-            apriStage("resources/tabellaCategoria.fxml", " ", txtCategoria.getText().toUpperCase(), new TabCategoriaFXController());
+            apriStage("resources/tabellaCategoria.fxml", "", txtCategoria.getText().toUpperCase(), "CATEGORIA");
         else
             lblErrore2.setText("Valore non valido!");
     }
@@ -87,7 +87,7 @@ public class ClienteFXController implements FXStage {
     public void actionRicercaCittaCategoria() throws IOException, SQLException {
         lblErrore1.setText("");
         if (!(txtCitta.getText().isBlank() || txtCategoriaCitta.getText().isBlank()))
-            apriStage("resources/tabellaCittaCategoria.fxml", txtCitta.getText().toUpperCase(), txtCategoriaCitta.getText().toUpperCase(), new TabCittaCategoriaFXController());
+            apriStage("resources/tabellaCittaCategoria.fxml", txtCitta.getText().toUpperCase(), txtCategoriaCitta.getText().toUpperCase(), "CITTA");
         else
             lblErrore1.setText("Valori non validi!");
     }
@@ -117,7 +117,6 @@ public class ClienteFXController implements FXStage {
     }
 
 
-
     /**
      * Inizializza i dati dell'account
      * @param account account da settare
@@ -132,13 +131,18 @@ public class ClienteFXController implements FXStage {
 
     }
 
-    private void apriStage(String fxml, String citta, String categoria, FXTabella controller) throws IOException, SQLException {
+    private void apriStage(String fxml, String citta, String categoria, String tipo) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Stage stage = new Stage();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
         stage.setScene(new Scene(loader.load()));
-        controller = loader.getController();
-        controller.initData(getCliente(), citta, categoria);
+        if(tipo.equals("CATEGORIA")) {
+            TabCategoriaFXController controller = loader.getController();
+            controller.initData(categoria);
+        }else if(tipo.equals("CITTA")){
+            TabCittaCategoriaFXController controller = loader.getController();
+            controller.initData(citta, categoria);
+        }
         stage.setTitle("C3");
         stage.show();
     }

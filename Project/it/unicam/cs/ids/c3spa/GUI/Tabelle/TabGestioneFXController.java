@@ -20,8 +20,6 @@ import java.util.List;
 
 public class TabGestioneFXController implements FXController {
 
-
-
     private ObservableList<Negozio> listaNegozi;
     private ObservableList<Cliente> listaClienti;
     private ObservableList<Corriere> listaCorrieri;
@@ -131,7 +129,6 @@ public class TabGestioneFXController implements FXController {
         }
     }
 
-
     private void cancellaAccount(String tipologia, int id) throws SQLException {
         lblCliente.setText("");
         lblNegozio.setText("");
@@ -188,7 +185,6 @@ public class TabGestioneFXController implements FXController {
         }
     }
 
-
     private ButtonType alertEliminazione(Account account) {
         Alert alert = new Alert(Alert.AlertType.NONE,
                 "Account \n"+account.id+"\n"+account.eMail+"\n Vuoi confermare?", ButtonType.OK, ButtonType.NO);
@@ -203,7 +199,6 @@ public class TabGestioneFXController implements FXController {
         settaCorrieri();
         settaNegozi();
     }
-
 
     private void controllaInfo(String tipo, int id, int token) throws SQLException {
         lblToken.setText("");

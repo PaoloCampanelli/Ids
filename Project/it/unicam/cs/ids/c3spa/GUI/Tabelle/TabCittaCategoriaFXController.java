@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
+import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -15,7 +16,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabCittaCategoriaFXController implements FXTabella {
+public class TabCittaCategoriaFXController implements FXController {
 
     private Cliente cliente;
     private ObservableList<Negozio> ln;
@@ -54,12 +55,11 @@ public class TabCittaCategoriaFXController implements FXTabella {
 
     /**
      * Inizializza i dati dell'account
-     * @param account   account loggato
      * @param citta     citta inserita
      * @param categoria categoria ricercata
      * @throws SQLException
      */
-    public void initData(Account account, String citta, String categoria) throws SQLException {
+    public void initData(String citta, String categoria) throws SQLException {
         setta(citta, categoria);
         lblCategoria.setText(categoria);
         lblCitta.setText(citta);

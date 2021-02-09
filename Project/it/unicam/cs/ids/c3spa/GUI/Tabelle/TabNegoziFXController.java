@@ -1,8 +1,9 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
+import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabNegoziFXController implements FXTabella{
+public class TabNegoziFXController implements FXController {
 
     private ObservableList<Negozio> ln;
 
@@ -29,7 +30,7 @@ public class TabNegoziFXController implements FXTabella{
 
     @FXML
     public void initialize() throws SQLException {
-        List<Negozio> negozi = new GestoreNegozio().getAll();
+        List<Negozio> negozi = new GestorePubblicita().OrderByPubblicita();
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
@@ -40,10 +41,6 @@ public class TabNegoziFXController implements FXTabella{
 
     @Override
     public void initData(Account account) throws SQLException {
-    }
-
-    @Override
-    public void initData(Account account, String citta, String categoria) throws SQLException {
     }
 
 

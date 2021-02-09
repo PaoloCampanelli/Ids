@@ -86,7 +86,7 @@ public class CorriereFXController implements FXStage {
         tbPDestinatario.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().destinatario.eMail));
         tbPConsegna.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataConsegnaRichiesta.toString()));
         tbPNegozio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
-        tbPCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.citta));
+        tbPCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         pacchiNonAssegnati.removeIf(p -> p.id == 0);
         tabellaPacchi.setItems(pacchiNonAssegnati);
         tabellaPacchi.setPlaceholder(new Label("C3 non contiene pacchi!"));
@@ -274,7 +274,6 @@ public class CorriereFXController implements FXStage {
         setCorriere(account);
         settaPacchi();
         settaOrdini(getCorriere());
-        vbox3.setDisable(true);
     }
 
 }

@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
+import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -14,7 +15,7 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabCategoriaNegoziFXController implements FXTabella {
+public class TabCategoriaNegoziFXController implements FXController {
 
     private Negozio negozio;
     private ObservableList<CategoriaMerceologica> lcm;
@@ -34,6 +35,7 @@ public class TabCategoriaNegoziFXController implements FXTabella {
     }
 
     public void actionInserisci() throws SQLException {
+
        aggiungiCategoria(txtCategoria.getText());
     }
 
@@ -54,6 +56,17 @@ public class TabCategoriaNegoziFXController implements FXTabella {
         tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().idCategoria)));
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().nome));
         tabellaCategoria.setItems(lcm);
+    }
+
+    /**
+     * Inizializza i dati dell'account
+     * @param account account loggato
+     * @throws SQLException
+     */
+    @Override
+    public void initData(Account account) throws SQLException {
+        setNegozio(account);
+        setta(negozio);
     }
 
     /**
@@ -94,7 +107,6 @@ public class TabCategoriaNegoziFXController implements FXTabella {
         }
     }
 
-
     /**
      * Prende la categoria ricercata
      * @param idCategoria
@@ -105,20 +117,7 @@ public class TabCategoriaNegoziFXController implements FXTabella {
         return negozio.categorie.stream().filter(c -> c.idCategoria == idCategoria).findAny().get();
     }
 
-    /**
-     * Inizializza i dati dell'account
-     * @param account account loggato
-     * @throws SQLException
-     */
-    @Override
-    public void initData(Account account) throws SQLException {
-        setNegozio(account);
-        setta(negozio);
-    }
 
-    @Override
-    public void initData(Account account, String citta, String categoria) throws SQLException {
-    }
 
     /**
      * @return negozio
