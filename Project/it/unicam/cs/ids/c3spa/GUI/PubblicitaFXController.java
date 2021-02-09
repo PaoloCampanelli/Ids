@@ -74,7 +74,7 @@ public class PubblicitaFXController implements FXStage{
 
     private void settaTabella () throws SQLException {
         cercaPubblicita();
-        List<Pubblicita> pubblicita = new GestorePubblicita().getPubblicitaAttive();
+        List<Pubblicita> pubblicita = new GestorePubblicita().getPubblicitaAttivaByNegozio(getNegozio());
         listaPubblicita = FXCollections.observableArrayList(pubblicita);
         tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbInizio.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().dataInizio.toString()));
