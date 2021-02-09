@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.c3spa.core.gestori;
 
+import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pubblicita;
 import it.unicam.cs.ids.c3spa.core.Sconto;
@@ -235,15 +236,89 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
         return ln;
     }
 
-    public List<Negozio> OrderByPubblicita() throws SQLException {
+    public List<Negozio> getNegoziConPubblicitaAttivaByString(String colonna, String stringaDaRicercare) throws SQLException {
+        Statement st;
+        ResultSet rs;
+        String sql;
+        List<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+        GestoreCategoriaMerceologica gcm = new GestoreCategoriaMerceologica();
+        Negozio n = new Negozio();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT distinct negozi.negozioId ,denominazione, token, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, telefono, eMail, password \n" +
+                    "FROM pubblicita inner join negozi \n" +
+                    "on pubblicita.negozioId = negozi.negozioId\n" +
+                    "where pubblicita.isCancellato = 0\n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date()"+
+                    "AND ("+colonna+" like \""+stringaDaRicercare+"\");";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                ln.add(n.mapData(rs));
+            }
+            //Popolo le categorie collegate al negozio
+
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
+            ps.setInt(1, n.id);
+            rs = ps.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                n.categorie.add(gcm.getById(rs.getInt(2)));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return ln;
+    }
+
+    public List<Negozio> getNegoziConPubblicitaAttivaByCategoria(String categoria) throws SQLException {
+        PreparedStatement st;
+        ResultSet rs;
+        List<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome \n" +
+                    "FROM negozi\n" +
+                    "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
+                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
+                    "inner join pubblicita  on pubblicita.negozioId = negozi.negozioId\n" +
+                    "                   \n" +
+                    "WHERE nome LIKE \""+ categoria +"\"\n" +
+                    "AND pubblicita.isCancellato = 0\n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date();");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio n = new Negozio().mapData(rs);
+                n.categorie.add(new CategoriaMerceologica().mapData(rs));
+                ln.add(n);
+
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return ln;
+
+    }
+
+
+    public List<Negozio> OrderByPubblicita(List<Negozio> ln, List<Negozio> lp) throws SQLException {
 
         List<Integer> list1 = new ArrayList<>();
-        List<Negozio> ln = new GestoreNegozio().getAll();
         for (Negozio n: ln) {
             list1.add(n.id);
         }
 
-        List<Negozio> lp= new GestorePubblicita().getNegoziConPubblicitaAttiva();
         List<Integer> list2 = new ArrayList<>();
         for (Negozio n: lp) {
             list2.add(n.id);

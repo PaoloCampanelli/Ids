@@ -57,6 +57,8 @@ public class Main {
 
 
         System.out.println(new GestorePubblicita().getPubblicitaByNegozio(n));
+        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoria("FRUTTA"));
+        System.out.println(new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getByCategoria("FRUTTA"), new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoria("FRUTTA")));
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 

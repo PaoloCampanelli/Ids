@@ -3,6 +3,7 @@ package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 import it.unicam.cs.ids.c3spa.GUI.FXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ public class TabNegoziFXController implements FXController {
 
     @FXML
     public void initialize() throws SQLException {
-        List<Negozio> negozi = new GestorePubblicita().OrderByPubblicita();
+        List<Negozio> negozi = new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getAll(), new GestorePubblicita().getNegoziConPubblicitaAttiva());
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));
