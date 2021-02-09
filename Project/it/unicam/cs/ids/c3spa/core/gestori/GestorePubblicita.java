@@ -237,11 +237,23 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
 
     public List<Negozio> OrderByPubblicita() throws SQLException {
 
+        List<Integer> list1 = new ArrayList<>();
         List<Negozio> ln = new GestoreNegozio().getAll();
+        for (Negozio n: ln) {
+            list1.add(n.id);
+        }
+
         List<Negozio> lp= new GestorePubblicita().getNegoziConPubblicitaAttiva();
+        List<Integer> list2 = new ArrayList<>();
+        for (Negozio n: lp) {
+            list2.add(n.id);
+        }
         List<Negozio> ret = new ArrayList<Negozio>(lp);
-        ln.removeAll(lp);
-        ret.addAll(ln);
+        list1.removeAll(list2);
+        for (Integer i: list1) {
+            ret.add(new GestoreNegozio().getById(i));
+        }
+
         return ret;
 
     }
