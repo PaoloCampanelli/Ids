@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +43,9 @@ public class TabCategoriaFXController implements FXController {
 	 * @throws SQLException
 	 */
 	public void setta(String categoria) throws SQLException {
-        List<Negozio> negozi = new GestoreNegozio().getByCategoria(categoria);
+        GestoreNegozio gn = new GestoreNegozio();
+        GestorePubblicita gp = new GestorePubblicita();
+        List<Negozio> negozi = gp.OrderByPubblicita(gn.getByCategoria(categoria), gp.getNegoziConPubblicitaAttivaByCategoria(categoria));
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbNumero.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().telefono));

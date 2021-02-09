@@ -21,14 +21,21 @@ import java.util.List;
 public class RegistrazioneFXController implements FXStage {
 
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
+    private ObservableList<String> provincia = FXCollections.observableArrayList(
+            "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
+            "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
+            "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
+
     @FXML
-    private TextField txtNome, txtNumero, txtCitta, txtProv, txtCivico, txtVia, txtCap, txtEmail;
+    private TextField txtNome, txtNumero, txtCitta, txtCivico, txtVia, txtCap, txtEmail;
     @FXML
     private PasswordField txtPassword;
     @FXML
     private Label lblErrore;
     @FXML
     private ChoiceBox<String> tipologia;
+    @FXML
+    private ChoiceBox<String> chbxProvincia;
     @FXML
     private Button btnRegistrati;
 
@@ -39,6 +46,7 @@ public class RegistrazioneFXController implements FXStage {
     public void initialize() {
         tipologia.setItems(tipologiaDisponibile);
         tipologia.setValue("CLIENTE");
+        chbxProvincia.setItems(provincia);
     }
 
     public void actionRegistrazione() throws Exception {
@@ -52,7 +60,7 @@ public class RegistrazioneFXController implements FXStage {
         txtCap.clear();
         txtCivico.clear();
         txtVia.clear();
-        txtProv.clear();
+
         txtPassword.clear();
     }
 
@@ -69,13 +77,13 @@ public class RegistrazioneFXController implements FXStage {
         String passw = txtPassword.getText();
         String numero = txtNumero.getText().toUpperCase();
         String via = txtVia.getText().toUpperCase();
+        String prov = chbxProvincia.getValue();
         String citta = txtCitta.getText().toUpperCase();
-        String prov = txtProv.getText().toUpperCase();
         String cap = txtCap.getText().toUpperCase();
         String civico = txtCivico.getText().toUpperCase();
         String tipologia = tipologia();
         if (controllaInfo(tipologia, email, nome, passw, numero)) {
-            if (controllaIndirizzo(via, citta, prov, cap, civico)) {
+            if (controllaIndirizzo(via, citta, cap, civico)) {
                 Indirizzo indirizzo = new Indirizzo(via, civico, citta, cap, prov);
                 Stage attuale = (Stage) btnRegistrati.getScene().getWindow();
                 attuale.hide();
@@ -111,17 +119,16 @@ public class RegistrazioneFXController implements FXStage {
      *
      * @param via    via inserita
      * @param citta  citta inserita
-     * @param prov   provincia inserita -> 2 caratteri
      * @param cap    cap inserito -> 5 caratteri
      * @param civico
      * @return
      */
-    private boolean controllaIndirizzo(String via, String citta, String prov, String cap, String civico) {
+    private boolean controllaIndirizzo(String via, String citta, String cap, String civico) {
         if (!citta.isBlank()) {
             if ((!cap.isBlank()) && cap.length() == 5) {
                 if ((!civico.isBlank())) {
                     if ((!via.isBlank())) {
-                        return (!prov.isBlank()) && prov.length() == 2;
+                        return true;
                     }
                 }
             }

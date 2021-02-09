@@ -70,6 +70,7 @@ public class ClienteFXController implements FXStage {
         apriStageController("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
     }
 
+    //controllare
     public void actionRicercaNegoziByCitta() throws SQLException, IOException {
         apriStageController("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
     }
@@ -152,7 +153,7 @@ public class ClienteFXController implements FXStage {
      * @throws SQLException
      */
     private void settaNegozi() throws SQLException {
-        List<Negozio> negozi = new GestorePubblicita().getNegoziConPubblicitaAttiva();
+        List<Negozio> negozi = new GestorePubblicita().getNegoziConPubblicitaAttivaByString("`indirizzo.provincia`", getCliente().indirizzo.provincia);
         listaNegozi = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbCategorie.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categorie.toString()));

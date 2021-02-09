@@ -64,7 +64,6 @@ public class PubblicitaFXController implements FXStage{
         apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
     }
 
-
     public void actionAnnulla() {
         try {
             annullaPubblicita(Integer.parseInt(txtID.getText()));
@@ -72,7 +71,6 @@ public class PubblicitaFXController implements FXStage{
             e.printStackTrace();
         }
     }
-
 
     private void settaTabella () throws SQLException {
         cercaPubblicita();
@@ -129,7 +127,7 @@ public class PubblicitaFXController implements FXStage{
     private ButtonType recapInfo(Pubblicita pubblicita) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "INIZIO: "+pubblicita.dataInizio.toString()+
-                        "\nFINE: "+pubblicita.dataInizio.toString(), ButtonType.OK, ButtonType.NO);
+                        "\nFINE: "+pubblicita.dataFine.toString(), ButtonType.OK, ButtonType.NO);
         alert.setTitle("Conferma pubblicita'");
         alert.showAndWait();
         return alert.getResult();
@@ -148,9 +146,9 @@ public class PubblicitaFXController implements FXStage{
     private void cercaPubblicita() throws SQLException {
         int i = new GestorePubblicita().getPubblicitaAttivaByNegozio(getNegozio()).size();
         if(i >= 1){
-            lblPubblicita.setText("PUBBLICITA' ATTUALMENTE ATTIVE: "+i);
+            lblPubblicita.setText("HAI UNA PUBBLICITA' ATTIVA!");
         }else
-            lblPubblicita.setText("PUBBLICITA' ATTUALMENTE ATTIVE: "+i);
+            lblPubblicita.setText("NON HAI PUBBLICITA' ATTIVE!");
     }
 
     private void setNegozio(Account account){

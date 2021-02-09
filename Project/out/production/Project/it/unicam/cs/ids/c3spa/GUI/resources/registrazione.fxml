@@ -60,10 +60,10 @@
             <Label text="Via" textFill="#0004ff" GridPane.rowIndex="3" />
             <Label text="CAP" textFill="#0004ff" GridPane.rowIndex="4" />
             <TextField fx:id="txtCitta" prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txtProv" prefHeight="25.0" prefWidth="47.0" promptText="Sigla   | esempio -&gt; MC" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtCivico" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtVia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtCap" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="chbxProvincia" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="btnRegistrati" layoutX="65.0" layoutY="440.0" mnemonicParsing="false" onAction="#actionRegistrazione" prefHeight="25.0" prefWidth="108.0" text="REGISTRATI" />
