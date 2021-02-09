@@ -202,6 +202,39 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
         return p;
     }
 
+    public List<Pubblicita> getPubblicitaAttivaByNegozio(Negozio negozio) throws SQLException {
+
+        Statement st;
+        ResultSet rs;
+        String sql;
+        ArrayList<Pubblicita> p = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM pubblicita \n" +
+                    "where isCancellato = 0 \n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND negozioId = "+negozio.id+
+                    " AND   dataInizio <= current_date()";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Pubblicita a = new Pubblicita();
+                a.mapData(rs);
+                a.negozio = new GestoreNegozio().getById(a.id);
+                p.add(a);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return p;
+    }
+
     public List<Negozio> getNegoziConPubblicitaAttiva() throws SQLException {
 
         Statement st;
@@ -308,6 +341,44 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
 
         ChiudiConnessione(conn);
         return ln;
+
+    }
+
+    public List<Negozio> getNegoziConPubblicitaAttivaByCategoriaAndString(String categoria, String colonna, String stringaDaRicercare) throws SQLException {
+
+        PreparedStatement st;
+        ResultSet rs;
+        List<Negozio> ln = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.prepareStatement("SELECT distinct negozi.negozioId, `denominazione`, token,`indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`,`indirizzo.provincia`, telefono, eMail, password, categoriemerceologiche.categoriaId, nome \n" +
+                    "FROM negozi\n" +
+                    "INNER JOIN negozio_categoriemerceologiche ON negozi.negozioId = negozio_categoriemerceologiche.negozioId\n" +
+                    "INNER JOIN categoriemerceologiche ON negozio_categoriemerceologiche.categoriaId = categoriemerceologiche.categoriaId\n" +
+                    "inner join pubblicita  on pubblicita.negozioId = negozi.negozioId\n" +
+                    "                   \n" +
+                    "WHERE nome LIKE \""+ categoria +"\"\n" +
+                    "AND pubblicita.isCancellato = 0\n" +
+                    "AND current_date() <= dataFine\n" +
+                    "AND   dataInizio <= current_date()" +
+                    "AND ("+colonna+" like \""+stringaDaRicercare+"\");");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Negozio n = new Negozio().mapData(rs);
+                n.categorie.add(new CategoriaMerceologica().mapData(rs));
+                ln.add(n);
+
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return ln;
+
 
     }
 

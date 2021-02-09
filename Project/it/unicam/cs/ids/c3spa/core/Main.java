@@ -57,8 +57,8 @@ public class Main {
 
 
         System.out.println(new GestorePubblicita().getPubblicitaByNegozio(n));
-        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoria("FRUTTA"));
-        System.out.println(new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getByCategoria("FRUTTA"), new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoria("FRUTTA")));
+        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoriaAndString("FRUTTA","`indirizzo.provincia`", "pr"));
+        System.out.println(new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getByCategoriaAndCitta("FRUTTA","2"),new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoriaAndString("FRUTTA","`indirizzo.citta`", "2")));
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 

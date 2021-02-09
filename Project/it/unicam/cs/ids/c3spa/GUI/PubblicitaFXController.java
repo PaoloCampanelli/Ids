@@ -146,7 +146,7 @@ public class PubblicitaFXController implements FXStage{
 
 
     private void cercaPubblicita() throws SQLException {
-        int i = new GestorePubblicita().getPubblicitaByNegozio(getNegozio()).size();
+        int i = new GestorePubblicita().getPubblicitaAttivaByNegozio(getNegozio()).size();
         if(i >= 1){
             lblPubblicita.setText("PUBBLICITA' ATTUALMENTE ATTIVE: "+i);
         }else
