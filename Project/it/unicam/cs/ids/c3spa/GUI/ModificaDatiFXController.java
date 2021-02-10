@@ -9,11 +9,12 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -24,27 +25,17 @@ public class ModificaDatiFXController implements FXController {
     private Negozio negozio;
     private Corriere corriere;
     private Amministratore amministatore;
-    private ObservableList<String> provincia = FXCollections.observableArrayList(
-            "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
-            "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
-            "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
     @FXML
     private TextField txtNome, txtNumero, txtCitta, txtProv, txtCivico, txtVia, txtCap;
     @FXML
     private Button btnConferma;
     @FXML
     private PasswordField txtPassword;
-    @FXML
-    private ChoiceBox<String> chbxProvincia;
 
 
     public ModificaDatiFXController() {
     }
 
-    @FXML
-    public void initialize(){
-
-    }
     public void actionConferma() throws Exception {
         if (negozio != null) {
             if(accettaModifiche(negozio) ==1){
@@ -100,8 +91,6 @@ public class ModificaDatiFXController implements FXController {
     public void initData(Account account) throws SQLException {
         setAccount(account);
         settaCampo(account);
-        chbxProvincia.setItems(provincia);
-        chbxProvincia.setValue(account.indirizzo.provincia);
     }
 
     /**
@@ -134,6 +123,9 @@ public class ModificaDatiFXController implements FXController {
         if ((!txtVia.getText().isBlank())) {
             account.indirizzo.via = txtVia.getText().toUpperCase();
         }
+        if ((!txtProv.getText().isBlank())) {
+            account.indirizzo.provincia = txtProv.getText().toUpperCase();
+        }
         return i;
     }
 
@@ -149,6 +141,7 @@ public class ModificaDatiFXController implements FXController {
         txtCap.setPromptText(account.indirizzo.cap);
         txtCivico.setPromptText(account.indirizzo.numero);
         txtVia.setPromptText(account.indirizzo.via);
+        txtProv.setPromptText(account.indirizzo.provincia);
     }
 
     /**

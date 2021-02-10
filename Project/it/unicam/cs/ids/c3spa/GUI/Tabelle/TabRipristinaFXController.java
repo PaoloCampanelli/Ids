@@ -80,21 +80,6 @@ public class TabRipristinaFXController implements FXController {
         tabellaCorrieri.setItems(listaCorrieri);
     }
 
-    public void actionRipristinaCliente() throws SQLException {
-        lblCliente.setText("");
-        ripristinaCliente(txtID.getText().toUpperCase());
-    }
-
-    public void actionRipristinaCorriere() throws SQLException {
-        lblCorriere.setText("");
-        ripristinaCorriere(txtIDCC.getText().toUpperCase());
-    }
-
-    public void actionRipristinaNegozio() throws SQLException {
-        lblCorriere.setText("");
-        ripristinaNegozio(txtIDN.getText().toUpperCase());
-    }
-
     @Override
     public void initData(Account account) throws SQLException {
         setAmministratore(account);
@@ -111,6 +96,21 @@ public class TabRipristinaFXController implements FXController {
 
     private Amministratore getAdmin(){
         return amministratore;
+    }
+
+    public void actionRipristinaCliente() throws SQLException {
+        lblCliente.setText("");
+        ripristinaCliente(txtID.getText().toUpperCase());
+    }
+
+    public void actionRipristinaCorriere() throws SQLException {
+        lblCorriere.setText("");
+        ripristinaCorriere(txtIDCC.getText().toUpperCase());
+    }
+
+    public void actionRipristinaNegozio() throws SQLException {
+        lblCorriere.setText("");
+        ripristinaNegozio(txtIDN.getText().toUpperCase());
     }
 
     private void ripristinaCliente(String email) throws SQLException {

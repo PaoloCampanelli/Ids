@@ -1,12 +1,10 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
 import it.unicam.cs.ids.c3spa.GUI.FXController;
-import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -25,7 +23,6 @@ public class TabGestioneFXController implements FXController {
     private ObservableList<Negozio> listaNegozi;
     private ObservableList<Cliente> listaClienti;
     private ObservableList<Corriere> listaCorrieri;
-    private Amministratore amministratore;
 
     @FXML
     TextField txtID, txtIDN, txtIDN1, txtIDCC, txtToken;
@@ -201,15 +198,6 @@ public class TabGestioneFXController implements FXController {
         settaClienti();
         settaCorrieri();
         settaNegozi();
-        setAmministratore(account);
-    }
-
-    private void setAmministratore(Account account) {
-        this.amministratore = (Amministratore) account;
-    }
-
-    private Amministratore getAmministratore(){
-        return amministratore;
     }
 
     private void controllaInfo(String tipo, int id, int token) throws SQLException {
@@ -221,7 +209,7 @@ public class TabGestioneFXController implements FXController {
             if(tipo.equals("RIMUOVI")){
                 if(token <= negozio.token){
                     if(alertToken(tipo, negozio) == ButtonType.OK){
-                        negozio.token -=token;
+                        negozio.token-=token;
                         gn.save(negozio);
                     }else {
                         txtIDN1.clear();
@@ -231,7 +219,8 @@ public class TabGestioneFXController implements FXController {
                     lblToken.setText("Token non validi");
             }else if(tipo.equals("AGGIUNGI")){
                 if(alertToken(tipo, negozio) == ButtonType.OK){
-                    new GestoreAmministratore().aggiungiToken(token, negozio, getAmministratore());
+                    negozio.token+=token;
+                    gn.save(negozio);
                 }else {
                     txtIDN1.clear();
                     txtToken.clear();
@@ -244,8 +233,8 @@ public class TabGestioneFXController implements FXController {
 
     private ButtonType alertToken(String tipo, Negozio negozio) {
         Alert alert = new Alert(Alert.AlertType.NONE,
-                "Negozio: "+negozio.denominazione+"\n"+tipo+":" +txtToken.getText()+"\nVuoi confermare?", ButtonType.OK, ButtonType.NO);
-        alert.setTitle("TOKEN");
+                "Negozio: "+negozio.denominazione+"\n"+tipo+":" +txtToken.getText()+"Vuoi confermare?", ButtonType.OK, ButtonType.NO);
+        alert.setTitle("TOKEN!");
         alert.showAndWait();
         return alert.getResult();
     }

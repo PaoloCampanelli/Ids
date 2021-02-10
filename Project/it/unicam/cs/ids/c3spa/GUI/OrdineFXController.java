@@ -26,10 +26,6 @@ public class OrdineFXController implements FXStage {
 
     private Negozio negozio;
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("PREDEFINITO", "NUOVO");
-    private ObservableList<String> provincia = FXCollections.observableArrayList(
-            "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
-            "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
-            "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Cliente> clienteDisponibili;
     @FXML
@@ -51,7 +47,7 @@ public class OrdineFXController implements FXStage {
     @FXML
     private HBox hboxNascosta;
     @FXML
-    private Label lblAnnulla, lblEmail, lblErrore, lblErroreIndirizzo, lblData, infoEmail, infoData, infoIndirizzo;
+    private Label lblAnnulla, lblEmail, lblErrore, lblErroreIndirizzo;
     @FXML
     private TableColumn<Pacco, String> tbId;
     @FXML
@@ -62,8 +58,6 @@ public class OrdineFXController implements FXStage {
     private TableColumn<Pacco, String> tbDataPacco;
     @FXML
     private ChoiceBox<String> selezionaIndirizzo;
-    @FXML
-    private ChoiceBox<String> chbxProvincia;
 
     public OrdineFXController() {
     }
@@ -73,7 +67,6 @@ public class OrdineFXController implements FXStage {
         selezionaIndirizzo.setItems(tipologiaDisponibile);
         selezionaIndirizzo.setValue("PREDEFINITO");
         hboxNascosta.setDisable(true);
-        chbxProvincia.setItems(provincia);
     }
 
     /**
@@ -109,29 +102,25 @@ public class OrdineFXController implements FXStage {
         tabellaCliente.setPlaceholder(new Label("C3 non contiene clienti!"));
     }
 
-    public void actionRicerca() throws SQLException {
-        settaClienti();
+    public void actionRicerca() {
         lblEmail.setText(" ");
         List<Cliente> unico = new ArrayList<>();
         String email = txtEmail.getText().toUpperCase();
         if (!email.isBlank()) {
             if (clienteEsistente(email)) {
-                infoEmail.setText(email);
                 Cliente cliente = prendiCliente(email);
-                infoIndirizzo.setText(cliente.indirizzo.toString());
                 unico.add(cliente);
                 clienteDisponibili = FXCollections.observableArrayList(unico);
                 tabellaCliente.setItems(clienteDisponibili);
             } else {
                 lblEmail.setText(email + " non esistente nel sistema");
             }
-        }else
-            settaClienti();
-
+        }
     }
 
     public void actionCopri() {
         hboxNascosta.setDisable(!selezionaIndirizzo.getValue().contains("NUOVO"));
+
     }
 
     public void actionResetta() throws SQLException {
@@ -139,36 +128,16 @@ public class OrdineFXController implements FXStage {
     }
 
     public void actionAnnulla() throws SQLException {
-        int id = Integer.parseInt(txtId.getText());
-        annullaPacco(id);
-    }
-
-    private void annullaPacco(int id) throws SQLException {
-        settaPacchi(getNegozio());
-        if (pacchiNonAssegnati.stream().anyMatch(p -> p.id == id)) {
-            Pacco pacco = pacchiNonAssegnati.stream().filter(p -> p.id == id).findAny().get();
+        String id = txtId.getText();
+        if (pacchiNonAssegnati.stream().anyMatch(p -> p.id == (Integer.parseInt(id)))) {
+            Pacco pacco = pacchiNonAssegnati.stream().filter(p -> p.id == (Integer.parseInt(id))).findAny().get();
             pacchiNonAssegnati.remove(pacco);
-            new GestorePacco().delete(id);
+            new GestorePacco().delete(Integer.parseInt(id));
         }
     }
 
     public void actionCreaPacco() throws SQLException {
         creaPacco();
-    }
-
-   public void actionIndirizzo(){
-        //impostaPacco();
-   }
-
-
-
-    public void actionSettaData() {
-        lblData.setText("");
-        if(dpData.getValue().isBefore(LocalDate.now())){
-            lblData.setText("Data non valida");
-        }else{
-            infoData.setText(dpData.getValue().toString());
-        }
     }
 
     /**
@@ -195,13 +164,9 @@ public class OrdineFXController implements FXStage {
                 pacco = new Pacco(cliente, getNegozio(), date, indirizzo);
             } else
                 pacco = new Pacco(cliente, getNegozio(), date, cliente.indirizzo);
-            if(recapInfo(pacco) == ButtonType.OK){
-                    new GestorePacco().save(pacco);
-                    settaPacchi(getNegozio());
-            }
+            recapInfo(pacco);
         }
     }
-
 
     /**
      * Mostra le informazioni del pacco da creare
@@ -209,15 +174,18 @@ public class OrdineFXController implements FXStage {
      * @param pacco pacco da creare
      * @throws SQLException
      */
-    private ButtonType recapInfo(Pacco pacco){
+    private void recapInfo(Pacco pacco) throws SQLException {
         Alert alert = new Alert(AlertType.CONFIRMATION,
-                "Spedito da: " + pacco.mittente.denominazione
-                        + "\nDestinatario: " + pacco.destinatario.eMail
-                        + "\nConsegna: " + pacco.dataConsegnaRichiesta + "\n"
-                        + pacco.indirizzo.toString(), ButtonType.OK, ButtonType.NO);
+                "Spedito da: " + pacco.mittente.denominazione + "									"
+                        + "Destinatario: " + pacco.destinatario.eMail
+                        + " Consegna: " + pacco.dataConsegnaRichiesta + " "
+                        + pacco.indirizzo.toString(), ButtonType.YES, ButtonType.NO);
         alert.setTitle("Conferma pacco");
         alert.showAndWait();
-        return alert.getResult();
+        if (alert.getResult() == ButtonType.YES) {
+            pacchiNonAssegnati.add(pacco);
+            new GestorePacco().save(pacco);
+        }
     }
 
     /**
@@ -259,8 +227,6 @@ public class OrdineFXController implements FXStage {
                             if ((prov.length() == 2) || !(prov.isBlank())) {
                                 if (!(civico.isBlank())) {
                                     if (cap.length() != 5 || !(cap.isBlank())) {
-                                        //impostaPacco();
-
                                         return true;
                                     } else
                                         lblErroreIndirizzo.setText("Cap non valido");
@@ -272,11 +238,12 @@ public class OrdineFXController implements FXStage {
                             lblErroreIndirizzo.setText("Info non valide");
                     } else
                         return true;
-                }
+                } else
+                    lblErrore.setText("Data non valida");
             } else
-                lblEmail.setText("Cliente non esistente");
+                lblErrore.setText("Email non valida");
         } else
-            lblEmail.setText("Email non valida");
+            lblErrore.setText("Email non esistente nel sistema");
         return false;
 
     }
@@ -292,7 +259,7 @@ public class OrdineFXController implements FXStage {
         setNegozio(account);
         settaPacchi(getNegozio());
         settaClienti();
-        chbxProvincia.setValue(account.indirizzo.provincia);
+
     }
 
     /**
@@ -312,5 +279,4 @@ public class OrdineFXController implements FXStage {
             this.negozio = (Negozio) account;
         }
     }
-
 }

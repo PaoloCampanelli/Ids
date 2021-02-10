@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,37 +26,38 @@ public class CorriereFXController implements FXStage {
     private Corriere corriere;
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Pacco> ordiniCorriere;
-
     @FXML
-    TextField txtMail,txtPaccoPreso, txtIDConsegna;
+    private TextField txtMail, txtIDConsegna, txtIDAnnulla, txtPaccoPreso;
     @FXML
-    PasswordField txtPassword;
+    private PasswordField txtPassword;
     @FXML
-    Label lblLogin, lblUtente, lblIDAssegna,  lblIDConsegna;
+    private Label lblLogin, lblUtente;
     @FXML
-    Button btnModifica, btnStorico, btnConsegna1, btnConsegna2, btnConsegna3, btnAccedi;
+    private Button btnModifica, btnStorico, btnConsegna1, btnConsegna2, btnConsegna3, btnAccedi;
     @FXML
-    TableView<Pacco> tabellaPacchi;
+    private VBox vbox3;
     @FXML
-    TableColumn<Pacco, String> tbPID;
+    private TableView<Pacco> tabellaPacchi;
     @FXML
-    TableColumn<Pacco, String> tbPNegozio;
+    private TableColumn<Pacco, String> tbPID;
     @FXML
-    TableColumn<Pacco, String> tbPDestinatario;
+    private TableColumn<Pacco, String> tbPNegozio;
     @FXML
-    TableColumn<Pacco, String> tbPConsegna;
+    private TableColumn<Pacco, String> tbPDestinatario;
     @FXML
-    TableColumn<Pacco, String> tbPCitta;
+    private TableColumn<Pacco, String> tbPConsegna;
     @FXML
-    TableView<Pacco> tabellaOrdini;
+    private TableColumn<Pacco, String> tbPCitta;
     @FXML
-    TableColumn<Pacco, String> tbOID;
+    private TableView<Pacco> tabellaOrdini;
     @FXML
-    TableColumn<Pacco, String> tbOIndirizzo;
+    private TableColumn<Pacco, String> tbOID;
     @FXML
-    TableColumn<Pacco, String> tbODestinatario;
+    private TableColumn<Pacco, String> tbOIndirizzo;
     @FXML
-    TableColumn<Pacco, String> tbOConsegna;
+    private TableColumn<Pacco, String> tbODestinatario;
+    @FXML
+    private TableColumn<Pacco, String> tbOConsegna;
 
     public CorriereFXController() {
     }
@@ -113,21 +115,31 @@ public class CorriereFXController implements FXStage {
     }
 
     public void actionAssegna() throws SQLException {
-        try {
-            int id = Integer.parseInt(txtPaccoPreso.getText());
-            assegnaPacco(id);
-        }catch (NumberFormatException e){
-            lblIDAssegna.setText(txtPaccoPreso.getText()+" non valido");
+        if (cercaPacco(txtPaccoPreso.getText())) {
+            Pacco pacco = prendiPacco(txtPaccoPreso.getText());
+            getCorriere().prendiPacco(pacco);
+            ordiniCorriere.add(pacco);
+            new GestorePacco().save(pacco);
+            pacchiNonAssegnati.removeIf(p -> p.id == pacco.id);
         }
     }
 
-
     public void actionConsegna() throws SQLException {
-        try{
-            int id = Integer.parseInt(txtIDConsegna.getText());
-            consegnaPacco(id);
-        }catch(NumberFormatException e){
-            lblIDConsegna.setText(txtIDConsegna+" non valido");
+        if (cercaPacco(txtIDConsegna.getText())) {
+            Pacco pacco = prendiPacco(txtIDConsegna.getText());
+            avvertiConsegna(pacco);
+        }
+    }
+
+    public void actionAnnulla() throws SQLException {
+        if (cercaPacco(txtIDAnnulla.getText())) {
+            Pacco pacco = prendiPacco(txtIDAnnulla.getText());
+            pacco.corriere = null;
+            pacchiNonAssegnati.add(pacco);
+            new GestorePacco().save(pacco);
+            new GestoreCorriere().save(pacco);
+            ordiniCorriere.removeIf(p -> p.id == pacco.id);
+
         }
     }
 
@@ -148,60 +160,25 @@ public class CorriereFXController implements FXStage {
         apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
     }
 
-
-
-    private void assegnaPacco(int idCercato) throws SQLException {
-        if (cercaPacco(idCercato)) {
-            Pacco pacco = prendiPacco(idCercato);
-            if(avvertiAssegnamento(pacco) == ButtonType.OK){
-                getCorriere().prendiPacco(pacco);
-                ordiniCorriere.add(pacco);
-                new GestorePacco().save(pacco);
-                pacchiNonAssegnati.removeIf(p -> p.id == pacco.id);
-                }
-            }else
-                lblIDAssegna.setText("ID non trovato");
-    }
-
-
-    private void consegnaPacco(int id) throws SQLException {
-        if (cercaPacco(id)) {
-            Pacco pacco = prendiPacco(id);
-            if (avvertiConsegna(pacco) == ButtonType.OK) {
-                getCorriere().consegnaPacco(pacco);
-                new GestorePacco().save(pacco);
-                ordiniCorriere.removeIf(p -> p.id == pacco.id);
-            }
-        }else
-            lblIDConsegna.setText("ID non trovato");
-    }
-
     /**
      * Apre un alert per confermare i dati di consegna
      *
      * @param pacco pacco da consegnare
      * @throws SQLException
      */
-    private ButtonType avvertiConsegna(Pacco pacco) throws SQLException {
+    private void avvertiConsegna(Pacco pacco) throws SQLException {
         Alert alert = new Alert(AlertType.CONFIRMATION,
-                "Spedito da: " + pacco.mittente.denominazione
-                        + "\nDestinatario: " + pacco.destinatario.eMail
-                        + "\nConsegna: " + pacco.dataConsegnaRichiesta
-                        + "\n"+pacco.indirizzo.toString(), ButtonType.OK, ButtonType.NO);
+                "Spedito da: " + pacco.mittente.denominazione + "									"
+                        + "Destinatario: " + pacco.destinatario.eMail
+                        + " Consegna: " + pacco.dataConsegnaRichiesta + " "
+                        + pacco.indirizzo.toString(), ButtonType.YES, ButtonType.NO);
         alert.setTitle("Conferma pacco");
         alert.showAndWait();
-        return alert.getResult();
-    }
-
-
-    private ButtonType avvertiAssegnamento(Pacco pacco) throws SQLException {
-        Alert alert = new Alert(AlertType.CONFIRMATION,
-                "ID: "+pacco.id+"\n"
-                        +pacco.indirizzo.toString()
-                        +"\nConsegna: "+pacco.dataConsegnaRichiesta.toString(), ButtonType.OK, ButtonType.NO);
-        alert.setTitle("Conferma pacco");
-        alert.showAndWait();
-        return alert.getResult();
+        if (alert.getResult() == ButtonType.YES) {
+            getCorriere().consegnaPacco(pacco);
+            new GestorePacco().save(pacco);
+            ordiniCorriere.removeIf(p -> p.id == pacco.id);
+        }
     }
 
     /**
@@ -232,9 +209,9 @@ public class CorriereFXController implements FXStage {
      * se il pacco esiste
      * @throws SQLException
      */
-    private boolean cercaPacco(int id) throws SQLException {
+    private boolean cercaPacco(String id) throws SQLException {
         List<Pacco> pacchi = new GestorePacco().getAll();
-        return pacchi.stream().anyMatch(p -> p.id == id);
+        return pacchi.stream().anyMatch(p -> p.id == Integer.parseInt(id));
     }
 
     /**
@@ -244,9 +221,9 @@ public class CorriereFXController implements FXStage {
      * @return pacco assegnato
      * @throws SQLException
      */
-    private Pacco prendiPacco(int id) throws SQLException {
+    private Pacco prendiPacco(String id) throws SQLException {
         List<Pacco> pacchi = new GestorePacco().getAll();
-        int idPacco = pacchi.stream().filter(p -> p.id == id).findAny().get().id;
+        int idPacco = pacchi.stream().filter(p -> p.id == Integer.parseInt(id)).findAny().get().id;
         return new GestorePacco().getById(idPacco);
     }
 
