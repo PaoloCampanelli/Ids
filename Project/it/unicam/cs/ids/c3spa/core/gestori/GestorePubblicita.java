@@ -188,7 +188,7 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
             while (rs.next() == true) {
                 Pubblicita a = new Pubblicita();
                 a.mapData(rs);
-                a.negozio = new GestoreNegozio().getById(a.id);
+                a.negozio = new GestoreNegozio().getById(a.negozio.id);
                 p.add(a);
             }
             st.close();
@@ -276,7 +276,7 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
         List<Negozio> ln = new ArrayList<>();
         Connection conn = ApriConnessione();
         GestoreCategoriaMerceologica gcm = new GestoreCategoriaMerceologica();
-        Negozio n = new Negozio();
+
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
@@ -286,19 +286,15 @@ public class GestorePubblicita extends GestoreBase implements ICRUD {
                     "where pubblicita.isCancellato = 0\n" +
                     "AND current_date() <= dataFine\n" +
                     "AND   dataInizio <= current_date()"+
-                    "AND ("+colonna+" like \""+stringaDaRicercare+"\");";
+                    "AND ("+colonna+" like \"%"+stringaDaRicercare+"%\");";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                ln.add(n.mapData(rs));
+                Negozio n = new Negozio();
+                n.mapData(rs);
+                n = new GestoreNegozio().getById(n.id);
+                ln.add(n);
             }
-            //Popolo le categorie collegate al negozio
 
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
-            ps.setInt(1, n.id);
-            rs = ps.executeQuery(); // faccio la query su uno statement
-            while (rs.next() == true) {
-                n.categorie.add(gcm.getById(rs.getInt(2)));
-            }
             st.close();
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());

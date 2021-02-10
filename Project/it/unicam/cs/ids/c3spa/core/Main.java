@@ -56,9 +56,9 @@ public class Main {
         List<Pacco> lp = new GestorePacco().getAll();
 
 
-        System.out.println(new GestorePubblicita().getPubblicitaByNegozio(n));
-        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoriaAndString("FRUTTA","`indirizzo.provincia`", "pr"));
-        System.out.println(new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getByCategoriaAndCitta("FRUTTA","2"),new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoriaAndString("FRUTTA","`indirizzo.citta`", "2")));
+        //System.out.println(new GestoreNegozio().getByCategoria("T"));
+        System.out.println(new GestorePubblicita().getNegoziConPubblicitaAttivaByString("`indirizzo.provincia`", "MC"));
+        //System.out.println(new GestorePubblicita().OrderByPubblicita(new GestoreNegozio().getByCategoriaAndCitta("FRUTTA","2"),new GestorePubblicita().getNegoziConPubblicitaAttivaByCategoriaAndString("FRUTTA","`indirizzo.citta`", "2")));
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 
