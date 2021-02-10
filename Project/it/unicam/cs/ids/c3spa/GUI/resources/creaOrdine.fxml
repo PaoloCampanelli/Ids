@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="533.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.OrdineFXController">
+<AnchorPane prefHeight="596.0" prefWidth="1047.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.OrdineFXController">
    <children>
-      <TableView fx:id="tabellaCliente" layoutX="328.0" layoutY="64.0" prefHeight="105.0" prefWidth="535.0">
+      <TableView fx:id="tabellaCliente" layoutX="423.0" layoutY="56.0" prefHeight="144.0" prefWidth="535.0">
         <columns>
             <TableColumn fx:id="tbEmail" prefWidth="235.0" text="EMAIL" />
             <TableColumn fx:id="tbIndirizzo" prefWidth="299.0" text="INDIRIZZO" />
         </columns>
       </TableView>
-      <TextField fx:id="txtEmail" layoutX="25.0" layoutY="77.0" prefHeight="25.0" prefWidth="166.0" promptText="Email cliente" />
-      <Label layoutX="25.0" layoutY="51.0" prefHeight="21.0" prefWidth="149.0" text="Email cliente" textFill="#0004ff">
+      <TextField fx:id="txtEmail" layoutX="72.0" layoutY="67.0" prefHeight="25.0" prefWidth="166.0" promptText="Email cliente" />
+      <Label layoutX="25.0" layoutY="41.0" prefHeight="21.0" prefWidth="149.0" text="Email cliente" textFill="#0004ff">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpData" layoutX="25.0" layoutY="148.0" prefHeight="25.0" prefWidth="166.0" />
-      <Label layoutX="25.0" layoutY="120.0" prefHeight="21.0" prefWidth="149.0" text="Data consegna" textFill="#0004ff">
+      <DatePicker fx:id="dpData" layoutX="72.0" layoutY="152.0" prefHeight="25.0" prefWidth="166.0" />
+      <Label layoutX="25.0" layoutY="124.0" prefHeight="21.0" prefWidth="149.0" text="Data consegna" textFill="#0004ff">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="200.0" prefHeight="21.0" prefWidth="149.0" text="Indirizzo " textFill="#0004ff">
+      <Label layoutX="22.0" layoutY="229.0" prefHeight="21.0" prefWidth="69.0" text="Indirizzo " textFill="#0004ff">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnRicerca" layoutX="196.0" layoutY="77.0" mnemonicParsing="false" onAction="#actionRicerca" text="RICERCA" />
-      <HBox fx:id="hboxNascosta" layoutX="25.0" layoutY="248.0" prefHeight="113.0" prefWidth="217.0" spacing="10.0">
+      <Button fx:id="btnRicerca" layoutX="249.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionInserisciEmail" text="INSERISCI" />
+      <HBox fx:id="hboxNascosta" layoutX="97.0" layoutY="261.0" prefHeight="97.0" prefWidth="217.0" spacing="10.0">
          <children>
             <VBox prefHeight="90.0" prefWidth="144.0" spacing="10.0">
                <children>
@@ -43,28 +52,28 @@
             <VBox prefHeight="90.0" prefWidth="59.0" spacing="10.0">
                <children>
                   <TextField fx:id="txtCivico" prefHeight="25.0" prefWidth="103.0" promptText="Civico" />
-                  <TextField fx:id="txtProv" promptText="PROV" />
                   <TextField fx:id="txtCap" promptText="CAP">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
+                  <ChoiceBox fx:id="chbxProvincia" prefWidth="150.0" />
                </children>
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="btnCrea" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#actionCreaPacco" prefHeight="32.0" prefWidth="127.0" text="CREA PACCO" />
-      <Label layoutX="425.0" layoutY="25.0" text="Lista clienti" textFill="#0004ff">
+      <Button fx:id="btnCrea" layoutX="25.0" layoutY="531.0" mnemonicParsing="false" onAction="#actionCreaPacco" prefHeight="32.0" prefWidth="127.0" text="CONFERMA" />
+      <Label layoutX="425.0" layoutY="25.0" text="CLIENTI" textFill="#0004ff">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="426.0" layoutY="208.0" text="Lista pacchi" textFill="#0004ff">
+      <Label layoutX="426.0" layoutY="208.0" text="PACCHI" textFill="#0004ff">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tabellaPacchi" layoutX="328.0" layoutY="270.0" prefHeight="259.0" prefWidth="613.0">
+      <TableView fx:id="tabellaPacchi" layoutX="425.0" layoutY="271.0" prefHeight="259.0" prefWidth="613.0">
         <columns>
           <TableColumn fx:id="tbId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tbDestinatario" prefWidth="152.0" text="DESTINATARIO" />
@@ -72,18 +81,37 @@
             <TableColumn fx:id="tbDataPacco" prefWidth="84.0" text="CONSEGNA" />
         </columns>
       </TableView>
-      <TextField fx:id="txtId" layoutX="550.0" layoutY="222.0" prefHeight="25.0" prefWidth="63.0" promptText="ID " />
-      <Button fx:id="btnAnnulla" layoutX="627.0" layoutY="222.0" mnemonicParsing="false" onAction="#actionAnnulla" text="ANNULLA ORDINE" />
-      <ChoiceBox fx:id="selezionaIndirizzo" layoutX="99.0" layoutY="198.0" onAction="#actionCopri" prefWidth="150.0" />
-      <Label layoutX="426.0" layoutY="234.0" text="non assegnati" textFill="#0004ff">
+      <TextField fx:id="txtId" layoutX="613.0" layoutY="235.0" prefHeight="25.0" prefWidth="63.0" promptText="ID " />
+      <Button fx:id="btnAnnulla" layoutX="690.0" layoutY="235.0" mnemonicParsing="false" onAction="#actionAnnulla" text="ANNULLA ORDINE" />
+      <ChoiceBox fx:id="selezionaIndirizzo" layoutX="96.0" layoutY="227.0" onAction="#actionCopri" prefHeight="25.0" prefWidth="144.0" />
+      <Label layoutX="426.0" layoutY="234.0" text="NON ASSEGNATI" textFill="#0004ff">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnResetta" layoutX="528.0" layoutY="28.0" mnemonicParsing="false" onAction="#actionResetta" text="RESETTA" />
+      <Button fx:id="btnResetta" layoutX="242.0" layoutY="531.0" mnemonicParsing="false" onAction="#actionResetta" prefHeight="32.0" prefWidth="127.0" text="RESETTA" />
       <Label fx:id="lblAnnulla" layoutX="771.0" layoutY="230.0" prefHeight="18.0" prefWidth="176.0" textFill="RED" />
-      <Label fx:id="lblEmail" layoutX="599.0" layoutY="32.0" prefHeight="18.0" prefWidth="302.0" textFill="RED" />
-      <Label fx:id="lblErrore" layoutX="100.0" layoutY="371.0" prefHeight="17.0" prefWidth="217.0" textFill="RED" />
-      <Label layoutX="245.0" layoutY="253.0" />
+      <Label fx:id="lblEmail" layoutX="74.0" layoutY="96.0" prefHeight="18.0" prefWidth="245.0" textFill="RED" />
+      <Label fx:id="lblData" layoutX="74.0" layoutY="191.0" prefHeight="17.0" prefWidth="166.0" textFill="RED" />
+      <Label layoutX="22.0" layoutY="367.0" text="ETICHETTA PACCO" textFill="#0004ff">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="408.0" text="NOME:" textFill="#0004ff" />
+      <Label fx:id="lblInfoNome" layoutX="72.0" layoutY="408.0" prefHeight="17.0" prefWidth="295.0" textFill="#0004ff" />
+      <Label layoutX="25.0" layoutY="431.0" text="INDIRIZZO: " textFill="#0004ff" />
+      <Label fx:id="lblInfoIndirizzo" layoutX="97.0" layoutY="431.0" prefHeight="17.0" prefWidth="269.0" textFill="#0004ff" />
+      <Label fx:id="lblInfoData" layoutX="136.0" layoutY="454.0" prefHeight="17.0" prefWidth="127.0" textFill="#0004ff" />
+      <Label layoutX="24.0" layoutY="454.0" text="DATA CONSEGNA:" textFill="#0004ff" />
+      <Separator layoutX="17.0" layoutY="392.0" prefHeight="17.0" prefWidth="352.0" />
+      <Separator layoutX="362.0" layoutY="399.0" orientation="VERTICAL" prefHeight="89.0" prefWidth="20.0" />
+      <Separator layoutX="14.0" layoutY="481.0" prefHeight="17.0" prefWidth="358.0" />
+      <Button fx:id="btnInserisci2" layoutX="249.0" layoutY="227.0" mnemonicParsing="false" onAction="#actionInserisciIndirizzo" text="INSERISCI" />
+      <Button fx:id="btnInserisci1" layoutX="249.0" layoutY="152.0" mnemonicParsing="false" onAction="#actionInserisciData" text="INSERISCI" />
+      <Separator layoutX="7.0" layoutY="399.0" orientation="VERTICAL" prefHeight="89.0" prefWidth="20.0" />
+      <Separator layoutX="389.0" layoutY="5.0" orientation="VERTICAL" prefHeight="590.0" prefWidth="20.0" />
+      <Label fx:id="lblErrore" layoutX="25.0" layoutY="513.0" prefHeight="17.0" prefWidth="127.0" textFill="RED" />
+      <Label fx:id="lblErrore2" layoutX="249.0" layoutY="208.0" prefHeight="17.0" prefWidth="116.0" textFill="RED" />
    </children>
 </AnchorPane>

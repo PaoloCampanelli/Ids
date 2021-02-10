@@ -10,6 +10,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -24,40 +25,49 @@ import java.util.List;
 
 public class OrdineFXController implements FXStage {
 
+    private Cliente cliente;
     private Negozio negozio;
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("PREDEFINITO", "NUOVO");
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Cliente> clienteDisponibili;
     @FXML
-    private TableView<Cliente> tabellaCliente;
+    TableView<Cliente> tabellaCliente;
     @FXML
-    private TableView<Pacco> tabellaPacchi;
+    TableView<Pacco> tabellaPacchi;
     @FXML
-    private TableColumn<Cliente, String> tbNome;
+    TableColumn<Cliente, String> tbNome;
     @FXML
-    private TableColumn<Cliente, String> tbIndirizzo;
+    TableColumn<Cliente, String> tbIndirizzo;
     @FXML
-    private TableColumn<Cliente, String> tbEmail;
+    TableColumn<Cliente, String> tbEmail;
     @FXML
-    private TextField txtEmail, txtId, txtEmailRicerca, txtVia, txtCitta, txtCivico, txtProv, txtCap;
+    TextField txtEmail, txtId, txtEmailRicerca, txtVia, txtCitta, txtCivico, txtProv, txtCap;
     @FXML
-    private DatePicker dpData;
+    DatePicker dpData;
     @FXML
-    private Button btnRicerca, btnAnnulla, btnCrea, btnResetta, btnConferma;
+    Button btnRicerca, btnAnnulla, btnCrea, btnResetta, btnInserisci1, btnInserisci2;
     @FXML
-    private HBox hboxNascosta;
+    HBox hboxNascosta;
     @FXML
-    private Label lblAnnulla, lblEmail, lblErrore, lblErroreIndirizzo;
+    Label lblAnnulla, lblEmail, lblErroreIndirizzo, lblInfoNome, lblData, lblInfoIndirizzo, lblInfoData, lblErrore, lblErrore2;
     @FXML
-    private TableColumn<Pacco, String> tbId;
+    TableColumn<Pacco, String> tbId;
     @FXML
-    private TableColumn<Pacco, String> tbDestinatario;
+    TableColumn<Pacco, String> tbDestinatario;
     @FXML
-    private TableColumn<Pacco, String> tbIndirizzoPacco;
+    TableColumn<Pacco, String> tbIndirizzoPacco;
     @FXML
-    private TableColumn<Pacco, String> tbDataPacco;
+    TableColumn<Pacco, String> tbDataPacco;
     @FXML
-    private ChoiceBox<String> selezionaIndirizzo;
+    ChoiceBox<String> selezionaIndirizzo;
+    @FXML
+    ChoiceBox<String> chbxProvincia;
+
+    private ObservableList<String> provincia = FXCollections.observableArrayList(
+            "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
+            "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
+            "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
+
 
     public OrdineFXController() {
     }
@@ -67,6 +77,7 @@ public class OrdineFXController implements FXStage {
         selezionaIndirizzo.setItems(tipologiaDisponibile);
         selezionaIndirizzo.setValue("PREDEFINITO");
         hboxNascosta.setDisable(true);
+        chbxProvincia.setItems(provincia);
     }
 
     /**
@@ -102,20 +113,59 @@ public class OrdineFXController implements FXStage {
         tabellaCliente.setPlaceholder(new Label("C3 non contiene clienti!"));
     }
 
-    public void actionRicerca() {
+    public void actionInserisciEmail() throws SQLException {
+        settaClienti();
+        inserisciEmail(txtEmail.getText());
+    }
+
+    public void actionInserisciIndirizzo() {
+        lblErrore2.setText("");
+        if(btnInserisci1.isDisable() == true) {
+            lblErrore2.setText("Email mancante");
+        } else {
+            lblErrore2.setText("");
+            lblInfoIndirizzo.setText(" ");
+            String via = txtVia.getText();
+            String citta = txtCitta.getText();
+            String prov = chbxProvincia.getValue();
+            String civico = txtCivico.getText();
+            String cap = txtCap.getText();
+            if (selezionaIndirizzo.getValue().equals("PREDEFINITO")) {
+                lblInfoIndirizzo.setText(cliente.indirizzo.toString());
+            } else if (controllaIndirizzo(via, citta, civico, cap)) {
+                Indirizzo indirizzo = new Indirizzo(via, citta, civico, cap, prov);
+                lblInfoIndirizzo.setText(indirizzo.toString());
+            }
+        }
+    }
+
+        public void actionInserisciData(ActionEvent actionEvent) {
+            lblData.setText("");
+            lblInfoData.setText("");
+            if(dpData.getValue().isBefore(LocalDate.now())||dpData.getValue() == null){
+                lblData.setText("Data non valida");
+            }else
+                lblInfoData.setText(dpData.getValue().toString());
+        }
+
+
+    private void inserisciEmail(String text) {
         lblEmail.setText(" ");
         List<Cliente> unico = new ArrayList<>();
-        String email = txtEmail.getText().toUpperCase();
+        String email = text.toUpperCase();
         if (!email.isBlank()) {
             if (clienteEsistente(email)) {
-                Cliente cliente = prendiCliente(email);
+                btnInserisci1.setDisable(false);
+                btnInserisci2.setDisable(false);
+                cliente = prendiCliente(email);
+                lblInfoNome.setText(cliente.denominazione);
                 unico.add(cliente);
                 clienteDisponibili = FXCollections.observableArrayList(unico);
                 tabellaCliente.setItems(clienteDisponibili);
-            } else {
+            } else
                 lblEmail.setText(email + " non esistente nel sistema");
-            }
-        }
+        }else
+            lblEmail.setText("Questo campo non puo' essere vuoto");
     }
 
     public void actionCopri() {
@@ -125,6 +175,19 @@ public class OrdineFXController implements FXStage {
 
     public void actionResetta() throws SQLException {
         settaClienti();
+        lblInfoIndirizzo.setText("");
+        lblInfoData.setText("");
+        lblData.setText("");
+        lblEmail.setText("");
+        lblInfoNome.setText("");
+        lblErroreIndirizzo.setText("");
+        txtEmail.clear();
+        txtCivico.clear();
+        txtCap.clear();
+        txtCitta.clear();
+        txtId.clear();
+        txtVia.clear();
+        dpData.setValue(LocalDate.now());
     }
 
     public void actionAnnulla() throws SQLException {
@@ -146,27 +209,35 @@ public class OrdineFXController implements FXStage {
      * @throws SQLException
      */
     private void creaPacco() throws SQLException {
+        lblErroreIndirizzo.setText("");
         String email = txtEmail.getText().toUpperCase();
         LocalDate data = dpData.getValue();
         String via = txtVia.getText();
         String citta = txtCitta.getText();
-        String prov = txtProv.getText();
+        String prov = chbxProvincia.getValue();
         String civico = txtCivico.getText();
         String cap = txtCap.getText();
-        if (controllaInfo(email, data, via, citta, prov, civico, cap)) {
+        if(!(lblInfoNome.getText().isBlank()||lblInfoData.getText().isBlank()||lblInfoIndirizzo.getText().isBlank())){
             lblErrore.setText("");
-            lblErroreIndirizzo.setText("");
-            Cliente cliente = prendiCliente(email);
-            Pacco pacco;
-            Date date = Date.from(data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-            if (selezionaIndirizzo.getValue().equals("NUOVO")) {
-                Indirizzo indirizzo = new Indirizzo(via, civico, citta, cap, prov);
-                pacco = new Pacco(cliente, getNegozio(), date, indirizzo);
-            } else
-                pacco = new Pacco(cliente, getNegozio(), date, cliente.indirizzo);
-            recapInfo(pacco);
-        }
+            if (controllaInfo(email, data, via, citta, civico, cap)) {
+                Cliente cliente = prendiCliente(email);
+                Pacco pacco;
+                Date date = Date.from(data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                if (selezionaIndirizzo.getValue().equals("NUOVO")) {
+                    Indirizzo indirizzo = new Indirizzo(via, civico, citta, cap, prov);
+                    pacco = new Pacco(cliente, getNegozio(), date, indirizzo);
+                } else
+                    pacco = new Pacco(cliente, getNegozio(), date, cliente.indirizzo);
+                if (recapInfo(pacco) == ButtonType.OK) {
+                    new GestorePacco().save(pacco);
+                    settaPacchi(getNegozio());
+                }
+            }
+        }else
+            lblErrore.setText("INSERISCI INFO");
+
     }
+
 
     /**
      * Mostra le informazioni del pacco da creare
@@ -174,18 +245,15 @@ public class OrdineFXController implements FXStage {
      * @param pacco pacco da creare
      * @throws SQLException
      */
-    private void recapInfo(Pacco pacco) throws SQLException {
-        Alert alert = new Alert(AlertType.CONFIRMATION,
-                "Spedito da: " + pacco.mittente.denominazione + "									"
-                        + "Destinatario: " + pacco.destinatario.eMail
-                        + " Consegna: " + pacco.dataConsegnaRichiesta + " "
-                        + pacco.indirizzo.toString(), ButtonType.YES, ButtonType.NO);
+    private ButtonType recapInfo(Pacco pacco){
+        Alert alert = new Alert(AlertType.NONE,
+                "Spedito da: " + pacco.mittente.denominazione
+                        + "\nDestinatario: " + pacco.destinatario.eMail
+                        + "\nConsegna: " + pacco.dataConsegnaRichiesta + "\n"
+                        + pacco.indirizzo.toString(), ButtonType.OK, ButtonType.NO);
         alert.setTitle("Conferma pacco");
         alert.showAndWait();
-        if (alert.getResult() == ButtonType.YES) {
-            pacchiNonAssegnati.add(pacco);
-            new GestorePacco().save(pacco);
-        }
+        return alert.getResult();
     }
 
     /**
@@ -213,39 +281,34 @@ public class OrdineFXController implements FXStage {
      * @param data   data inserita -> può essere l'odierna o futura
      * @param via    via inserita
      * @param citta  citta inserita
-     * @param prov   provincia inserita -> 2 caratteri
      * @param civico civico inserito
      * @param cap    cap inserito -> 5 caratteri
      * @return true se le informazioni sono valide
      */
-    private boolean controllaInfo(String email, LocalDate data, String via, String citta, String prov, String civico, String cap) {
-        if (!email.isBlank()) {
-            if (clienteEsistente(email)) {
-                if (data.isAfter(LocalDate.now())) {
+    private boolean controllaInfo(String email, LocalDate data, String via, String citta, String civico, String cap) {
+        if (!email.isBlank())
+            if (clienteEsistente(email))
+                if (data.isAfter(LocalDate.now()))
                     if (selezionaIndirizzo.getValue().equals("NUOVO")) {
-                        if (!(via.isBlank() || citta.isBlank())) {
-                            if ((prov.length() == 2) || !(prov.isBlank())) {
-                                if (!(civico.isBlank())) {
-                                    if (cap.length() != 5 || !(cap.isBlank())) {
-                                        return true;
-                                    } else
-                                        lblErroreIndirizzo.setText("Cap non valido");
-                                } else
-                                    lblErroreIndirizzo.setText("Civico non valido");
-                            } else
-                                lblErroreIndirizzo.setText("Provincia non valida");
-                        } else
-                            lblErroreIndirizzo.setText("Info non valide");
-                    } else
-                        return true;
-                } else
-                    lblErrore.setText("Data non valida");
-            } else
-                lblErrore.setText("Email non valida");
-        } else
-            lblErrore.setText("Email non esistente nel sistema");
+                        if (controllaIndirizzo(via, citta, civico, cap))
+                            return true;
+                    }else
+                            return true;
         return false;
+    }
 
+    private boolean controllaIndirizzo(String via, String citta, String civico, String cap){
+        if (!(via.isBlank() || citta.isBlank())) {
+            if (!(civico.isBlank())) {
+                if (cap.length() != 5 || !(cap.isBlank())) {
+                    return true;
+                } else
+                    lblErroreIndirizzo.setText("Cap non valido");
+            } else
+                lblErroreIndirizzo.setText("Civico non valido");
+        } else
+            lblErroreIndirizzo.setText("Info non valide");
+        return false;
     }
 
     /**
@@ -259,7 +322,9 @@ public class OrdineFXController implements FXStage {
         setNegozio(account);
         settaPacchi(getNegozio());
         settaClienti();
-
+        chbxProvincia.setValue(account.indirizzo.provincia);
+        btnInserisci1.setDisable(true);
+        btnInserisci2.setDisable(true);
     }
 
     /**
@@ -279,4 +344,5 @@ public class OrdineFXController implements FXStage {
             this.negozio = (Negozio) account;
         }
     }
+
 }

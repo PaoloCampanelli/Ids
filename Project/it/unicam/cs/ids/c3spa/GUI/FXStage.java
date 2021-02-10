@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
-import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,7 +54,7 @@ public interface FXStage extends FXController {
 
     default ButtonType alertModifica() {
         Alert alert = new Alert(Alert.AlertType.NONE,
-                "Il sistema verra' riavviato anche se non effettuerai modifiche, vuoi continuare?", ButtonType.OK, ButtonType.NO);
+                "Il sistema verra' riavviato in seguito \nVuoi continuare?", ButtonType.OK, ButtonType.NO);
         alert.setTitle("Avvertimento!");
         alert.showAndWait();
         return alert.getResult();
