@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="33.0" layoutY="29.0" prefHeight="17.0" prefWidth="50.0" text="Email" />
+      <Label layoutX="33.0" layoutY="63.0" text="Password" />
+      <TextField fx:id="txtMail" layoutX="113.0" layoutY="25.0" />
+      <PasswordField fx:id="txtPassword" layoutX="113.0" layoutY="59.0" />
+      <Label fx:id="lblLogin" layoutX="113.0" layoutY="92.0" prefHeight="17.0" prefWidth="254.0" text="      " textFill="RED" />
+      <Button fx:id="btnAccedi" layoutX="293.0" layoutY="38.0" mnemonicParsing="false" onAction="#actionAccedi" text="ACCEDI" />
+   </children>
+</Pane>
