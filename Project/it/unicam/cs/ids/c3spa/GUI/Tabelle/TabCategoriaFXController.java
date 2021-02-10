@@ -52,9 +52,6 @@ public class TabCategoriaFXController implements FXController {
         tbCitta.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));
         tabellaCategoria.setItems(ln);
         tabellaCategoria.setPlaceholder(new Label("C3 non contiene questa categoria!"));
-
-
-
     }
 
 

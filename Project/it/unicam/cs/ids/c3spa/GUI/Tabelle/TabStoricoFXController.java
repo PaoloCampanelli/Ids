@@ -80,6 +80,7 @@ public class TabStoricoFXController implements FXController {
          * @param tabellaStorico
          */
         private void settaTabella(TableView<Pacco> tabellaStorico) {
+            storico.removeIf(i -> i.id == 0);
             tbMittente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
             tbDestinatario.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().destinatario.denominazione));
             tbCorriere.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().corriere.denominazione));

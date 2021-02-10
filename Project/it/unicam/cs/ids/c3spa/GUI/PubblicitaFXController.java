@@ -10,6 +10,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -49,11 +50,15 @@ public class PubblicitaFXController implements FXStage{
         Date dataInizio = Date.from(dpInizio.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         Date dataFine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         int tok = Pubblicita.tokenNecessari(dataInizio, dataFine);
-        if(tok<0){
+        if(tok<=0){
             lblConta.setText("DATE NON VALIDE");
         }else{
             lblConta.setText("NECESSARI: "+tok);
         }
+    }
+
+    public void actionScopri(ActionEvent actionEvent) {
+        dpFine.setDisable(false);
     }
 
     public void actionAttiva() throws SQLException {
@@ -88,17 +93,20 @@ public class PubblicitaFXController implements FXStage{
         Date dataInizio = Date.from(dpInizio.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         Date dataFine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         if (dataInizio.before(dataFine)) {
-            Pubblicita pubblicita = new Pubblicita(Servizi.dataUtilToSql(dataInizio), Servizi.dataUtilToSql(dataFine), getNegozio());
-            if (getNegozio().token == 0) {
-                lblConta.setText("CONTATTA L'ADMIN!");
-            } else {
-                if (recapInfo(pubblicita) == ButtonType.OK) {
-                    new GestoreNegozio().creaPubblicita(pubblicita, getNegozio());
+                Pubblicita pubblicita = new Pubblicita(Servizi.dataUtilToSql(dataInizio), Servizi.dataUtilToSql(dataFine), getNegozio());
+                if (getNegozio().token == 0) {
+                    lblConta.setText("CONTATTA L'ADMIN!");
+                } else {
+                    if (recapInfo(pubblicita) == ButtonType.OK) {
+                        new GestoreNegozio().creaPubblicita(pubblicita, getNegozio());
+                    }
                 }
-            }
-        }
+            } else
+                lblConta.setText("Date non valide");
+
         settaTabella();
     }
+
 
     private void annullaPubblicita(int idRicercato) throws SQLException {
         GestorePubblicita gp = new GestorePubblicita();
@@ -115,7 +123,7 @@ public class PubblicitaFXController implements FXStage{
     }
 
     private ButtonType alertElimina(Pubblicita pubblicita) {
-        Alert alert = new Alert(Alert.AlertType.WARNING,
+        Alert alert = new Alert(Alert.AlertType.NONE,
                 "ATTENZIONE! I token non verranno rimborsati!\n"+pubblicita.id+"|" +
                         "INIZIO: "+pubblicita.dataInizio.toString()+
                         " FINE: "+pubblicita.dataInizio.toString(), ButtonType.OK, ButtonType.NO);
@@ -125,7 +133,7 @@ public class PubblicitaFXController implements FXStage{
     }
 
     private ButtonType recapInfo(Pubblicita pubblicita) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+        Alert alert = new Alert(Alert.AlertType.NONE,
                 "INIZIO: "+pubblicita.dataInizio.toString()+
                         "\nFINE: "+pubblicita.dataFine.toString(), ButtonType.OK, ButtonType.NO);
         alert.setTitle("Conferma pubblicita'");
@@ -140,6 +148,7 @@ public class PubblicitaFXController implements FXStage{
         settaTabella();
         cercaPubblicita();
         logo.setImage(new Image(getClass().getResourceAsStream("resources/logo.png")));
+        dpFine.setDisable(true);
     }
 
 
@@ -160,6 +169,5 @@ public class PubblicitaFXController implements FXStage{
     private Negozio getNegozio(){
         return negozio;
     }
-
 
 }

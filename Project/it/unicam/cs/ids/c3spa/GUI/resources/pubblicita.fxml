@@ -12,7 +12,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <DatePicker fx:id="dpInizio" layoutX="263.0" layoutY="67.0" />
+      <DatePicker fx:id="dpInizio" layoutX="263.0" layoutY="67.0" onAction="#actionScopri" />
       <Label layoutX="265.0" layoutY="44.0" text="DATA DI INIZIO" textFill="#0004ff" />
       <Label layoutX="263.0" layoutY="101.0" text="DATA DI FINE" textFill="#0004ff" />
       <DatePicker fx:id="dpFine" layoutX="263.0" layoutY="127.0" onAction="#actionSettaToken" />
