@@ -1,11 +1,11 @@
 package it.unicam.cs.ids.c3spa.test;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.*;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,6 +62,7 @@ class NegozioTest {
 
     @Test
     void aggiungiPubblicita() {
-        //TODO
+        Pubblicita p = new Pubblicita(4, Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(300000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(625000))), negozio);
+        assertEquals(negozio.aggiungiPubblicita(p).toString(), p.toString());
     }
 }
