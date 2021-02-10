@@ -118,7 +118,4 @@ class GestorePubblicitaTest {
         assertEquals(gestorePubblicita.getNegoziConPubblicitaAttiva().toString(), negozi.stream().filter(n->n.id==1).collect(Collectors.toList()).toString());
     }
 
-    @Test
-    void orderByPubblicita() {
-    }
 }
