@@ -138,20 +138,20 @@ public class GestorePaccoTest{
     @Test
     void getAll() throws SQLException {
         inseriscoPacchi();
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.id==1));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(primoPacco.indirizzo)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(primoPacco.dataPreparazione)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(primoPacco.dataPreparazione)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(primoPacco.corriere)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(primoPacco.mittente)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(primoPacco.destinatario)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.id==2));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(secondoPacco.indirizzo)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(secondoPacco.dataPreparazione)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(secondoPacco.dataPreparazione)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(secondoPacco.corriere)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(secondoPacco.mittente)));
-        assertNotNull(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(secondoPacco.destinatario)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.id==1));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(primoPacco.indirizzo)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(primoPacco.dataPreparazione)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(primoPacco.dataPreparazione)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(primoPacco.corriere)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(primoPacco.mittente)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(primoPacco.destinatario)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.id==2));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(secondoPacco.indirizzo)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(secondoPacco.dataPreparazione)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(secondoPacco.dataPreparazione)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(secondoPacco.corriere)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(secondoPacco.mittente)));
+        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(secondoPacco.destinatario)));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class GestorePaccoTest{
         Indirizzo nuovoIndirizzo = new Indirizzo().CreaIndirizzo("ROMA", "1", "MACERATA", "62100", "MC");
         Cliente nuovoCliente = new Cliente("CLIENTE", nuovoIndirizzo, "1", "CLIENTE@", "CLIENTE!!");
         Pacco nuovoPacco = new Pacco().CreaPacco(0, nuovoCliente, negozioFruttivendolo, Date.valueOf("2021-01-30"), nuovoIndirizzo);
-        assertTrue( gestorePacco.save(nuovoPacco).toString()!= null);
+        assertNotNull(gestorePacco.save(nuovoPacco).toString());
     }
 
     @Test
@@ -169,13 +169,13 @@ public class GestorePaccoTest{
         Pacco nuovoPacco = new Pacco().CreaPacco(0, nuovoCliente, negozioFruttivendolo, Date.valueOf("2021-01-30"), nuovoIndirizzo);
         gestorePacco.save(nuovoPacco);
         gestorePacco.delete(3);
-        assertFalse(nuovoPacco.equals(gestorePacco.getById(nuovoPacco.id)));
+        assertNotEquals(gestorePacco.getById(nuovoPacco.id), nuovoPacco);
     }
 
     @Test
     void assegnaPacco() throws SQLException {
         gestorePacco.assegnaPacco(secondoPacco, corriereDhl);
-        assertTrue(secondoPacco.corriere.equals(corriereDhl));
+        assertEquals(corriereDhl, secondoPacco.corriere);
 
     }
 

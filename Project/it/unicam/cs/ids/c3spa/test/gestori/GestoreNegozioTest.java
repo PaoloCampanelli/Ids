@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
-import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
+import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
@@ -12,13 +10,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -163,5 +164,18 @@ public class GestoreNegozioTest {
     void getNegoziAndCategorie() throws SQLException {
         inseriscoNegozi();
         assertEquals(new GestoreNegozio().getNegoziAndCategorie().toString(), negozi.toString());
+    }
+
+    @Test
+    void creaSconto() {
+        Sconto sconto = new Sconto("10%", Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(900000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(4000000))), negozioMercatoDellaCasa, categoriaVasi);
+        assertTrue(gestoreNegozio.creaSconto(sconto, negozioMercatoDellaCasa));
+    }
+
+    @Test
+    void creaPubblicita() {
+        Pubblicita p = new Pubblicita(Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(300000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(625000))), negozioFruttivendolo);
+        assertTrue(gestoreNegozio.creaPubblicita(p, negozioFruttivendolo));
+
     }
 }
