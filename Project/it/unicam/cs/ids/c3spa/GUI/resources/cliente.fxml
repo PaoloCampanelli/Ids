@@ -12,7 +12,7 @@
       <HBox layoutX="378.0" layoutY="130.0" prefHeight="17.0" prefWidth="327.0">
          <children>
             <Label prefHeight="17.0" prefWidth="152.0" text="Per ricercare tutti i negozi a " textFill="#0004ff" />
-            <Label fx:id="lblCittaUtente" prefHeight="17.0" prefWidth="79.0" text="           " />
+            <Label fx:id="lblCittaUtente" prefHeight="17.0" prefWidth="176.0" text="           " textFill="#0004ff" />
          </children>
       </HBox>
       <HBox layoutX="14.0" layoutY="210.0" prefHeight="25.0" prefWidth="334.0">

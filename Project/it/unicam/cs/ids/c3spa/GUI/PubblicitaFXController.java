@@ -49,11 +49,15 @@ public class PubblicitaFXController implements FXStage{
         Date dataInizio = Date.from(dpInizio.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         Date dataFine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         int tok = Pubblicita.tokenNecessari(dataInizio, dataFine);
-        if(tok<0){
+        if(tok<=0){
             lblConta.setText("DATE NON VALIDE");
         }else{
             lblConta.setText("NECESSARI: "+tok);
         }
+    }
+
+    public void actionAbilitaFine(){
+        dpFine.setDisable(false);
     }
 
     public void actionAttiva() throws SQLException {
@@ -98,6 +102,7 @@ public class PubblicitaFXController implements FXStage{
             }
         }
         settaTabella();
+        cercaPubblicita();
     }
 
     private void annullaPubblicita(int idRicercato) throws SQLException {
@@ -139,6 +144,7 @@ public class PubblicitaFXController implements FXStage{
         setNegozio(account);
         settaTabella();
         cercaPubblicita();
+        dpFine.setDisable(true);
         logo.setImage(new Image(getClass().getResourceAsStream("resources/logo.png")));
     }
 

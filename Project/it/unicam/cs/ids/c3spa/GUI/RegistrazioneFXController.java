@@ -47,6 +47,7 @@ public class RegistrazioneFXController implements FXStage {
         tipologia.setItems(tipologiaDisponibile);
         tipologia.setValue("CLIENTE");
         chbxProvincia.setItems(provincia);
+        chbxProvincia.setValue("AG");
     }
 
     public void actionRegistrazione() throws Exception {
@@ -83,7 +84,7 @@ public class RegistrazioneFXController implements FXStage {
         String civico = txtCivico.getText().toUpperCase();
         String tipologia = tipologia();
         if (controllaInfo(tipologia, email, nome, passw, numero)) {
-            if (controllaIndirizzo(via, citta, cap, civico)) {
+            if (controllaIndirizzo(via, citta, cap, civico, prov)) {
                 Indirizzo indirizzo = new Indirizzo(via, civico, citta, cap, prov);
                 Stage attuale = (Stage) btnRegistrati.getScene().getWindow();
                 attuale.hide();
@@ -123,12 +124,13 @@ public class RegistrazioneFXController implements FXStage {
      * @param civico
      * @return
      */
-    private boolean controllaIndirizzo(String via, String citta, String cap, String civico) {
+    private boolean controllaIndirizzo(String via, String citta, String cap, String civico, String provincia){
         if (!citta.isBlank()) {
             if ((!cap.isBlank()) && cap.length() == 5) {
                 if ((!civico.isBlank())) {
                     if ((!via.isBlank())) {
-                        return true;
+                        if(!provincia.isBlank())
+                             return true;
                     }
                 }
             }

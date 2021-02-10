@@ -31,13 +31,13 @@
         </rowConstraints>
          <children>
             <Label text="Denominazione" textFill="#0004ff" GridPane.rowIndex="1" />
-            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" />
             <Label text="Password" textFill="#0004ff" GridPane.rowIndex="2" />
             <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Numero telefonico" textFill="#0004ff" GridPane.rowIndex="3" />
             <TextField fx:id="txtNumero" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Email" textFill="#0004ff" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label layoutX="65.0" layoutY="242.0" text="Indirizzo" textFill="#0004ff" />

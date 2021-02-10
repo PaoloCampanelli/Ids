@@ -6,7 +6,6 @@ import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -42,11 +41,11 @@ public class AdminFXController implements FXStage {
         }
     }
 
-    public void actionGestisci(ActionEvent actionEvent) throws IOException, SQLException {
+    public void actionGestisci() throws IOException, SQLException {
         apriStageController("resources/gestioneAccount.fxml", new TabGestioneFXController(), getAdmin());
     }
 
-    public void actionRecupera(ActionEvent actionEvent) throws IOException, SQLException {
+    public void actionRecupera() throws IOException, SQLException {
         apriStageController("resources/ripristinaAccount.fxml", new TabRipristinaFXController(), getAdmin());
     }
 
@@ -80,9 +79,7 @@ public class AdminFXController implements FXStage {
     }
 
     private void setAmministratore(Account account){
-        if(account instanceof Amministratore){
-            this.amministratore= (Amministratore) account;
-        }
+        this.amministratore= (Amministratore) account;
     }
 
     private Amministratore getAdmin(){
