@@ -87,4 +87,10 @@ class GestoreCorriereTest {
         new GestoreCorriere().delete(4);
         assertFalse(c.equals(gestoreCorriere.getById(4)));
     }
+
+    @Test
+    void getByEMail() throws SQLException {
+        inseriscoCorrieri();
+        assertEquals(gestoreCorriere.getByEMail("BARTOLINI@GMAIL.COM").toString(), corrieri.stream().filter(a->a.eMail.equals("BARTOLINI@GMAIL.COM")).findAny().orElse(null).toString());
+    }
 }
