@@ -87,7 +87,7 @@ public class OrdineFXController implements FXStage {
      * @throws SQLException
      */
     public void settaPacchi(Negozio negozio) throws SQLException {
-        List<Pacco> pacco = new GestorePacco().getByMittente(negozio);
+        List<Pacco> pacco = new GestorePacco().getPacchiNonAssegnatiByMittente(negozio);
         pacchiNonAssegnati = FXCollections.observableArrayList(pacco);
         tbId.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbDestinatario.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().destinatario.eMail));
