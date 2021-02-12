@@ -151,6 +151,32 @@ public class GestoreAmministratore extends GestoreBase implements ICRUD {
 
     }
 
+    public Amministratore getAmministratoreByProvincia(String provincia) throws SQLException {
+
+        Statement st;
+        ResultSet rs;
+        String sql;
+        List<Amministratore> la = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+            st = conn.createStatement(); // creo sempre uno statement sulla
+            sql = "SELECT * FROM amministratori WHERE (`indirizzo.provincia` like '"+provincia+"');";
+            rs = st.executeQuery(sql); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Amministratore a = new Amministratore();
+                la.add(a.mapData(rs));
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+        return la.stream().findFirst().orElse(null);
+    }
+
     public List<Cliente> getClientiCancellati(Amministratore amministratore) throws SQLException {
 
         Statement st;

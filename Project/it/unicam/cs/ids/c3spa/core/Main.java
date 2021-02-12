@@ -62,7 +62,7 @@ public class Main {
 //        c.password = "654321";
 //        System.out.println(new GestoreCliente().cambiaPassword(c));
 
-        System.out.println();
+        System.out.println(new GestoreAmministratore().getAmministratoreByProvincia("pr"));
 
 
 
