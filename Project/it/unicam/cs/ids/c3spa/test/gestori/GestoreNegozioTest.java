@@ -142,8 +142,8 @@ public class GestoreNegozioTest {
     @Test
     void getByIndirizzo() throws SQLException {
         inseriscoNegozi();
-        assertEquals(negozi.stream().filter(i->i.indirizzo.citta.equals("CAMERINO")).collect(Collectors.toList()).toString(), new GestoreNegozio().getByIndirizzo("indirizzo.citta", "CAMERINO").toString());
-        assertEquals(negozi.stream().filter(i->i.indirizzo.citta.equals("URBISAGLIA")).collect(Collectors.toList()).toString(), new GestoreNegozio().getByIndirizzo("indirizzo.citta", "URBISAGLIA").toString());
+        assertEquals(negozi.stream().filter(i->i.indirizzo.citta.equals("CAMERINO")).collect(Collectors.toList()).toString(), new GestoreNegozio().getByIndirizzo( "CAMERINO").toString());
+        assertEquals(negozi.stream().filter(i->i.indirizzo.citta.equals("URBISAGLIA")).collect(Collectors.toList()).toString(), new GestoreNegozio().getByIndirizzo( "URBISAGLIA").toString());
     }
 
     @Test

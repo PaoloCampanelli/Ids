@@ -348,4 +348,18 @@ public class GestoreAmministratore extends GestoreBase implements ICRUD {
         return b;
 
     }
+
+    public Amministratore cambiaPassword(Amministratore amministratore) throws Exception {
+
+        PreparedStatement st;
+        ResultSet rs;
+        Connection conn = ApriConnessione();
+        st = conn.prepareStatement("UPDATE progetto_ids.amministratori SET password = ? WHERE amministratoreId = ?"); // creo sempre uno statement sulla
+        st.setString(1, new Servizi().encrypt(amministratore.password));
+        st.setInt(2,amministratore.id);
+        st.executeUpdate(); // faccio la query su uno statement
+
+        GestoreBase.ChiudiConnessione(conn); // chiusura connessione
+        return amministratore;
+    }
 }

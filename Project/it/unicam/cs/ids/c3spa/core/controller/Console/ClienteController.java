@@ -15,7 +15,7 @@ public class ClienteController{
     public void cercaNegozi(Cliente cliente, String scelta) throws SQLException {
         GestoreNegozio gn = new GestoreNegozio();
         String citta = cliente.indirizzo.citta;
-        List<Negozio> lnCitta = gn.getByIndirizzo("indirizzo.citta", citta);
+        List<Negozio> lnCitta = gn.getByIndirizzo(citta);
         List<Negozio> ln = gn.getAll();
         List<Negozio> lnCategoria = gn.getNegoziAndCategorie();
         switch (scelta) {

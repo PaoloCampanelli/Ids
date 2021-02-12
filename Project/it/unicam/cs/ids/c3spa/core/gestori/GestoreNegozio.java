@@ -185,23 +185,20 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         List<Negozio> ln = new ArrayList<>();
         Connection conn = ApriConnessione();
         GestoreCategoriaMerceologica gcm = new GestoreCategoriaMerceologica();
-        Negozio n = new Negozio();
+
 
         try {
             st = conn.createStatement(); // creo sempre uno statement sulla
-            sql = "SELECT * FROM negozi WHERE ("+colonna+" like \""+stringaDaRicercare+"\");";
+            sql = "SELECT * FROM negozi WHERE ("+colonna+" like \""+stringaDaRicercare+"\")" +
+                    "AND negozi.isCancellato = 0;";
             rs = st.executeQuery(sql); // faccio la query su uno statement
             while (rs.next() == true) {
-                ln.add(n.mapData(rs));
+                Negozio n = new Negozio();
+                n.mapData(rs);
+                ln.add(new GestoreNegozio().getById(n.id));
             }
             //Popolo le categorie collegate al negozio
 
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM progetto_ids.negozio_categoriemerceologiche WHERE negozioId = ?"); // creo sempre uno statement sulla
-            ps.setInt(1, n.id);
-            rs = ps.executeQuery(); // faccio la query su uno statement
-            while (rs.next() == true) {
-                n.categorie.add(gcm.getById(rs.getInt(2)));
-            }
             st.close();
         } catch (SQLException e) {
             System.out.println("errore:" + e.getMessage());
@@ -222,8 +219,8 @@ public class GestoreNegozio extends GestoreBase implements ICRUD{
         return getByString(colonna, denominazione);
     }
 
-    public List<Negozio> getByIndirizzo(String colonna, String citta) throws SQLException {
-        return getByString(colonna, citta);
+    public List<Negozio> getByIndirizzo( String citta) throws SQLException {
+        return getByString("`indirizzo.citta`", citta);
     }
 
     public List<Negozio> getByCategoria(String categoria) throws SQLException {
