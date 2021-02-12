@@ -65,6 +65,7 @@ public class TabRipristinaFXController implements FXController {
     }
 
     private void settaClienti(Amministratore amministratore) throws SQLException {
+        tabellaClienti.setPlaceholder(new Label("Non ci sono clienti eliminati"));
         List<Cliente> clienti = new GestoreAmministratore().getClientiCancellati(amministratore);
         listaClienti = FXCollections.observableArrayList(clienti);
         tbCMail.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().eMail));

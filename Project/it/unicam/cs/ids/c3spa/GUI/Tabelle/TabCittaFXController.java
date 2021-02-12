@@ -46,7 +46,6 @@ public class TabCittaFXController implements FXController {
         GestoreNegozio gn = new GestoreNegozio();
         GestorePubblicita gp = new GestorePubblicita();
         List<Negozio> negozi = gp.OrderByPubblicita(gn.getByIndirizzo( cliente.indirizzo.citta),  gp.getNegoziConPubblicitaAttivaByString("`indirizzo.citta`", cliente.indirizzo.citta));
-
         ln = FXCollections.observableArrayList(negozi);
         tbNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().denominazione));
         tbCategoria.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categorie.toString()));
