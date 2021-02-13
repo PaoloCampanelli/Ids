@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
-import it.unicam.cs.ids.c3spa.GUI.FXController;
+import it.unicam.cs.ids.c3spa.GUI.FXStage;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
@@ -15,7 +15,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabClientiFXController implements FXController {
+public class TabClientiFXController implements FXStage {
 
     private ObservableList<Cliente> ln;
     @FXML

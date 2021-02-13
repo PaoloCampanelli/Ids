@@ -170,6 +170,7 @@ public class OrdineFXController implements FXStage {
 
     public void actionCopri() {
         hboxNascosta.setDisable(!selezionaIndirizzo.getValue().contains("NUOVO"));
+        lblInfoIndirizzo.setText("");
 
     }
 

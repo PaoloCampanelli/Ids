@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class ModificaAdminFXController implements FXController{
+public class ModificaAdminFXController implements FXStage{
 
     private Amministratore amministratore;
     @FXML

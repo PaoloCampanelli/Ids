@@ -53,7 +53,7 @@ public interface FXStage extends FXController {
     }
 
     default ButtonType alertModifica() {
-        Alert alert = new Alert(Alert.AlertType.NONE,
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
                 "Il sistema verra' riavviato in seguito \nVuoi continuare?", ButtonType.OK, ButtonType.NO);
         alert.setTitle("Avvertimento!");
         alert.showAndWait();

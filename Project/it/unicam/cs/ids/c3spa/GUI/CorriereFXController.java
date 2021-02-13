@@ -4,7 +4,6 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import javafx.beans.property.SimpleStringProperty;
@@ -157,7 +156,15 @@ public class CorriereFXController implements FXStage {
     }
 
     public void actionContatti() throws IOException, SQLException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+        //CONTROLLO SOLO PERCHè NON ABBIAMO TUTTI I GESTORI
+        if(getCorriere().indirizzo.provincia.equals("MC") ||
+                getCorriere().indirizzo.provincia.equals("AP") ||
+                getCorriere().indirizzo.provincia.equals("PU") ||
+                getCorriere().indirizzo.provincia.equals("AN") ||
+                getCorriere().indirizzo.provincia.equals("FM")){
+            apriStageController("resources/contatti.fxml", new ContattiFXController(), getCorriere());
+        }
+
     }
 
     /**

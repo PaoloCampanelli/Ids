@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
-import it.unicam.cs.ids.c3spa.GUI.FXController;
+import it.unicam.cs.ids.c3spa.GUI.FXStage;
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
@@ -15,7 +15,7 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabCategoriaNegoziFXController implements FXController {
+public class TabCategoriaNegoziFXController implements FXStage {
 
     private Negozio negozio;
     private ObservableList<CategoriaMerceologica> lcm;

@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -24,6 +25,8 @@ public class HomeFXController implements FXStage {
     private ChoiceBox<String> tipoLogin;
     @FXML
     private ImageView logo;
+    @FXML
+    TextField txtProvincia;
 
     @FXML
     public void initialize() {
@@ -53,7 +56,15 @@ public class HomeFXController implements FXStage {
     }
 
     public void actionContatti() throws SQLException, IOException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+        String prov = txtProvincia.getText();
+        //CONTROLLO SOLO PERCHè NON ABBIAMO TUTTI I GESTORI
+        if(prov.equals("MC") ||
+                prov.equals("AP") ||
+                prov.equals("PU") ||
+                prov.equals("AN") ||
+                prov.equals("FM")) {
+        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
+        }
     }
 
 
@@ -61,8 +72,8 @@ public class HomeFXController implements FXStage {
         apriStage("resources/login.fxml", new AdminFXController());
     }
 
+    @Override
     public void initData(Account account) throws SQLException {
+
     }
-
-
 }

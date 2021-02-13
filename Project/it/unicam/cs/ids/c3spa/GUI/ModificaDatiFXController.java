@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class ModificaDatiFXController implements FXController {
+public class ModificaDatiFXController implements FXStage {
 
     private Cliente cliente;
     private Negozio negozio;
@@ -75,7 +75,7 @@ public class ModificaDatiFXController implements FXController {
     }
 
     private void alert() {
-        Alert alert = new Alert(AlertType.NONE, "Effettua il login!");
+        Alert alert = new Alert(AlertType.INFORMATION, "Effettua il login!");
         alert.setTitle("Modifica dati");
         alert.showAndWait();
     }

@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
-import it.unicam.cs.ids.c3spa.GUI.FXController;
+import it.unicam.cs.ids.c3spa.GUI.FXStage;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Negozio;
@@ -18,7 +18,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TabStoricoFXController implements FXController {
+public class TabStoricoFXController implements FXStage {
 
         private Cliente cliente;
         private Negozio negozio;

@@ -10,6 +10,7 @@ import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -100,6 +101,14 @@ public class ClienteFXController implements FXStage {
     }
 
     public void actionVisualizzaSconti() throws IOException, SQLException {
+        apriStage("resources/switchSconti.fxml", this);
+    }
+
+    public void actionProvincia(ActionEvent actionEvent) throws IOException, SQLException {
+        apriStageController("resources/tabellaScontiProvincia.fxml", new TabScontiProvinciaFXController(), getCliente());
+    }
+
+    public void actionTutti(ActionEvent actionEvent) throws IOException, SQLException {
         apriStageController("resources/tabellaSconti.fxml", new TabScontiFXController(), getCliente());
     }
 
@@ -112,7 +121,14 @@ public class ClienteFXController implements FXStage {
     }
 
     public void actionContatti() throws IOException, SQLException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), getCliente());
+        //CONTROLLO SOLO PERCHè NON ABBIAMO TUTTI I GESTORI
+        if(getCliente().indirizzo.provincia.equals("MC") ||
+                getCliente().indirizzo.provincia.equals("AP") ||
+                getCliente().indirizzo.provincia.equals("PU") ||
+                getCliente().indirizzo.provincia.equals("AN") ||
+                getCliente().indirizzo.provincia.equals("FM")) {
+            apriStageController("resources/contatti.fxml", new ContattiFXController(), getCliente());
+        }
     }
 
 
@@ -223,7 +239,6 @@ public class ClienteFXController implements FXStage {
             this.cliente = (Cliente) account;
         }
     }
-
 
 }
 

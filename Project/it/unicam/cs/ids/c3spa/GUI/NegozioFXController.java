@@ -5,7 +5,6 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -71,7 +70,14 @@ public class NegozioFXController implements FXStage {
     }
 
     public void actionContatti() throws IOException, SQLException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+        //CONTROLLO SOLO PERCHè NON ABBIAMO TUTTI I GESTORI
+        if(getNegozio().indirizzo.provincia.equals("MC") ||
+                getNegozio().indirizzo.provincia.equals("AP") ||
+                getNegozio().indirizzo.provincia.equals("PU") ||
+                getNegozio().indirizzo.provincia.equals("AN") ||
+                getNegozio().indirizzo.provincia.equals("FM")) {
+            apriStageController("resources/contatti.fxml", new ContattiFXController(), getNegozio());
+        }
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
