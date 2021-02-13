@@ -205,4 +205,38 @@ public class GestoreSconto extends GestoreBase implements ICRUD {
         return ls;
 
     }
+
+    public List<Sconto> getScontiAttiviByProvincia(String provincia) throws SQLException {
+        PreparedStatement st;
+        ResultSet rs;
+        List<Sconto> ls = new ArrayList<>();
+        Connection conn = ApriConnessione();
+
+        try {
+
+            st = conn.prepareStatement("SELECT * FROM sconti inner join negozi on negozi.negozioId = sconti.negozioId" +
+                    "                       where sconti.isCancellato = 0 " +
+                    "                       AND current_date() <= dataFine " +
+                    "                       AND   dataInizio <= current_date() " +
+                    "                       AND `indirizzo.provincia` =\""+provincia+"\";");
+            rs = st.executeQuery(); // faccio la query su uno statement
+            while (rs.next() == true) {
+                Sconto s = new Sconto();
+                s.mapData(rs);
+                s = new GestoreSconto().getById(s.id);
+                s.negozio = new GestoreNegozio().getById(s.negozio.id);
+                s.categoriaMerceologica = new GestoreCategoriaMerceologica().getById(s.categoriaMerceologica.idCategoria);
+                ls.add(s);
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("errore:" + e.getMessage());
+            e.printStackTrace();
+        } // fine try-catch
+
+        ChiudiConnessione(conn);
+
+        return ls;
+
+    }
 }

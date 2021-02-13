@@ -142,8 +142,73 @@ public class Servizi {
                 "  `eMail` VARCHAR(45) NOT NULL,\n" +
                 "  `password` VARCHAR(45) NOT NULL,\n" +
                 "  `isCancellato` BOOLEAN NOT NULL DEFAULT FALSE,\n" +
-                "  PRIMARY KEY (`amministratoreId`))" +
-                "As Select 1 As amministratoreId, \"nome e cognome\" as denominazione, \"citta\" as `indirizzo.citta`, \"numero\" as `indirizzo.numero` ,\"cap\" as `indirizzo.cap`,\"via\" as `indirizzo.via`, \"pr\" as`indirizzo.provincia`,\"1234567890\" as telefono, \"AMMINISTRATORE@MAIL\" as eMail ,\""+s+"\" as password, 0 as isCancellato");
+                "  PRIMARY KEY (`amministratoreId`))" );
+
+        stmt.execute("INSERT IGNORE INTO `amministratori`\n" +
+                "SET amministratoreId = 1\n" +
+                ", denominazione = \"amministratore AN\"\n" +
+                ", `indirizzo.citta` = \"citta\"\n" +
+                ", `indirizzo.numero` = \"numero\"\n" +
+                ", `indirizzo.cap` = \"cap\"\n" +
+                ", `indirizzo.via` = \"via\"\n" +
+                ", `indirizzo.provincia` = \"AN\"\n" +
+                ", telefono = \"1234567890\"\n" +
+                ", eMail = \"AMMINISTRATORE.AN@MAIL\"\n" +
+                ", password = \"gF8J9KhXOcc=\"\n" +
+                ", isCancellato = 0");
+
+        stmt.execute("INSERT IGNORE INTO `amministratori`\n" +
+                "SET amministratoreId = 2\n" +
+                ", denominazione = \"amministratore AP\"\n" +
+                ", `indirizzo.citta` = \"citta\"\n" +
+                ", `indirizzo.numero` = \"numero\"\n" +
+                ", `indirizzo.cap` = \"cap\"\n" +
+                ", `indirizzo.via` = \"via\"\n" +
+                ", `indirizzo.provincia` = \"AP\"\n" +
+                ", telefono = \"1234567890\"\n" +
+                ", eMail = \"AMMINISTRATORE.AP@MAIL\"\n" +
+                ", password = \"gF8J9KhXOcc=\"\n" +
+                ", isCancellato = 0");
+
+        stmt.execute("INSERT IGNORE INTO `amministratori`\n" +
+                "SET amministratoreId = 3\n" +
+                ", denominazione = \"amministratore FM\"\n" +
+                ", `indirizzo.citta` = \"citta\"\n" +
+                ", `indirizzo.numero` = \"numero\"\n" +
+                ", `indirizzo.cap` = \"cap\"\n" +
+                ", `indirizzo.via` = \"via\"\n" +
+                ", `indirizzo.provincia` = \"FM\"\n" +
+                ", telefono = \"1234567890\"\n" +
+                ", eMail = \"AMMINISTRATORE.FM@MAIL\"\n" +
+                ", password = \"gF8J9KhXOcc=\"\n" +
+                ", isCancellato = 0");
+
+        stmt.execute("INSERT IGNORE INTO `amministratori`\n" +
+                "SET amministratoreId = 4\n" +
+                ", denominazione = \"amministratore MC\"\n" +
+                ", `indirizzo.citta` = \"citta\"\n" +
+                ", `indirizzo.numero` = \"numero\"\n" +
+                ", `indirizzo.cap` = \"cap\"\n" +
+                ", `indirizzo.via` = \"via\"\n" +
+                ", `indirizzo.provincia` = \"MC\"\n" +
+                ", telefono = \"1234567890\"\n" +
+                ", eMail = \"AMMINISTRATORE.MC@MAIL\"\n" +
+                ", password = \"gF8J9KhXOcc=\"\n" +
+                ", isCancellato = 0");
+
+        stmt.execute("INSERT IGNORE INTO `amministratori`\n" +
+                "SET amministratoreId = 5\n" +
+                ", denominazione = \"amministratore PU\"\n" +
+                ", `indirizzo.citta` = \"citta\"\n" +
+                ", `indirizzo.numero` = \"numero\"\n" +
+                ", `indirizzo.cap` = \"cap\"\n" +
+                ", `indirizzo.via` = \"via\"\n" +
+                ", `indirizzo.provincia` = \"PU\"\n" +
+                ", telefono = \"1234567890\"\n" +
+                ", eMail = \"AMMINISTRATORE.PU@MAIL\"\n" +
+                ", password = \"gF8J9KhXOcc=\"\n" +
+                ", isCancellato = 0");
+
 
 
         stmt.close();

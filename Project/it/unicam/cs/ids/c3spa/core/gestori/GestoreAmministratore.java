@@ -99,7 +99,7 @@ public class GestoreAmministratore extends GestoreBase implements ICRUD {
                 }
                 else //é una modifica
                 {
-                    st = conn.prepareStatement("UPDATE progetto_ids.amministratori SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE clienteId = ?"); // creo sempre uno statement sulla
+                    st = conn.prepareStatement("UPDATE progetto_ids.amministratori SET denominazione = ?, `indirizzo.citta` = ?, `indirizzo.numero` = ?, `indirizzo.cap` = ?, `indirizzo.via` = ?, `indirizzo.provincia` = ?, telefono = ?, eMail = ?, password = ? WHERE amministratoreId = ?"); // creo sempre uno statement sulla
                     st.setString(1, c.denominazione);
                     st.setString(2, c.indirizzo.citta);
                     st.setString(3, c.indirizzo.numero);
@@ -108,7 +108,7 @@ public class GestoreAmministratore extends GestoreBase implements ICRUD {
                     st.setString(6, c.indirizzo.provincia);
                     st.setString(7, c.telefono);
                     st.setString(8, c.eMail);
-                    st.setString(9, new Servizi().encrypt(c.password));
+                    st.setString(9, c.password);
                     st.setInt(10,c.id);
 
                     st.executeUpdate(); // faccio la query su uno statement

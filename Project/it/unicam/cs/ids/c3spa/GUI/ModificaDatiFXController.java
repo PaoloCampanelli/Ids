@@ -5,7 +5,6 @@ import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
@@ -59,12 +58,6 @@ public class ModificaDatiFXController implements FXController {
             }
             new GestoreCorriere().save(corriere);
         }
-        else if (amministatore != null) {
-            if (accettaModifiche(amministatore) == 1) {
-                //new GestoreAmministratore().cambiaPassword(amministatore);
-            }
-            new GestoreAmministratore().save(amministatore);
-        }
         alert();
         Stage attuale = (Stage) btnConferma.getScene().getWindow();
         attuale.close();
@@ -82,7 +75,7 @@ public class ModificaDatiFXController implements FXController {
     }
 
     private void alert() {
-        Alert alert = new Alert(AlertType.INFORMATION, "Effettua il login!");
+        Alert alert = new Alert(AlertType.NONE, "Effettua il login!");
         alert.setTitle("Modifica dati");
         alert.showAndWait();
     }
@@ -131,6 +124,7 @@ public class ModificaDatiFXController implements FXController {
         if ((!txtVia.getText().isBlank())) {
             account.indirizzo.via = txtVia.getText().toUpperCase();
         }
+        account.indirizzo.provincia = chbxProvincia.getValue();
         return i;
     }
 

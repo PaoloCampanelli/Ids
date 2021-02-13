@@ -5,7 +5,6 @@ import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
@@ -69,8 +68,7 @@ public class ClienteFXController implements FXStage {
     public void actionRicercaNegozi() throws IOException, SQLException {
         apriStageController("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
     }
-
-    //controllare
+    
     public void actionRicercaNegoziByCitta() throws SQLException, IOException {
         apriStageController("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
     }
@@ -114,7 +112,7 @@ public class ClienteFXController implements FXStage {
     }
 
     public void actionContatti() throws IOException, SQLException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+        apriStageController("resources/contatti.fxml", new ContattiFXController(), getCliente());
     }
 
 

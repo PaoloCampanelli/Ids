@@ -2,6 +2,7 @@ package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.core.Amministratore;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -39,13 +40,13 @@ public class ContattiFXController implements FXStage{
 
     @Override
     public void initData(Account account) throws SQLException {
-        setAmministratore(account);
+        Amministratore ammin = new GestoreAmministratore().getAmministratoreByProvincia(account.indirizzo.provincia);
+        setAmministratore(ammin);
         settaDati();
     }
 
-   private void setAmministratore(Account account){
-        if(account instanceof Amministratore){
-            this.amministratore = (Amministratore) account;
-        }
+   private void setAmministratore(Amministratore amministratore){
+            this.amministratore = amministratore;
    }
+
 }

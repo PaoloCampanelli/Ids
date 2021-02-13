@@ -37,7 +37,7 @@ public class AdminFXController implements FXStage {
     public void actionModifica() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getAdmin());
+            apriStageController("resources/aggiornaAdmin.fxml", new ModificaAdminFXController(), getAdmin());
             attuale.close();
         }
     }
