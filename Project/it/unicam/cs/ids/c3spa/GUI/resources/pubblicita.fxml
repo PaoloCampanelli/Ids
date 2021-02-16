@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="556.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.PubblicitaFXController">
+<AnchorPane prefHeight="556.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.IPubblicita">
    <children>
       <Button layoutX="366.0" layoutY="180.0" mnemonicParsing="false" onAction="#actionAttiva" prefHeight="25.0" prefWidth="69.0" text="ATTIVA" />
       <Label fx:id="lblToken" layoutX="37.0" layoutY="32.0" prefHeight="17.0" prefWidth="139.0" textFill="#0004ff">

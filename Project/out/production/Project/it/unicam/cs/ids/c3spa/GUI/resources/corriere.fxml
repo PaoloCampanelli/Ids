@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="740.0" maxWidth="979.0" minHeight="314.0" minWidth="575.0" prefHeight="697.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.CorriereFXController">
+<Pane maxHeight="740.0" maxWidth="979.0" minHeight="314.0" minWidth="575.0" prefHeight="697.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ICorriere">
    <children>
       <Separator layoutY="55.0" prefHeight="17.0" prefWidth="921.0" />
       <HBox layoutX="7.0" layoutY="6.0" prefHeight="51.0" prefWidth="835.0">

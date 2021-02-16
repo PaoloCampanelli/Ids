@@ -45,6 +45,7 @@ public class TabOrdineFXController implements FXStage {
         List<Pacco> pacchi = new GestorePacco().getByDestinatario(cliente);
         ln = FXCollections.observableArrayList(pacchi);
         ln.removeIf(p -> p.statiPacco.size() == 3);
+        ln.removeIf(p -> p.id == 0);
         tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbMittente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
         tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="269.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ContattiFXController">
+<AnchorPane prefHeight="269.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.IContatti">
    <children>
       <Label layoutX="77.0" layoutY="14.0" text="CONTATTI" textFill="#0004ff">
          <font>

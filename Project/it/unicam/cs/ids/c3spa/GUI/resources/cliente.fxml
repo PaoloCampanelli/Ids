@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="625.0" maxWidth="835.0" minHeight="455.0" minWidth="575.0" prefHeight="625.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ClienteFXController">
+<Pane maxHeight="625.0" maxWidth="835.0" minHeight="455.0" minWidth="575.0" prefHeight="625.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ICliente">
    <children>
       <Separator layoutY="55.0" prefHeight="17.0" prefWidth="788.0" />
       <Separator layoutY="115.0" prefHeight="3.0" prefWidth="788.0" />

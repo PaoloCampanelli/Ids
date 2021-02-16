@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="596.0" prefWidth="1047.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.OrdineFXController">
+<AnchorPane prefHeight="596.0" prefWidth="1047.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.IOrdine">
    <children>
       <TableView fx:id="tabellaCliente" layoutX="423.0" layoutY="56.0" prefHeight="144.0" prefWidth="535.0">
         <columns>
