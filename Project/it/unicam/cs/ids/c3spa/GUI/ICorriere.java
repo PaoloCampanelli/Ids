@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CorriereFXController implements FXStage {
+public class ICorriere implements FXStage {
 
-    private static CorriereFXController istanza;
+    private static ICorriere istanza;
     private Corriere corriere;
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Pacco> ordiniCorriere;
@@ -58,7 +58,7 @@ public class CorriereFXController implements FXStage {
     @FXML
     private TableColumn<Pacco, String> tbOConsegna;
 
-    public CorriereFXController() {
+    public ICorriere() {
     }
 
     /**
@@ -66,9 +66,9 @@ public class CorriereFXController implements FXStage {
      *
      * @return l'istanza di CorriereFXController
      */
-    public static CorriereFXController getInstance() {
+    public static ICorriere getInstance() {
         if (istanza == null) {
-            istanza = new CorriereFXController();
+            istanza = new ICorriere();
         }
         return istanza;
     }
@@ -116,10 +116,7 @@ public class CorriereFXController implements FXStage {
     public void actionAssegna() throws SQLException {
         if (cercaPacco(txtPaccoPreso.getText())) {
             Pacco pacco = prendiPacco(txtPaccoPreso.getText());
-            getCorriere().prendiPacco(pacco);
-            ordiniCorriere.add(pacco);
-            new GestorePacco().save(pacco);
-            pacchiNonAssegnati.removeIf(p -> p.id == pacco.id);
+            avvertiAssegnamento(pacco);
         }
     }
 
@@ -130,22 +127,11 @@ public class CorriereFXController implements FXStage {
         }
     }
 
-    public void actionAnnulla() throws SQLException {
-        if (cercaPacco(txtIDAnnulla.getText())) {
-            Pacco pacco = prendiPacco(txtIDAnnulla.getText());
-            pacco.corriere = null;
-            pacchiNonAssegnati.add(pacco);
-            new GestorePacco().save(pacco);
-            new GestoreCorriere().save(pacco);
-            ordiniCorriere.removeIf(p -> p.id == pacco.id);
-
-        }
-    }
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCorriere());
+            apriStageController("resources/aggiornaDati.fxml", new IModificaInfo(), getCorriere());
             attuale.close();
         }
 
@@ -162,7 +148,7 @@ public class CorriereFXController implements FXStage {
                 getCorriere().indirizzo.provincia.equals("PU") ||
                 getCorriere().indirizzo.provincia.equals("AN") ||
                 getCorriere().indirizzo.provincia.equals("FM")){
-            apriStageController("resources/contatti.fxml", new ContattiFXController(), getCorriere());
+            apriStageController("resources/contatti.fxml", new IContatti(), getCorriere());
         }
 
     }
@@ -185,6 +171,22 @@ public class CorriereFXController implements FXStage {
             getCorriere().consegnaPacco(pacco);
             new GestorePacco().save(pacco);
             ordiniCorriere.removeIf(p -> p.id == pacco.id);
+        }
+    }
+
+    private void avvertiAssegnamento(Pacco pacco) throws SQLException {
+        Alert alert = new Alert(AlertType.CONFIRMATION,
+                "Spedito da: " + pacco.mittente.denominazione + "									"
+                        + "Destinatario: " + pacco.destinatario.eMail
+                        + " Consegna: " + pacco.dataConsegnaRichiesta + " "
+                        + pacco.indirizzo.toString(), ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Conferma assegnamento pacco");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            pacchiNonAssegnati.removeIf(p -> p.id == pacco.id);
+            getCorriere().prendiPacco(pacco);
+            ordiniCorriere.add(pacco);
+            new GestorePacco().save(pacco);
         }
     }
 

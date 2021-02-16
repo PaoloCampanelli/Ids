@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class HomeFXController implements FXStage {
+public class IHome implements FXStage {
 
     private final ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     @FXML
@@ -36,7 +36,7 @@ public class HomeFXController implements FXStage {
     }
 
     public void actionRegistrati() throws IOException {
-        apriStage("resources/registrazione.fxml", new RegistrazioneFXController());
+        apriStage("resources/registrazione.fxml", new IRegistrazione());
     }
 
     public void actionAccedi() throws IOException {
@@ -44,13 +44,13 @@ public class HomeFXController implements FXStage {
         String fxml = "resources/login.fxml";
         switch (tipologia) {
             case "CLIENTE":
-                apriStage(fxml, ClienteFXController.getInstance());
+                apriStage(fxml, ICliente.getInstance());
                 break;
             case "NEGOZIO":
-                apriStage(fxml, NegozioFXController.getInstance());
+                apriStage(fxml, INegozio.getInstance());
                 break;
             case "CORRIERE":
-                apriStage(fxml, CorriereFXController.getInstance());
+                apriStage(fxml, ICorriere.getInstance());
                 break;
         }
     }
@@ -63,13 +63,13 @@ public class HomeFXController implements FXStage {
                 prov.equals("PU") ||
                 prov.equals("AN") ||
                 prov.equals("FM")) {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
+        apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
         }
     }
 
 
     public void actionAdminPanel(ActionEvent actionEvent) throws IOException {
-        apriStage("resources/login.fxml", new AdminFXController());
+        apriStage("resources/login.fxml", new IAdmin());
     }
 
     @Override

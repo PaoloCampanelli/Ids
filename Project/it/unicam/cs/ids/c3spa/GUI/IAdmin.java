@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AdminFXController implements FXStage {
+public class IAdmin implements FXStage {
 
     private Amministratore amministratore;
 
@@ -37,7 +37,7 @@ public class AdminFXController implements FXStage {
     public void actionModifica() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            apriStageController("resources/aggiornaAdmin.fxml", new ModificaAdminFXController(), getAdmin());
+            apriStageController("resources/aggiornaAdmin.fxml", new IModificaInfoAdmin(), getAdmin());
             attuale.close();
         }
     }
@@ -49,7 +49,6 @@ public class AdminFXController implements FXStage {
     public void actionRecupera(ActionEvent actionEvent) throws IOException, SQLException {
         apriStageController("resources/ripristinaAccount.fxml", new TabRipristinaFXController(), getAdmin());
     }
-
 
     private void accedi(String email, String passw) throws IOException, SQLException {
         List<Amministratore> la = new GestoreAmministratore().getAll();

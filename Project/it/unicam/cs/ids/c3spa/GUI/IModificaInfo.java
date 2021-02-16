@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class ModificaDatiFXController implements FXStage {
+public class IModificaInfo implements FXStage {
 
     private Cliente cliente;
     private Negozio negozio;
@@ -38,7 +38,7 @@ public class ModificaDatiFXController implements FXStage {
             "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
 
 
-    public ModificaDatiFXController() {
+    public IModificaInfo() {
     }
 
     public void actionConferma() throws Exception {

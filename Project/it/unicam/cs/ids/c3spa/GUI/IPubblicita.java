@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-public class PubblicitaFXController implements FXStage{
+public class IPubblicita implements FXStage{
 
     private ObservableList<Pubblicita> listaPubblicita;
     private Negozio negozio;
@@ -66,7 +66,7 @@ public class PubblicitaFXController implements FXStage{
     }
 
     public void actionContatti() throws SQLException, IOException {
-        apriStageController("resources/contatti.fxml", new ContattiFXController(), new GestoreAmministratore().getById(1));
+        apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getById(1));
     }
 
     public void actionAnnulla() {

@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NegozioFXController implements FXStage {
+public class INegozio implements FXStage {
 
-    private static NegozioFXController istanza;
+    private static INegozio istanza;
     private Negozio negozio;
     @FXML
     private TextField txtMail;
@@ -27,12 +27,12 @@ public class NegozioFXController implements FXStage {
     @FXML
     private Button btnAccedi, btnCreaOrdine, btnCatAttive, btnStorico, btnSconti, btnOrdini, btnListaCliente, btnModifica, btnPromozioni;
 
-    public NegozioFXController() {
+    public INegozio() {
     }
 
-    public static NegozioFXController getInstance() {
+    public static INegozio getInstance() {
         if (istanza == null) {
-            istanza = new NegozioFXController();
+            istanza = new INegozio();
         }
         return istanza;
     }
@@ -42,7 +42,7 @@ public class NegozioFXController implements FXStage {
     }
 
     public void actionOrdine() throws IOException, SQLException {
-        apriStageController("resources/creaOrdine.fxml", new OrdineFXController(), getNegozio());
+        apriStageController("resources/creaOrdine.fxml", new IOrdine(), getNegozio());
     }
 
     public void actionListaClienti() throws IOException, SQLException {
@@ -58,12 +58,12 @@ public class NegozioFXController implements FXStage {
     }
 
     public void actionAttivaPubblicita() throws IOException, SQLException {
-        apriStageController("resources/pubblicita.fxml", new PubblicitaFXController(), getNegozio());
+        apriStageController("resources/pubblicita.fxml", new IPubblicita(), getNegozio());
     }
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getNegozio());
+            apriStageController("resources/aggiornaDati.fxml", new IModificaInfo(), getNegozio());
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
             attuale.close();
         }
@@ -76,12 +76,12 @@ public class NegozioFXController implements FXStage {
                 getNegozio().indirizzo.provincia.equals("PU") ||
                 getNegozio().indirizzo.provincia.equals("AN") ||
                 getNegozio().indirizzo.provincia.equals("FM")) {
-            apriStageController("resources/contatti.fxml", new ContattiFXController(), getNegozio());
+            apriStageController("resources/contatti.fxml", new IContatti(), getNegozio());
         }
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
-        apriStageController("resources/sconti.fxml", new ScontiFXControllerFXStage(), getNegozio());
+        apriStageController("resources/sconti.fxml", new ISconti(), getNegozio());
     }
 
     /**

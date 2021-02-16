@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrdineFXController implements FXStage {
+public class IOrdine implements FXStage {
 
     private Cliente cliente;
     private Negozio negozio;
@@ -69,7 +69,7 @@ public class OrdineFXController implements FXStage {
             "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
 
 
-    public OrdineFXController() {
+    public IOrdine() {
     }
 
     @FXML

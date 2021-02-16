@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RegistrazioneFXController implements FXStage {
+public class IRegistrazione implements FXStage {
 
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
     private ObservableList<String> provincia = FXCollections.observableArrayList(
@@ -39,7 +39,7 @@ public class RegistrazioneFXController implements FXStage {
     @FXML
     private Button btnRegistrati;
 
-    public RegistrazioneFXController() {
+    public IRegistrazione() {
     }
 
     @FXML

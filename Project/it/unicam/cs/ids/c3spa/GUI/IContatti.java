@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import java.sql.SQLException;
 
 
-public class ContattiFXController implements FXStage{
+public class IContatti implements FXStage {
 
     private Amministratore amministratore;
 
@@ -20,7 +20,7 @@ public class ContattiFXController implements FXStage{
     @FXML
     ImageView logo;
 
-    public ContattiFXController(){
+    public IContatti(){
     }
 
     @FXML

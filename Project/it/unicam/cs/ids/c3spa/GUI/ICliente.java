@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ClienteFXController implements FXStage {
+public class ICliente implements FXStage {
 
-    private static ClienteFXController istanza;
+    private static ICliente istanza;
 
     private ObservableList<Negozio> listaNegozi;
 
@@ -46,7 +46,7 @@ public class ClienteFXController implements FXStage {
     @FXML
     private TableColumn<Negozio, String> tbCategorie;
 
-    public ClienteFXController() {
+    public ICliente() {
     }
 
     /**
@@ -54,9 +54,9 @@ public class ClienteFXController implements FXStage {
      *
      * @return l'istanza di ClienteFXController
      */
-    public static ClienteFXController getInstance() {
+    public static ICliente getInstance() {
         if (istanza == null) {
-            istanza = new ClienteFXController();
+            istanza = new ICliente();
         }
         return istanza;
     }
@@ -115,7 +115,7 @@ public class ClienteFXController implements FXStage {
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
             Stage attuale = (Stage) btnModifica.getScene().getWindow();
-            apriStageController("resources/aggiornaDati.fxml", new ModificaDatiFXController(), getCliente());
+            apriStageController("resources/aggiornaDati.fxml", new IModificaInfo(), getCliente());
             attuale.close();
         }
     }
@@ -127,7 +127,7 @@ public class ClienteFXController implements FXStage {
                 getCliente().indirizzo.provincia.equals("PU") ||
                 getCliente().indirizzo.provincia.equals("AN") ||
                 getCliente().indirizzo.provincia.equals("FM")) {
-            apriStageController("resources/contatti.fxml", new ContattiFXController(), getCliente());
+            apriStageController("resources/contatti.fxml", new IContatti(), getCliente());
         }
     }
 

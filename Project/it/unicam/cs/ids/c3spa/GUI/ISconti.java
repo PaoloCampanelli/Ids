@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ScontiFXControllerFXStage implements FXStage {
+public class ISconti implements FXStage {
 
     private ObservableList<String> selezionaData = FXCollections.observableArrayList("OGGI", "DIVERSA");
     private ObservableList<Sconto> sconti;
@@ -100,7 +100,13 @@ public class ScontiFXControllerFXStage implements FXStage {
     }
 
     public void actionConferma() throws SQLException {
-        inserimentoInfo(txtTipo.getText().toUpperCase(),Integer.parseInt(txtIDCategoria.getText()));
+        try{
+            int id = Integer.parseInt(txtIDCategoria.getText());
+            inserimentoInfo(txtTipo.getText().toUpperCase(),id);
+        }catch (NumberFormatException e){
+
+        }
+
     }
 
     public void actionAnnulla(ActionEvent actionEvent) throws SQLException {
@@ -133,8 +139,8 @@ public class ScontiFXControllerFXStage implements FXStage {
                     confermaSconto(sconto);
                 }else
                     lblErrore1.setText("Date non valide");
-            } else
-                lblErrore1.setText(id + " non presente");
+            }else
+                lblErrore1.setText("Categoria non presente");
         }else
             lblErrore1.setText("Tipologia non valida");
     }
