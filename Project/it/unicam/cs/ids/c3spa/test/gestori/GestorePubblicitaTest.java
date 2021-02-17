@@ -68,7 +68,7 @@ class GestorePubblicitaTest {
             stmt.execute("INSERT INTO `progetto_ids`.`negozi` (`negozioId`, `denominazione`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `telefono`, `eMail`, `password`, `isCancellato`) VALUES ('"+negozio.id+"', '"+negozio.denominazione+"', '"+negozio.indirizzo.citta+"', '"+negozio.indirizzo.numero+"', '"+negozio.indirizzo.cap+"', '"+negozio.indirizzo.via+"', '"+negozio.indirizzo.provincia+"', '"+negozio.telefono+"', '"+negozio.eMail+"', '"+negozio.password+"', '0');");
         }
         for(Pubblicita pub : pubblicitaSalvate){
-            stmt.execute("INSERT INTO `progetto_ids`.`pubblicita` (`pubblicitaId`, `dataInizio`, `dataFine`, `negozioId`, `isCancellato`) VALUES ('"+pub.id+"', '"+pub.dataInizio+"', '"+pub.dataFine+"', '"+pub.negozio+"', '0');");
+            stmt.execute("INSERT INTO `progetto_ids`.`pubblicita` (`pubblicitaId`, `dataInizio`, `dataFine`, `negozioId`, `isCancellato`) VALUES ('"+pub.id+"', '"+pub.dataInizio+"', '"+pub.dataFine+"', '"+pub.negozio.id+"', '0');");
         }
         stmt.close();
         conn.close();

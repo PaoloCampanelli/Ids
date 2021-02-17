@@ -28,7 +28,6 @@ public class GestoreNegozioTest {
     public static GestoreNegozio gestoreNegozio = new GestoreNegozio();
     static List<Negozio> negoziSalvati = new ArrayList<>();
     static List<CategoriaMerceologica> categorieSalvate = new ArrayList<>();
-  //  static List<Integer> negozi_categorieMerceologiche = new ArrayList<>();
     List<Negozio> negozi = new ArrayList<>();
     List<CategoriaMerceologica> categorie = new ArrayList<>();
     Negozio negozioFruttivendolo = new Negozio();
@@ -172,10 +171,4 @@ public class GestoreNegozioTest {
         assertTrue(gestoreNegozio.creaSconto(sconto, negozioMercatoDellaCasa));
     }
 
-    @Test
-    void creaPubblicita() {
-        Pubblicita p = new Pubblicita(Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(300000))), Servizi.dataUtilToSql(Date.from(Instant.now().plusSeconds(625000))), negozioFruttivendolo);
-        assertTrue(gestoreNegozio.creaPubblicita(p, negozioFruttivendolo));
-
-    }
 }

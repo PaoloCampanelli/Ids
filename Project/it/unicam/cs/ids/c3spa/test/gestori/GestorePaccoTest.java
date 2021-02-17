@@ -139,19 +139,7 @@ public class GestorePaccoTest{
     void getAll() throws SQLException {
         inseriscoPacchi();
         assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.id==1));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(primoPacco.indirizzo)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(primoPacco.dataPreparazione)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(primoPacco.dataPreparazione)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(primoPacco.corriere)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(primoPacco.mittente)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(primoPacco.destinatario)));
         assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.id==2));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.indirizzo.equals(secondoPacco.indirizzo)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataPreparazione.equals(secondoPacco.dataPreparazione)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.dataConsegnaRichiesta.equals(secondoPacco.dataPreparazione)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.corriere.equals(secondoPacco.corriere)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.mittente.equals(secondoPacco.mittente)));
-        assertTrue(gestorePacco.getAll().stream().anyMatch(a->a.destinatario.equals(secondoPacco.destinatario)));
     }
 
     @Test
