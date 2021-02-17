@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.vista;
+package it.unicam.cs.ids.c3spa.core.console;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.controller.Console.*;
+import it.unicam.cs.ids.c3spa.controller.*;
 
 import java.sql.SQLException;
 
@@ -25,7 +25,7 @@ public class ConsoleView implements IView{
     }
 
     @Override
-    public void start() throws SQLException {
+    public void start() throws Exception {
         hello();
         autenticazione();
     }
@@ -38,7 +38,7 @@ public class ConsoleView implements IView{
         System.exit(1);
     }
 
-    private void autenticazione() throws SQLException{
+    private void autenticazione() throws Exception {
         String input = getInput().richiediString("Sei già registrato? SI / NO     || EXIT -> per uscire");
         while(getConsole().isOn()){
             String tipologia;
@@ -80,8 +80,7 @@ public class ConsoleView implements IView{
                 break;
             case "CORRIERE":
                 if (getAccount().controllaDati("CORRIERE", email, password)) {
-                    int idCr;
-                    return idCr = getAccount().prendiID("CORRIERE",email,password);
+                    return getAccount().prendiID("CORRIERE",email,password);
                 }
             case "COMMERCIANTE":
                 if(getAccount().controllaDati("COMMERCIANTE", email, password)){
@@ -137,7 +136,7 @@ public class ConsoleView implements IView{
         return risposta.toUpperCase();
     }
 
-    private void creazioneAccount(String tipologia) throws SQLException{
+    private void creazioneAccount(String tipologia) throws Exception {
         out.println("Inserisci dati:");
         String denominazione= getInput().richiediString("Denominazione");
         String email = richiediEmail("Email",tipologia);
@@ -166,7 +165,7 @@ public class ConsoleView implements IView{
         }
     }
 
-    private void redirectView(String tipologia, int id) throws SQLException {
+    private void redirectView(String tipologia, int id) throws Exception {
         switch (tipologia) {
             case "CLIENTE": {
                 ViewCliente viewCliente = new ViewCliente(consoleController);
@@ -197,7 +196,7 @@ public class ConsoleView implements IView{
         return getAccount().indirizzoAccount(via, numero, citta, cap, provincia);
     }
 
-    protected void sceltaModifica(Account account) throws SQLException {
+    protected void sceltaModifica(Account account) throws Exception {
         menuModifica();
         int richiesta = getInput().richiediInt("Digita scelta: ");
         switch (richiesta){
@@ -240,7 +239,7 @@ public class ConsoleView implements IView{
     }
 
 
-    protected void logout() throws SQLException {
+    protected void logout() throws Exception {
         out.println(" - - - - - - - - - - - - ");
         out.println("        LOGOUT IN CORSO.....");
         out.println(" - - - - - - - - - - - - ");

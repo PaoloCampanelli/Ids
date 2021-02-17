@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.controller.Console;
+package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
 import java.sql.SQLException;
@@ -62,6 +62,38 @@ public class CorriereController{
                     "        [Destinatario: "+pacco.destinatario.denominazione+" "+pacco.destinatario.indirizzo+"\n"+
                     "        Consegna prevista: "+pacco.dataConsegnaRichiesta+"]");
         }
+    }
+
+    /**
+     * Prende il corriere con email corrispondente
+     *
+     * @param email email inserita
+     * @return Corriere corrispondente
+     * @throws SQLException
+     */
+    public Corriere prendiCorriere(String email) throws SQLException {
+        GestoreCorriere gc = new GestoreCorriere();
+        List<Corriere> lc = gc.getAll();
+        int id = lc.stream().filter(c -> c.eMail.equals(email)).findAny().get().id;
+        return gc.getById(id);
+    }
+
+    public boolean cercaPacco(String id) throws SQLException {
+        List<Pacco> pacchi = new GestorePacco().getAll();
+        return pacchi.stream().anyMatch(p -> p.id == Integer.parseInt(id));
+    }
+
+    /**
+     * Prende il pacco con id corrispondente
+     *
+     * @param id id del pacco da prendere
+     * @return pacco assegnato
+     * @throws SQLException
+     */
+    public Pacco prendiPacco(String id) throws SQLException {
+        List<Pacco> pacchi = new GestorePacco().getAll();
+        int idPacco = pacchi.stream().filter(p -> p.id == Integer.parseInt(id)).findAny().get().id;
+        return new GestorePacco().getById(idPacco);
     }
 
 }

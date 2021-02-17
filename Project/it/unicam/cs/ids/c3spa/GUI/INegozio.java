@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabNegoziFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.NegozioController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,6 +19,7 @@ public class INegozio implements FXStage {
 
     private static INegozio istanza;
     private Negozio negozio;
+    private NegozioController controller = new NegozioController();
     @FXML
     private TextField txtMail;
     @FXML
@@ -97,33 +99,12 @@ public class INegozio implements FXStage {
         List<Negozio> ln = new GestoreNegozio().getAll();
         if ((controllaInfo(email, password))) {
             if (cercaAccount(ln, email, password)) {
-                setNegozio(prendiNegozio(email));
+                setNegozio(controller.prendiNegozio(email));
                 apriStageController("resources/negozio.fxml", getInstance(), getNegozio());
             }
         }
     }
 
-
-    /**
-     * Prende il negozio tramite l'email
-     *
-     * @param email email passata
-     * @return Negozio
-     * @throws SQLException
-     */
-    private Negozio prendiNegozio(String email) throws SQLException {
-        GestoreNegozio gc = new GestoreNegozio();
-        List<Negozio> lc = gc.getAll();
-        int id = lc.stream().filter(c -> {
-            try {
-                return c.eMail.equals(email);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        }).findAny().get().id;
-        return gc.getById(id);
-    }
 
     /**
      * @return negozio

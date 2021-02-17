@@ -1,9 +1,10 @@
-package it.unicam.cs.ids.c3spa.core.controller.Console;
+package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pacco;
+import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 
@@ -89,5 +90,15 @@ public class ClienteController{
         }
     }
 
+    public Cliente prendiCliente(String email) throws SQLException {
+        GestoreCliente gc = new GestoreCliente();
+        List<Cliente> lc = gc.getAll();
+        int id = lc.stream().filter(c -> c.eMail.equals(email)).findAny().get().id;
+        return gc.getById(id);
+    }
 
+    public boolean cercaCliente(String email) throws SQLException {
+        List<Cliente> lc = new GestoreCliente().getAll();
+        return lc.stream().anyMatch(c -> c.eMail.equals(email));
+    }
 }

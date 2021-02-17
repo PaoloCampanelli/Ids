@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.controller.Console;
+package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;

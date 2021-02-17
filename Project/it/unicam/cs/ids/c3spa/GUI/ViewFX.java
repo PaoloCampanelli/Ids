@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
-import it.unicam.cs.ids.c3spa.core.vista.IView;
+import it.unicam.cs.ids.c3spa.core.console.IView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

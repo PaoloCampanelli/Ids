@@ -63,7 +63,7 @@ public class IHome implements FXStage {
                 prov.equals("PU") ||
                 prov.equals("AN") ||
                 prov.equals("FM")) {
-        apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
+            apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
         }
     }
 

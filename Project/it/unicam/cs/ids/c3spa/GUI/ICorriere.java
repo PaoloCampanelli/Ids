@@ -4,6 +4,7 @@ import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabStoricoFXController;
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.CorriereController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,6 +26,8 @@ public class ICorriere implements FXStage {
     private Corriere corriere;
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Pacco> ordiniCorriere;
+    private CorriereController controller = new CorriereController();
+
     @FXML
     private TextField txtMail, txtIDConsegna, txtIDAnnulla, txtPaccoPreso;
     @FXML
@@ -114,19 +117,18 @@ public class ICorriere implements FXStage {
     }
 
     public void actionAssegna() throws SQLException {
-        if (cercaPacco(txtPaccoPreso.getText())) {
-            Pacco pacco = prendiPacco(txtPaccoPreso.getText());
+        if (controller.cercaPacco(txtPaccoPreso.getText())) {
+            Pacco pacco = controller.prendiPacco(txtPaccoPreso.getText());
             avvertiAssegnamento(pacco);
         }
     }
 
     public void actionConsegna() throws SQLException {
-        if (cercaPacco(txtIDConsegna.getText())) {
-            Pacco pacco = prendiPacco(txtIDConsegna.getText());
+        if (controller.cercaPacco(txtIDConsegna.getText())) {
+            Pacco pacco = controller.prendiPacco(txtIDConsegna.getText());
             avvertiConsegna(pacco);
         }
     }
-
 
     public void actionModificaInfo() throws IOException, SQLException {
         if (alertModifica() == ButtonType.OK) {
@@ -134,7 +136,6 @@ public class ICorriere implements FXStage {
             apriStageController("resources/aggiornaDati.fxml", new IModificaInfo(), getCorriere());
             attuale.close();
         }
-
     }
 
     public void actionStoricoOrdiniNegozio() throws IOException, SQLException {
@@ -203,12 +204,11 @@ public class ICorriere implements FXStage {
         List<Corriere> lc = new GestoreCorriere().getAll();
         if ((controllaInfo(email, password))) {
             if (cercaAccount(lc, email, password)) {
-                setCorriere(prendiCorriere(email));
+                setCorriere(controller.prendiCorriere(email));
                 apriStageController("resources/corriere.fxml", getInstance(), getCorriere());
             }
         }
     }
-
 
     /**
      * Controlla se un pacco con id corrispondente esiste
@@ -218,40 +218,7 @@ public class ICorriere implements FXStage {
      * se il pacco esiste
      * @throws SQLException
      */
-    private boolean cercaPacco(String id) throws SQLException {
-        List<Pacco> pacchi = new GestorePacco().getAll();
-        return pacchi.stream().anyMatch(p -> p.id == Integer.parseInt(id));
-    }
 
-    /**
-     * Prende il pacco con id corrispondente
-     *
-     * @param id id del pacco da prendere
-     * @return pacco assegnato
-     * @throws SQLException
-     */
-    private Pacco prendiPacco(String id) throws SQLException {
-        List<Pacco> pacchi = new GestorePacco().getAll();
-        int idPacco = pacchi.stream().filter(p -> p.id == Integer.parseInt(id)).findAny().get().id;
-        return new GestorePacco().getById(idPacco);
-    }
-
-
-
-
-    /**
-     * Prende il corriere con email corrispondente
-     *
-     * @param email email inserita
-     * @return Corriere corrispondente
-     * @throws SQLException
-     */
-    private Corriere prendiCorriere(String email) throws SQLException {
-        GestoreCorriere gc = new GestoreCorriere();
-        List<Corriere> lc = gc.getAll();
-        int id = lc.stream().filter(c -> c.eMail.equals(email)).findAny().get().id;
-        return gc.getById(id);
-    }
 
     /**
      * @return corriere

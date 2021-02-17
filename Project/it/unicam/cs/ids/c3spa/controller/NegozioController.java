@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.controller.Console;
+package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.*;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
@@ -74,4 +74,14 @@ public class NegozioController{
         out.println("- - - - - - - - - - - - -");
     }
 
+    public Negozio prendiNegozio(String email) throws SQLException {
+        GestoreNegozio gc = new GestoreNegozio();
+        List<Negozio> lc = gc.getAll();
+        int id = lc.stream().filter(c -> c.eMail.equals(email)).findAny().get().id;
+        return gc.getById(id);
+    }
+
+    public CategoriaMerceologica prendiCategoria(Negozio negozio, int idCategoria) {
+        return negozio.categorie.stream().filter(c -> c.idCategoria == idCategoria).findAny().orElse(null);
+    }
 }

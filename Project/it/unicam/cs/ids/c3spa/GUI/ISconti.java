@@ -5,6 +5,7 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Sconto;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.NegozioController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreSconto;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,6 +31,7 @@ public class ISconti implements FXStage {
     private ObservableList<Sconto> sconti;
     private ObservableList<CategoriaMerceologica> categorie;
     private Negozio negozio;
+    private NegozioController negozioController = new NegozioController();
 
     @FXML
     private TableView tabellaCategorie;
@@ -125,7 +127,7 @@ public class ISconti implements FXStage {
     private void inserimentoInfo(String tipo, int id) throws SQLException {
         lblErrore1.setText("");
         if (!tipo.isBlank()) {
-            CategoriaMerceologica categoriaMerceologica = prendiCategoria(id);
+            CategoriaMerceologica categoriaMerceologica = negozioController.prendiCategoria(getNegozio(), id);
             if (categoriaMerceologica != null) {
                 Date fine = Date.from(dpFine.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                 Date inizio = new Date();
@@ -161,10 +163,6 @@ public class ISconti implements FXStage {
         }
     }
 
-
-    private CategoriaMerceologica prendiCategoria(int idCategoria) {
-        return negozio.categorie.stream().filter(c -> c.idCategoria == idCategoria).findAny().orElse(null);
-    }
 
 
     @Override
