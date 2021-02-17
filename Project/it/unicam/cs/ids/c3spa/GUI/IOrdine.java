@@ -5,6 +5,8 @@ import it.unicam.cs.ids.c3spa.core.Indirizzo;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pacco;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.ClienteController;
+import it.unicam.cs.ids.c3spa.controller.NegozioController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +29,8 @@ public class IOrdine implements FXStage {
 
     private Cliente cliente;
     private Negozio negozio;
+    private NegozioController controllerNegozio = new NegozioController();
+    private ClienteController controllerCliente = new ClienteController();
     private ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("PREDEFINITO", "NUOVO");
     private ObservableList<Pacco> pacchiNonAssegnati;
     private ObservableList<Cliente> clienteDisponibili;
@@ -149,15 +153,15 @@ public class IOrdine implements FXStage {
         }
 
 
-    private void inserisciEmail(String text) {
+    private void inserisciEmail(String text) throws SQLException {
         lblEmail.setText(" ");
         List<Cliente> unico = new ArrayList<>();
         String email = text.toUpperCase();
         if (!email.isBlank()) {
-            if (clienteEsistente(email)) {
+            if (controllerCliente.cercaCliente(email)) {
                 btnInserisci1.setDisable(false);
                 btnInserisci2.setDisable(false);
-                cliente = prendiCliente(email);
+                cliente = controllerCliente.prendiCliente(email);
                 lblInfoNome.setText(cliente.denominazione);
                 unico.add(cliente);
                 clienteDisponibili = FXCollections.observableArrayList(unico);
@@ -221,7 +225,7 @@ public class IOrdine implements FXStage {
         if(!(lblInfoNome.getText().isBlank()||lblInfoData.getText().isBlank()||lblInfoIndirizzo.getText().isBlank())){
             lblErrore.setText("");
             if (controllaInfo(email, data, via, citta, civico, cap)) {
-                Cliente cliente = prendiCliente(email);
+                Cliente cliente = controllerCliente.prendiCliente(email);
                 Pacco pacco;
                 Date date = Date.from(data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                 if (selezionaIndirizzo.getValue().equals("NUOVO")) {
@@ -257,23 +261,7 @@ public class IOrdine implements FXStage {
         return alert.getResult();
     }
 
-    /**
-     * @param email email inserita
-     * @return account con email associata
-     */
-    private Cliente prendiCliente(String email) {
-        return clienteDisponibili.stream().filter(c -> c.eMail.toUpperCase().equals(email)).findAny().get();
-    }
 
-    /**
-     * controlla se il cliente con l'email inserita esiste
-     *
-     * @param email email inserita
-     * @return true se il cliente esiste
-     */
-    private boolean clienteEsistente(String email) {
-        return clienteDisponibili.stream().anyMatch(c -> c.eMail.toUpperCase().equals(email));
-    }
 
     /**
      * Controlla le informazioni
@@ -286,9 +274,9 @@ public class IOrdine implements FXStage {
      * @param cap    cap inserito -> 5 caratteri
      * @return true se le informazioni sono valide
      */
-    private boolean controllaInfo(String email, LocalDate data, String via, String citta, String civico, String cap) {
+    private boolean controllaInfo(String email, LocalDate data, String via, String citta, String civico, String cap) throws SQLException {
         if (!email.isBlank())
-            if (clienteEsistente(email))
+            if (controllerCliente.cercaCliente(email))
                 if (data.isAfter(LocalDate.now()))
                     if (selezionaIndirizzo.getValue().equals("NUOVO")) {
                         if (controllaIndirizzo(via, citta, civico, cap))

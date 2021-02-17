@@ -1,13 +1,10 @@
-package it.unicam.cs.ids.c3spa.core.vista;
+package it.unicam.cs.ids.c3spa.core.console;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
+import it.unicam.cs.ids.c3spa.controller.ConsoleController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.controller.Console.ConsoleController;
 
-
-import java.sql.SQLException;
-
-import static java.lang.System.*;
+import static java.lang.System.out;
 
 public class ViewCorriere extends ConsoleView {
 
@@ -15,7 +12,7 @@ public class ViewCorriere extends ConsoleView {
         super(controller);
     }
 
-    public void apriVista(int id) throws SQLException {
+    public void apriVista(int id) throws Exception {
         Corriere corriere = new GestoreCorriere().getById(id);
         out.println("\n...Effettuato accesso come CORRIERE"
                 +"\n----------------"
@@ -33,7 +30,7 @@ public class ViewCorriere extends ConsoleView {
                 +"\n10. MODIFICA DATI");
     }
 
-    private void menuCorriere(Corriere corriere) throws SQLException {
+    private void menuCorriere(Corriere corriere) throws Exception {
         while (getConsole().isOn()) {
             listaCorriere();
             String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();
@@ -74,7 +71,7 @@ public class ViewCorriere extends ConsoleView {
         }
     }
 
-    private void selezioneOrdine(Corriere corriere) throws SQLException {
+    private void selezioneOrdine(Corriere corriere) throws Exception {
         if(getCorriere().pacchiLiberi()) {
             out.println("SELEZIONE ORDINE");
             int idPacco = getInput().richiediInt("Digita l'ID:      || 0 -> per tornare indietro");
@@ -90,7 +87,7 @@ public class ViewCorriere extends ConsoleView {
         menuCorriere(corriere);
     }
 
-    public void effettuaConsegna(Corriere corriere) throws SQLException {
+    public void effettuaConsegna(Corriere corriere) throws Exception {
         getCorriere().ordiniCorriere(corriere);
         int idPacco = getInput().richiediInt("Digita l'ID:      || 0 -> per tornare indietro");
         if(idPacco==0)

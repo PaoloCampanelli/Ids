@@ -1,8 +1,5 @@
-package it.unicam.cs.ids.c3spa.core.controller.Console;
+package it.unicam.cs.ids.c3spa.controller;
 
-
-import it.unicam.cs.ids.c3spa.core.controller.Console.*;
-import it.unicam.cs.ids.c3spa.core.controller.IController;
 
 public class ConsoleController implements IController {
 

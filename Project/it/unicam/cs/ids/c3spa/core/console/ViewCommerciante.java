@@ -1,9 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.vista;
+package it.unicam.cs.ids.c3spa.core.console;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
-import it.unicam.cs.ids.c3spa.core.controller.Console.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.controller.ConsoleController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
@@ -11,7 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.lang.System.*;
+import static java.lang.System.err;
+import static java.lang.System.out;
 
 public class ViewCommerciante extends ConsoleView {
 
@@ -19,7 +19,7 @@ public class ViewCommerciante extends ConsoleView {
         super(controller);
     }
 
-    public void apriVista(int id) throws SQLException {
+    public void apriVista(int id) throws Exception {
         Negozio negozio = new GestoreNegozio().getById(id);
         out.println("\n...Effettuato accesso come COMMERCIANTE"
                 +"\n----------------"
@@ -43,7 +43,7 @@ public class ViewCommerciante extends ConsoleView {
                 +"\n10. MODIFICA DATI");
     }
 
-    private void menuCommerciante(Negozio negozio) throws SQLException {
+    private void menuCommerciante(Negozio negozio) throws Exception {
         while(getConsole().isOn()){
             listaCommerciante();
             String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();

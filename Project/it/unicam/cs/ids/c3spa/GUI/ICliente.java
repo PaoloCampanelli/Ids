@@ -3,8 +3,8 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.*;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
-import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.ClienteController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +27,7 @@ public class ICliente implements FXStage {
     private static ICliente istanza;
 
     private ObservableList<Negozio> listaNegozi;
+    private ClienteController controller = new ClienteController();
 
     private Cliente cliente;
     @FXML
@@ -65,7 +66,6 @@ public class ICliente implements FXStage {
         accedi(txtMail.getText().toUpperCase(), txtPassword.getText());
     }
 
-
     public void actionRicercaNegozi() throws IOException, SQLException {
         apriStageController("resources/tabellaNegozi.fxml", new TabNegoziFXController(), getCliente());
     }
@@ -74,7 +74,6 @@ public class ICliente implements FXStage {
         apriStageController("resources/tabellaCitta.fxml", new TabCittaFXController(), getCliente());
     }
 
-
     public void actionRicercaCategoria() throws IOException, SQLException {
         lblErrore2.setText("");
         if (!(txtCategoria.getText().isBlank()))
@@ -82,7 +81,6 @@ public class ICliente implements FXStage {
         else
             lblErrore2.setText("Valore non valido!");
     }
-
 
     public void actionRicercaCittaCategoria() throws IOException, SQLException {
         lblErrore1.setText("");
@@ -189,36 +187,12 @@ public class ICliente implements FXStage {
         List<Cliente> lc = new GestoreCliente().getAll();
         if ((controllaInfo(email, password))) {
             if (cercaAccount(lc, email, password)) {
-                setCliente(prendiCliente(email, password));
+                setCliente(controller.prendiCliente(email));
                 apriStageController("resources/cliente.fxml", getInstance(), getCliente());
             } else
                 lblLogin.setText("Email e/o password non corretto");
         } else
             lblLogin.setText("Errore nell'inserimento dati");
-    }
-
-
-
-    /**
-     * Prende il cliente corrispondente
-     *
-     * @param email    email inserita
-     * @param password password inserita
-     * @return cliente con email e password corrispondenti
-     * @throws SQLException
-     */
-    private Cliente prendiCliente(String email, String password) throws SQLException {
-        GestoreCliente gc = new GestoreCliente();
-        List<Cliente> lc = gc.getAll();
-        int id = lc.stream().filter(c -> {
-            try {
-                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        }).findAny().get().id;
-        return gc.getById(id);
     }
 
     /**

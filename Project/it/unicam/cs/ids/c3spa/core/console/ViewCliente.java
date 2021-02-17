@@ -1,12 +1,10 @@
-package it.unicam.cs.ids.c3spa.core.vista;
+package it.unicam.cs.ids.c3spa.core.console;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
+import it.unicam.cs.ids.c3spa.controller.ConsoleController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.controller.Console.ConsoleController;
 
-import static java.lang.System.*;
-
-import java.sql.SQLException;
+import static java.lang.System.out;
 
 public class ViewCliente extends ConsoleView{
 
@@ -14,7 +12,7 @@ public class ViewCliente extends ConsoleView{
         super(controller);
     }
 
-    public void apriVista(int id) throws SQLException {
+    public void apriVista(int id) throws Exception {
         Cliente c = new GestoreCliente().getById(id);
         out.println("\n...Effettuato accesso come CLIENTE"
                 +"\n----------------"
@@ -36,7 +34,7 @@ public class ViewCliente extends ConsoleView{
                 +"\n10. MODIFICA DATI");
     }
 
-    private void sceltaCliente(Cliente cliente) throws SQLException {
+    private void sceltaCliente(Cliente cliente) throws Exception {
         while(getConsole().isOn()){
             menuCliente();
             String richiesta = getInput().richiediString("Digita scelta: ").toUpperCase();

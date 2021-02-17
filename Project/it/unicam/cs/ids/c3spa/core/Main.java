@@ -1,14 +1,12 @@
 package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.GUI.ViewFX;
-import it.unicam.cs.ids.c3spa.core.controller.Console.*;
-import it.unicam.cs.ids.c3spa.core.controller.IController;
+import it.unicam.cs.ids.c3spa.controller.*;
 import it.unicam.cs.ids.c3spa.core.gestori.*;
-import it.unicam.cs.ids.c3spa.core.vista.ConsoleView;
-import it.unicam.cs.ids.c3spa.core.vista.IView;
+import it.unicam.cs.ids.c3spa.core.console.ConsoleView;
+import it.unicam.cs.ids.c3spa.core.console.IView;
 import javafx.application.Application;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
@@ -32,7 +30,7 @@ public class Main {
         return new Main(view, controller);
     }
 
-    private void run() throws SQLException {
+    private void run() throws Exception {
         view.start();
     }
 

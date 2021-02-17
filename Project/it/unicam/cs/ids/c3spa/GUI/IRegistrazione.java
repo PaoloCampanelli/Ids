@@ -1,14 +1,9 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
 
-import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Indirizzo;
-import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.controller.AccountController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class IRegistrazione implements FXStage {
 
@@ -25,6 +19,7 @@ public class IRegistrazione implements FXStage {
             "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
             "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
             "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
+    private AccountController controller = new AccountController();
 
     @FXML
     private TextField txtNome, txtNumero, txtCitta, txtCivico, txtVia, txtCap, txtEmail;
@@ -89,21 +84,15 @@ public class IRegistrazione implements FXStage {
                 attuale.hide();
                 switch (tipologia) {
                     case "CLIENTE": {
-                        GestoreCliente gc = new GestoreCliente();
-                        Cliente nuovo = new Cliente(nome, indirizzo, numero, email, passw);
-                        gc.save(nuovo);
+                        controller.creatoreCliente(nome, email, passw, numero, indirizzo);;
                         break;
                     }
                     case "NEGOZIO": {
-                        GestoreNegozio gc = new GestoreNegozio();
-                        Negozio nuovo = new Negozio(nome, indirizzo, numero, email, passw);
-                        gc.save(nuovo);
+                        controller.creatoreCommerciante(nome, email, passw, numero, indirizzo);
                         break;
                     }
                     case "CORRIERE": {
-                        GestoreCorriere gc = new GestoreCorriere();
-                        Corriere nuovo = new Corriere(0, nome, indirizzo, numero, email, passw);
-                        gc.save(nuovo);
+                        controller.creatoreCorriere(nome, email, passw, numero, indirizzo);
                         break;
                     }
                 }
@@ -150,7 +139,7 @@ public class IRegistrazione implements FXStage {
     private boolean controllaInfo(String tipologia, String email, String nome, String passw, String numero) throws SQLException {
         if (!email.isBlank()) {
             if (email.contains("@")) {
-                if (!emailEsistente(email.toUpperCase(), tipologia)) {
+                if (!controller.controllaMail(tipologia, email.toUpperCase())) {
                     if (!nome.isBlank()) {
                         if (!passw.isBlank() && (passw.length() > 5)) {
                             return !numero.isBlank() & numero.length() == 10;
@@ -177,33 +166,6 @@ public class IRegistrazione implements FXStage {
         }
         return "";
     }
-
-    /**
-     * Controlla se la mail inserita corrispondeva ad un determinato account con una tipologia uguale a quella inserita
-     *
-     * @param email     email inserita
-     * @param tipologia tipologia corrispondente
-     * @throws SQLException
-     * @return true se esiste l'account con tipologia ed email inserita.
-     */
-    private boolean emailEsistente(String email, String tipologia) throws SQLException {
-        switch (tipologia) {
-            case "CLIENTE": {
-                List<Cliente> lc = new GestoreCliente().getAll();
-                return lc.stream().anyMatch(c -> c.eMail.equals(email));
-            }
-            case "NEGOZIO": {
-                List<Negozio> lc = new GestoreNegozio().getAll();
-                return lc.stream().anyMatch(c -> c.eMail.equals(email));
-            }
-            case "CORRIERE": {
-                List<Corriere> lc = new GestoreCorriere().getAll();
-                return lc.stream().anyMatch(c -> c.eMail.equals(email));
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public void initData(Account account) throws SQLException {

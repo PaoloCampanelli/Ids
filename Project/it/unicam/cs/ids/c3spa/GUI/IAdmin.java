@@ -3,8 +3,8 @@ package it.unicam.cs.ids.c3spa.GUI;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabGestioneFXController;
 import it.unicam.cs.ids.c3spa.GUI.Tabelle.TabRipristinaFXController;
 import it.unicam.cs.ids.c3spa.core.Amministratore;
-import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.controller.AdminController;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ import java.util.List;
 public class IAdmin implements FXStage {
 
     private Amministratore amministratore;
-
+    private AdminController controller = new AdminController();
     @FXML
     TextField txtMail, txtPassword;
     @FXML
@@ -54,22 +54,10 @@ public class IAdmin implements FXStage {
         List<Amministratore> la = new GestoreAmministratore().getAll();
         if ((controllaInfo(email, passw))) {
             if (cercaAccount(la, email, passw)) {
-                setAmministratore(prendiAdmin(la, email, passw));
+                setAmministratore(controller.prendiAmministratore(email));
                 apriStageController("resources/admin.fxml", this, getAdmin());
             }
         }
-    }
-
-    private Amministratore prendiAdmin(List<Amministratore> la, String email, String password) throws SQLException {
-        int id = la.stream().filter(c -> {
-            try {
-                return c.eMail.equals(email) && password.equals(new Servizi().decrypt(c.password));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        }).findAny().get().id;
-        return new GestoreAmministratore().getById(id);
     }
 
     @Override
