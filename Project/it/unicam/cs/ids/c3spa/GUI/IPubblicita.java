@@ -4,7 +4,6 @@ import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pubblicita;
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
 import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
 import it.unicam.cs.ids.c3spa.core.gestori.GestorePubblicita;
 import javafx.beans.property.SimpleStringProperty;
@@ -66,7 +65,13 @@ public class IPubblicita implements FXStage{
     }
 
     public void actionContatti() throws SQLException, IOException {
-        apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getById(1));
+        if(getNegozio().indirizzo.provincia.equals("MC") ||
+                getNegozio().indirizzo.provincia.equals("AP") ||
+                getNegozio().indirizzo.provincia.equals("PU") ||
+                getNegozio().indirizzo.provincia.equals("AN") ||
+                getNegozio().indirizzo.provincia.equals("FM")) {
+            apriStageController("resources/contatti.fxml", new IContatti(), getNegozio());
+        }
     }
 
     public void actionAnnulla() {

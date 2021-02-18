@@ -83,7 +83,7 @@ public class INegozio implements FXStage {
     }
 
     public void actionListaPromozioni() throws IOException, SQLException {
-        apriStageController("resources/sconti.fxml", new ISconti(), getNegozio());
+        apriStageController("resources/promozioni.fxml", new IPromozioni(), getNegozio());
     }
 
     /**

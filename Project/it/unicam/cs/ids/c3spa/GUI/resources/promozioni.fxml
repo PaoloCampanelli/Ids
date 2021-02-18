@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="503.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.ISconti">
+<AnchorPane prefHeight="503.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.c3spa.GUI.IPromozioni">
     <children>
-        <TableView fx:id="tabellaSconti" layoutX="282.0" layoutY="260.0" prefHeight="227.0" prefWidth="424.0">
+        <TableView fx:id="tabellaSconti" layoutX="295.0" layoutY="260.0" prefHeight="227.0" prefWidth="424.0">
             <columns>
             <TableColumn fx:id="tbID" prefWidth="46.0" text="ID" />
                 <TableColumn fx:id="tbSTipo" text="TIPO" />
@@ -24,31 +16,31 @@
                 <TableColumn fx:id="tbSCategorie" prefWidth="113.0" text="CATEGORIA" />
             </columns>
         </TableView>
-        <TableView fx:id="tabellaCategorie" layoutX="282.0" layoutY="36.0" prefHeight="180.0" prefWidth="174.0">
+        <TableView fx:id="tabellaCategorie" layoutX="312.0" layoutY="34.0" prefHeight="180.0" prefWidth="174.0">
             <columns>
                 <TableColumn fx:id="tbCID" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="tbCCategoria" prefWidth="142.0" text="CATEGORIA" />
             </columns>
         </TableView>
-      <TextField fx:id="txtTipo" layoutX="89.0" layoutY="74.0" prefHeight="25.0" prefWidth="130.0" promptText="TIPOLOGIA SCONTO" />
+      <TextField fx:id="txtTipo" layoutX="89.0" layoutY="74.0" prefHeight="25.0" prefWidth="130.0" promptText="TIPOLOGIA PROMOZIONE" />
       <Label layoutX="29.0" layoutY="154.0" text="INIZIO" textFill="#0004ff" />
       <ComboBox fx:id="sceltaData" layoutX="89.0" layoutY="150.0" onAction="#actionScopri" prefHeight="25.0" prefWidth="130.0" />
       <DatePicker fx:id="dpFine" layoutX="89.0" layoutY="226.0" prefHeight="25.0" prefWidth="130.0" />
       <Label layoutX="29.0" layoutY="230.0" text="FINE" textFill="#0004ff" />
       <TextField fx:id="txtIDCategoria" layoutX="89.0" layoutY="111.0" prefHeight="25.0" prefWidth="130.0" promptText="ID CATEGORIA" />
-      <HBox fx:id="hboxNascosta" layoutX="312.0" layoutY="49.0" prefHeight="25.0" prefWidth="174.0" />
+      <HBox fx:id="hboxNascosta" layoutX="312.0" layoutY="214.0" prefHeight="25.0" prefWidth="174.0" />
       <Button fx:id="btnConferma" layoutX="89.0" layoutY="297.0" mnemonicParsing="false" onAction="#actionConferma" prefHeight="25.0" prefWidth="130.0" text="CONFERMA" />
       <DatePicker fx:id="dpInizio" layoutX="89.0" layoutY="187.0" prefHeight="25.0" prefWidth="130.0" />
       <Label fx:id="lblErrore" layoutX="89.0" layoutY="269.0" prefHeight="17.0" prefWidth="130.0" textFill="RED" />
       <Separator layoutX="-1.0" layoutY="322.0" prefHeight="17.0" prefWidth="251.0" />
-      <Separator layoutX="238.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="505.0" prefWidth="25.0" />
+      <Separator layoutX="279.0" orientation="VERTICAL" prefHeight="505.0" prefWidth="25.0" />
       <Label layoutX="18.0" layoutY="14.0" />
-      <Label layoutX="17.0" layoutY="10.0" prefHeight="30.0" prefWidth="214.0" text="ATTIVA UNO SCONTO" textFill="#0004ff">
+      <Label layoutX="17.0" layoutY="10.0" prefHeight="30.0" prefWidth="262.0" text="ATTIVA UNA PROMOZIONE" textFill="#0004ff">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="343.0" prefHeight="30.0" prefWidth="226.0" text="ANNULLA UNO SCONTO" textFill="#0004ff">
+      <Label layoutX="18.0" layoutY="343.0" prefHeight="30.0" prefWidth="286.0" text="ANNULLA UNA PROMOZIONE" textFill="#0004ff">
          <font>
             <Font size="20.0" />
          </font>

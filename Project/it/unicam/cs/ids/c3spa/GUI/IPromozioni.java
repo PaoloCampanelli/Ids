@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ISconti implements FXStage {
+public class IPromozioni implements FXStage {
 
     private ObservableList<String> selezionaData = FXCollections.observableArrayList("OGGI", "DIVERSA");
     private ObservableList<Sconto> sconti;
@@ -94,7 +94,7 @@ public class ISconti implements FXStage {
         tbSTipo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().tipo));
         tbSCategorie.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().categoriaMerceologica.nome));
         tabellaSconti.setItems(sconti);
-        tabellaSconti.setPlaceholder(new Label(("Non hai sconti attivi!")));
+        tabellaSconti.setPlaceholder(new Label(("Non hai promozioni attive!")));
     }
 
     public void actionScopri() {
