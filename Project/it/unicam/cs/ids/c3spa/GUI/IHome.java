@@ -64,12 +64,12 @@ public class IHome implements FXStage {
     }
 
     public void actionContatti() throws SQLException, IOException {
-        if(prov.equals("MC") ||
-                prov.equals("AP") ||
-                prov.equals("PU") ||
-                prov.equals("AN") ||
-                prov.equals("FM")) {
-            apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getAmministratoreByProvincia(txtProvincia.getText()));
+        if(provincia.getValue().equals("MC") ||
+                provincia.getValue().equals("AP") ||
+                provincia.getValue().equals("PU") ||
+                provincia.getValue().equals("AN") ||
+                provincia.getValue().equals("FM")) {
+            apriStageController("resources/contatti.fxml", new IContatti(), new GestoreAmministratore().getAmministratoreByProvincia(provincia.getValue()));
         }
     }
 
