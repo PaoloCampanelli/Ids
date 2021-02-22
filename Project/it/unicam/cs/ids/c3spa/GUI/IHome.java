@@ -19,10 +19,16 @@ import java.sql.SQLException;
 public class IHome implements FXStage {
 
     private final ObservableList<String> tipologiaDisponibile = FXCollections.observableArrayList("CLIENTE", "CORRIERE", "NEGOZIO");
+    private ObservableList<String> prov = FXCollections.observableArrayList(
+            "AG", "AL","AN","AO", "AQ", "AR", "AP", "AT","AV","BA","BT", "BL", "BN", "BG","BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI",
+            "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",  "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", "PV", "PG", "PU", "PE",
+            "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC","VS", "VR", "VV", "VI", "VT");
     @FXML
     Button btnLogin, btnRegistrati;
     @FXML
     private ChoiceBox<String> tipoLogin;
+    @FXML
+    private ChoiceBox<String> provincia;
     @FXML
     private ImageView logo;
     @FXML
@@ -33,6 +39,8 @@ public class IHome implements FXStage {
         tipoLogin.setItems(tipologiaDisponibile);
         tipoLogin.setValue("CLIENTE");
         logo.setImage(new Image(getClass().getResourceAsStream("resources/logo.png")));
+        provincia.setItems(prov);
+        provincia.setValue("MC");
     }
 
     public void actionRegistrati() throws IOException {
@@ -56,8 +64,6 @@ public class IHome implements FXStage {
     }
 
     public void actionContatti() throws SQLException, IOException {
-        String prov = txtProvincia.getText();
-        //CONTROLLO SOLO PERCHè NON ABBIAMO TUTTI I GESTORI
         if(prov.equals("MC") ||
                 prov.equals("AP") ||
                 prov.equals("PU") ||
