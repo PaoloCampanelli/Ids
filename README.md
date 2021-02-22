@@ -17,7 +17,6 @@ Gli amministratori per il momento sono solo della regione marche e sono moralmen
 a modificare i propi dati. Possono aggiungere e rimuovere token oltre a recuperare account cancellati.
 Il sistema si regge su un database che al momento è locale ma cambiando una sola riga del codice si avrà la possibilità di metterlo in rete, 
 Ha un interfaccia grafica realizzata con cura tramite javaFx.
-![alt text](https://github.com/PaoloCampanelli/Ids/blob/Project/it/unicam/cs/ids/c3spa/GUI/resources/logo.png?raw=true)
-
+![Screenshot](https://github.com/PaoloCampanelli/Ids/blob/main/Project/it/unicam/cs/ids/c3spa/GUI/resources/logo.png)
 
 
