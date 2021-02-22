@@ -1,6 +1,7 @@
 # Ids
 Progetto c3 per l'esame di ingegneria del software del 24/02/2021
 Sono state fatte 3 iterazioni da novembre 2020 a febbraio 2021
+Creato da Paolo Campanelli#105788 Andrea Cataluffi#105615 Sara Compagnucci#106477
 Siamo andati leggermente oltre l'esame andando a fare una "riunione" nel limite del possibile
 con alcuni negozianti camerti per avere una visione del progetto più realistica, purtoppo per ovvie ragioni
 non abbiamo potuto fare lo stesso con i corrieri.
