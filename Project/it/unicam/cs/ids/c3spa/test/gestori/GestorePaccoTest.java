@@ -104,7 +104,7 @@ public class GestorePaccoTest{
                     " '"+corriere.indirizzo.cap+"', '"+corriere.indirizzo.via+"', '"+corriere.indirizzo.provincia+"', '"+corriere.telefono+"', '"+corriere.eMail+"', '"+corriere.password+"', '0');" );
         }
         for(Pacco pacco : pacchiSalvati){
-            stmt.execute("INSERT INTO `progetto_ids`.`pacchi` (`paccoId`, `destinatario`, `mittente`, `corriere`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `dataPreparazione`, `dataConsegnaRichiesta`, `isCancellato`) VALUES ('"+pacco.id+"', '"+pacco.destinatario+"', '"+pacco.mittente+"', '"+pacco.corriere+"'" +
+            stmt.execute("INSERT INTO `progetto_ids`.`pacchi` (`paccoId`, `destinatario`, `mittente`, `corriere`, `indirizzo.citta`, `indirizzo.numero`, `indirizzo.cap`, `indirizzo.via`, `indirizzo.provincia`, `dataPreparazione`, `dataConsegnaRichiesta`, `isCancellato`) VALUES ('"+pacco.id+"', '"+pacco.destinatario.id+"', '"+pacco.mittente.id+"', '"+pacco.corriere.id+"'" +
                     ", '"+pacco.indirizzo.citta+"', '"+pacco.indirizzo.numero+"', '"+pacco.indirizzo.cap+"', '"+pacco.indirizzo.via+"', '"+pacco.indirizzo.provincia+"', '"+pacco.dataPreparazione+"', '"+pacco.dataConsegnaRichiesta+"', '0');");
 
         }
