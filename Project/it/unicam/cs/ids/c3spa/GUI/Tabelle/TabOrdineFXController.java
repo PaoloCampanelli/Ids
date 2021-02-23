@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TabOrdineFXController implements FXStage {
 
@@ -43,9 +44,8 @@ public class TabOrdineFXController implements FXStage {
      */
     public void settaTabella(Cliente cliente) throws SQLException {
         List<Pacco> pacchi = new GestorePacco().getByDestinatario(cliente);
+        pacchi = pacchi.stream().filter(pacco -> pacco.id != 0).filter(pacco -> pacco.statiPacco.size() <3).collect(Collectors.toList());
         ln = FXCollections.observableArrayList(pacchi);
-        ln.removeIf(p -> p.statiPacco.size() == 3);
-        ln.removeIf(p -> p.id == 0);
         tbID.setCellValueFactory(cd -> new SimpleStringProperty(Integer.toString(cd.getValue().id)));
         tbMittente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().mittente.denominazione));
         tbIndirizzo.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().indirizzo.toString()));

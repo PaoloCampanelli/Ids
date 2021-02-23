@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -23,6 +22,6 @@
       <Button fx:id="btnAdmin" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#actionAdminPanel" text="ADMIN" />
       <Button layoutX="290.0" layoutY="233.0" mnemonicParsing="false" onAction="#actionContatti" prefHeight="25.0" prefWidth="86.0" text="CONTATTI" />
       <Label layoutX="120.0" layoutY="237.0" text="Ti serve aiuto?" textFill="#0004ff" />
-      <TextField fx:id="txtProvincia" layoutX="231.0" layoutY="233.0" prefHeight="25.0" prefWidth="49.0" promptText="PROV" />
+      <ChoiceBox fx:id="provincia" layoutX="226.0" layoutY="233.0" prefHeight="25.0" prefWidth="58.0" />
    </children>
 </Pane>
