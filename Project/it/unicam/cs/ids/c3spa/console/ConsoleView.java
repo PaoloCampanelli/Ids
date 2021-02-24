@@ -1,7 +1,7 @@
-package it.unicam.cs.ids.c3spa.core.console;
+package it.unicam.cs.ids.c3spa.console;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.astratto.Account;
 import it.unicam.cs.ids.c3spa.controller.*;
 
 import java.sql.SQLException;

@@ -1,7 +1,7 @@
-package it.unicam.cs.ids.c3spa.core.gestori;
+package it.unicam.cs.ids.c3spa.gestori;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.ICRUD;
+import it.unicam.cs.ids.c3spa.astratto.ICRUD;
 
 import java.sql.*;
 import java.util.ArrayList;

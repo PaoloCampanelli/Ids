@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.gestori;
+package it.unicam.cs.ids.c3spa.gestori;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.Amministratore;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
+import it.unicam.cs.ids.c3spa.gestori.GestoreAmministratore;
 
 import java.sql.SQLException;
 import java.util.List;

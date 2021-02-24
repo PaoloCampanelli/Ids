@@ -1,10 +1,10 @@
 package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.astratto.Account;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCorriere;
+import it.unicam.cs.ids.c3spa.gestori.GestoreNegozio;
 
 import java.sql.SQLException;
 import java.util.List;

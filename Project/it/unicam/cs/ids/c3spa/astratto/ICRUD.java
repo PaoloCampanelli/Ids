@@ -1,6 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.astratto;
-
-import it.unicam.cs.ids.c3spa.core.Cliente;
+package it.unicam.cs.ids.c3spa.astratto;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -2,8 +2,8 @@ package it.unicam.cs.ids.c3spa.GUI.Tabelle;
 
 import it.unicam.cs.ids.c3spa.GUI.FXStage;
 import it.unicam.cs.ids.c3spa.core.Cliente;
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.astratto.Account;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCliente;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

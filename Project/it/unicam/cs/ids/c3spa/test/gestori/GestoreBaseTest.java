@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
+import it.unicam.cs.ids.c3spa.gestori.GestoreBase;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;

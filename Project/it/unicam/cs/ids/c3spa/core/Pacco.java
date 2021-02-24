@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
-import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
+import it.unicam.cs.ids.c3spa.astratto.IMapData;
+import it.unicam.cs.ids.c3spa.astratto.StatoPaccoEnum;
 
 
 import java.sql.ResultSet;

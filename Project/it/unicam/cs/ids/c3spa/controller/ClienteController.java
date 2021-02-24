@@ -4,9 +4,9 @@ import it.unicam.cs.ids.c3spa.core.CategoriaMerceologica;
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.core.Negozio;
 import it.unicam.cs.ids.c3spa.core.Pacco;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.gestori.GestorePacco;
 
 import java.sql.SQLException;
 import java.util.List;

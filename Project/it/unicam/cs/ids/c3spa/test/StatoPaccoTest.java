@@ -2,7 +2,7 @@ package it.unicam.cs.ids.c3spa.test;
 
 import it.unicam.cs.ids.c3spa.core.Servizi;
 import it.unicam.cs.ids.c3spa.core.StatoPacco;
-import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
+import it.unicam.cs.ids.c3spa.astratto.StatoPaccoEnum;
 import org.junit.Test;
 
 import java.sql.Date;

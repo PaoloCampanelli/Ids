@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
+import it.unicam.cs.ids.c3spa.astratto.IMapData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
