@@ -2,8 +2,8 @@ package it.unicam.cs.ids.c3spa.controller;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.core.Pacco;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
-import it.unicam.cs.ids.c3spa.core.gestori.GestorePacco;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCorriere;
+import it.unicam.cs.ids.c3spa.gestori.GestorePacco;
 
 import java.sql.SQLException;
 import java.util.List;

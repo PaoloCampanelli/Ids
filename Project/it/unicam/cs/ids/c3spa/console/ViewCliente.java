@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.console;
+package it.unicam.cs.ids.c3spa.console;
 
 import it.unicam.cs.ids.c3spa.core.Cliente;
 import it.unicam.cs.ids.c3spa.controller.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCliente;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCliente;
 
 import static java.lang.System.out;
 

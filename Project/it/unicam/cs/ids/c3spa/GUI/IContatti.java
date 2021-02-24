@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.core.Amministratore;
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
+import it.unicam.cs.ids.c3spa.astratto.Account;
+import it.unicam.cs.ids.c3spa.gestori.GestoreAmministratore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

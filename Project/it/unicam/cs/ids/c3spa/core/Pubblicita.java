@@ -1,8 +1,7 @@
 package it.unicam.cs.ids.c3spa.core;
 
-import it.unicam.cs.ids.c3spa.core.astratto.IMapData;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.astratto.IMapData;
+import it.unicam.cs.ids.c3spa.gestori.GestoreNegozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

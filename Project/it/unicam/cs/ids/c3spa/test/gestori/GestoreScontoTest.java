@@ -1,10 +1,10 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCategoriaMerceologica;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreNegozio;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreSconto;
+import it.unicam.cs.ids.c3spa.gestori.GestoreBase;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCategoriaMerceologica;
+import it.unicam.cs.ids.c3spa.gestori.GestoreNegozio;
+import it.unicam.cs.ids.c3spa.gestori.GestoreSconto;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

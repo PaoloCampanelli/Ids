@@ -2,9 +2,9 @@ package it.unicam.cs.ids.c3spa.core;
 
 import it.unicam.cs.ids.c3spa.GUI.ViewFX;
 import it.unicam.cs.ids.c3spa.controller.*;
-import it.unicam.cs.ids.c3spa.core.gestori.*;
-import it.unicam.cs.ids.c3spa.core.console.ConsoleView;
-import it.unicam.cs.ids.c3spa.core.console.IView;
+import it.unicam.cs.ids.c3spa.gestori.*;
+import it.unicam.cs.ids.c3spa.console.ConsoleView;
+import it.unicam.cs.ids.c3spa.console.IView;
 import javafx.application.Application;
 
 import java.util.List;

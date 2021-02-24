@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
-import it.unicam.cs.ids.c3spa.core.gestori.*;
+import it.unicam.cs.ids.c3spa.astratto.StatoPaccoEnum;
+import it.unicam.cs.ids.c3spa.gestori.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

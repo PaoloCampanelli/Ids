@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.c3spa.core.console;
+package it.unicam.cs.ids.c3spa.console;
 
 public interface IView {
 

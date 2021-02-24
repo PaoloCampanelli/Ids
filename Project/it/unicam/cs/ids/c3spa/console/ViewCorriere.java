@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.c3spa.core.console;
+package it.unicam.cs.ids.c3spa.console;
 
 import it.unicam.cs.ids.c3spa.core.Corriere;
 import it.unicam.cs.ids.c3spa.controller.ConsoleController;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreCorriere;
+import it.unicam.cs.ids.c3spa.gestori.GestoreCorriere;
 
 import static java.lang.System.out;
 

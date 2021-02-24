@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
 
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreAmministratore;
+import it.unicam.cs.ids.c3spa.astratto.Account;
+import it.unicam.cs.ids.c3spa.gestori.GestoreAmministratore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

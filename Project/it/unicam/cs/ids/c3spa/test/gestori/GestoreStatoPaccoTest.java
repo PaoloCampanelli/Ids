@@ -1,9 +1,9 @@
 package it.unicam.cs.ids.c3spa.test.gestori;
 
 import it.unicam.cs.ids.c3spa.core.*;
-import it.unicam.cs.ids.c3spa.core.astratto.StatoPaccoEnum;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreBase;
-import it.unicam.cs.ids.c3spa.core.gestori.GestoreStatoPacco;
+import it.unicam.cs.ids.c3spa.astratto.StatoPaccoEnum;
+import it.unicam.cs.ids.c3spa.gestori.GestoreBase;
+import it.unicam.cs.ids.c3spa.gestori.GestoreStatoPacco;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,8 +16,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.unicam.cs.ids.c3spa.test.gestori.GestoreClienteTest.gestoreCliente;
-import static it.unicam.cs.ids.c3spa.test.gestori.GestoreNegozioTest.gestoreNegozio;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GestoreStatoPaccoTest {

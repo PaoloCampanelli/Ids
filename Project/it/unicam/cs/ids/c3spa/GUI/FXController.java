@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.c3spa.GUI;
 
 import it.unicam.cs.ids.c3spa.core.Servizi;
-import it.unicam.cs.ids.c3spa.core.astratto.Account;
+import it.unicam.cs.ids.c3spa.astratto.Account;
 
 import java.sql.SQLException;
 import java.util.List;
