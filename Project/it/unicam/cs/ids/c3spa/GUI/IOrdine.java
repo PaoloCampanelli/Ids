@@ -146,7 +146,7 @@ public class IOrdine implements FXStage {
         public void actionInserisciData(ActionEvent actionEvent) {
             lblData.setText("");
             lblInfoData.setText("");
-            if(dpData.getValue().isBefore(LocalDate.now())||dpData.getValue() == null){
+            if(dpData.getValue().isBefore(LocalDate.now().minusDays(1))||dpData.getValue() == null){
                 lblData.setText("Data non valida");
             }else
                 lblInfoData.setText(dpData.getValue().toString());
@@ -277,7 +277,7 @@ public class IOrdine implements FXStage {
     private boolean controllaInfo(String email, LocalDate data, String via, String citta, String civico, String cap) throws SQLException {
         if (!email.isBlank())
             if (controllerCliente.cercaCliente(email))
-                if (data.isAfter(LocalDate.now()))
+                if (data.isAfter(LocalDate.now().minusDays(1)))
                     if (selezionaIndirizzo.getValue().equals("NUOVO")) {
                         if (controllaIndirizzo(via, citta, civico, cap))
                             return true;
